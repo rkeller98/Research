@@ -30,3 +30,9 @@ content, separate from canonical notation/presentation infrastructure.
 See [the companion](../flux_map_error_diagnostics/README.md),
 [the split report](../../docs/flux_papers_split.md) and
 [the architecture audit](../../docs/architecture_migration.md).
+
+The current real-data path experiment has a separate
+[scientific audit](docs/coenergy_analysis_audit.md), with reproducible synthetic,
+curl, quadrature and observable checks in `python/audit_*.py`. It distinguishes
+parity from conservation and leaves physical resistance/loss attribution open.
+The audit does not update or finalize the manuscript's fitting claims.
