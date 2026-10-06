@@ -1,5 +1,29 @@
 \section{Magnetic reflection symmetry from co-energy}
 \label{sec:symmetry}
+Reflection parity is an additional assumption, not the definition of
+conservation. In normalized coordinates the field
+$\psi_d=1+y^2$, $\psi_q=y$ has d-even/q-odd parity but
+$\fluxcurlresidual=-2y$, so it has no exact common potential.
+Conversely, a coherent constant rotation of the current argument and flux
+vector of a gradient field remains a gradient while rotating its reflection
+axis. To see this directly, let $\rotationmatrix(\alpha)$ be an orthogonal
+counterclockwise rotation, with $\current=\rotationmatrix(\alpha)\hat\current$.
+The chain rule gives
+\begin{equation}
+ \nabla_{\hat\current}\coenergy(\rotationmatrix(\alpha)\hat\current)
+ =\rotationmatrix(-\alpha)\flux(\rotationmatrix(\alpha)\hat\current).
+ \label{eq:rotated-potential}
+\end{equation}
+Its Hessian is the symmetric congruence
+$\rotationmatrix(-\alpha)\Ldiff(\rotationmatrix(\alpha)\hat\current)
+ \rotationmatrix(\alpha)$. Thus a constant coherent angle offset can preserve
+reciprocity while breaking parity about the chosen q-reflection axis. Rotating
+only the flux ordinates does not implement this coordinate change. The companion
+develops diagnostic angle sensitivity and its dependence on saturation.
+The distinction also appears in nonlinear flux modeling, where parity, reciprocal incremental
+cross-inductance, and continuity are separate requirements
+\cite{sun2020}. That source's model excludes iron losses and spatial harmonics;
+its structural assumptions require checking before application to terminal data.
 \begin{assumption}[Conservative symmetric magnetic map]
 At fixed temperature and magnet state, the fundamental or consistently
 averaged magnetic relation is single-valued and quasi-static. On a

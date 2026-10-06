@@ -35,6 +35,14 @@ the subtracted voltage. Any error in voltage or resistive drop is divided by
 speed. At zero speed the stationary equation contains no flux information;
 near zero speed the inversion amplifies noise.
 
+The independent coordinates here are measured terminal stator currents.
+Solving the voltage equation does not establish that the recovered vector
+is their energy-conjugate gradient. In a loss-aware model, terminal current
+can include a dissipative branch as well as magnetizing current. A potential
+relation therefore needs its own subsystem, state, and coordinate assumptions;
+\cref{eq:current-pullback} later gives the complete coordinate transformation.
+Flux reconstruction and magnetic-potential inference are separate steps.
+
 No reflection symmetry follows from this inversion. Indeed, any chosen
 flux-current function, symmetric or otherwise, can be inserted in
 \cref{eq:vector-voltage} to produce corresponding voltages. Structural

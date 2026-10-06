@@ -1,0 +1,9 @@
+{
+  "audit_input_sha256": {
+    "audit_results.json": "1523aedbba70a4364963d65cac529a522b4208336296fdc04ce6b2cdff27a765",
+    "observable_checks.json": "f1235618a0bf5fe74cc0a84385a49cb39d5da9a8db0b322ebd75022387a00d54"
+  },
+  "exporter_sha256": "6ccfef6046ff37468d3ca9d9c8241a2b722dd8c69791b8cdf892c1f94650ac56",
+  "rounding": "six decimal places; resistances mOhm, flux residuals mWb",
+  "support": "unchanged audit rectangles and original pair subsets"
+}

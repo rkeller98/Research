@@ -25,7 +25,14 @@ samples. The basic fitting problem is
  \label{eq:gradient-fit}
 \end{equation}
 This asks for the admissible scalar landscape whose slopes best match the
-observed vectors. It never requires directly measured energy samples. Use
+observed vectors. It never requires directly measured energy samples.
+If the terminal-current field is inconsistent with the declared magnetic
+class, this minimization is a regularized projection onto that class under
+the selected weights and basis. It does not establish a true storage law
+in those terminal coordinates. Retain the sample residual
+$\vect r_k=\vect\psi_k^{\rm rec}-\nabla\hat\coenergy(\current_k)$ alongside
+predictions; constructed zero curl is not evidence that its discarded part
+was entirely measurement error. Use
 whitened residuals when uncertainties differ or share correlations; the
 reconstruction divides voltage error by speed, so uniform flux uncertainty
 should not be assumed across speeds.

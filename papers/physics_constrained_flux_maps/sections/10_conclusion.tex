@@ -1,6 +1,8 @@
 \section{Conclusions}
-Electrical measurements reconstruct flux samples, while co-energy remains a
-latent scalar surface inferred from their gradients. Path independence explains
+Electrical measurements reconstruct terminal-current flux samples, while
+co-energy models a conservative magnetic storage subsystem in its conjugate
+coordinates. Interpreting those samples as its gradients requires additional
+coordinate, state, and admissibility evidence. Path independence explains
 integrability and gauge freedom; direct gradient fitting uses noisy samples
 jointly without first integrating them along an arbitrary path.
 
@@ -19,3 +21,15 @@ support, robust fitting, and additional physical constraints remain necessary
 engineering choices. Once the admissible magnetic structure is defined,
 departures can be preserved as diagnostic information rather than absorbed
 blindly by an interpolator. The companion paper studies that next question.
+
+The real-data stress test shows why these distinctions matter. A resistance
+hypothesis improves selected high-current parity but worsens all-pair d/vector
+residuals and relative path disagreement. The symmetry and path equivalents
+disagree even with exact P1 integration; their gap is not a trapez-quadrature
+effect. Independent P1 flux interpolation can itself break integrability,
+and local derivatives depend strongly on mesh geometry. Terminal and
+magnetizing currents, normalization, and unmodeled loss or measurement states
+remain open. A later potential fit would be a projection onto a declared
+model class whose residual must remain visible. These data identify neither
+a true winding resistance nor an iron-loss explanation or successful real-data
+co-energy reconstruction.

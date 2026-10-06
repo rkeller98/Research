@@ -1,0 +1,100 @@
+\section{Conservation as an independent cross-check}
+\label{sec:conservation-cross-check}
+An improvement in a chosen reflection residual need not improve the magnetic
+model as a whole. Conservation supplies a separate test: a scalar co-energy
+requires reciprocal differential cross-inductances and zero circulation in
+the appropriate current coordinates \cite{haus1989,jebai2014}.
+The normalized field $\psi_d=1+y^2$, $\psi_q=y$ satisfies the expected
+parity but has curl $-2y$. Conversely, the exact coherent angle rotation in
+\cref{eq:combined-exact} preserves integrability and rotates the symmetry
+axis. These constraints therefore test different aspects of the baseline.
+
+For the reconstructed field define
+$\fluxcurlresidual=\partial_{i_d}\psi_q-\partial_{i_q}\psi_d$.
+The dq integrals $\pathintegralA$ and $\pathintegralB$ follow the d-then-q
+and q-then-d paths from the origin to $(x,y)=(i_d,i_q)$. With oriented limits,
+\begin{align}
+ \pathintegralA-\pathintegralB
+ &=\int_0^x\int_0^y r_{\rm curl}(\xi,\eta)\,d\eta\,d\xi,\\
+ \pathresistanceerror
+ &=\frac{\omegae(W_A-W_B)}{2xy}
+ =\frac{\omegae}{2|xy|}\iint_{\mathcal A_{\rm geom}}r_{\rm curl}\,dA,
+ \label{eq:diagnostic-path-equivalent}\\
+ \pathresistance&=\hat R_s-\Delta R_{\rm eq,path}.
+\end{align}
+The boundary runs counterclockwise for $xy>0$ and clockwise for $xy<0$.
+The target indexes the integration rectangle. This is an area-averaged curl
+equivalent, not a local resistance at that point. Overlapping rectangles
+share samples, and signed curl can cancel over their areas.
+It equals the resistance-mismatch contribution only under the sole-mismatch
+baseline. A voltage error proportional to current remains exactly confounded.
+
+The existing audit uses measured-current Delaunay interpolation of each flux
+component and excludes targets below ten percent of either axis maximum or
+with unsupported paths. \Cref{tab:diagnostic-path-comparison} compares the
+result with the high-current symmetry summary. Accepted rectangle counts are
+2868/2869/2839 in the thermal slices and 65/45 in the speed slices. Hull skips
+after the axis threshold are 3/2/32 and 4/24, respectively. These sets differ
+from the pair support in \cref{tab:experimental-summary}; the two speed path
+medians are not a pointwise speed comparison. The separate direct test on
+36 common valid pairs remains the relevant matched-speed check.
+\begin{table}[tb]
+\centering\small
+\input{figures/data/audit/slice_comparison.tex}
+\caption{Conservation cross-check on unchanged audit support. All resistance
+columns are m$\Omega$; $n$ is rpm and rotor reference is $^\circ$C.
+Symmetry uses the high-current subset; the path columns are median/raw MAD
+over $N_{\rm rect}$ rectangles. P1 exact means exact integration of the same
+interpolator, not exact physical identification.}
+\label{tab:diagnostic-path-comparison}
+\end{table}
+
+At 2000 rpm/60 $^\circ$C, the conditional symmetry value $\symmetryresistance$
+\SI{8.274010}{\milli\ohm} differs from the path median
+\SI{5.885553}{\milli\ohm}. Exact P1 integration changes the latter only to
+\SI{5.885512}{\milli\ohm}. The 500-point trapez error over all 2869 targets
+is \SI{0.0000766}{\milli\ohm} RMS, far below the discrepancy. Exact path
+integration and independent triangle-area Green evaluation agree within
+$2.54\cdot10^{-14}$ Wb A on eight checked rectangles.
+
+Changing the used resistance from \SI{7.695}{\milli\ohm} to the symmetry
+equivalent reduces selected high-current parity, but increases all-pair d
+and vector residual RMS and the median relative path difference
+\begin{equation}
+ \relativepathdifference=|W_A-W_B|/[(|W_A|+|W_B|)/2].
+\end{equation}
+This ratio is used where its denominator is nonzero; it is not relative error
+against a measured magnetic potential. \Cref{tab:diagnostic-adjustment} retains
+the support and both residual
+components. No measured parameter correction is thereby validated.
+\begin{table}[tb]
+\centering\small
+\input{figures/data/audit/raw_adjusted_60.tex}
+\caption{Raw versus symmetry-adjusted resistance hypothesis at
+2000 rpm/60 $^\circ$C, on unchanged data. High-current improvement accompanies
+worse global d/vector parity and relative path disagreement.}
+\label{tab:diagnostic-adjustment}
+\end{table}
+The pointwise invariance of $R_{\rm eq,path}$ under any constant used-resistance
+shift is algebraic: reconstruction adds $h\matr J\vect i/\omega_e$, whose
+path equivalent is $h$. Thus $(R+h)-\Delta R_{\rm eq,path}(R+h)
+=R-\Delta R_{\rm eq,path}(R)$. This checks affine interpolation and integration,
+and does not calibrate winding resistance.
+
+Numerical and physical limits remain separate. The componentwise P1 field is
+$C^0$ with trianglewise gradients that jump at edges; a common mesh enforces
+no symmetric Jacobian. The 60-$^\circ$C mesh has very skinny triangles and
+extreme local curl equivalents, which are derivative-conditioning diagnostics,
+not physical resistances. Sampling an analytic conservative nonlinear field
+on the same geometry also creates nonzero interpolated circulation. Exact
+quadrature removes integration error without validating the interpolated field.
+
+Nor do terminal-current coordinates necessarily describe a conservative
+magnetic storage law when magnetizing and loss currents differ
+\cite{richter2014}. The recorded current RMS ratios are consistent with
+amplitude-invariant dq, but the transform and voltage/power normalization
+are not fully verified. $W_A,W_B$ are reconstructed dq flux integrals in Wb A,
+not independently measured absolute magnetic energy; a consistent global
+$3/2$ cannot remove their disagreement. The independent conservation test
+strengthens the evidence boundary: smaller selected symmetry residuals alone
+do not establish a valid automatic resistance correction or identify iron loss.

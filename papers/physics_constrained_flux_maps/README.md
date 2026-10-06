@@ -4,6 +4,10 @@ Read [WRITING_GUIDE.md](../../WRITING_GUIDE.md) first. This English learning dra
 owns measurements to flux, latent co-energy, gauge/path integration, symmetry,
 reciprocity, saturation, differential inductance, gradient fitting, numerical
 representations, and its own fitting experiments.
+The real-data admissibility section tests the conservative/symmetric model
+class against the completed audit. It is not a successful real-data co-energy
+reconstruction: symmetry and path equivalents disagree, and a high-current
+parity improvement accompanies worse all-pair d/vector and path metrics.
 
 The document loads canonical `../../shared/`. Sections, concrete figures,
 bibliography and numerical content remain local. There is no private framework
@@ -12,8 +16,12 @@ or general `local.tex`; the paper depends on the repository.
 Build and reproduce from the repository root:
 
 ```powershell
-./scripts/build.ps1 physics_constrained_flux_maps
 python papers/physics_constrained_flux_maps/numerics/evaluate.py
+python papers/physics_constrained_flux_maps/python/audit_coenergy.py
+python papers/physics_constrained_flux_maps/python/audit_observables.py
+python papers/physics_constrained_flux_maps/python/audit_symbolic.py
+python papers/physics_constrained_flux_maps/numerics/export_audit_tables.py
+./scripts/build.ps1 physics_constrained_flux_maps
 ```
 
 The experiment requires Python 3 and NumPy. It implements analytic degree-four
@@ -35,4 +43,26 @@ The current real-data path experiment has a separate
 [scientific audit](docs/coenergy_analysis_audit.md), with reproducible synthetic,
 curl, quadrature and observable checks in `python/audit_*.py`. It distinguishes
 parity from conservation and leaves physical resistance/loss attribution open.
-The audit does not update or finalize the manuscript's fitting claims.
+Its findings now appear in the manuscript between synthetic evaluation and
+discussion. The detailed audit remains the evidence/reproduction record,
+including input/script hashes, exact P1/Green checks, geometry sensitivity,
+normalization observables and retained raw artifacts. These calculations
+require NumPy, pandas, SciPy, h5py and Matplotlib; the symbolic check additionally
+requires SymPy. Set `MPLBACKEND=Agg` for headless execution.
+
+The standard-library table exporter reads the existing audit JSON and writes
+local TeX tables and hash manifests into both papers' `figures/data/audit/`.
+It changes no evidence and performs no fit. Each paper builds with its own
+generated table files. Exact P1 integration is exact for that interpolator;
+the path equivalent averages curl over a rectangle, not local resistance.
+Terminal/magnetizing coordinates, full dq normalization and cause attribution
+remain open. A future potential fit is a model projection whose raw-to-model
+residual must remain visible.
+
+The storage/terminal distinction now governs the abstract, measurement and
+potential interpretation, gradient-fit objective, and conclusions. A chain-rule
+rotation proof is included locally. The discussion preserves apparent tilt as
+potential loss/measurement information and motivates joint identification over
+speed, independently measured winding temperature, and additional observables.
+See [the evidence-integration report](../../docs/flux_paper_evidence_revision.md)
+for the section-by-section mapping and final validation.

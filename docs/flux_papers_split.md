@@ -1,168 +1,160 @@
-# Two flux-map papers: scope, provenance, and validation
+# Two flux-map papers: current scope, evidence, and reproducibility
 
-**Subsequent diagnostics revision (6 October 2026):** the diagnostics paper is
-now titled *On the Interpretation of Symmetry Residuals in Experimental dq
-Flux-Linkage Maps*. Its real-data analysis and current evidence boundaries
-are documented in [the experimental report](flux_map_experimental_validation.md).
-The allocation and synthetic-only validation below record the earlier split;
-the former product correction workflow has since been removed from the paper.
-The reconstruction paper is outside this subsequent task's implementation scope.
-
-The combined `dq_flux_symmetry_diagnostics` working draft was divided
-incrementally. Correct derivations, sources, numerical checks, and drawings
-were reused; it is no longer an active third paper. The local pre-split snapshot
-remains in the ignored `tmp/dq_split_snapshot/combined_draft/` for recovery.
-Subsequent infrastructure backups under `tmp/` are also recovery material,
-rather than additional publications.
+Updated 6 October 2026 after integration of the completed co-energy audit.
+The combined `dq_flux_symmetry_diagnostics` draft was split incrementally;
+correct derivations, sources, synthetic checks and figures were reused. It is
+not an active third publication. Ignored snapshots under `tmp/` are recovery
+material only. There is no MeasEval implementation or product workflow here.
 
 ## Scientific allocation
 
-| Existing subject/result | Paper 1: reconstruction | Paper 2: diagnostics |
+| Subject | Paper 1: reconstruction | Paper 2: diagnostics |
 |---|---|---|
-| Measurements and voltage balance | Measurement-to-flux route and assumptions | Compact foundation for error differentiation |
-| Co-energy and gradient | Latent potential, normalization, PM tilt, gauge, paths, topology | Compact admissible-class foundation |
-| Reflection and even/odd flux | Full conservative magnetic derivation | Reference structure and forbidden channels |
-| Saturation and cross-saturation | Expansion, Hessian and differential gains | Operating-point-dependent angle sensitivity |
-| Reciprocity | Integrability and fitting guarantee | Complementary test; does not identify angle by itself |
-| Gradient fitting and regularization | Objective, weights, gauge and analytic derivatives | Brief bridge explaining residual information |
-| B-spline/RBF representations | B-spline implementation; conceptual RBF comparison | No second fitting-method discussion |
-| Measurement-input sensitivities | Reconstruction assumptions | Six sensitivities and nuisance alternatives |
-| Resistance mismatch | Reconstruction bias boundary | Exact transverse field, parity and curl fingerprints |
-| Rotor-angle offset | Companion boundary | Exact inner/outer rotations, sensitivity and limits |
-| Speed and rank | Fitting coverage/rank | Speed separation, scaled rank, conditioning and delay |
-| Correction/MeasEval | Corrected samples as a possible input | Map correction, relabeling, proposal/Apply workflow |
-| Synthetic experiments | Noise, sparse sampling, outliers, stronger saturation | Injected resistance, angle, both, linearization and correction |
+| Measurements to flux | Full voltage inversion and assumptions | Independent compact foundation and input sensitivities |
+| Co-energy | Latent potential, normalization, gauge, topology, paths | Compact conservation baseline and independent cross-check |
+| Reflection parity | Full magnetic symmetry derivation; distinct from conservation | Forbidden channels and observed spatial/thermal/speed structure |
+| Saturation | Hessian, differential inductance, reciprocal cross-saturation | Operating-point-dependent angle sensitivity |
+| Gradient fitting | Weights, regularization, rank, robust fitting and residuals | Diagnostic implications; no second fitter |
+| B-splines/RBF | Existing spline illustration; conceptual RBF comparison | No experimental magnetic field fit |
+| Resistance/voltage error | Admissibility boundary; real-data hypothetical adjustment | Conditional fingerprints and exact voltage-error confounding |
+| Angle | Conservative rotations can change parity | Exact argument/vector rotation; reciprocity retained |
+| Real-data audit | Full admissibility stress test, interpolation, coordinates and scaling | Compact symmetry/conservation cross-check and correction boundary |
+| Multi-speed | Different rectangle support limits comparisons | Direct 36-common-pair check and conditional identifiability |
+| Correction | No demonstrated physical correction or real-data reconstruction | Inverse operation checked synthetically; no automatic experimental correction |
 
-Necessary reconstruction equations appear in both drafts for independent
-reading. Long magnetic theory and fitting theory belong to Paper 1. Paper 2
-contains a compact foundation and cites the unpublished companion explicitly.
-Both bibliographies are local. Neither companion is assigned a fictitious
-published status, DOI, or measured accuracy.
+Both manuscripts carry the minimum equations and assumptions needed for
+independent reading. Neither includes the other's sections or table files.
+Notation, glossary and semantic styles remain canonical in `shared/`; content,
+figures, generated tables and literature remain paper-local. Companions are
+explicitly unpublished working drafts, not published evidence.
 
 ## Paper 1
 
 **Physics-Constrained Reconstruction of Saturated dq Flux-Linkage Maps from
-Magnetic Co-Energy** lives in `papers/physics_constrained_flux_maps/`.
+Magnetic Co-Energy**, in `papers/physics_constrained_flux_maps/`.
 
-Its ten sections are introduction; measurement-to-flux; latent co-energy;
-symmetry/reciprocity; saturation/differential inductance; physics-constrained
-fitting; numerical realizations; synthetic evaluation; discussion; conclusion.
-Five figures explain the measurement pipeline, reflection structure, potential
-landscape, two paths, and fitted slopes/curvature.
+Eleven sections cover introduction; measurements to flux; latent co-energy;
+reflection/reciprocity; saturation/differential inductance; gradient fitting;
+numerical representations; synthetic evaluation; real-data admissibility;
+discussion; conclusions. Five existing figures remain.
 
-For amplitude-invariant dq, the potential is physical three-phase co-energy
-divided by 3/2. Its gradient is flux; its Hessian is differential inductance.
-Data provide slopes, not independent energy heights. Gauge fixing removes
-the constant ambiguity. Simply connected domains permit local curl equality
-to establish a potential; domains with holes also require circulation checks.
-Path integration explains the structure; the implementation fits gradients
-jointly instead of integrating noisy samples into arbitrary energy data.
+For amplitude-invariant dq, the declared potential is physical three-phase
+co-energy divided by 3/2; its gradient is flux and its Hessian differential
+inductance. This normalization does not verify the actual measurement system.
+The existing degree-four B-spline illustration has 32 coefficients, 31 after
+gauge fixing. Gradient fitting avoids arbitrary integration paths. Flux accuracy,
+derivative quality, parity, reciprocity and curvature are assessed separately.
+The unchanged seeded `numerics/evaluation.json` gives exact flux/Hessian recovery
+RMSE 1.12e-15/6.34e-15, and noisy independent/parity/potential flux RMSE
+0.00243/0.00181/0.00150. The potential's Hessian RMSE (0.0124) is slightly worse
+than the parity fit's (0.0111). Ordinary outlier fitting retains structural
+parity/conservation yet develops a negative sampled Hessian eigenvalue (-0.0764).
+Robust fitting improves that realization; no global positivity or universal
+method ranking follows. RBFs have not been benchmarked.
 
-The candidate uses degree-four tensor B-splines, eight d bases and four even
-q bases: 32 coefficients, 31 after gauge fixing. Analytic potential derivatives
-provide flux and Hessian; a third-derivative penalty smooths flux curvature.
-Independent/parity-only flux B-splines use second-derivative penalties. A shared
-held-out flux split selects regularization within each case. These are related
-but unequal optimization problems. Pointwise, derivative, parity, curl, and
-eigenvalue metrics are assessed separately.
+The new real-data study is a **stress test of admissibility**, not demonstrated
+real-data co-energy recovery. At 2000 rpm/60 C the high-current symmetry
+resistance equivalent is 8.274010 mOhm, while the path median is 5.885553 mOhm
+and exact-P1 median 5.885512 mOhm. The latter integrates the chosen interpolator
+exactly, without establishing physical truth. Over all 2869 rectangles, the
+500-point quadrature error is only 0.0000766 mOhm RMS. The gap survives it.
 
-Results in `numerics/evaluation.json`:
-
-| Check/illustration | Result in normalized units |
-|---|---|
-| Exact noiseless flux/Hessian recovery | RMSE 1.12e-15 / 6.34e-15 |
-| Noisy independent / parity / potential flux RMSE | 0.00243 / 0.00181 / 0.00150 |
-| Noisy parity / potential Hessian RMSE | 0.0111 / 0.0124 |
-| Potential parity and curl | Zero by construction |
-| Outlier potential / robust potential flux RMSE | 0.00739 / 0.00150 |
-| Ordinary outlier minimum sampled Hessian eigenvalue | -0.0764 |
-| Robust outlier minimum sampled eigenvalue | Approximately 0.401 |
-| Stronger-saturation true minimum eigenvalue | 0.02 |
-| Exact two-path disagreement | At most 2.22e-16 |
-| Parity-only counterexample path difference at (0.6,0.7) | -0.294 |
-
-The potential improves noisy flux prediction here but has slightly worse
-derivatives than the parity fit. Constraints do not prove truth or convexity:
-the outlier fit remains conservative and symmetric yet develops negative
-sampled differential inductance. The robust case does not establish global
-positivity or a universal ranking. RBFs are not numerically benchmarked.
-Sparse sampling and stronger saturation are separate cases in the generated
-table, rather than reused diagnostic injections.
+The path quantity averages curl over an oriented origin-to-target rectangle;
+the endpoint does not identify a local material resistance. Its invariance
+under arbitrary used-resistance shifts is algebraic, not a true-resistance
+calibration. High-current parity improves under the tested scalar adjustment,
+but all-pair d/vector RMS and median relative path disagreement increase.
+Parity and integrability are independent. Componentwise C0 P1 interpolation
+can break integrability of conservative nonlinear samples; skinny triangles
+make local derivatives fragile. Terminal versus magnetizing coordinates require
+a full differential-form transformation. RMS evidence suggests amplitude-
+invariant currents but does not verify the Park transform or voltage/power
+scale. No iron-loss cause is identified. A potential fit would project onto a
+chosen model class; raw-to-model residuals must remain visible.
 
 ## Paper 2
 
-**Symmetry-Based Identification and Correction of Stator-Resistance and
-Rotor-Angle Errors from dq Flux-Linkage Maps** lives in
-`papers/flux_map_error_diagnostics/`.
+**On the Interpretation of Symmetry Residuals in Experimental dq Flux-Linkage
+Maps**, in `papers/flux_map_error_diagnostics/`.
 
-Its eleven sections are introduction; reconstruction; admissible structure;
-input sensitivities; exact angle transformation; residuals; identification;
-synthetic examples; engineering/correction; limitations; conclusion. Six figures
-show frames, parity decomposition, resistance fingerprint, the two angle
-operations, speed separation, and injected-error maps.
+Its research question concerns information in forbidden components and the
+extent to which a sole constant-resistance mismatch explains their spatial,
+thermal-reference and speed structure. Existing error derivations and synthetic
+checks remain; twelve analytical/experimental figures remain. A new compact
+conservation section follows the measured symmetry results and precedes
+conditional identification. It reproduces the all-slice equivalent comparison
+and the 60-C high-current/global/path contrast without duplicating fitting theory.
 
-Resistance error means used minus true; angle error means estimated minus
-true electrical angle. Positive angle advances estimated axes counterclockwise,
-while fixed-vector coordinates rotate oppositely. Exact rotation changes both
-current argument and flux projection. Its Hessian is an orthogonal congruence
-of the original Hessian: a coherent constant angle offset preserves reciprocity
-while rotating the reflection axis. This prevents a false angle diagnosis by
-curl alone and is preserved explicitly.
+The real experiment does not identify true winding resistance, iron loss,
+inverter, angle or sensor contributions. Rotor/stator reference temperatures
+are not verified conductor temperatures. Constant coherent frame rotation
+preserves reciprocity while rotating the symmetry axis. A current-proportional
+voltage error exactly imitates resistance reconstruction bias, even across
+multiple speeds. The retained direct 1000/3000-rpm comparison has 36 valid common
+pairs; inverse-speed residual discrepancy is 0.157316 mWb RMS (0.157112 mWb
+with measured-current ratio correction). Path supports of 65/45 rectangles
+cannot substitute for that matched comparison.
 
-Resistance mismatch adds epsilon_R J i / omega_e at fixed observed current.
-A voltage error proportional to -i produces exactly the same field; speed
-diversity cannot distinguish these causes by itself. An estimate can identify
-an effective drop mismatch without uniquely identifying DC winding resistance.
-Temperature, frequency, pairing/interpolation, current labels, and delay
-remain explicit nuisance assumptions.
+Conditional identification and inverse correction remain known-model
+analytical/synthetic results. They are not recovery or correction of either
+measured machine. No automatic correction follows from smaller selected parity.
 
-The normalized polynomial includes reciprocal cross-saturation. On the stated
-[-1.1,1.1]^2 domain positive diagonal dominance proves positive differential
-gains. Errors are injected into generated voltages and maps reconstructed,
-independently of the map derivation. The script differentiates the potential
-symbolically and checks six measurement sensitivities, exact rotation, limiting
-cases, speed scaling, confounding, rank, estimation signs, and correction.
+## Evidence, reuse and reproduction
 
-Results in `numerics/validation.json`:
+The detailed [co-energy audit](../papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md)
+remains the evidence report. Its JSON/CSV and three scripts retain full measured
+and synthetic results, source/input hashes, oriented-path/Green checks,
+quadrature, geometry sensitivity and observable checks. It is not replaced by
+manuscript prose. [The experimental report](flux_map_experimental_validation.md)
+retains the original pairing and direct-speed evidence and records integration.
 
-| Check/illustration | Result |
-|---|---|
-| Reference parity | Maximum 0 |
-| Sampled minimum reference Hessian eigenvalue | 0.34 |
-| Independent central-difference angle sensitivity | Maximum discrepancy 2.68e-10 |
-| Resistance/voltage-error confounding | Maximum difference 1.11e-16 |
-| Three-speed design | 90 pairs, rank 2, scaled condition number 1.248 |
-| Injected joint resistance/angle | 0.025 ohm / 0.02 rad |
-| First-order joint estimates | 0.02500021 ohm / 0.01999830 rad |
-| Angle 0.02 full-map linearization discrepancy | 3.59e-4 times flux base |
-| Angle 0.02 forbidden-residual discrepancy | 3.13e-6 times flux base |
-| Correction maximum residual before/after | 0.07023 / 2.154e-6 times flux base |
-| Proposed resistance from a used 0.105 ohm | 0.07999979 ohm |
+`magnetic_model.py`, importers, reconstruction modules and the two MAT inputs
+remain unchanged. Each numerical experiment has its own local helper. The
+standard-library `papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`
+reads existing audit JSON and exports identical concrete TeX tables plus
+provenance hashes into each paper's `figures/data/audit/`. Neither build depends
+on the other paper at LaTeX time. This intentional content reuse does not create
+competing mathematical/visual infrastructure.
 
-The full-map remainder is quadratic locally. The forbidden residual remainder
-is cubic in this smooth, exactly paired symmetric example because these
-channels are odd in angle. This does not transfer automatically to arbitrary
-noisy/interpolated pairs. Saturation can increase or reduce angle sensitivity;
-no universal monotonic claim is made.
+From the repository root, with the scientific Python dependencies installed:
 
-## Reuse, evidence, and remaining work
+```powershell
+$env:MPLBACKEND='Agg'
+python papers/physics_constrained_flux_maps/python/audit_coenergy.py
+python papers/physics_constrained_flux_maps/python/audit_observables.py
+python papers/physics_constrained_flux_maps/python/audit_symbolic.py
+python papers/physics_constrained_flux_maps/numerics/export_audit_tables.py
+python scripts/check_architecture.py
+git diff --check
+./scripts/build.ps1 physics_constrained_flux_maps
+./scripts/build.ps1 flux_map_error_diagnostics
+./scripts/build_all.ps1
+```
 
-The small `magnetic_model.py` content helper is identical in both experiment
-folders. Each script imports its own copy and runs independently. Tests compare
-the baseline implementation with an independent symbolic expression. Experiments,
-tables and plots belong to their respective papers; neither loads the other's
-sections or numerical output. This content reuse is separate from the canonical
-shared notation and presentation infrastructure.
+Sources are used within verified scope: Haus/Melcher for nonlinear lossless
+storage reciprocity; Jebai for energy/construction symmetry; Sun/Xiao for
+separate parity/reciprocity/continuity requirements with losses excluded;
+Richter et al. for magnetic versus terminal current; Liu et al. for competing
+resistance/inverter uncertainties. Kullick/Hackl's journal result concerns
+**induction machines**, not validation of a PMSM terminal-current potential.
 
-Sources include Jebai et al.'s energy-based modeling and saturation papers in
-Paper 1, Liu et al.'s resistance/inverter and position-offset work in Paper 2,
-standard machine/matrix texts where cited, and official B-spline/RBF documentation.
-Companion references are explicitly unpublished working drafts. The didactic
-structure connects algebra, geometry, physics, engineering assumptions and
-counterfactual cases.
+## Remaining scientific work
 
-Both are closed, buildable learning drafts. Measured-machine validation,
-Monte Carlo uncertainty studies, an RBF benchmark, broader sampling/boundary
-tests, explicit convexity-constrained fitting, and an implemented MeasEval
-integration remain future work. These are limitations, not completed evidence.
-Final build/layout checks are in [the architecture audit](architecture_migration.md).
+Verify machine/acquisition provenance, actual conductor temperature, abc-to-dq
+and voltage/power normalization, current/angle/timing calibration, and the
+subsystem represented by a potential. Bound pairing/interpolation uncertainty
+and obtain independent loss/voltage/thermal observables and repeat measurements.
+Real-data potential recovery, causal correction, Monte Carlo uncertainty, an
+RBF benchmark and convexity-constrained fitting remain research work. These
+limits are explicit in the closed drafts; they are not omitted production tasks.
+
+## Latest evidence-boundary revision
+
+The storage/terminal distinction is now explicit throughout the reconstruction
+paper, including the abstract and early measurement/potential/fitting sections.
+Its coherent-rotation proof is locally readable. Apparent tilt is preserved as
+possible loss/measurement information; a future joint speed/temperature study
+requires independently measured winding state, calibrated added observables,
+and an identifiable storage/loss/measurement model. The compact diagnostics
+outlook agrees with this scope. See
+[the section-by-section revision report](flux_paper_evidence_revision.md).

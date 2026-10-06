@@ -1,16 +1,18 @@
 \section{Co-energy is a latent surface inferred from its slopes}
 \label{sec:potential}
-\subsection{The experiment measures slopes, not absolute height}
+\subsection{Flux supplies candidate slopes, not absolute height}
 Voltage reconstruction provides current locations and two flux components.
-For a conservative static magnetic relation define
+For a conservative static magnetic relation in conjugate storage coordinates define
 \begin{equation}
  \boxed{d\coenergy=\psid\,di_d+\psiq\,di_q,\qquad
         \nabla_{\current}\coenergy=\flux.}\label{eq:potential-gradient}
 \end{equation}
 The current plane is the horizontal domain of a scalar landscape.
 $\psi_d$ is its slope along d current and $\psi_q$ its slope along q current.
-The reconstructed flux vector thus provides local slope information, from
-which a compatible landscape can be inferred. It does not provide an
+When this storage interpretation is justified, reconstructed flux supplies
+local slope information from which a compatible landscape can be inferred.
+Otherwise it supplies observations to compare with a proposed model class.
+Neither case provides an
 independently measured co-energy height.
 
 For amplitude-invariant dq conventions, use physical three-phase co-energy
@@ -56,7 +58,7 @@ does not settle that global topology.
 
 Define the curl-like residual
 \begin{equation}
- r_{\rm curl}=\partial_{i_d}\psiq-\partial_{i_q}\psid.
+\fluxcurlresidual=\partial_{i_d}\psiq-\partial_{i_q}\psid.
 \end{equation}
 Green's theorem for a counterclockwise boundary gives
 \begin{equation}
@@ -64,10 +66,15 @@ Green's theorem for a counterclockwise boundary gives
         =\iint_{\mathcal A}r_{\rm curl}\,di_d\,di_q.}
  \label{eq:green}
 \end{equation}
-For positive $i_d,i_q$, the d-then-q path followed by the reverse alternative
-path is counterclockwise, so $W'_1-W'_2$ equals this integral over their
-rectangle. Circulation means no single-valued static scalar surface can
+For $i_di_q>0$, the d-then-q path followed by the reverse alternative
+path is counterclockwise; for $i_di_q<0$ it is clockwise. Oriented integration
+limits therefore matter outside the first quadrant. Circulation means no
+single-valued static scalar surface can
 reproduce that field exactly. It does not specify the cause of inconsistency.
+The link between co-energy and reciprocal nonlinear magnetic ports presumes
+an appropriate lossless storage subsystem and fixed geometry
+\cite[Sec.~11.7]{haus1989}; the real-data study below tests whether the
+terminal-current reconstruction can be treated as such a field.
 \input{figures/04_integration_paths.tex}
 
 \subsection{Why path integration is explanatory rather than the primary fit}
@@ -75,7 +82,7 @@ Noise, resistance mismatch, voltage error, current bias, interpolation, or
 excluded dynamic physics can make measured paths disagree. Selecting one
 arbitrary path hides that disagreement and accumulates sampling error.
 A coherent constant rotor-angle rotation, however, can retain integrability
-while rotating the symmetry axis; the companion derives this distinction.
+while rotating the symmetry axis, as \cref{eq:rotated-potential} shows.
 It must not be listed as an automatic cause of nonzero curl.
 We therefore fit gradients directly, using all samples jointly, rather than
 first creating noisy co-energy observations by integration.

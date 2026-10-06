@@ -16,7 +16,7 @@ Sie identifizieren denselben Widerstand nur unter zusätzlichen, hier nicht
 nachgewiesenen Annahmen.
 
 Vier zentrale Befunde:
-
+W
 1. Bei 2000 rpm/60 °C werden 8,274010 mΩ aus der High-Current-Parity und
    5,885553 mΩ als Median der Rechteck-Pfadäquivalente reproduziert.
 2. Die Parity-Verbesserung betrifft die ausgewählte High-Current-Region.

@@ -5,7 +5,9 @@
 \newcommand{\PaperAbstract}{%
 Stationary electrical measurements provide flux-linkage samples, not measured
 magnetic energy. This learning paper develops magnetic co-energy as a latent
-scalar potential whose gradient represents those samples. Reflection symmetry
+scalar potential for the conservative magnetic storage subsystem. Its gradient
+models flux in conjugate magnetic current coordinates; reconstructed terminal
+samples require a separate admissibility and coordinate check. Reflection symmetry
 enforces direct-axis even and quadrature-axis odd flux, while a common
 potential enforces reciprocal differential cross-inductances. Its Hessian
 describes saturation and cross-saturation as changing magnetic curvature.
@@ -17,7 +19,16 @@ in a small reproducible synthetic study. Flux accuracy, derivative quality,
 parity, integrability, and the influence of sparse data and outliers are assessed
 separately. Physical constraints characterize admissibility within an assumed
 quasi-static conservative model; they do not guarantee recovery of the true
-machine from biased measurements. A companion paper interprets structured
+machine from biased measurements. A real-data stress test contrasts symmetry
+and circulation equivalents from two supplied datasets. At 2000 rpm and a
+60-degree rotor reference, the high-current symmetry equivalent is 8.274010
+milliohm, whereas exact P1 path integration gives a median of 5.885512
+milliohm. A symmetry-based resistance adjustment improves the selected
+high-current residual but increases all-pair d/vector residuals and relative
+path disagreement. Quadrature does not explain the discrepancy; interpolation,
+terminal versus magnetizing coordinates, and measurement normalization remain
+explicit limits. No real-data magnetic potential is identified. A companion
+paper interprets structured
 departures from this admissible class as diagnostic information.}
 
 % Disable either component if the paper does not need it.

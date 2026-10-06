@@ -26,8 +26,10 @@ Outlier: 2000 rpm, three pole pairs, used resistance 7.695 mOhm.
 Multi-speed: 1000/3000 rpm, four pole pairs, used resistance 10 mOhm.
 Different pole-pair constants mean these files are not pooled as one machine
 calibration; machine identities and acquisition/calibration documentation remain open.
-No companion-paper implementation was performed for this task. Concurrent working-tree
-changes outside diagnostics are preserved.
+The original diagnostics revision did not implement the companion. The subsequent
+audit integration now updates both existing Flux manuscripts, reusing the evidence.
+The other six manuscripts are unchanged; only an empty bibliography build remnant
+and tracked Python bytecode are removed as requested hygiene.
 
 ## 4–6. Reproduced thermal/speed results and support
 
@@ -115,7 +117,7 @@ results are distinct from the experimental evidence.
 - [Richter, Dollinger and Doppelbauer (2014)](https://publikationen.bibliothek.kit.edu/1000045029): matching magnetic states in motoring/generating operation, loss versus magnetizing currents; IEEE DOI 10.1109/ICELMACH.2014.6960401.
 - [Varvolik et al. (2022), author institution](https://nottingham-repository.worktribe.com/output/7655353): motor/generator averaging against ohmic and inverter voltage effects; DOI 10.3390/en15062207.
 - [Brescia et al. (2023), author institution](https://iris.poliba.it/handle/11589/255520): resistance/flux/inductance/inverter-term estimation from operating conditions; DOI 10.1109/JESTPE.2023.3292526.
-- [Krüner and Hackl (2019)](https://doi.org/10.3390/en12050862): measured versus magnetizing/loss current in a PMSM model.
+- [KrÃ¼ner and Hackl (2019)](https://doi.org/10.3390/en12050862): measured versus magnetizing/loss current in a PMSM model.
 - [Hackl, Kullick and Monzen (2021), author-laboratory record](https://lmres.ee.hm.edu/veranstaltungen/): nonlinear synchronous-machine copper/iron loss context; DOI 10.1109/ICIT46573.2021.9453497.
 
 Existing Liu 2018 and Liu 2017 sources are retained and their titles, authors,
@@ -150,10 +152,107 @@ palette are invoked only by the new figures, preserving other plots' defaults.
 - Obtain more symmetric pairs, independent repeats and calibrated noise/error budgets.
 - Separately validate loss, inverter and angle models using additional observables.
 - Study local mirror interpolation and correlated uncertainty separately; none is implemented now.
-- The complementary magnetic field approximation is reserved for the separate paper;
-  no new co-energy/flux-fitting work is part of this task.
+- A future real-data potential fit must specify magnetic coordinates/subsystem and
+  retain raw-to-model residuals. The current companion includes an admissibility
+  study, not a successful real-data magnetic reconstruction or a new fitter.
 
-## 14. Build and full PDF quality review
+## 14. Completed co-energy audit integrated into both manuscripts
+
+Paper 1 now contains a real-data admissibility study between synthetic evaluation
+and discussion: oriented rectangles, resistance invariance, P1/derivative limits,
+provisional dq normalization, terminal/magnetizing coordinates and the full
+Jacobian-transpose pullback. This is a model-class stress test, not demonstrated
+real-data co-energy reconstruction. Paper 2 adds a compact independent
+conservation cross-check after the measured symmetry results.
+
+The standard-library `papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`
+reads existing audit JSON and produces local TeX tables and input-hash manifests
+in both papers' `figures/data/audit/`. Tables expose all-slice symmetry/path
+median/MAD/exact-P1 values and support, plus raw versus adjusted 60-C results.
+At 2000 rpm/60 C: symmetry equivalent 8.274010 mOhm, path median 5.885553 mOhm,
+exact-P1 median 5.885512 mOhm. On eight checked rectangles Green/path discrepancy
+is at most 2.54e-14 Wb A; N=500 error over all 2869 targets is 0.0000766 mOhm RMS.
+This excludes inadequate trapez sampling as the explanation without validating
+the interpolated physical field or identifying its discrepancy's cause.
+
+A hypothetical resistance change from 7.695 to 8.274010 mOhm reduces high-current
+d/vector RMS from 1.100092/1.203268 to 0.219939/0.353747 mWb. Over all 1172 pairs,
+d/vector RMS instead rises from 1.746480/2.182464 to 1.954456/2.285030 mWb.
+Median relative path disagreement rises from 3.488090 to 4.226703 percent.
+The invariant path equivalent is algebraic, not independent resistance evidence.
+It averages curl over a rectangle, not locally at its endpoint.
+
+Parity and conservation remain distinct. Conservative nonlinear samples can lose
+integrability after componentwise C0 P1 interpolation; skinny triangles produce
+extreme derivative diagnostics rather than material resistance estimates.
+The 65/45 speed rectangle support does not supersede the 36-common-pair test.
+Current-proportional voltage error remains exactly confounded with resistance,
+regardless of speed diversity. No automatic correction is experimentally justified.
+
+RMS ratios suggest amplitude-invariant currents but do not verify the transform
+or voltage/power scale. W_A/W_B are dq flux integrals in Wb A, not independently
+measured absolute magnetic Joule values; a consistent 3/2 cannot remove the gap.
+Conservative storage magnetics need not remain conservative against terminal
+current after loss-branch reduction. No iron-loss cause is identified. A later
+potential fit would project onto a chosen class: its constructed zero curl
+would not establish that discarded residuals were measurement errors.
+Raw-to-model residuals must remain scientifically visible.
+
+The detailed [scientific audit](../papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md)
+remains the evidence report, including the user's pre-existing edit. Original
+measurements, scripts and checked-in audit artifacts are preserved. The shared
+glossary now defines reused curl/path/current quantities with units and signs;
+unused entries do not appear in other papers. The obsolete title/correction
+workflow in `flux_papers_split.md` and the companion reference are synchronized.
+No third publication or MeasEval source change exists.
+
+## 15. Audit-integration validation and PDF review before the latest revision
+
+Completed on 2026-10-06 after integration:
+
+- All three audit scripts passed: full five-slice numeric/synthetic audit,
+  quadrant/orientation/arbitrary-resistance/observable checks, and independent
+  symbolic identities. The symbolic run used bundled Python with SymPy 1.14.0.
+- The numeric rerun used Python 3.13.12, NumPy 2.4.4 and SciPy 1.17.1;
+  the checked-in audit JSON records NumPy 2.5.3 and SciPy 1.18.1. The largest
+  changed JSON number was 7.28e-12 (geometry/regression roundoff); the two
+  changed CSVs agree to 1e-12 absolute/relative tolerance. All original audit
+  files were retained byte-for-byte. The rerun, logs and comparison manifest
+  are saved separately in ignored `tmp/flux_audit_integration/`. No result was
+  adjusted to support a preferred explanation. The pre-existing user edit in
+  the detailed audit document was also preserved byte-for-byte.
+- Generated tables were checked against JSON for rounding, exact support,
+  five-slice completeness and input/exporter SHA-256 consistency. Original
+  importer/reconstruction modules and both MAT files remain unchanged and
+  identical between the two paper directories.
+- Architecture check and its self-test, `git diff --check` and the staged
+  hygiene diff check passed. Three tracked pyc files were removed from the
+  Git index; the empty `main.bbl-SAVE-ERROR` artifact was removed after inspection.
+- Individual builds of both changed papers and `scripts/build_all.ps1` passed
+  for all eight registered papers. The final logs have no warnings,
+  overfull/underfull boxes, missing-character or undefined-reference/citation
+  messages. One intermediate diagnostics build reached latexmk's pass limit
+  while final source edits were still arriving; rebuilding the fixed final
+  sources resolved it without suppressing warnings or changing data.
+- Every final page was visually reviewed: 20 pages in reconstruction (five
+  existing figures, five tables, thirteen references) and 30 pages in
+  diagnostics (twelve existing figures, six tables, fourteen references).
+  Equations, signs, units, support counts, numeric tables, axes, legends,
+  captions, glossaries and citations are legible with no overlap or clipping.
+  Extracted text has no unresolved `??`. SHA-256 was checked again after
+  `build_all` to confirm the delivered PDFs are the reviewed versions.
+
+Previously reviewed artifact: `output/pdf/physics_constrained_flux_maps.pdf`, 20 pages.
+
+SHA-256: `a25a954b2cf3c8d01debf9b0dddc802708358359954f941970d214a2a61e0e09`.
+
+Previously reviewed artifact: `output/pdf/flux_map_error_diagnostics.pdf`, 30 pages.
+
+SHA-256: `d9cbb2039e9f6aa456b9b49e0e88af86fc7f71f6a4b7f41325d9670a1fb76c63`.
+
+Scientific limitations in sections 13–14 remain research questions, not missing draft-production work. No changes were committed automatically.
+
+## 16. Historical diagnostics build review (before audit integration)
 
 Completed on 2026-10-06:
 
@@ -176,7 +275,36 @@ Completed on 2026-10-06:
   points have outlines so values near zero remain visible. No data clipping or
   smoothing was introduced. Extracted PDF text contains no unresolved `??` tokens.
 
-Final artifact: `output/pdf/flux_map_error_diagnostics.pdf`.
+Historical artifact: `output/pdf/flux_map_error_diagnostics.pdf`.
 SHA-256: `390dbf71f28cabcd76a9599b3b860296e069ffef8f9d7f9bb54db9eb85c3ec18`.
 Scientific open questions in section 13 remain explicit research requirements,
 not uncompleted draft production tasks.
+
+## 17. Latest storage/terminal evidence-boundary revision
+
+The abstract, introduction, measurement inversion, potential interpretation,
+rotation proof, fitting objective, discussion and conclusions now consistently
+separate a conservative magnetic storage subsystem from reconstructed terminal
+maps. Apparent tilt is retained as possible loss/measurement information,
+and both papers motivate joint speed/temperature/additional-observable
+identification under independent evidence and rank checks. The real-data
+section and reproducible tables are retained without duplication or data edits.
+See [the detailed section mapping and closing report](flux_paper_evidence_revision.md).
+
+All five requested audit/fitting/diagnostics scripts passed on 2026-10-06.
+Original evidence, scripts, MAT inputs, synthetic outputs and the user-edited
+audit document remain byte-preserved. The separately saved numerical rerun
+has only version-dependent roundoff up to 7.28e-12. Architecture and self-test,
+working/staged diff checks and table provenance passed. Both individual builds
+and the all-eight-paper build passed with clean final logs.
+
+All final pages were visually reviewed: reconstruction 22 pages, diagnostics
+31 pages. No overlap, clipping or unresolved text references were found.
+Reconstruction renders remain identical after the overall build. The earlier
+20/30-page hashes in section 15 and 28-page hash in section 16 are historical.
+Current output hashes:
+
+- `physics_constrained_flux_maps.pdf`: SHA-256 `8cf46da4dda81c193b67d3e11e194d0bfdb4a4e969c88fec9f7c5d9dbe3852c1`.
+- `flux_map_error_diagnostics.pdf`: SHA-256 `dfad224d07a3949b37d0d79f88121c18b15e897bac64a35bd88865818a988855`.
+
+No automatic commit or push was performed. No third paper was created.

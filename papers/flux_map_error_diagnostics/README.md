@@ -5,6 +5,11 @@ draft analyzes the spatial, thermal-reference and speed dependence of forbidden
 symmetry components in two supplied test-bench datasets. A resistance-equivalent
 residual is a conditional diagnostic, not an identified winding resistance.
 No product workflow or experimental magnetic field fitting is included.
+An independent conservation cross-check compares symmetry and rectangle-averaged
+curl equivalents from the companion's completed audit. Selected high-current
+parity improves under a hypothetical resistance adjustment while global d/vector
+and path metrics worsen. This supplies no automatic correction or identified
+resistance/iron-loss explanation.
 
 ## Reproduce from the repository root
 
@@ -16,6 +21,7 @@ hashes are recorded in `figures/data/experimental/*_results.json`.
 python papers/flux_map_error_diagnostics/python/analyze_outlier_dataset.py --no-plots --export
 python papers/flux_map_error_diagnostics/python/analyze_multi_rpm_dataset.py --no-plots --export
 python papers/flux_map_error_diagnostics/numerics/validate.py
+python papers/physics_constrained_flux_maps/numerics/export_audit_tables.py
 ./scripts/build.ps1 flux_map_error_diagnostics
 ./scripts/build_all.ps1
 ```
@@ -47,7 +53,13 @@ temperatures, and upstream voltage calibration/acquisition details remain open.
 The retained synthetic experiment checks signs, exact coherent rotation,
 reciprocity preservation, angle sensitivity, conditional identification and
 current-proportional voltage confounding. Its known magnetic helper is reused
-unchanged; no companion-paper implementation was started or edited for this task.
+unchanged. The new conservation cross-check uses existing audit JSON/CSV through
+the standard-library exporter above; the three original audit scripts can be
+rerun as described in [the reconstruction README](../physics_constrained_flux_maps/README.md).
+Local generated tables and their input hashes reside in `figures/data/audit/`;
+the manuscript loads no companion sections or external table files. The full
+magnetic/fitting and current-coordinate discussion remains in Paper 1, while
+Paper 2 retains a self-contained diagnostic check and its conservative conclusion.
 
 The complete results, source positioning, evidence limits, figures and QA record
 are in [the experimental report](../../docs/flux_map_experimental_validation.md).

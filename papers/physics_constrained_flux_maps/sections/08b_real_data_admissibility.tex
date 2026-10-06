@@ -1,0 +1,233 @@
+\section{Real-data admissibility study: testing the model class}
+\label{sec:real-admissibility}
+\subsection{Question, data reduction, and support}
+The preceding synthetic fit starts with a known admissible field. Real
+electrical samples need not satisfy that premise. This study asks whether
+one scalar resistance adjustment can make the supplied terminal-current
+maps compatible with both reflection and conservation. It is a stress test
+of the assumed model class, not a demonstrated reconstruction of real
+magnetic co-energy. No potential fit is performed on these real data.
+
+Two supplied MATLAB v7.3 measurement files are processed through their
+existing importer and stationary voltage inversion. One contains 2000-rpm
+slices at rotor-temperature references 40, 60, and 80 $^\circ$C, with three
+pole pairs and used $R=\SI{7.695}{\milli\ohm}$. The other contains 1000/3000-rpm
+slices at a 70-$^\circ$C reference, four pole pairs, and used
+$R=\SI{10}{\milli\ohm}$. They are not pooled as one machine calibration.
+Neither a reference temperature nor a configured resistance verifies the
+actual winding state. Requested speed sets $\omega_e=2\pi pn/60$; recorded
+sample speeds do vary.
+
+Signals are first averaged within operating-index groups. Requested d/q
+currents rounded to 0.01 A define keys; repeated keys receive equal weight
+across those groups. Measured currents and voltages are not rounded.
+Reflection pairs use exactly mirrored requested keys, without filling
+missing partners. Actual measured currents need not be exact mirrors.
+For each pair let $r_d$ be the d half-difference, $r_q$ the q half-sum,
+and $a_q=(|i_q^+|+|i_q^-|)/2$. The descriptive equivalent is
+\begin{equation}
+ \resistanceequivalent=-\omegae r_d/a_q,\qquad
+ \symmetryresistance=R-\operatorname{median}_{\rm high}
+                      (\resistanceequivalent).
+ \label{eq:real-sym-equivalent}
+\end{equation}
+Division is accepted for $a_q>0.10a_{q,\max}$; the empirical high subset has
+$a_q\ge0.85a_{q,\max}$. This is a conditional summary, not an independent
+resistance measurement. Nonlinear parity leakage from imperfect measured
+pair geometry remains possible.
+
+The path study instead uses both independent componentwise linear
+interpolants on a common Delaunay mesh in measured current coordinates.
+Targets must exceed ten percent of each axis maximum in absolute magnitude;
+both origin-to-target paths must lie within the convex hull. Hull acceptance
+does not establish dense coverage: triangles can bridge unmeasured holes.
+\Cref{tab:audit-support} exposes the distinct pair and rectangle support.
+These are overlapping rectangles, not independent resistance experiments.
+\begin{table}[tb]
+\centering\small
+\input{figures/data/audit/support.tex}
+\caption{Unchanged audit support. Speed $n$ is in rpm and rotor reference in
+$^\circ$C. Skips count hull failures after the axis threshold: 2871 candidate
+targets per 2000-rpm slice and 69 per multi-speed slice. OP means
+operating-index groups, not raw samples.}
+\label{tab:audit-support}
+\end{table}
+
+\subsection{Oriented paths measure averaged circulation}
+Write $x=i_d$, $y=i_q$. Let $\pathintegralA$ be the dq flux integral along
+$(0,0)\to(x,0)\to(x,y)$ and $\pathintegralB$ along
+$(0,0)\to(0,y)\to(x,y)$. These are reconstructed flux integrals; the notation
+does not assume that a single-valued co-energy exists. Green's theorem with
+oriented limits gives, in every quadrant,
+\begin{align}
+ \pathintegralA-\pathintegralB
+ &=\int_0^x\int_0^y \fluxcurlresidual(\xi,\eta)\,d\eta\,d\xi
+   =\operatorname{sgn}(xy)\iint_{\mathcal A_{\rm geom}}
+     r_{\rm curl}\,dA,\label{eq:oriented-real-path}\\
+ \pathresistanceerror(x,y)
+ &=\frac{\omegae(W_A-W_B)}{2xy}
+   =\frac{\omegae}{2|xy|}\iint_{\mathcal A_{\rm geom}}
+     r_{\rm curl}\,dA.\label{eq:rectangle-equivalent}
+\end{align}
+Thus the endpoint indexes a rectangle. The result is an area-averaged
+resistance-equivalent curl residual, not a local resistance at that endpoint.
+The local derivative diagnostic would be
+$\curlresistanceerror=\omegae\fluxcurlresidual/2$.
+Opposite curl contributions can cancel within a rectangle; a finite set of
+small loop integrals cannot prove local integrability everywhere.
+
+For a sole resistance mismatch $\resistanceerror=R-R_{\rm true}$, voltage
+inversion adds $\resistanceerror\rotationgenerator\current/\omegae$ to an
+otherwise admissible field. Its curl is $2\resistanceerror/\omegae$ and
+its two path contributions differ by $2\resistanceerror xy/\omegae$.
+Only under that baseline does subtracting the equivalent recover
+$R_{\rm true}$. More generally define the diagnostic
+$\pathresistance=R-\pathresistanceerror$.
+
+Why does this diagnostic remain unchanged when $R$ changes? At fixed
+voltages, currents, speed and mesh,
+\begin{equation}
+ \flux_{R+h}^{\rm rec}=\flux_R^{\rm rec}
+                  +\frac{h}{\omegae}\rotationgenerator\current.
+\end{equation}
+Linear barycentric interpolation reproduces this affine addition exactly;
+trapez integration also integrates it exactly. Consequently
+\begin{equation}
+ \pathresistanceerror(R+h)=\pathresistanceerror(R)+h,
+ \qquad
+ \boxed{(R+h)-\Delta R_{\rm eq,path}(R+h)
+              =R-\Delta R_{\rm eq,path}(R).}\label{eq:path-invariance}
+\end{equation}
+The 60-$^\circ$C calculation retains the pointwise value within
+$1.39\cdot10^{-16}$ $\Omega$ after changing $R$ to the symmetry equivalent.
+Additional tests use arbitrary shifts in all four quadrants.
+This is a strong algebra/implementation check, not an independent calibration
+of true winding resistance. Other circulating contributions survive it.
+
+\subsection{The real discrepancy survives exact integration}
+\Cref{tab:audit-equivalents} compares the five slices without treating the
+different summaries as estimates of one proven parameter. At 2000 rpm and
+60 $^\circ$C the high-current symmetry equivalent is
+\SI{8.274010}{\milli\ohm}; the path median is
+\SI{5.885553}{\milli\ohm} with raw MAD
+\SI{1.728698}{\milli\ohm}. Exact integration of the same P1 field gives
+\SI{5.885512}{\milli\ohm}. Here ``exact'' qualifies the interpolator's
+integration, not its magnetic accuracy. MAD describes sampled spread and
+is not a calibrated uncertainty interval.
+\begin{table}[tb]
+\centering\small
+\input{figures/data/audit/slice_comparison.tex}
+\caption{Conditional symmetry equivalent, median path equivalent, its raw
+MAD, and exact-P1 path median from existing audit JSON. All resistance
+columns are m$\Omega$; $n$ is rpm and rotor reference is $^\circ$C.
+The symmetry summary uses high pairs; path statistics use all accepted
+rectangles. Six decimal places document reproducibility, not accuracy.}
+\label{tab:audit-equivalents}
+\end{table}
+
+Each path segment is split at mesh edges and its affine pieces integrated
+exactly. Independently, triangle clipping against each rectangle integrates
+the piecewise constant curl over intersection areas. On eight deterministic
+real rectangles the maximum difference between these calculations is
+$2.54\cdot10^{-14}$ Wb A. Across all 2869 accepted 60-$^\circ$C targets,
+the original 500-point trapez rule differs from exact P1 integration by only
+\SI{0.0000766}{\milli\ohm} RMS and
+\SI{0.000628}{\milli\ohm} maximum absolute error. Quadrature therefore does
+not explain the roughly \SI{2.388}{\milli\ohm} discrepancy. This rules out
+one numerical explanation, not errors of interpolation or model reduction.
+
+The 1000/3000-rpm path support is 65 versus 45 rectangles. Their medians
+are not a pointwise speed test. Under a sole constant resistance mismatch,
+the flux error scales as $1/\omega_e$, but a voltage error proportional to
+$-\current$ yields the identical reconstruction fingerprint. Extra speeds
+alone do not separate all unknown sources. The companion's direct comparison
+on 36 common symmetry pairs remains a separate check.
+
+\subsection{Improved high-current parity does not establish global consistency}
+Change only the resistance used in reconstruction from
+\SI{7.695}{\milli\ohm} to the high-current symmetry equivalent
+\SI{8.274010}{\milli\ohm}. This is a hypothetical adjustment; the measured
+signals are retained. \Cref{tab:audit-adjustment} shows strong improvements
+within the selected 80 pairs. Across all 1172 pairs, however, the d and
+vector residual RMS increase. The vector RMS is
+$\sqrt{\operatorname{mean}(r_d^2+r_q^2)}$ on the stated pair set.
+\begin{table}[tb]
+\centering\small
+\input{figures/data/audit/raw_adjusted_60.tex}
+\caption{2000 rpm/60 $^\circ$C: raw reconstruction versus a symmetry-based
+resistance hypothesis on unchanged support. High and all-pair parity are
+separate metrics; the last three rows concern flux path integrals. No
+experimentally identified correction is implied.}
+\label{tab:audit-adjustment}
+\end{table}
+The relative path difference is
+\begin{equation}
+ \relativepathdifference=
+ \frac{|W_A-W_B|}{(|W_A|+|W_B|)/2},\label{eq:relative-real-path}
+\end{equation}
+where the denominator is nonzero. Its median rises from 3.488090 to
+4.226703 percent. This is a descriptive comparison of reconstructed
+integrals, not error against measured magnetic energy. The difference of
+these medians is 0.738613 percentage points; it is distinct from the median
+pointwise change (about 0.875 percentage points). The path equivalent itself
+is invariant, as predicted, while the circulation equivalent and path
+disagreement grow. The adjustment improves the selected parity channel;
+it does not improve global reflection structure or establish conservation.
+
+\subsection{P1 interpolation and differentiation set different limits}
+Componentwise linear Delaunay interpolation is $C^0$, not $C^1$.
+Its component gradients are constant within a triangle and jump at edges.
+A common mesh does not enforce a symmetric Jacobian or turn it into the
+Hessian of a common potential. At mesh vertices the classical derivative
+is not unique. Since the field itself is continuous, no field-jump term
+is needed in the weak curl, and the piecewise Green check remains valid.
+
+The real 60-$^\circ$C mesh contains 8234 triangles. Its local
+$\Delta R_{\rm eq,curl}$ has median about $-0.217$ m$\Omega$ and raw MAD
+$4.869$ m$\Omega$, but unweighted RMS about $2984$ m$\Omega$ and extremes
+about $-155108$ and $+128366$ m$\Omega$. Maximum edge-matrix condition number
+is about 15606, and a nearly collinear boundary triangle has circumradius
+about \SI{788738}{\ampere}. These peaks diagnose numerical fragility and
+must not be read as identified physical resistance. A purely geometric
+condition-number cutoff at 10 retains 7991 triangles and 99.208 percent
+of hull area, reducing RMS to about $10.438$ m$\Omega$. It is a sensitivity
+check, not a validated physical filter; full results remain available.
+Local linear regressions with 12, 24, and 48 neighbors also depend on scale
+and boundary geometry. Their different weighting does not reproduce the
+distribution of overlapping rectangle averages.
+
+An independent conservative saturated polynomial was sampled at the 4220
+actual operating-point coordinates and passed through the unchanged key
+reduction and componentwise P1 interpolation. For the audit's 64 deterministic
+targets its interpolated path equivalent has RMS
+\SI{0.013565}{\milli\ohm} although its analytic circulation vanishes to
+numerical precision. Sampling directly at aggregated coordinates gives
+essentially the same RMS; the OP-to-key averaging contribution is only
+\SI{0.00000216}{\milli\ohm} RMS in this example. Linear conservative fields
+are recovered to roundoff. A +2-m$\Omega$ injection produces the expected
+pointwise increment, while coherent rotation preserves analytic integrability
+and changes parity. Imperfect measured pair geometry also gives small
+baseline parity leakage even for the conservative reference. These tests
+separate numerical mechanisms; the small nonlinear example is not an upper
+error bound for the unknown real field.
+
+\subsection{What the recorded quantities actually establish}
+The files do not provide a verifiable abc-to-dq transformation definition.
+The median recorded phase-current RMS divided by
+$\sqrt{i_d^2+i_q^2}$ is approximately 0.7075, 0.7077, and 0.7071 in the
+three thermal slices, and 0.7085/0.7046 in the speed slices. This is consistent
+with amplitude-invariant dq currents and $1/\sqrt2$, but does not verify
+voltage scaling, power balance, harmonic content, or matched averaging.
+The checked phase-current/power instrument channels and AC voltage RMS
+channel are zero and provide no independent scaling evidence.
+
+Accordingly $W_A,W_B$ are initially dq flux integrals in Wb A, not independently
+measured absolute magnetic Joule values. The potential normalization defined
+in \cref{sec:potential} remains a consistent convention. A constant factor
+$\kappa$ multiplies physical integrals and their resistance denominator
+together: $\Delta R=\omega_e\Delta W_{\rm phys}/(2\kappa xy)$.
+A global $3/2$ changes neither path independence nor this discrepancy.
+The measurements require verification of coordinates and voltage provenance
+before the fit can be interpreted as a magnetic storage law. The reproducible
+audit JSON/CSV, source and dataset hashes, and generated manuscript tables
+retain this evidence separately from the chosen model class.

@@ -32,11 +32,26 @@ separation into resistance, iron-loss, angle and inverter contributions
 remains open and requires independent thermal, voltage, current and magnetic
 information.
 
+The conservation cross-check strengthens this conclusion. The symmetry and
+path equivalents differ at 2000 rpm/60 $^\circ$C even after exact P1
+integration. A symmetry-based resistance hypothesis improves the selected
+high-current region but worsens all-pair d/vector residuals and relative
+path disagreement. Its invariant path equivalent is an algebraic check,
+not an independent resistance calibration. Interpolation and terminal-current
+model reduction remain limits; a smaller selected symmetry residual cannot
+justify automatic correction.
+
 \paragraph{Outlook.}
-After measurement/model deviations have been understood or independently
-corrected, the complementary question is how remaining flux samples should
-be approximated as a physically admissible magnetic field, with
+A future joint identification should combine common-support speed sweeps,
+independent winding-temperature measurements, and additional calibrated
+voltage, power, or magnetic-state observables. Speed diversity tests a sole
+resistance mismatch but cannot resolve a voltage error with the same
+inverse-speed fingerprint. Storage, loss, and measurement terms need distinct
+observation relations and a demonstrable parameter rank.
+The complementary question is how flux should be represented for the
+conservative magnetic storage subsystem in suitable conjugate coordinates, with
 $\flux=\nabla_{\current}\coenergy$ and
 $\Ldiff=\nabla^2_{\current}\coenergy$. That question belongs to the separate
-co-energy reconstruction draft \cite{companion-coenergy}; no such fitting
-work is carried out here.
+co-energy reconstruction draft \cite{companion-coenergy}. Fitting inconsistent
+terminal maps would be a model projection with a retained diagnostic residual;
+no such real-data fit or joint causal identification is carried out here.
