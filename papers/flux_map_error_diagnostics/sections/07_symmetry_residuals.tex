@@ -19,6 +19,11 @@ Define measured residuals at the observed numerical labels by
  \boxed{r_d=\oddq[\hat\psid],\qquad r_q=\evenq[\hat\psiq].}
  \label{eq:residuals}
 \end{equation}
+For the independent positive-q representative $a>0$, this means explicitly
+\begin{equation}
+ r_d=\frac{\hat\psi_d(i_d,+a)-\hat\psi_d(i_d,-a)}{2},\qquad
+ r_q=\frac{\hat\psi_q(i_d,+a)+\hat\psi_q(i_d,-a)}{2}.
+\end{equation}
 Using \cref{eq:R-error,eq:angle-sensitivity} gives
 \begin{equation}
  \begin{bmatrix}r_d\\r_q\end{bmatrix}\approx
@@ -59,3 +64,39 @@ not unique proof of resistance or angle error. Interpolation mismatch,
 temperature mismatch, or real machine asymmetry can enter the same channels.
 Use one independent representative per pair, conventionally $i_q>0$; keeping
 both representatives doubles the same information and their correlated noise.
+
+\subsection{A resistance-equivalent residual and its hypothesis}
+To ask whether one constant resistance mismatch can explain the d channel,
+remove its known current and speed factors. For ideal matched pairs,
+\begin{equation}
+ r_d=-\frac{\resistanceerror}{\omegae}a
+ \quad\Longrightarrow\quad
+ \boxed{\resistanceequivalent=-\omegae\frac{r_d}{a}.}
+ \label{eq:resistance-equivalent}
+\end{equation}
+We call this the \emph{resistance-equivalent symmetry residual}. The notation
+does not assert that the observed difference is a physical resistance error.
+The null model $H_0$ is: a single constant used-minus-true resistance mismatch
+is the sole source of the observed symmetry violation, with a correctly
+aligned symmetric magnetic law and adequately matched measurements.
+If that model holds, $\resistanceequivalent$ would be approximately constant
+over operating point and speed. Its q-channel prediction is additionally
+$r_q=\resistanceerror i_d/\omegae$; a flat d equivalent alone is insufficient.
+
+In measured data the denominator is
+\begin{equation}
+ a_q=\frac{|i_{q,+}|+|i_{q,-}|}{2},\qquad
+ \resistanceequivalent=-\omegae\frac{r_d}{a_q}.
+ \label{eq:measured-denominator}
+\end{equation}
+For opposite-sign measured currents, the resistance contribution to the
+half-difference is exactly $-\resistanceerror a_q/\omegae$.
+This choice accounts for their differing magnitudes, but cannot cancel the
+magnetic contribution caused by imperfectly mirrored measured current labels.
+That distinction becomes material in the experimental preprocessing below.
+
+The equivalent transformation reveals departure from the constant-resistance
+model, while hiding the original flux units and amplifying errors near zero q
+current. A perturbation of $r_d$ contributes
+$\delta\Delta R_{\mathrm{eq}}=-\omegae\delta r_d/a_q$ at fixed denominator.
+The original $r_d$ is therefore retained and compared directly across speeds.

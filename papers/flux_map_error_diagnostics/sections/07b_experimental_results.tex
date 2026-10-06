@@ -1,0 +1,125 @@
+\section{Measured structure: current, rotor reference and speed}
+\label{sec:experimental-results}
+\subsection{Support counts and the distinction between a pair and a parameter}
+\Cref{tab:experimental-summary} reports both stages of current aggregation.
+The outlier slices contain 12882, 12957 and 12959 raw samples, respectively;
+each produces 4220 operating-index means and 4154 requested keys. Among the
+keys, 48 have zero q current, 2344 form 1172 pairs, and 1762 nonzero-q keys
+remain unmatched. The relative minimum-current rule leaves 1002 equivalent
+residuals. These support losses are not filled by interpolation.
+Each multi-speed slice has 327 samples, 109 operating-index means, 104 keys,
+eight zero-q keys, 39 pairs and 18 unmatched nonzero-q keys. Three pairs per
+slice are excluded only from division by $a_q$, leaving 36 valid pairs.
+
+\begin{table}[tb]
+\centering\small
+\input{figures/data/experimental/combined_summary.tex}
+\caption{Reproduced slice counts and high-current $\Delta R_{\mathrm{eq}}$
+summaries. $N_{\rm op}$ counts operating-index groups; $N_{\rm key}$ counts
+aggregated requested points. Valid means $a_q/a_{q,\max}>0.10$; high means
+$a_q/a_{q,\max}\geq0.85$. Medians and raw MAD describe the high subset only.}
+\label{tab:experimental-summary}
+\end{table}
+
+\subsection{Constant-speed temperature-reference experiment}
+\Cref{fig:experimental-flux} displays both reconstructed components at all
+measured operating-index means. Their broad nonlinear shapes alone do not
+identify the origin of a small asymmetry. Pairing exposes the complementary
+structure in \cref{fig:experimental-residuals}. Both forbidden components
+are appreciable and spatially structured; retaining $r_q$ avoids reducing
+the diagnosis to a scalar resistance interpretation.
+Across all 1172 pairs the RMS values $(r_d,r_q)$ are
+$(2.013,1.191)$, $(1.746,1.309)$ and $(1.728,1.690)$ mWb at 40, 60 and
+80 $^\circ$C. These RMS values include the small-q pairs excluded from
+the equivalent transformation, and describe map variation rather than
+calibrated measurement noise.
+\input{figures/08_experimental_flux.tex}
+\input{figures/09_experimental_residuals.tex}
+
+The constant-resistance hypothesis becomes easier to assess after removing
+the current/speed factors. Over the 1002 valid pairs,
+the equivalent residual ranges from $-1.595$ to $13.989$ m$\Omega$ at
+40 $^\circ$C, $-3.370$ to $12.667$ m$\Omega$ at 60 $^\circ$C, and
+$-3.389$ to $11.965$ m$\Omega$ at 80 $^\circ$C.
+The respective full-region medians are $1.680$, $0.967$ and
+$0.250$ m$\Omega$, with raw MAD $1.576$, $1.531$ and $1.553$ m$\Omega$.
+\Cref{fig:experimental-equivalent,fig:high-current} retain this nonconstant
+structure and all valid extrema. A constant shift cannot explain it globally.
+\input{figures/10_experimental_equivalent.tex}
+\input{figures/11_high_current_structure.tex}
+
+The high-current subset is flatter: its median/raw-MAD values are
+$0.096/0.128$, $-0.579/0.080$ and $-1.268/0.160$ m$\Omega$, with
+79, 80 and 79 pairs. The high-current ranges are only
+$[-0.174,0.461]$, $[-0.851,-0.239]$ and $[-1.661,-0.880]$ m$\Omega$.
+Thus a local constant equivalent is a useful descriptive compression of
+part of this experiment, while the rest of the map remains unexplained.
+The supplied code also reports $\hat R_s-\operatorname{median}
+(\Delta R_{\mathrm{eq}})$: $7.599$, $8.274$ and $8.963$ m$\Omega$.
+These are conditional resistance equivalents, not identified true winding
+resistances or recommended corrections.
+
+The shift with rotor reference is observed, but its thermal cause is not
+isolated. \texttt{Rotor\_temp\_ref} is not winding temperature. An additional
+recorded stator-temperature \emph{reference},
+\texttt{PE\_Char\_\allowbreak Temp\_Stator\_\allowbreak ref\_DegCel}, happens to equal 40, 60 and
+80 $^\circ$C in the respective blocks; it is unused in the current method
+and likewise does not verify the conductor temperature. Actual stator thermal
+signals, their sensor meaning, settling and acquisition history should be
+checked before attributing the shift quantitatively to $R_s(T)$.
+The recorded \texttt{PE\_speed\_rpm} medians are approximately 1999.14,
+1999.23 and 1999.32 rpm, but individual samples vary. The reconstruction
+deliberately retains the requested 2000-rpm slice value.
+
+\subsection{Constant rotor-reference speed experiment}
+At a 70-$^\circ$C rotor reference, high-current medians differ from
+$-2.157$ m$\Omega$ at 1000 rpm to $-5.334$ m$\Omega$ at 3000 rpm.
+Raw MAD increases from $0.189$ to $1.155$ m$\Omega$; only six and seven
+pairs contribute. Corresponding conditional resistance equivalents are
+$12.157$ and $15.334$ m$\Omega$ relative to the common used
+$10$ m$\Omega$. They cannot both identify one constant true resistance
+under $H_0$.
+The full valid region is also nonconstant: ranges are
+$[-2.431,33.912]$ and $[-7.541,28.267]$ m$\Omega$;
+medians/raw-MAD are $0.269/2.108$ and $-1.444/1.568$ m$\Omega$.
+RMS $(r_d,r_q)$ over all 39 pairs is $(0.385,0.974)$ mWb at 1000 rpm
+and $(0.206,0.899)$ mWb at 3000 rpm. Sparse matched support and differing
+high-current membership limit the interpretation of slice medians.
+\input{figures/13_experimental_speed_structure.tex}
+
+\subsection{A direct test at common requested points}
+The valid-key inner join contains 36 common pairs. This comparison avoids
+explaining speed differences by comparing different requested geometries.
+Under a sole constant resistance mismatch and equal measured pair currents,
+\begin{equation}
+ r_{d,3000}^{(H_0)}=\frac{1000}{3000}r_{d,1000}
+ =\frac13r_{d,1000}.\label{eq:direct-speed-test}
+\end{equation}
+\Cref{fig:experimental-scaling} compares that prediction directly with the
+observed residual. The RMS of $r_{d,3000}-r_{d,1000}/3$ is
+\SI{0.1573}{\milli\weber}, and its median is
+\SI{0.1040}{\milli\weber}. For context, the observed high-speed residual
+RMS on these same 36 points is \SI{0.2135}{\milli\weber}.
+The discrepancy is therefore not hidden by the speed transformation.
+\input{figures/12_experimental_scaling.tex}
+
+Measured pair magnitudes across speeds differ by at most
+\SI{0.300}{\ampere}. Including their known ratio gives the refined
+$H_0$ prediction $r_{d,1000}a_{q,3000}/(3a_{q,1000})$;
+its discrepancy RMS remains \SI{0.1571}{\milli\weber}.
+On the same keys, the pointwise equivalent difference
+$\Delta R_{\mathrm{eq},3000}-\Delta R_{\mathrm{eq},1000}$ has median
+$-2.622$ m$\Omega$, raw MAD $1.560$ m$\Omega$ and RMS $4.234$ m$\Omega$,
+with range $[-15.178,2.698]$ m$\Omega$. The difference is operating-point
+dependent, not just a common displacement between two flat maps.
+
+These are descriptive model checks, not a formal statistical rejection:
+there is no calibrated noise model, independent winding-temperature control
+verification, or propagated pairing uncertainty. Recorded speed medians
+are 999.62 and 2999.78 rpm and the stator reference is 70 $^\circ$C in both
+blocks; neither establishes identical magnetic or winding states.
+Nevertheless, the spatial and pointwise speed-dependent structure provides
+evidence against explaining the observations solely by one constant
+resistance mismatch. Additional speed-dependent or operating-point-dependent
+effects are required to explain the measurement. Their physical origin is
+not established by this comparison.

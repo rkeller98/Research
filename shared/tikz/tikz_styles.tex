@@ -109,3 +109,16 @@
 
 \tikzset{bidirectional arrow/.style={<->}}
 \pgfplotsset{scalar surface/.style={surf,shader=interp,opacity=.85}}
+% Measured samples retain their support; these styles introduce no interpolation.
+\pgfplotsset{
+ sample map axis/.style={diagnostic axis,colorbar,
+   colormap default colorspace=rgb,
+   colormap={publication signed}{color(0cm)=(PublicationReference); color(1cm)=(white); color(2cm)=(PublicationEstimated)},
+   colormap name=publication signed,colorbar style={tick label style={font=\scriptsize}}},
+ sample map/.style={only marks,mark=square*,mark size=1pt,scatter,
+   scatter src=explicit},
+ sparse sample map/.style={sample map,mark=*,mark size=1.6pt,
+   scatter/use mapped color={draw=PublicationNeutral,fill=mapped color}},
+ measured samples/.style={only marks,mark=*,mark size=1.4pt,estimated quantity},
+ reference samples/.style={only marks,mark=o,mark size=1.6pt,reference quantity}
+}

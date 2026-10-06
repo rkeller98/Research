@@ -1,41 +1,64 @@
-\section{Purpose: distinguish magnetics, coordinates, and reconstruction}
-A measured direct-axis flux curve that tilts between positive and negative
-quadrature current invites several explanations: saturation, an incorrect
-resistance, or a misaligned rotor frame. A curve alone cannot decide between
-them. The useful question is which features an admissible magnetic map can
-have, and which measurement operations introduce features outside that class.
-Steady-state rotor-oriented voltage conventions follow standard machine
-modeling \cite{binder2017,schroeder2021}. The companion co-energy reconstruction
-framework establishes which components belong to symmetric quasi-static
-machine magnetics \cite{companion-coenergy}. The present work studies the
-complementary question: what information is contained in components that
-violate this structure?
+\section{Question: what survives outside the ideal symmetry?}
+A reconstructed direct-axis flux map need not give the same value at positive
+and negative quadrature current. Saturation, coordinate alignment, electrical
+losses, and reconstruction uncertainty must be distinguished before such a
+difference can be interpreted. Saturation within a reflection-symmetric
+quasi-static magnetic law changes the allowed flux structure; it does not by
+itself create its forbidden reflection components.
 
-The central question is: given steady-state voltage, current, electrical speed,
-and reconstructed flux maps, which reflection symmetries are required by a
-magnetically symmetric machine, how do errors change them, and when can
-resistance and angle errors be separately estimated? We keep four layers
-distinct: the magnetic constitutive map, its coordinate representation,
-voltage-based reconstruction, and imperfect measurements or used parameters.
-Their separation matters because a coordinate error moves the argument of a
-map as well as its output, whereas a resistance error changes reconstruction.
+The research question is: \emph{What information is contained in the forbidden
+symmetry components of experimentally reconstructed dq flux-linkage maps, and
+to what extent can a simple resistance-mismatch hypothesis explain their
+spatial, thermal, and speed-dependent structure?} The contribution is an
+evidence-preserving interpretation of two supplied test-bench datasets,
+supported by explicit error models and reproducible numerical checks.
+It is not a claim to have invented stator-resistance identification or to
+have uniquely corrected the measured machine parameters.
 
-The paper proceeds from reconstruction and a compact structural foundation
-to error propagation, exact frame rotation, parity residuals, and
-identifiability. A normalized experiment then builds intuition from an
-isotropic PM machine to a saturated cross-coupled one. It uses synthetic data,
-not a claimed motor calibration or a comparison of interpolation methods.
-The final sections explain correction proposals for future MeasEval analysis
-and interpretation of residuals to the admissible magnetic model. Full
-co-energy fitting theory and its noise/sampling experiments belong to the
-companion; this paper tests error injection and parameter recovery.
+\subsection{Position relative to existing identification methods}
+Stationary rotor-oriented voltage balances are standard
+\cite{binder2017,schroeder2021}. Liu et al. identify complete flux-linkage maps
+under uncertain circuit resistance and inverter nonlinearity \cite{liu2018};
+their position-offset method uses deliberate positive and negative offsets
+for parameter determination under different loads \cite{liu2017}.
+Neither is equivalent to passively identifying an unknown encoder offset
+from the two residual channels studied here.
+Sun and Xiao explicitly discuss nonlinear map parity, continuous differential
+inductances, and equal differential cross-inductances \cite{sun2020}.
+Energy-based modeling provides a complementary explanation of reciprocity
+and construction symmetry \cite{jebai2014}.
 
-\paragraph{Reading conventions.}
+Motoring/generating combinations are established tools: Richter et al.
+match corresponding magnetic states while accounting for iron-loss currents
+\cite{richter2014}; Varvolik et al. average opposite modes to reduce the
+influence of resistive and inverter voltage terms in magnetic identification
+\cite{varvolik2022}. The present analysis retains the complementary
+half-difference and half-sum that would disappear under ideal symmetry
+projection. Requested-current mirror pairs do not establish equal magnetic
+states in a loss-containing machine.
+Brescia et al. identify resistance, flux, inductance and an inverter term
+from selected steady operating conditions \cite{brescia2023}; this stresses
+the relevance of current, speed, temperature and nuisance assumptions.
+Nonlinear loss-aware synchronous-machine models also distinguish magnetic
+and loss effects \cite{hackl2021,kruener2019}. These works motivate candidate
+causes, rather than proving a cause for the supplied measurements.
+
+\subsection{Evidence and reading conventions}
+The paper first defines reconstruction and the symmetry baseline, then derives
+resistance and angle fingerprints. The experimental sections document the
+existing data reduction, display unsmoothed residual structure, and compare
+the constant-resistance hypothesis across current, rotor reference and speed.
+Conditional identifiability and retained synthetic checks explain what extra
+information a causal calibration would require. The discussion deliberately
+leaves the physical decomposition open.
+
 Unadorned quantities denote truth. Hats denote measured coordinates, measured
-signals, or a used parameter, identified explicitly at each introduction.
-$\flux(\current)$ is the true constitutive map; $\flux^{\rm rec}$ is a
-voltage-reconstructed value. The measured map $\hat\flux(\hat\current)$
-contains both frame and reconstruction effects. Differences between maps are
-always compared at the same \emph{numerical current argument}. Angles are
-electrical radians; speed is signed electrical angular speed. Temperature,
-magnet state, and averaging convention are held fixed unless stated otherwise.
+signals or a used parameter, specified at introduction.
+$\flux(\current)$ is a constitutive map; $\flux^{\rm rec}$ is reconstructed
+from voltage. Map comparisons use the same numerical current argument.
+Angles are electrical radians; speed is signed electrical angular speed.
+The symmetry baseline holds thermal and magnet state fixed and presumes
+consistent harmonic averaging. Experimental thermal labels are references,
+not verified winding temperatures. The two files are analyzed separately;
+their different stored pole-pair constants preclude assuming a single common
+machine calibration without additional provenance.

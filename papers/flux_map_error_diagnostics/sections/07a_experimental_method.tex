@@ -1,0 +1,114 @@
+\section{Experimental method: retain the actual measured support}
+\label{sec:experimental-method}
+\subsection{Datasets, signals and software responsibilities}
+Two supplied MATLAB v7.3/HDF5 files are used. The outlier file contains
+three rotor-reference slices at 2000 rpm, with $p=3$ and a constant used
+resistance of \SI{7.695}{\milli\ohm}. The multi-speed file contains 1000 and
+3000 rpm at a rotor reference of \SI{70}{\celsius}, with $p=4$ and a used
+resistance of \SI{10}{\milli\ohm}. Thus the electrical speeds are
+\SI{628.319}{\per\second} in the first experiment and
+\SI{418.879}{\per\second}, \SI{1256.637}{\per\second} in the second.
+These constants are read from each file, not inferred from the residuals.
+Different pole-pair constants and unavailable machine provenance prohibit
+pooling the two experiments into one resistance calibration.
+
+The four supplied scripts define the method. The importer reads HDF5
+references and exposes signals by name; it contains no machine physics.
+\texttt{flux\_correction.py} implements voltage inversion, pair formation,
+residuals and resistance-equivalent summaries. The outlier analyzer varies
+rotor reference at one speed; the multi-speed analyzer varies speed at one
+rotor reference and merges common requested keys. Both original analyzers
+were executed before manuscript changes. Their calculation was preserved;
+only headless/export options and a separate numeric/figure exporter were
+added. No physics bug requiring a method correction was found.
+
+The measured current signals are \texttt{PE\_Id\_meas\_avg} and
+\texttt{PE\_Iq\_meas\_avg}. The voltage signals are
+\texttt{PE\_Ud\_meas\_avg} and \texttt{PE\_Uq\_meas\_avg}.
+The resistance and pole-pair constants are the
+slice modes of \texttt{Const\_Machine\_R\_s} and
+\texttt{Const\_Machine\_pole\_pairs}. Requested speed
+\texttt{PE\_Rpm\_req} and \texttt{Rotor\_temp\_ref} select the block;
+the requested speed also supplies \cref{eq:rpm-conversion}.
+The supplied signal names establish access, but do not establish terminal
+voltage calibration, averaging over whole mechanical revolutions, or the
+upstream steady-state acceptance rule. These acquisition details remain to
+be documented before an accuracy claim.
+
+\subsection{Reduction, requested keys and measured denominators}
+Within each requested-speed/rotor-reference slice, all samples sharing
+\texttt{op\_index} are averaged. This index is supplied by the recorded
+operating-point signal. The requested currents
+\texttt{PE\_Id\_req\_meas} and \texttt{PE\_Iq\_req\_meas} are then rounded
+to two decimal places solely to form geometric keys. The key spacing is
+\SI{0.01}{\ampere}; each component moves by at most approximately
+\SI{0.005}{\ampere}. It is a quantization rule, not a continuous distance
+tolerance: nearly equal values straddling a rounding boundary can fail to
+match. Measured currents and voltages are never rounded.
+
+Repeated requested keys are aggregated by arithmetic means of their
+operating-point rows. Consequently the second mean weights each
+\texttt{op\_index} group equally, rather than weighting by its original sample
+count. Flux inversion is linear at fixed slice resistance and speed, so
+averaging flux before this key collapse is equivalent to inverting those
+averaged signals with the same weights.
+Positive and negative q keys are inner-joined at equal d key and opposite
+q key. Zero-q keys and unmatched keys do not create pairs. Every retained
+pair is an existing mirror pair \emph{in the requested-key geometry}; the
+measured currents need not be mathematically mirrored. No missing partner
+is interpolated, and no mirrored extrapolation supplies additional evidence.
+
+Residuals use the paired reconstructed values, and
+\cref{eq:measured-denominator} uses the actual measured pair magnitude $a_q$.
+Map figures show flux at measured currents; pair figures use the requested
+d key and measured $a_q$, specified in their captions.
+Measured pair mismatch can leak allowed magnetic variation into the forbidden
+channels. In the outlier slices the largest d-current mismatch is
+\SIrange{4.024}{4.956}{\ampere}, and the largest opposite-q sum is
+\SIrange{2.070}{2.249}{\ampere}. In the multi-speed slices these maxima are
+\SI{0.606}{\ampere} and \SI{0.363}{\ampere} at 1000 rpm, and
+\SI{0.506}{\ampere} and \SI{0.663}{\ampere} at 3000 rpm.
+These deviations are recorded, not repaired using an unverified magnetic
+reference. A future local mirror interpolation, for example with Delaunay
+support, would require a separate bias/uncertainty study and is not implemented.
+
+\subsection{Conditioning and descriptive summaries}
+All exact-key pairs contribute to $r_d$ and $r_q$ summaries. The equivalent
+residual is evaluated only for $a_q>0.10a_{q,\max}$, using the maximum over
+pairs in the slice. This exclusion primarily prevents numerical amplification
+of residual errors when dividing by small q-axis currents. It is not a
+physical transition or a criterion proving that inverter effects vanish.
+
+For an initial descriptive high-current summary, select
+$0.85\leq a_q/a_{q,\max}\leq1$. The threshold is applied to measured
+magnitudes, so membership may differ between slices even at identical keys.
+Define the unscaled median absolute deviation by
+\begin{equation}
+ \boxed{\operatorname{MAD}(x)=
+ \operatorname{median}\bigl(|x-\operatorname{median}(x)|\bigr).}
+ \label{eq:raw-mad}
+\end{equation}
+The median and raw MAD limit the influence of isolated extreme values while
+retaining the full plotted structure of the deliberately outlier-containing
+dataset. No normal-distribution consistency multiplier is applied. MAD is
+a descriptive spatial spread, not an uncertainty of the median or a
+confidence interval; aggregated, correlated measurements are not independent
+replicate calibrations. The high-current region is an empirical observation
+of the present dataset, not a universal resistance-identification domain.
+
+\subsection{Reproduction}
+From the repository root, with Python, NumPy, pandas, SciPy, h5py and
+Matplotlib installed, run the following. The commands preserve the default
+pairing and current thresholds; omitting \texttt{--no-plots} opens the supplied
+interactive plots, and \texttt{--export} generates manuscript data and
+concrete vector-figure sources.
+\begin{verbatim}
+cd papers/flux_map_error_diagnostics/python
+python analyze_outlier_dataset.py --no-plots --export
+python analyze_multi_rpm_dataset.py --no-plots --export
+\end{verbatim}
+The exported CSV files retain full flux/pair tables, DAT files feed PGFPlots,
+and JSON reports contain counts, package versions, settings, input and script
+SHA-256 hashes, and descriptive metrics. Figure sources use only canonical
+shared styles. No screenshot, fitted surface, smoothing, or outlier rejection
+is required to regenerate the paper figures.

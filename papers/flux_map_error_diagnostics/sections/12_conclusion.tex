@@ -1,28 +1,42 @@
-\section{Conclusions}
-Stationary voltage inversion reconstructs flux but does not enforce magnetic
-symmetry. Under conservative, quasi-static, reflection-symmetric magnetics,
-an even q-current co-energy implies d-even and q-odd flux and reciprocal
-differential cross-inductances. Saturation and cross-saturation change
-magnitudes and local gains while preserving that ideal parity.
+\section{Conclusions and outlook}
+Stationary voltage inversion reconstructs flux without enforcing magnetic
+symmetry. Under the stated reflection-symmetric quasi-static assumptions,
+d flux is even and q flux odd in quadrature current, including saturation and
+cross-saturation. Their forbidden half-difference and half-sum are useful
+observables because they preserve information that a symmetric average
+would discard. They diagnose incompatibility with the baseline, rather than
+uniquely identifying a fault.
 
-A resistance error adds $\resistanceerror\rotationgenerator\current/\omegae$. A rotor-angle error
-rotates both the current argument and the resulting flux. Their combined
-local fingerprint occupies the d-odd and q-even channels, with angle sensitivity
-$\Ldiff\rotationgenerator\current-\rotationgenerator\flux$. This expression requires only first
-flux derivatives and explains the PM projection in q flux and the isotropic
-cancellation in d flux.
+The resistance-equivalent quantity $\resistanceequivalent=-\omegae r_d/a_q$
+is explicitly conditional: it equals used-minus-true resistance only for a
+sole resistance mismatch with adequate matching. In the outlier experiment,
+all three 2000-rpm slices exhibit substantial operating-point dependence.
+The high-current subset is empirically flatter, with medians $0.096$,
+$-0.579$ and $-1.268$ m$\Omega$ at rotor references 40, 60 and 80 $^\circ$C.
+This is a thermal-reference comparison, not quantitative winding thermometry.
+In the separate multi-speed experiment, six and seven high-current pairs
+yield $-2.157$ and $-5.334$ m$\Omega$ at 1000 and 3000 rpm. At 36 common
+valid keys the direct inverse-speed prediction has an RMS discrepancy of
+$0.1573$ mWb, essentially unchanged by accounting for measured pair-current
+magnitudes. One constant resistance mismatch is insufficient to explain the
+full observed structure under the specified baseline. A resistance-like
+constant may describe a subset, but its causal share is not identified.
 
-Both flux components, diverse current points, and controlled speed variation
-can separate the two sensitivities, provided the stacked model has rank two
-and adequate scaled conditioning. Neither rank in a restricted model nor a
-good residual fit removes exact voltage-error confounding or real physical
-symmetry breaking. Synthetic voltage reconstruction verifies signs, limiting
-cases, parameter recovery, and finite-angle discrepancy without substituting
-for measurement validation.
+The exact angle transformation rotates both current arguments and flux
+vectors. It preserves reciprocity while rotating the natural symmetry axis;
+saturation changes its sensitivity through the differential inductance
+matrix. A current-proportional voltage error can exactly imitate resistance
+in reconstruction. The retained synthetic checks verify these derivations
+and correction signs, not measured parameter recovery. Unique physical
+separation into resistance, iron-loss, angle and inverter contributions
+remains open and requires independent thermal, voltage, current and magnetic
+information.
 
-The companion's symmetric co-energy framework retains nonlinear magnetics
-while preventing forbidden parity components from becoming legitimate fitted
-characteristics. Its diagnostic residuals should support proposed corrections
-with preserved originals and explicit application. The next practical step is
-controlled pairing of real MeasEval data with measured thermal conditions,
-terminal-voltage uncertainty, and an independently checked magnetic reference.
+\paragraph{Outlook.}
+After measurement/model deviations have been understood or independently
+corrected, the complementary question is how remaining flux samples should
+be approximated as a physically admissible magnetic field, with
+$\flux=\nabla_{\current}\coenergy$ and
+$\Ldiff=\nabla^2_{\current}\coenergy$. That question belongs to the separate
+co-energy reconstruction draft \cite{companion-coenergy}; no such fitting
+work is carried out here.

@@ -1,24 +1,27 @@
-\title{Symmetry-Based Identification and Correction of Stator-Resistance and Rotor-Angle Errors from \texorpdfstring{$dq$}{dq} Flux-Linkage Maps}
+\title{On the Interpretation of Symmetry Residuals in Experimental \texorpdfstring{$dq$}{dq} Flux-Linkage Maps}
 \author{}
 \date{6 October 2026}
 
 \newcommand{\PaperAbstract}{%
-Flux reconstruction, magnetic symmetry, and reference-frame alignment answer
-different questions. This learning paper derives their connection without
-assuming constant inductances. An even magnetic co-energy in quadrature
-current implies an even direct-axis flux and an odd quadrature-axis flux,
-including saturation and cross-saturation. A resistance mismatch adds a
-speed-scaled transverse current term. A rotor-angle offset rotates both the
-current argument and the resulting flux; its first-order sensitivity is
-the difference between a differential-inductance term and a flux-rotation
-term. Forbidden parity channels provide two diagnostic residuals, whose
-stacked sensitivities determine local identifiability and conditioning.
-Reproducible synthetic examples compare exact rotations with linearization,
-check proposed corrections, and expose voltage-error confounding. A companion
-co-energy reconstruction framework defines the admissible magnetic class;
-the present paper interprets its complementary residual structure. The results
-support proposed calibration corrections under explicit quasi-static,
-thermal, and measurement assumptions; they are not experimental validation.}
+Forbidden reflection components of experimentally reconstructed flux-linkage
+maps contain information that conventional symmetric averaging discards.
+This paper interprets their spatial, thermal-reference, and speed dependence
+without assuming constant inductances. The d-odd residual is expressed as a
+resistance-equivalent quantity that equals used-minus-true stator resistance
+only if a constant resistance mismatch is the sole source. Two supplied
+test-bench datasets are evaluated using their existing exact-key pairing
+method, without smoothing or interpolation of missing partners. At 2000 rpm,
+the high-q-current medians are 0.096, -0.579 and -1.268 milliohm at rotor
+references of 40, 60 and 80 degrees Celsius; the wider current region is
+strongly nonconstant. At a 70-degree rotor reference, 1000 and 3000 rpm give
+-2.157 and -5.334 milliohm from only six and seven high-current pairs.
+A direct inverse-speed comparison on 36 common valid pairs also deviates
+from the constant-resistance prediction. Exact frame rotation preserves
+reciprocity while rotating the reflection axis; saturation changes its
+angle sensitivity. Synthetic checks retain these analytical results and
+demonstrate exact confounding by current-proportional voltage error.
+The measured patterns require additional effects but do not uniquely
+identify winding resistance, iron loss, angle error or inverter contributions.}
 
 % Disable either component if the paper does not need it.
 \newif\ifshowglossary

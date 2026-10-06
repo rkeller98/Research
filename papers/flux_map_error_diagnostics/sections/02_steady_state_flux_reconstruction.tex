@@ -35,6 +35,15 @@ the subtracted voltage. Any error in voltage or resistive drop is divided by
 speed. At zero speed the stationary equation contains no flux information;
 near zero speed the inversion amplifies noise.
 
+Mechanical speed $n$ in revolutions per minute and pole-pair number $p$ give
+\begin{equation}
+ \omegae=2\pi p\frac{n}{60}.\label{eq:rpm-conversion}
+\end{equation}
+The experiments below deliberately use requested speed as their map
+breakpoint and in this conversion. This reproduces the supplied analysis,
+not a universal recommendation to replace measured speed. Residual speed
+variation and upstream voltage processing remain uncertainty sources.
+
 No reflection symmetry follows from this inversion. Indeed, any chosen
 flux-current function, symmetric or otherwise, can be inserted in
 \cref{eq:vector-voltage} to produce corresponding voltages. Structural

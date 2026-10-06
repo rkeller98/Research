@@ -23,7 +23,7 @@ N-dimensional contour extraction, recursive simplex QP, the extended EESM
 optimization draft, and the two complementary flux-map drafts:
 
 - `physics_constrained_flux_maps`: admissible co-energy reconstruction and fitting.
-- `flux_map_error_diagnostics`: residuals, error identification, and correction.
+- `flux_map_error_diagnostics`: experimental symmetry residuals, resistance-equivalent interpretation, and limits of causal attribution.
 
 The former combined `dq_flux_symmetry_diagnostics` directory has been split;
 it is not an additional active paper. See [the split report](docs/flux_papers_split.md).

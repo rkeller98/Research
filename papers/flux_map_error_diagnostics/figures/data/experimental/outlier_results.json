@@ -1,0 +1,195 @@
+{
+  "experiment": "outlier",
+  "dataset": "WW_Dataset_Outlier.mat",
+  "sha256": "a44f89af86f059e2f6d93b557febea5f42bd0108816c8ee0a40bd03083be53cf",
+  "packages": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.6",
+    "scipy": "1.17.1",
+    "h5py": "3.16.0",
+    "matplotlib": "3.11.2"
+  },
+  "settings": {
+    "pairing_decimals": 2,
+    "min_iq_rel_strict": 0.1,
+    "high_iq_rel_inclusive": 0.85,
+    "speed_source": "PE_Rpm_req"
+  },
+  "slices": [
+    {
+      "rpm": 2000.0,
+      "rotor_reference_C": 40.0,
+      "raw_samples": 12882,
+      "op_index_groups": 4220,
+      "unique_requested_keys": 4154,
+      "symmetric_pairs": 1172,
+      "valid_equivalent_pairs": 1002,
+      "high_current_pairs": 79,
+      "unpaired_nonzero_keys": 1762,
+      "zero_q_keys": 48,
+      "pole_pairs": 3,
+      "omega_e_rad_s": 628.3185307179587,
+      "used_resistance_ohm": 0.0076950000000000005,
+      "used_resistance_unique_count": 1,
+      "iq_max_A": 1280.6245980472886,
+      "full_valid_equivalent_ohm": {
+        "median": 0.0016799753551276534,
+        "raw_mad": 0.0015762758708998694,
+        "min": -0.0015945497844444014,
+        "max": 0.013988915400893868
+      },
+      "high_equivalent_ohm": {
+        "median": 9.585958213328295e-05,
+        "raw_mad": 0.0001278655654395009,
+        "min": -0.0001735788453491385,
+        "max": 0.0004605636000046091
+      },
+      "conditional_resistance_ohm": 0.007599140417866718,
+      "symmetry_metrics_Wb": {
+        "r_d_rms": 0.002013296309243584,
+        "r_q_rms": 0.001190626196575215,
+        "r_d_median_abs": 0.0013054442691211058,
+        "r_q_median_abs": 0.0006890812215497623
+      },
+      "pair_id_difference_max_A": 4.819325431483662,
+      "pair_iq_sum_max_A": 2.2492945865501497,
+      "PE_speed_rpm": {
+        "median": 1999.142804307423,
+        "raw_mad": 3.1969820266538136,
+        "min": 1976.920276172512,
+        "max": 2019.591951345018
+      },
+      "CAN_RPM_meas": {
+        "median": 1999.7474975585938,
+        "raw_mad": 6.11602783203125,
+        "min": 1821.1322021484375,
+        "max": 2148.350341796875
+      },
+      "PE_Char_Temp_Stator_ref_DegCel": {
+        "median": 40.0,
+        "raw_mad": 0.0,
+        "min": 40.0,
+        "max": 40.0
+      }
+    },
+    {
+      "rpm": 2000.0,
+      "rotor_reference_C": 60.0,
+      "raw_samples": 12957,
+      "op_index_groups": 4220,
+      "unique_requested_keys": 4154,
+      "symmetric_pairs": 1172,
+      "valid_equivalent_pairs": 1002,
+      "high_current_pairs": 80,
+      "unpaired_nonzero_keys": 1762,
+      "zero_q_keys": 48,
+      "pole_pairs": 3,
+      "omega_e_rad_s": 628.3185307179587,
+      "used_resistance_ohm": 0.0076950000000000005,
+      "used_resistance_unique_count": 1,
+      "iq_max_A": 1279.3821541223947,
+      "full_valid_equivalent_ohm": {
+        "median": 0.0009667522926051296,
+        "raw_mad": 0.001530820568805232,
+        "min": -0.0033697105306791796,
+        "max": 0.012667482883184013
+      },
+      "high_equivalent_ohm": {
+        "median": -0.0005790103359149268,
+        "raw_mad": 8.035901637329465e-05,
+        "min": -0.0008511006592435555,
+        "max": -0.0002391372668026075
+      },
+      "conditional_resistance_ohm": 0.008274010335914928,
+      "symmetry_metrics_Wb": {
+        "r_d_rms": 0.001746480256719551,
+        "r_q_rms": 0.001308798833113759,
+        "r_d_median_abs": 0.0010476597664497269,
+        "r_q_median_abs": 0.0008400582675826482
+      },
+      "pair_id_difference_max_A": 4.02414154052758,
+      "pair_iq_sum_max_A": 2.129744491861743,
+      "PE_speed_rpm": {
+        "median": 1999.2337038742578,
+        "raw_mad": 3.0325995243040325,
+        "min": 1976.9721489970434,
+        "max": 2017.4818720376527
+      },
+      "CAN_RPM_meas": {
+        "median": 1999.90771484375,
+        "raw_mad": 6.192138671875,
+        "min": 1866.70654296875,
+        "max": 2133.386474609375
+      },
+      "PE_Char_Temp_Stator_ref_DegCel": {
+        "median": 60.0,
+        "raw_mad": 0.0,
+        "min": 60.0,
+        "max": 60.0
+      }
+    },
+    {
+      "rpm": 2000.0,
+      "rotor_reference_C": 80.0,
+      "raw_samples": 12959,
+      "op_index_groups": 4220,
+      "unique_requested_keys": 4154,
+      "symmetric_pairs": 1172,
+      "valid_equivalent_pairs": 1002,
+      "high_current_pairs": 79,
+      "unpaired_nonzero_keys": 1762,
+      "zero_q_keys": 48,
+      "pole_pairs": 3,
+      "omega_e_rad_s": 628.3185307179587,
+      "used_resistance_ohm": 0.0076950000000000005,
+      "used_resistance_unique_count": 1,
+      "iq_max_A": 1279.6062036069911,
+      "full_valid_equivalent_ohm": {
+        "median": 0.0002500097461873587,
+        "raw_mad": 0.0015525202043943577,
+        "min": -0.0033890137437966317,
+        "max": 0.01196474472092276
+      },
+      "high_equivalent_ohm": {
+        "median": -0.0012684063668812,
+        "raw_mad": 0.00015955533200440165,
+        "min": -0.0016613717635542455,
+        "max": -0.0008800230607910709
+      },
+      "conditional_resistance_ohm": 0.008963406366881201,
+      "symmetry_metrics_Wb": {
+        "r_d_rms": 0.0017282999403766262,
+        "r_q_rms": 0.0016902481425040774,
+        "r_d_median_abs": 0.0013379061400134278,
+        "r_q_median_abs": 0.0009175530107271776
+      },
+      "pair_id_difference_max_A": 4.956367705177627,
+      "pair_iq_sum_max_A": 2.0697131188092044,
+      "PE_speed_rpm": {
+        "median": 1999.3196669490014,
+        "raw_mad": 3.0417949757706992,
+        "min": 1975.1544546523621,
+        "max": 2018.1120960490114
+      },
+      "CAN_RPM_meas": {
+        "median": 1999.8863525390625,
+        "raw_mad": 5.7813720703125,
+        "min": 1861.38330078125,
+        "max": 2105.639404296875
+      },
+      "PE_Char_Temp_Stator_ref_DegCel": {
+        "median": 80.0,
+        "raw_mad": 0.0,
+        "min": 80.0,
+        "max": 80.0
+      }
+    }
+  ],
+  "script_sha256": {
+    "analyze_multi_rpm_dataset.py": "9d9eeaa21b8cdfc79a3781cdf4327a3d0c6e34347ae396cbd6d428896591c54f",
+    "analyze_outlier_dataset.py": "3f35af34da2486c12c6a98b3a729c903226297d105626926d98dde7b81e23730",
+    "export_experiments.py": "8a2a018202e52c585a10c170ecc54ead6559db9f7976f8c1866252ea77201ca3",
+    "flux_correction.py": "1750bb8c86fa462e356cd7343b763882dbb9233f4761cf44a44be2a9433cb7da",
+    "raw_ww_data_importer.py": "eb40d0f4fef91d4241898c20744449a5770bdd553e63dc3b6693ac96df5ad2dd"
+  }
+}

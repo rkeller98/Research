@@ -1,5 +1,13 @@
 # Two flux-map papers: scope, provenance, and validation
 
+**Subsequent diagnostics revision (6 October 2026):** the diagnostics paper is
+now titled *On the Interpretation of Symmetry Residuals in Experimental dq
+Flux-Linkage Maps*. Its real-data analysis and current evidence boundaries
+are documented in [the experimental report](flux_map_experimental_validation.md).
+The allocation and synthetic-only validation below record the earlier split;
+the former product correction workflow has since been removed from the paper.
+The reconstruction paper is outside this subsequent task's implementation scope.
+
 The combined `dq_flux_symmetry_diagnostics` working draft was divided
 incrementally. Correct derivations, sources, numerical checks, and drawings
 were reused; it is no longer an active third paper. The local pre-split snapshot
