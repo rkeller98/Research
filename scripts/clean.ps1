@@ -15,9 +15,12 @@ if (-not (Test-Path -LiteralPath $target)) {
     exit 0
 }
 
-$resolvedBuild = [IO.Path]::GetFullPath($buildRoot).TrimEnd('\')
-$resolvedTarget = [IO.Path]::GetFullPath($target).TrimEnd('\')
-if ($resolvedTarget -ne $resolvedBuild -and -not $resolvedTarget.StartsWith("$resolvedBuild\", [StringComparison]::OrdinalIgnoreCase)) {
+$separators = [char[]]@([IO.Path]::DirectorySeparatorChar, [IO.Path]::AltDirectorySeparatorChar)
+$resolvedBuild = [IO.Path]::GetFullPath($buildRoot).TrimEnd($separators)
+$resolvedTarget = [IO.Path]::GetFullPath($target).TrimEnd($separators)
+$comparison = if ([IO.Path]::DirectorySeparatorChar -eq '\') { [StringComparison]::OrdinalIgnoreCase } else { [StringComparison]::Ordinal }
+$buildPrefix = $resolvedBuild + [IO.Path]::DirectorySeparatorChar
+if (-not $resolvedTarget.Equals($resolvedBuild, $comparison) -and -not $resolvedTarget.StartsWith($buildPrefix, $comparison)) {
     throw "Refusing to remove a path outside the build directory: $resolvedTarget"
 }
 

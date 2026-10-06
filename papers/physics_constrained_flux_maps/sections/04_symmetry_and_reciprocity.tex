@@ -1,0 +1,52 @@
+\section{Magnetic reflection symmetry from co-energy}
+\label{sec:symmetry}
+\begin{assumption}[Conservative symmetric magnetic map]
+At fixed temperature and magnet state, the fundamental or consistently
+averaged magnetic relation is single-valued and quasi-static. On a
+reflection-invariant current domain it admits a $C^2$ scalar co-energy
+$\coenergy(\id,\iq)$ with $\flux=\nabla_{\current}\coenergy$.
+The effective geometry, winding distribution, material law, and PM excitation
+are invariant under reversal of the q-oriented excitation with the d-oriented
+excitation unchanged. Rotor-position harmonics are either neglected or
+averaged in a way that preserves this reflection. Hysteretic state changes
+and irreversible demagnetization are excluded.
+\end{assumption}
+The symmetry is an assumption about the effective machine, not a consequence
+of its PMSM label. A reflected excitation visits a reflected field solution
+with the same scalar co-energy. Therefore
+\begin{equation}
+ \boxed{\coenergy(\id,\iq)=\coenergy(\id,-\iq).}\label{eq:energy-parity}
+\end{equation}
+For amplitude-invariant dq variables, physical three-phase co-energy has a
+factor $3/2$ in its current differential. Here $\coenergy$ denotes that co-energy
+divided by $3/2$, so its gradient is exactly the usual dq flux linkage.
+This fixed normalization changes no parity or reciprocity statement.
+The connection between construction symmetries, energy descriptions, and
+reciprocity is developed in \cite{jebai2014}.
+
+Why does a PM on the d axis not remove this symmetry? It fixes a preferred
+\emph{d} direction and can break $i_d\mapsto-i_d$ symmetry. It does not select
+a preferred sign of q excitation under the stated effective reflection.
+The term $\psi_{\rm pm}i_d$ is a simple example: it is unchanged when $i_q$
+changes sign. Bias and d saturation can be more complicated with the same
+property. This argument concerns the effective excitation symmetry, not a
+naive spatial reflection that ignores the transformation of magnetic vectors.
+
+Differentiating \cref{eq:energy-parity} with respect to $i_d$ gives equality
+of d-flux values. Differentiating with respect to $i_q$ gives a minus sign
+from the reflected argument. Thus
+\begin{equation}
+ \boxed{\psid(\id,\iq)=\psid(\id,-\iq),\qquad
+ \psiq(\id,\iq)=-\psiq(\id,-\iq).}\label{eq:flux-parity}
+\end{equation}
+The d component is even; the q component is odd and consequently vanishes at
+$i_q=0$. The reflected field can change in magnitude through nonlinear
+material response without changing this sign structure.
+\input{figures/02_magnetic_symmetry.tex}
+
+\paragraph{What the structural result exposes.}
+We now know which channels an ideal map cannot occupy, without knowing its
+inductances. We have not determined flux magnitudes or ensured that every
+real machine meets the reflection assumption. Broken geometry, unaveraged
+harmonics, or path-dependent magnetics invalidate the inference that a
+forbidden component must be a measurement error.

@@ -1,24 +1,21 @@
-# Self-contained paper template
+# Paper content scaffold
 
-Copy this entire directory to papers/<paper-name> or run:
+Read [WRITING_GUIDE.md](../WRITING_GUIDE.md) first, then this directory's
+[DIDACTIC_GUIDE.md](DIDACTIC_GUIDE.md) and the repository didactic contract.
 
-    .\scripts\new_paper.ps1 <paper-name>
+Create a paper with `./scripts/new_paper.ps1 <name>`. The scaffold loads the
+canonical `shared/` infrastructure; it does not vendor notation, glossary,
+configuration, or visual styles. A paper contains `main.tex`, `metadata.tex`,
+sections, concrete figures, bibliography, and optional experiments/data.
+There is no `local.tex`. Only externally required publisher formatting may
+use an explicit `venue.tex`.
 
-The copied paper has no runtime dependency on the repository-level shared/
-directory.
+The template uses `../shared/`; the scaffold adjusts this to `../../shared/`
+for `papers/<name>/`. Both are directly compilable from their own directories.
+Add genuinely new notation or visual semantics to `shared/` after searching
+the canonical vocabulary. Print only used glossary entries. Run the
+architecture gate and repository build scripts before delivery.
 
-## Where content belongs
-
-- main.tex: document order only
-- metadata.tex: title, authors, date, abstract, and output switches
-- local.tex: definitions used by this paper only
-- sections/: one source file per logical section
-- figures/: TikZ/PGFPlots figures and local figure data
-- includes/: the paper's private LaTeX framework, glossary, and bibliography
-
-Compile from inside the paper directory:
-
-    latexmk -lualatex -interaction=nonstopmode -halt-on-error main.tex
-
-Use \showglossaryfalse or \showbibliographyfalse in metadata.tex when a paper
-does not need those components.
+The generic placeholder has no catalogue symbols, so its appendix is disabled.
+Set `\showglossarytrue` in metadata when the paper uses glossary quantities;
+only those recorded as used are printed.

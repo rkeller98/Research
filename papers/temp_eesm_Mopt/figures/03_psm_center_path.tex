@@ -6,7 +6,7 @@
  xmin=-1.1,xmax=.12,ymin=-.68,ymax=.68,legend pos=north east]
  \addplot[mapped curve,domain=-8:8,samples=181]
  ({-x^2/(1+x^2)},{-1.22*x/(1+x^2)});
- \addplot[only marks,mark=*,MidnightBlue] coordinates {(0,0) (-1,0)};
+ \addplot[only marks,mark=*,reference quantity] coordinates {(0,0) (-1,0)};
  \addplot[coordinate vector] coordinates {(-.20,-.49) (-.63,-.58)};
  \addplot[coordinate vector] coordinates {(-.20,.49) (-.63,.58)};
  \node[annotation,anchor=west] at (axis cs:.02,0){$\omega_e=0$};

@@ -1,0 +1,61 @@
+\section{Even and odd channels as diagnostic residuals}
+We want to remove the legitimate symmetric magnetic structure while retaining
+components that the model forbids. Compare points at equal $i_d$, temperature,
+and signed speed, with opposite equal-magnitude $i_q$. Define
+\begin{equation}
+ \evenq[f](i_d,i_q)=\frac{f(i_d,i_q)+f(i_d,-i_q)}{2},\qquad
+ \oddq[f](i_d,i_q)=\frac{f(i_d,i_q)-f(i_d,-i_q)}{2}.
+ \label{eq:parity-operators}
+\end{equation}
+Addition retains the unchanged part; subtraction retains the reversing part.
+These are complementary projections: $f=\evenq[f]+\oddq[f]$,
+$\evenq^2=\evenq$, $\oddq^2=\oddq$, and $\evenq\oddq=0$. Pairing therefore discards the
+allowed component in each diagnostic channel, not saturation as such.
+\input{figures/03_decomposition.tex}
+
+For a correctly aligned ideal map, $\oddq[\psid]=0$ and $\evenq[\psiq]=0$.
+Define measured residuals at the observed numerical labels by
+\begin{equation}
+ \boxed{r_d=\oddq[\hat\psid],\qquad r_q=\evenq[\hat\psiq].}
+ \label{eq:residuals}
+\end{equation}
+Using \cref{eq:R-error,eq:angle-sensitivity} gives
+\begin{equation}
+ \begin{bmatrix}r_d\\r_q\end{bmatrix}\approx
+ \vect s_R\resistanceerror+\vect s_\gamma\angleerror+\vect r_{\rm other},
+ \label{eq:fingerprint}
+\end{equation}
+where the ideal map and derivatives at the numerical argument define
+\begin{equation}
+ \vect s_R=\begin{bmatrix}-i_q/\omegae\\i_d/\omegae\end{bmatrix},\qquad
+ \vect s_\gamma=\begin{bmatrix}
+ -L_{dd}i_q+L_{dq}i_d+\psiq\\
+ -L_{qd}i_q+L_{qq}i_d-\psid\end{bmatrix}.
+ \label{eq:columns}
+\end{equation}
+Each term of $s_{\gamma,d}$ is odd: even times odd, odd times fixed $i_d$,
+and odd flux. Each term of $s_{\gamma,q}$ is even: odd times odd, even times
+fixed $i_d$, and even flux. Thus both errors enter precisely the forbidden
+channels, but with different functional fingerprints.
+
+For additive errors after coherent frame rotation, the other contribution
+can be computed by applying $(\oddq,\evenq)$ componentwise to
+\begin{equation}
+ -\frac{\rotationgenerator\vect\varepsilon_u}{\omegae}
+ +\left(\frac{\Rs}{\omegae}\rotationgenerator-\Ldiff\right)\vect\varepsilon_i
+ -\frac{\flux}{\omegae}\varepsilon_\omega.\label{eq:other-map}
+\end{equation}
+For instance, a scalar speed error equal on both members of a pair multiplies
+both ideal flux components by the same factor and preserves parity. Unequal
+pair errors need not. A constant dq d-voltage offset creates a q-even term
+$-\varepsilon_{u,d}/\omegae$, whereas a constant q-voltage offset shifts
+d-even flux and is invisible to $r_d$. The coordinate representation of a
+physical sensor offset must be determined before assigning these parities.
+
+\paragraph{What pairing hides.}
+An allowed-parity flux error can be large and yet yield zero residuals.
+A nonzero residual indicates incompatibility with the specified symmetry,
+not unique proof of resistance or angle error. Interpolation mismatch,
+temperature mismatch, or real machine asymmetry can enter the same channels.
+Use one independent representative per pair, conventionally $i_q>0$; keeping
+both representatives doubles the same information and their correlated noise.

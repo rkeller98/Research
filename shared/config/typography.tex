@@ -5,3 +5,9 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{2}
 \emergencystretch=1.5em
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+% Prose columns share a readable ragged-right style, including narrow tables.
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
+% Nonfloating comparison panels anchor their links at the caption itself.
+\newenvironment{standalonetable}{\begin{center}\captionsetup{hypcap=false}\scriptsize}{\end{center}}

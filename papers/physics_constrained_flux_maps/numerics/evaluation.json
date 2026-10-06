@@ -1,0 +1,176 @@
+{
+  "seed": 20261006,
+  "spline_degree": 4,
+  "knots": [
+    -1.0,
+    -1.0,
+    -1.0,
+    -1.0,
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "potential_coefficients": 32,
+  "gauge_fixed_coefficients": 31,
+  "noiseless_metrics": {
+    "flux_rmse": 1.1249765880164747e-15,
+    "hessian_rmse": 6.344307692159114e-15,
+    "parity_rmse": 0.0,
+    "curl_rmse": 0.0,
+    "min_symmetric_hessian_eigenvalue": 0.37076474365450474
+  },
+  "results": [
+    {
+      "flux_rmse": 0.002425975422355825,
+      "hessian_rmse": 0.013982255217015127,
+      "parity_rmse": 0.00148675552820745,
+      "curl_rmse": 0.021619849285138968,
+      "min_symmetric_hessian_eigenvalue": 0.321401533383914,
+      "case": "Noisy",
+      "mode": "Independent",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.0018137608425416614,
+      "hessian_rmse": 0.011147829467535317,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.01638974053780583,
+      "min_symmetric_hessian_eigenvalue": 0.3632975038059728,
+      "case": "Noisy",
+      "mode": "Parity",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.0015000453031705186,
+      "hessian_rmse": 0.012380142000672393,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.0,
+      "min_symmetric_hessian_eigenvalue": 0.2446824005591278,
+      "case": "Noisy",
+      "mode": "Potential",
+      "sample_count": 200,
+      "penalty": 0.0
+    },
+    {
+      "flux_rmse": 0.006795342849772229,
+      "hessian_rmse": 0.034030227547141446,
+      "parity_rmse": 0.00471358192076763,
+      "curl_rmse": 0.042702934828398195,
+      "min_symmetric_hessian_eigenvalue": 0.3016166151430106,
+      "case": "Sparse",
+      "mode": "Independent",
+      "sample_count": 50,
+      "penalty": 0.0001
+    },
+    {
+      "flux_rmse": 0.003885184931724711,
+      "hessian_rmse": 0.017894989837263526,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.025004888045544724,
+      "min_symmetric_hessian_eigenvalue": 0.43646440286856336,
+      "case": "Sparse",
+      "mode": "Parity",
+      "sample_count": 50,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.0028713411671991303,
+      "hessian_rmse": 0.01122656886438773,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.0,
+      "min_symmetric_hessian_eigenvalue": 0.4036436721123133,
+      "case": "Sparse",
+      "mode": "Potential",
+      "sample_count": 50,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.013979185251321339,
+      "hessian_rmse": 0.08255836026209103,
+      "parity_rmse": 0.00923623143865047,
+      "curl_rmse": 0.10483270318072405,
+      "min_symmetric_hessian_eigenvalue": -0.3193604919045725,
+      "case": "Outliers",
+      "mode": "Independent",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.010332799421539324,
+      "hessian_rmse": 0.06337819889095911,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.08218042594363516,
+      "min_symmetric_hessian_eigenvalue": -0.14775829172614502,
+      "case": "Outliers",
+      "mode": "Parity",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.007385845817195762,
+      "hessian_rmse": 0.04736597027499192,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.0,
+      "min_symmetric_hessian_eigenvalue": -0.07643239141439445,
+      "case": "Outliers",
+      "mode": "Potential",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.0014969965426103267,
+      "hessian_rmse": 0.009552178850568473,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.0,
+      "min_symmetric_hessian_eigenvalue": 0.4013693108654286,
+      "case": "Outliers",
+      "mode": "Potential robust",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.0024666525976891054,
+      "hessian_rmse": 0.019799281338897922,
+      "parity_rmse": 0.0018397380215471396,
+      "curl_rmse": 0.01666072648957816,
+      "min_symmetric_hessian_eigenvalue": 0.19795616041365038,
+      "case": "Strong saturation",
+      "mode": "Independent",
+      "sample_count": 200,
+      "penalty": 0.001
+    },
+    {
+      "flux_rmse": 0.0018510702377342052,
+      "hessian_rmse": 0.019587797383567484,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.022652719444175278,
+      "min_symmetric_hessian_eigenvalue": 0.13485476559963594,
+      "case": "Strong saturation",
+      "mode": "Parity",
+      "sample_count": 200,
+      "penalty": 0.0001
+    },
+    {
+      "flux_rmse": 0.0010612342942694537,
+      "hessian_rmse": 0.007910905935799666,
+      "parity_rmse": 0.0,
+      "curl_rmse": 0.0,
+      "min_symmetric_hessian_eigenvalue": 0.14942049104722627,
+      "case": "Strong saturation",
+      "mode": "Potential",
+      "sample_count": 200,
+      "penalty": 0.0001
+    }
+  ],
+  "exact_path_disagreement": 2.220446049250313e-16,
+  "parity_only_path_disagreement": -0.29400000000000004,
+  "strong_saturation_min_eigenvalue": 0.020000000000000004
+}

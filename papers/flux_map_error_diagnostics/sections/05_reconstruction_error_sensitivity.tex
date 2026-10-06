@@ -1,0 +1,81 @@
+\section{Reconstruction error: what each measured quantity changes}
+\label{sec:measurement}
+First keep the coordinate frame correct, and perturb only the reconstruction
+inputs. Define used-minus-true errors by
+\begin{equation}
+ \hat R_s=\Rs+\resistanceerror,\quad \hat\voltage=\voltage+\vect\varepsilon_u,
+ \quad\hat\current=\current+\vect\varepsilon_i,\quad
+ \hat\omega_e=\omegae+\varepsilon_\omega.
+ \label{eq:error-definitions}
+\end{equation}
+Substitute these values into \cref{eq:reconstruction}. Before linearizing,
+the difference at the same physical operating point is exactly
+\begin{equation}
+ \hat\flux^{\rm rec}-\flux=
+ \frac{-\rotationgenerator(\vect\varepsilon_u-\Rs\vect\varepsilon_i
+       -\resistanceerror\current-\resistanceerror\vect\varepsilon_i)
+       -\varepsilon_\omega\flux}{\omegae+\varepsilon_\omega}.
+ \label{eq:exact-input-error}
+\end{equation}
+Its differential, neglecting products of small input errors and assuming
+$|\varepsilon_\omega|\ll|\omegae|$, is
+\begin{equation}
+ \boxed{\delta\flux_{\rm rec}=
+ -\frac{\rotationgenerator\delta\voltage}{\omegae}
+ +\frac{\Rs\rotationgenerator\delta\current}{\omegae}
+ +\frac{\rotationgenerator\current}{\omegae}\delta R_s
+ -\frac{\flux}{\omegae}\delta\omega_e.}\label{eq:input-sensitivity}
+\end{equation}
+Taking components checks every sign:
+\begin{align}
+ \delta\psid&=\frac{\delta u_q-\Rs\delta i_q-i_q\delta R_s
+                  -\psid\delta\omega_e}{\omegae},\\
+ \delta\psiq&=\frac{-\delta u_d+\Rs\delta i_d+i_d\delta R_s
+                  -\psiq\delta\omega_e}{\omegae}.
+\end{align}
+The rotation converts q-voltage error into d-flux error and d-voltage error
+into negative q-flux error. Differentiating the reciprocal speed supplies the
+negative speed term. All numerators have units of volts, since
+$\psi\delta\omega_e$ is a voltage; division by angular speed gives webers.
+
+\subsection{A current error also changes the map label}
+The preceding differential concerns a value at one physical point.
+When measurements are stored at $\hat\current$, the true magnetic value was
+evaluated at $\hat\current-\vect\varepsilon_i$. Comparing maps at the same
+numerical label introduces an additional displacement term:
+\begin{equation}
+ \delta\flux_{i,\rm map}=
+ \left(\frac{\Rs}{\omegae}\rotationgenerator-\Ldiff\right)\vect\varepsilon_i.
+ \label{eq:current-relabel}
+\end{equation}
+Ignoring this term could misinterpret a shifted magnetic curve as a pure
+voltage-reconstruction error. A coherent frame rotation will be treated
+separately, because it rotates voltage and flux as well as current.
+
+\subsection{Resistance mismatch}
+With perfect signals and $\resistanceerror=\hat R_s-\Rs$, the resistance contribution
+is exact, not merely first order:
+\begin{equation}
+ \boxed{\delta\psi_{d,R}=-\frac{i_q}{\omegae}\resistanceerror,\qquad
+        \delta\psi_{q,R}=+\frac{i_d}{\omegae}\resistanceerror.}\label{eq:R-error}
+\end{equation}
+At fixed $i_d$ and paired equal speed, the first is odd and the second even
+in $i_q$. At $i_d=0$ the q contribution is zero. Overestimating resistance at
+positive speed therefore adds a negative d-flux slope. A correction inferred
+as $\resistanceerror>0$ must be \emph{subtracted} from the used resistance.
+\input{figures/04_resistance_fingerprint.tex}
+This tilt originates in subtracting too much resistive voltage; no change to
+the magnetic constitutive law is involved. Resistance and inverter uncertainty
+are recognized obstacles to flux-map identification \cite{liu2018}.
+
+At a fixed nonzero speed, the same resistance error also violates integrability:
+\begin{equation}
+ r_{\rm curl,R}=\partial_{i_d}\delta\psi_{q,R}
+               -\partial_{i_q}\delta\psi_{d,R}=2\resistanceerror/\omegae.
+ \label{eq:resistance-curl}
+\end{equation}
+Thus resistance error can violate both parity and reciprocity, whereas the
+pure coherent angle rotation derived next preserves reciprocity. Derivative
+residuals amplify noise and require fixed speed across the current-plane
+derivative. If speed varies with current, derivatives of $1/\omegae$ enter
+and this simple curl expression no longer applies.

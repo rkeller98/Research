@@ -1,0 +1,16 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[publication 3d,width=.65\textwidth,height=6.2cm,
+ xlabel={$x=i_d/I_*$},ylabel={$y=i_q/I_*$},zlabel={$\normalizedcoenergy=W'/(\psi_*I_*)$},
+ domain=-1:1,y domain=-1:1,samples=21,samples y=21]
+ \addplot3[scalar surface]
+  {x+.3*x^2+.5*y^2-.01*x^4-.02*y^4-.03*x^2*y^2+.02*x*y^2};
+\end{axis}
+\end{tikzpicture}
+\caption{Co-energy as a scalar landscape, using the baseline synthetic
+polynomial. Flux measures local slopes; differential inductance measures
+curvature. The PM term tilts the landscape along d current, while its q
+reflection remains intact. The surface height is inferred, not measured.}
+\label{fig:landscape}
+\end{figure}

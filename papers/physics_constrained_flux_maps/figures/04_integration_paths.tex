@@ -1,0 +1,26 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[scale=1.05]
+ \fill[derived light quantity] (0,0) rectangle (3,1.8);
+ \draw[coordinate vector] (-.3,0)--(3.7,0) node[right]{$i_d$};
+ \draw[coordinate vector] (0,-.3)--(0,2.4) node[above]{$i_q$};
+ \draw[strong line,reference quantity,direction arrow] (0,0)--(3,0);
+ \draw[strong line,reference quantity,direction arrow] (3,0)--(3,1.8);
+ \draw[strong line,estimated quantity,alternative pattern,direction arrow] (0,0)--(0,1.8);
+ \draw[strong line,estimated quantity,alternative pattern,direction arrow] (0,1.8)--(3,1.8);
+ \node[operating point] at (0,0) {};
+ \node[operating point] at (3,1.8) {};
+ \node[above right] at (3,1.8) {same endpoint};
+ \node[reference quantity,below] at (1.5,0) {$\mathcal C_1$: d then q};
+ \node[estimated quantity,above] at (1.5,1.8) {$\mathcal C_2$: q then d};
+ \node at (1.5,.9) {$\mathcal A$};
+ \node[annotation,text width=66mm] at (7,.95)
+  {$W'_1-W'_2=\displaystyle\iint_{\mathcal A}r_{\rm curl}\,di_d\,di_q$\\[5pt]
+   Conservative field: both routes agree.\\
+   Circulation: no single-valued height fits both.};
+\end{tikzpicture}
+\caption{Integrability as path agreement. Follow the reference quantity path and reverse
+the estimated quantity path to form the counterclockwise loop used by Green's theorem.
+Choosing only one measured integration path can hide inconsistency.}
+\label{fig:integration}
+\end{figure}

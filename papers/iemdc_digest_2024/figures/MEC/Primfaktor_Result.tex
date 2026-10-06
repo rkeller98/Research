@@ -1,5 +1,5 @@
 \begin{tikzpicture}
-    \def\filename{figures/MEC/Primfactor_Area.csv}
+
     \begin{groupplot}[
         group style={group size=3 by 1, horizontal sep=1.5cm},
         width=\linewidth/3,
@@ -7,21 +7,21 @@
         xlabel={$\gls{idx_dim_azimutal}/\si{\degree}$},
         ylabel={},
         grid=both,
-        grid style={dashed},
-        xmin = 0, 
+        grid style={guide pattern},
+        xmin = 0,
         xmax = 360,
         xtick={0,120,...,360},
     ]
 
     \nextgroupplot[title = {$\gls{vec_prim_sec}_{\gls{idx_stator}}$}]
-    \addplot[const plot, colOne, line width = 1] table [x expr = {\thisrow{theta}}, y = Stator] {\filename};   
+    \addplot[const plot, phase u quantity, standard line] table [col sep=comma, x expr = {\thisrow{theta}}, y = Stator] {figures/MEC/Primfactor_Area.csv};
 
     \nextgroupplot[title = {$\gls{vec_prim_sec}_{\gls{idx_rotor}}$}]
-    \addplot[const plot, colOne, line width = 1] table [x expr = {\thisrow{theta}}, y = Rotor] {\filename};
+    \addplot[const plot, phase u quantity, standard line] table [col sep=comma, x expr = {\thisrow{theta}}, y = Rotor] {figures/MEC/Primfactor_Area.csv};
 
     \nextgroupplot[title = {$\gls{vec_prim_sec}_{\gls{schurr}}$}]
-    \addplot[const plot, colOne, line width = 1] table [x expr = {\thisrow{theta}}, y = Intersect] {\filename}; 
-    \addplot [draw = none, fill=colTwo, fill opacity=0.3, no marks] coordinates {(161,0) (160,901) (195,901) (195,0) (160,0)};
+    \addplot[const plot, phase u quantity, standard line] table [col sep=comma, x expr = {\thisrow{theta}}, y = Intersect] {figures/MEC/Primfactor_Area.csv};
+    \addplot [draw = none, phase v region, fill opacity=0.3, no marks] coordinates {(161,0) (160,901) (195,901) (195,0) (160,0)};
 
     \end{groupplot}
 \end{tikzpicture}

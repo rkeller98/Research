@@ -1,0 +1,80 @@
+\section{Correction proposals and the bridge to admissible magnetic fitting}
+\subsection{An evidence-preserving MeasEval workflow}
+Estimate a local or effective stator resistance only within operating-point
+groups for which temperature and electrical frequency can reasonably be
+regarded as fixed. More generally write $R_s=R_s(T_s,f_e,\ldots)$, where
+$f_e=|\omegae|/(2\pi)$. Combining speeds requires either evidence that the
+same resistance is applicable or an explicit frequency-dependent model.
+PM flux and magnetic derivatives can also change with temperature. An
+``effective resistance'' inferred from the voltage balance can include losses
+or unmodeled drops; it is not automatically a DC winding resistance.
+
+A future analysis should find matched $+i_q/-i_q$ pairs at fixed observed
+$i_d$ and thermal state, record pairing tolerances and interpolation support,
+then compute the two residuals. An optional small exclusion near $i_q=0$
+reduces weak resistance leverage and uncertain inverter behavior, but removes
+some particularly useful q-even angle information. This tradeoff should be
+visible in the reported design rank and conditioning.
+
+Estimate resistance and, when supported by a magnetic reference and sufficient
+rank, angle. Check the fitted correction on held-out current regions and on
+separate speed and temperature groups. Report residual patterns, covariance
+assumptions, nuisance alternatives, and sensitivity to pairing tolerances.
+Apply the proposed corrections as
+\begin{equation}
+ R_{s,\rm proposed}=\hat R_s-\hat\varepsilon_R,\qquad
+ \gamma_{\rm proposed}=\hat\gamma-\widehat{\delta\gamma}.
+\end{equation}
+Keep original parameters and data. Use a corrected value only after explicit
+\emph{Apply} or \emph{\"Ubernehmen}. A suggestion is an engineering judgment
+supported by diagnostics, not an instruction to straighten every measured
+map. Genuine asymmetry or dynamic losses must remain observable.
+
+\subsection{Correct coordinates as well as reconstructed values}
+For a candidate offset $\alpha=\widehat{\delta\gamma}$, let $\current_c$ be
+the corrected current label and $\hat\current=\rotationmatrix(-\alpha)\current_c$.
+Using $\widehat{\varepsilon_R}$ from the local fit, the corrected map is
+\begin{equation}
+ \flux_c(\current_c)=\rotationmatrix(\alpha)
+ \left[\hat\flux(\hat\current)
+       -\frac{\widehat{\varepsilon_R}}{\omegae}\rotationgenerator\hat\current\right].
+ \label{eq:corrected-map}
+\end{equation}
+Subtract the reconstruction bias, rotate its vector back to the proposed true
+axes, and relabel the current argument in those axes. Merely subtracting a
+curve offset while keeping the wrong current grid does not implement angle
+correction. With exact parameter errors and the model assumptions this
+operation inverts \cref{eq:combined-exact}. With estimated errors it is a
+proposal that requires consistency checks and preserved originals.
+
+Report the current used resistance, estimated deviation, proposed resistance,
+support points, scaling and conditioning, fit residual, and before/after
+symmetry residuals. The synthetic combined case reduces the maximum normalized
+residual norm from about $0.07023$ to $2.154\times10^{-6}$ after first-order
+parameter estimation and this exact coordinate correction. This large reduction
+is a known-model noiseless check, not a measured accuracy claim.
+
+\subsection{Residuals to the admissible model}
+The companion defines the magnetic approximation class and its gradient-fit
+implementation \cite{companion-coenergy}. Conceptually write
+\begin{equation}
+ \flux_{\rm meas}=\nabla\coenergy_{\rm physical}
+          +\vect e_R+\vect e_\gamma+\vect e_{\rm other}+\vect\eta.
+ \label{eq:fit-decomposition}
+\end{equation}
+The angle term is additive locally; finite offsets use \cref{eq:pullback}.
+A flexible unconstrained interpolator can absorb a reconstruction tilt into
+apparent magnetics. An admissible symmetric gradient cannot absorb its
+forbidden parity part. Subtracting such a fit leaves measured d-odd and q-even
+residuals unchanged on matched pairs, so their information survives the fit.
+The residual also contains noise, basis bias, excluded physics, and real
+asymmetry; it is not automatically nonmagnetic error.
+
+Together \cref{eq:resistance-curl,eq:rotated-potential} explain the complementary
+tests: constant resistance error has nonzero curl at fixed speed, whereas
+coherent angle rotation can remain a gradient with a rotated symmetry axis.
+The current-proportional voltage confounder has the same parity and curl as
+resistance. Neither a small fit residual nor an extra consistency test removes
+that ambiguity without additional information. Co-energy fitting, basis
+selection, and noise/sampling experiments remain in the companion paper.
+

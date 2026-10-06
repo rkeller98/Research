@@ -1,11 +1,11 @@
 \tikzset{
-  coordinate vector/.style={-{Latex[length=2.2mm]},semithick,MidnightBlue},
-  constraint curve/.style={very thick,BrickRed},
-  principal axis/.style={dash pattern=on 4pt off 2pt,thick,ForestGreen!70!black},
-  eigenvector/.style={-{Latex[length=2.2mm]},very thick,ForestGreen!70!black},
+  coordinate vector/.style={-{Latex[length=2.2mm]},semithick,PublicationReference},
+  constraint curve/.style={very thick,PublicationEstimated},
+  principal axis/.style={dash pattern=on 4pt off 2pt,thick,PublicationDerived},
+  eigenvector/.style={-{Latex[length=2.2mm]},very thick,PublicationDerived},
   projection line/.style={densely dashed,gray!75},
   operating point/.style={circle,fill=black,inner sep=1.7pt},
-  feasible region/.style={fill=ForestGreen!18,draw=none},
+  feasible region/.style={fill=PublicationDerived!18,draw=none},
   annotation/.style={font=\small,align=left,fill=white,fill opacity=.85,text opacity=1,inner sep=1.5pt}
 }
 \pgfplotsset{
@@ -27,3 +27,85 @@
     label style={font=\small}
   }
 }
+
+\tikzset{
+ reference quantity/.style={color=PublicationReference},
+ estimated quantity/.style={color=PublicationEstimated},
+ derived quantity/.style={color=PublicationDerived},
+ torque quantity/.style={color=PublicationTorque},
+ highlighted quantity/.style={color=PublicationHighlight},
+ neutral quantity/.style={color=PublicationNeutral},
+ guide quantity/.style={color=PublicationGuide},
+ reference curve/.style={reference quantity,very thick},
+ measured curve/.style={estimated quantity,thick},
+ fitted curve/.style={derived quantity,thick,dashed},
+ error residual/.style={estimated quantity,very thick},
+ secondary residual/.style={torque quantity,thick},
+ strong line/.style={very thick},standard line/.style={thick},light line/.style={semithick},fine line/.style={thin},
+ guide pattern/.style={densely dashed},alternative pattern/.style={dashed},
+ sampled pattern/.style={dotted},combined pattern/.style={dashdotted},
+ annotation text/.style={font=\small},compact text/.style={font=\scriptsize},
+ footnote annotation/.style={font=\footnotesize},emphasis annotation/.style={font=\bfseries},
+ transformation arrow/.style={-{Latex[length=3mm]}},
+ north magnet region/.style={fill=colMagnetNorth},south magnet region/.style={fill=colMagnetSouth},
+ background region/.style={fill=white},
+ tiny annotation/.style={font=\tiny},body annotation/.style={font=\normalsize},
+ coordinate axis/.style={->},direction arrow/.style={-{Latex[length=2mm]}},
+ estimated axis/.style={direction arrow,estimated quantity,thick},
+ diagnostic block/.style={draw,rounded corners,align=center,font=\small,
+   minimum height=12mm,text width=31mm},
+ pipeline block/.style={diagnostic block,text width=72mm,minimum height=10mm},
+ model block/.style={diagnostic block,fill=PublicationGuide!8},
+ inverse block/.style={diagnostic block,fill=PublicationHighlight!10},
+ flow/.style={direction arrow,thick},
+ paper highlight/.style={operating point,fill=PublicationEstimated},
+ psm center/.style={operating point,fill=PublicationEstimated},
+ null direction/.style={direction arrow,very thick,PublicationHighlight},
+ loss curve/.style={reference curve},torque curve/.style={torque quantity,very thick},
+ voltage curve/.style={estimated quantity,very thick},mapped curve/.style={derived quantity,very thick},
+ neutral axis/.style={highlighted quantity,very thick,densely dashed},
+ support line/.style={thick,dash pattern=on 5pt off 2pt,PublicationGuide},
+ magnet body/.style={draw=black},
+ north magnet/.style={top color=colMagnetNorth,bottom color=colMagnetSouth,magnet body},
+ south magnet/.style={top color=colMagnetSouth,bottom color=colMagnetNorth,magnet body},
+ flux arrow/.style={-{Computer Modern Rightarrow[]},line width=2.5},
+ winding/.style={postaction={decorate},decoration={markings,
+  mark=between positions 0.175 and 0.825 step 0.325 with {\node {#1};}}},
+ winding positive/.style={winding={\footnotesize$\otimes$}},
+ winding negative/.style={winding={\footnotesize$\odot$}}
+}
+\pgfplotsset{diagnostic axis/.style={axis main,width=.46\textwidth,height=5cm,
+ axis lines=box,xlabel={$y=i_q/I_*$},legend style={font=\scriptsize,
+ at={(.5,-.3)},anchor=north,legend columns=2},title style={font=\small},
+ tick label style={font=\scriptsize}},
+ colorbar style={width=2mm},/pgf/number format/1000 sep={}}
+\pgfplotsset{compact coordinate labels/.style={every node near coord/.append style={font=\tiny,anchor=west}}}
+
+\tikzset{
+ derived light quantity/.style={color=PublicationDerived!15},
+ derived light region/.style={fill=PublicationDerived!15},
+ derived muted quantity/.style={color=PublicationDerived!55},
+ derived muted region/.style={fill=PublicationDerived!55},
+ estimated light region/.style={fill=PublicationEstimated!15},
+ estimated muted quantity/.style={color=PublicationEstimated!55},
+ estimated region/.style={fill=PublicationEstimated},
+ guide light region/.style={fill=PublicationGuide!15},
+ guide muted quantity/.style={color=PublicationGuide!55},
+ highlighted light quantity/.style={color=PublicationHighlight!15},
+ highlighted light region/.style={fill=PublicationHighlight!15},
+ iron light region/.style={fill=colIronLight},
+ iron region/.style={fill=colIron},
+ phase u quantity/.style={color=colPhaU},
+ phase v quantity/.style={color=colPhaV},
+ phase v region/.style={fill=colPhaV},
+ phase w quantity/.style={color=colPhaW},
+ reference light quantity/.style={color=PublicationReference!15},
+ reference light region/.style={fill=PublicationReference!15},
+ reference muted quantity/.style={color=PublicationReference!55},
+ reference muted region/.style={fill=PublicationReference!55},
+ torque light region/.style={fill=PublicationTorque!15},
+ torque muted quantity/.style={color=PublicationTorque!55},
+}
+
+\tikzset{bidirectional arrow/.style={<->}}
+\pgfplotsset{scalar surface/.style={surf,shader=interp,opacity=.85}}

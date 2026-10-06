@@ -1,110 +1,65 @@
 # Publications
 
-This repository contains five self-contained LaTeX papers and a reusable,
-self-contained paper template.
+**Read [WRITING_GUIDE.md](WRITING_GUIDE.md) before creating or substantially
+editing a paper.** It is the repository's writing, notation, and visual contract.
 
-## Repository layout
+This repository uses **one notation, one glossary, one visual language, many
+papers**. `shared/` is the canonical source actually loaded by every paper.
+There are no paper-vendored infrastructure bundles and no general `local.tex`.
 
-    papers/
-      psm_voltage_geometry/       independent PSM publication
-      eesm_voltage_geometry/      independent EESM publication
-      iemdc_digest_2024/          IEMDC digest with venue overrides
-      n_dim_rootri/               N-dimensional isocontour extraction
-      recursive_qp_within_simplex/ recursive simplex QP paper
-    paper_template/               complete basis for a new paper
-    shared/                       reference source for the include bundle
-    scripts/                      build, clean, and scaffolding commands
-    build/                        generated intermediates
-    output/pdf/                   exported final PDFs
-    legacy/                       preserved original combined draft
+```
+shared/              canonical commands, glossary, palette, styles, configuration
+paper_template/      content scaffold linked to shared/
+papers/              scientific content, local bibliography, figures, experiments
+scripts/             scaffold, architecture gate, builds, cleanup
+docs/                didactic contract, migration and paper-split reports
+build/               generated intermediates
+output/pdf/          exported PDFs
+legacy/              historical source archive; not part of the active framework
+```
 
-Every directory below papers/ contains its own metadata, sections, figures,
-publication framework, glossary, and bibliography. A paper can therefore be
-copied out of this repository and compiled without shared/.
+The active papers include PSM and EESM voltage geometry, the IEMDC digest,
+N-dimensional contour extraction, recursive simplex QP, the extended EESM
+optimization draft, and the two complementary flux-map drafts:
 
-## Anatomy of a paper
+- `physics_constrained_flux_maps`: admissible co-energy reconstruction and fitting.
+- `flux_map_error_diagnostics`: residuals, error identification, and correction.
 
-    <paper>/
-      main.tex                    document order
-      metadata.tex                title, authors, date, abstract
-      local.tex                   paper-only commands and styles
-      includes/
-        publications.sty          framework entry point
-        config/                   packages and document configuration
-        commands/                 mathematical and machine notation
-        glossary/                 acronyms and symbols
-        tikz/                     reusable TikZ and PGFPlots styles
-        bibliography/             this paper's bibliography database
-      sections/                   one file per section
-      figures/                    source for local figures
+The former combined `dq_flux_symmetry_diagnostics` directory has been split;
+it is not an additional active paper. See [the split report](docs/flux_papers_split.md).
 
-## Create a new paper
+## Start and validate a paper
 
-From the repository root:
+Read the writing guide, [didactic guide](paper_template/DIDACTIC_GUIDE.md),
+and [didactic contract](docs/didactic_contract.md), then use PowerShell:
 
-    .\scripts\new_paper.ps1 my_new_paper
+```
+./scripts/new_paper.ps1 my_paper
+./scripts/check_architecture.ps1 -SelfTest
+./scripts/build.ps1 my_paper
+./scripts/build_all.ps1
+```
 
-This copies paper_template/ to papers/my_new_paper/. Then edit metadata.tex,
-local.tex, sections/, figures/, and the local bibliography as needed. The
-template itself compiles and contains a small working figure example. Its
-DIDACTIC_GUIDE.md and docs/didactic_contract.md define the required learning
-paper style.
+PowerShell 7 works on Windows, Linux, and macOS; Windows PowerShell 5.1 is
+also supported. Builds require latexmk, LuaLaTeX (default) or pdfLaTeX, Biber,
+and Python 3 for the architecture check. All path discovery is relative to
+the script location. Use `-Engine pdflatex` for a pdfLaTeX build.
 
-## Build
+Builds execute inside each paper, write intermediates to `build/<name>/`,
+and export `output/pdf/<name>.pdf`. `build_all.ps1` discovers all active
+`papers/*/main.tex`. Direct builds also work from a paper directory:
 
-Requirements:
+```
+latexmk -lualatex -interaction=nonstopmode -halt-on-error main.tex
+```
 
-- A current MiKTeX or TeX Live installation
-- latexmk, LuaLaTeX, and Biber on PATH
-- PowerShell 7 or Windows PowerShell 5.1
+Papers depend on the canonical repository `shared/` directory. Copying one
+paper alone is no longer an independent-build contract. An export must include
+the shared source at the referenced relative location. Bibliographies,
+metadata, scientific sections, figures, and numerical experiments remain
+paper-owned. Only explicit publisher formatting belongs in `venue.tex`.
 
-Build any paper from the repository root:
-
-    .\scripts\build.ps1 psm_voltage_geometry
-    .\scripts\build.ps1 eesm_voltage_geometry
-    .\scripts\build.ps1 iemdc_digest_2024
-    .\scripts\build.ps1 n_dim_rootri
-    .\scripts\build.ps1 recursive_qp_within_simplex
-    .\scripts\build_all.ps1
-
-`build_all.ps1` discovers every `papers/*/main.tex`, so newly scaffolded papers
-are included automatically. LuaLaTeX is the default. To use pdfLaTeX:
-
-    .\scripts\build.ps1 psm_voltage_geometry pdflatex
-    .\scripts\build_all.ps1 -Engine pdflatex
-
-A paper can also be compiled directly from its own directory without setting
-TEXINPUTS:
-
-    cd .\papers\psm_voltage_geometry
-    latexmk -lualatex -interaction=nonstopmode -halt-on-error main.tex
-
-Intermediate files are written below build/<paper>/ by the repository scripts;
-stable PDFs are exported to output/pdf/. Clean them with:
-
-    .\scripts\clean.ps1
-    .\scripts\clean.ps1 psm_voltage_geometry
-
-## Independence and reuse
-
-The include bundle is intentionally vendored into every paper. This gives each
-publication a reproducible snapshot and removes hidden parent-directory
-dependencies. Paper-specific definitions belong in local.tex, not in the
-vendored framework.
-
-The shared/ directory records the repository-level reference implementation.
-The paper_template/includes/ directory is the starting snapshot used for new
-papers. Existing papers remain stable when either reference is changed.
-
-Venue-specific requirements remain local to a paper. For example,
-`iemdc_digest_2024/local.tex` applies the letter-paper geometry and line spacing
-from the digest source while continuing to use the same publication framework,
-notation, TikZ setup, and Biber pipeline as the other papers.
-
-New acronyms use \newabbreviation in includes/glossary/acronyms.tex; symbols use
-\newglossaryentry in includes/glossary/symbols.tex. Shared drawing styles
-include axis main, constraint curve, principal axis, eigenvector, projection
-line, operating point, feasible region, and coordinate vector.
-
-The glossary uses the glossaries-extra no-index workflow. Bibliographies are
-processed by Biber through Latexmk.
+The canonical glossary loads all definitions but prints only used entries;
+`glsaddall` is forbidden. The architecture gate catches local infrastructure
+copies and competing notation/styles. See [the migration audit](docs/architecture_migration.md)
+for what was consolidated and how the builds were checked.

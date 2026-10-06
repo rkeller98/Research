@@ -1,25 +1,24 @@
 \begin{figure}[tb]
 \centering
-\begin{tikzpicture}[font=\scriptsize,>=Latex,node distance=6mm and 7mm,
- box/.style={draw,rounded corners,align=center,minimum height=7mm,fill=MidnightBlue!6}]
-\node[box] (foc) {FOC / CVC\\rotor \(dq\)};
-\node[box,right=of foc] (ufo) {UFO / DFVC\\flux frame};
-\node[box,right=of ufo] (dtc) {DTC / deadbeat\\direct voltage action};
-\node[box,below=of foc] (af) {active flux\\torque flux factor};
-\node[box,right=of af] (task) {task + null space\\priorities};
-\node[box,right=of task] (iofl) {feedback linearization\\virtual inputs};
-\node[box,below=of af] (hyp) {hyperbolic/projective\\allocation chart};
-\node[box,right=of hyp] (grad) {natural gradient\\local metric frame};
-\node[box,right=of grad] (ajd) {AJD\\fixed compromise};
-\draw[<->] (foc)--(ufo);
-\draw[<->] (ufo)--(dtc);
-\draw[->] (af)--(task);
-\draw[->] (task)--(iofl);
-\draw[->] (hyp)--(task);
-\draw[->] (grad)--(task);
-\draw[->] (ajd)--(task);
-\draw[->] (ufo)--(af);
-\draw[->] (dtc)--(iofl);
+\begin{tikzpicture}[compact text,node distance=6mm and 7mm]
+\node[model block] (foc) {FOC / CVC\\rotor \(dq\)};
+\node[model block,right=of foc] (ufo) {UFO / DFVC\\flux frame};
+\node[model block,right=of ufo] (dtc) {DTC / deadbeat\\direct voltage action};
+\node[model block,below=of foc] (af) {active flux\\torque flux factor};
+\node[model block,right=of af] (task) {task + null space\\priorities};
+\node[model block,right=of task] (iofl) {feedback linearization\\virtual inputs};
+\node[model block,below=of af] (hyp) {hyperbolic/projective\\allocation chart};
+\node[model block,right=of hyp] (grad) {natural gradient\\local metric frame};
+\node[model block,right=of grad] (ajd) {AJD\\fixed compromise};
+\draw[bidirectional arrow] (foc)--(ufo);
+\draw[bidirectional arrow] (ufo)--(dtc);
+\draw[coordinate axis] (af)--(task);
+\draw[coordinate axis] (task)--(iofl);
+\draw[coordinate axis] (hyp)--(task);
+\draw[coordinate axis] (grad)--(task);
+\draw[coordinate axis] (ajd)--(task);
+\draw[coordinate axis] (ufo)--(af);
+\draw[coordinate axis] (dtc)--(iofl);
 \end{tikzpicture}
 \caption{Geometric map of control families. Spatial frames, torque variables,
 task priorities, and voltage laws are composable layers rather than mutually

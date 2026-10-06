@@ -1,5 +1,5 @@
-\newcommand{\vect}[1]{\bm{#1}}
-\newcommand{\matr}[1]{\bm{#1}}
+\NewDocumentCommand{\vect}{O{} m O{}}{\ensuremath{\tensor*[#1]{\bm{#2}}{#3}}}
+\NewDocumentCommand{\matr}{O{} m O{}}{\ensuremath{\tensor*[#1]{\bm{#2}}{#3}}}
 \newcommand{\trans}{^{\mathsf T}}
 \newcommand{\inv}{^{-1}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
@@ -9,3 +9,11 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\defeq}{\coloneqq}
 \newcommand{\given}{\,\middle|\,}
+
+\NewDocumentCommand{\pNorm}{m O{}}{\ensuremath{\left\lVert#1\right\rVert_{#2}}}
+\NewDocumentCommand{\scalar}{O{} m O{}}{\ensuremath{\tensor*[#1]{#2}{#3}}}
+\NewDocumentCommand{\phasor}{O{} m O{}}{\ensuremath{\tensor*[#1]{\underline{#2}}{#3}}}
+\NewDocumentCommand{\EvalAt}{m O{}}{\ensuremath{\left.#1\right\vert#2}}
+\NewDocumentCommand{\discretestep}{m}{\ensuremath{\left[#1\right]}}
+\newcommand{\bigO}[1]{\mathcal O(#1)}
+\pdfstringdefDisableCommands{\def\glsadd#1{}}

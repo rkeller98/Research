@@ -10,8 +10,9 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+& (Join-Path $PSScriptRoot 'check_architecture.ps1')
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$paperDir = Join-Path $repoRoot "papers/$Paper"
+$paperDir = Join-Path (Join-Path $repoRoot 'papers') $Paper
 $mainFile = Join-Path $paperDir 'main.tex'
 $buildDir = Join-Path $repoRoot "build/$Paper"
 $outputDir = Join-Path $repoRoot 'output/pdf'

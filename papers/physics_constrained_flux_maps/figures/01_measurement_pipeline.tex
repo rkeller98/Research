@@ -1,0 +1,18 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[node distance=8mm,]
+ \node[pipeline block] (m) {Measured $u_d,u_q,i_d,i_q,\omega_e$\\and used $R_s$};
+ \node[pipeline block,below=of m] (f) {Stationary reconstruction\\$\vect\psi^{\rm rec}(i_d,i_q)$ samples};
+ \node[pipeline block,below=of f] (energyfit) {Symmetry and integrability; gradient fit\\latent $W'(i_d,i_q)$};
+ \node[pipeline block,below=of energyfit] (d) {Analytic derivatives\\$\hat\flux_{\rm fit}=\nabla\hat W'$, $\hat\Ldiff=\nabla^2\hat W'$};
+ \node[diagnostic block,text width=39mm,right=12mm of energyfit] (r)
+  {Structured fit residual\\$\flux^{\rm rec}-\hat\flux_{\rm fit}$\\[2pt]
+   Companion: error hypotheses\\and correction proposals};
+ \draw[direction arrow] (m)--(f);\draw[direction arrow] (f)--(energyfit);
+ \draw[direction arrow] (energyfit)--(d);\draw[direction arrow] (energyfit)--(r);
+\end{tikzpicture}
+\caption{Measurement-to-model pipeline. No energy sensor is required:
+co-energy is inferred from the flux vector field. The diagnostic branch
+preserves the unexplained residual instead of silently absorbing it.}
+\label{fig:pipeline}
+\end{figure}

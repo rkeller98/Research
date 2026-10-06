@@ -1,0 +1,77 @@
+\section{Numerical realization: a symmetric B-spline potential}
+\subsection{Construct even basis functions rather than repair fitted maps}
+Scale coordinates to $x=i_d/I_*$ and $y=i_q/I_*$, and approximate
+$\coenergy=\psi_*I_*\normalizedcoenergy$. On symmetric q knots, define paired basis functions
+\begin{equation}
+ E_n(y)=\tfrac12\bigl(B_n(y)+B_n(-y)\bigr),\qquad
+ \normalizedcoenergy(x,y)=\sum_{m,n}c_{mn}B_m(x)E_n(y).\label{eq:spline-potential}
+\end{equation}
+Keep one representative of each reflected pair to avoid duplicated columns.
+Then $E_n$ is even, $E'_n$ is odd, and $E''_n$ even. Analytic differentiation
+gives
+\begin{align}
+ \psi_d/\psi_*&=\sum c_{mn}B'_mE_n,&
+ \psi_q/\psi_*&=\sum c_{mn}B_mE'_n,\\
+ L_{dd}/L_*&=\sum c_{mn}B''_mE_n,&
+ L_{dq}/L_*&=L_{qd}/L_*=\sum c_{mn}B'_mE'_n,\\
+ L_{qq}/L_*&=\sum c_{mn}B_mE''_n,&L_*&=\psi_*/I_*.
+\end{align}
+The structural properties now hold by construction, including between samples.
+Differential inductance is surface curvature; its change across the current
+plane expresses saturation and cross-saturation.
+
+For degree $p$ with simple interior knots a spline is $C^{p-1}$ there.
+A cubic potential therefore has continuous Hessian but its third derivatives
+can jump at knots. The illustration uses degree four to obtain continuous
+third derivatives at simple interior knots. Repeated knots reduce continuity;
+the intended derivative quality must guide knot multiplicities. Local support
+limits the number of active coefficients per sample. The standard B-spline
+definition and analytic derivatives are documented in \cite{scipy-bspline}.
+
+\subsection{A linear gradient design and regularization}
+Each sample adds two rows $[B'_mE_n]$ and $[B_mE'_n]$ to a design matrix
+$\matr G$. The normalized data stack is $\vect z$. With a roughness operator
+$\matr P$, solve
+\begin{equation}
+ \min_{\vect c}\norm{\matr G\vect c-\vect z}^2
+          +\lambda\norm{\matr P\vect c}^2,
+ \qquad \vect g_0\trans\vect c=0.\label{eq:spline-solve}
+\end{equation}
+Here $\vect g_0$ evaluates the potential at the reference. A null-space basis
+of the gauge row gives an unconstrained least-squares problem in fewer
+variables. QR or SVD exposes residual rank deficiency without forming a
+poorly conditioned normal matrix. For the synthetic experiment $\matr P$
+samples $\normalizedcoenergy_{xxx},\sqrt3\normalizedcoenergy_{xxy},\sqrt3\normalizedcoenergy_{xyy},\normalizedcoenergy_{yyy}$ on a uniform grid,
+with quadrature weights. It approximates the squared norm of the third
+derivative tensor and penalizes changing Hessian rather than constant inductance.
+
+\subsection{Alternative representations and what they guarantee}
+Independent unconstrained RBF surfaces can accommodate scattered data but
+enforce neither parity nor integrability by default. Independent even/odd
+flux bases enforce parity but leave the mixed derivatives unrelated.
+A scalar symmetry-aware RBF potential fitted through its gradients enforces
+both, like the spline potential, if the basis is sufficiently differentiable.
+RBF kernel shape, smoothing, polynomial augmentation, conditioning, and
+support all require tuning; the standard interpolation interface documents
+these numerical choices \cite{scipy-rbf}. No universal optimal basis is claimed.
+
+\begin{table}[tb]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\toprule
+Representation & Structural guarantee & Remaining numerical questions\\
+\midrule
+Independent flux RBFs & None by default & Kernel/shape, smoothing, conditioning,
+derivatives, boundary support\\
+Independent parity fits & d-even and q-odd & Reciprocity, derivative quality,
+sample coverage, regularization\\
+Common symmetric potential & Parity and reciprocity for a smooth basis &
+Gradient-design rank, gauge, bias, curvature, convexity, tuning\\
+\bottomrule
+\end{tabularx}
+\caption{Structural comparison. Guarantees do not establish which method has
+the smallest prediction error on a particular measured data set.}
+\end{table}
+The small numerical comparison below uses B-splines for all three structural
+classes to isolate constraints from kernel selection. RBF comparison remains
+conceptual in this draft; a broad interpolator benchmark is separate work.

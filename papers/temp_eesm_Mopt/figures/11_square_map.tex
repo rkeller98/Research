@@ -10,7 +10,7 @@
  \addplot[loss curve,domain=0:360,samples=100] ({1.55*cos(x)},{1.55*sin(x)});
 \nextgroupplot[xlabel={$\operatorname{Re}\zeta$},ylabel={$\operatorname{Im}\zeta$},xmin=-2.7,xmax=2.7,ymin=-2.7,ymax=2.7,title={$\zeta=w^2$ plane}]
  \addplot[torque curve] coordinates {(-2.5,.9) (2.5,.9)};
- \addplot[torque curve,Purple!55] coordinates {(-2.5,1.8) (2.5,1.8)};
+ \addplot[torque curve,torque muted quantity] coordinates {(-2.5,1.8) (2.5,1.8)};
  \addplot[loss curve,domain=0:360,samples=100] ({2.40*cos(x)},{2.40*sin(x)});
 \end{groupplot}
 \end{tikzpicture}

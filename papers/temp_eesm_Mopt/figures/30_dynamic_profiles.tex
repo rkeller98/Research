@@ -4,36 +4,36 @@
 \begin{groupplot}[
  group style={group size=2 by 3,horizontal sep=1.15cm,vertical sep=1.15cm},
  width=.46\linewidth,height=.25\linewidth,grid=both,
- tick label style={font=\scriptsize},label style={font=\scriptsize},
- legend style={font=\scriptsize,draw=none,fill=none}]
+ tick label style={compact text},label style={compact text},
+ legend style={compact text,draw=none,fill=none}]
 \nextgroupplot[ylabel={$i_d$},xlabel={$t$}]
- \addplot[gray,dashed] table[x index=0,y index=1]{figures/data/dynamic_straight.dat};
- \addplot[BrickRed,thick] table[x index=0,y index=1]{figures/data/dynamic_time.dat};
- \addplot[ForestGreen!70!black,thick] table[x index=0,y index=1]{figures/data/dynamic_energy.dat};
+ \addplot[guide quantity,alternative pattern] table[x index=0,y index=1]{figures/data/dynamic_straight.dat};
+ \addplot[estimated quantity,standard line] table[x index=0,y index=1]{figures/data/dynamic_time.dat};
+ \addplot[derived quantity,standard line] table[x index=0,y index=1]{figures/data/dynamic_energy.dat};
 \nextgroupplot[ylabel={$i_q$},xlabel={$t$},legend to name=dynlegend]
- \addplot[gray,dashed] table[x index=0,y index=2]{figures/data/dynamic_straight.dat};
+ \addplot[guide quantity,alternative pattern] table[x index=0,y index=2]{figures/data/dynamic_straight.dat};
  \addlegendentry{straight}
- \addplot[BrickRed,thick] table[x index=0,y index=2]{figures/data/dynamic_time.dat};
+ \addplot[estimated quantity,standard line] table[x index=0,y index=2]{figures/data/dynamic_time.dat};
  \addlegendentry{time-oriented}
- \addplot[ForestGreen!70!black,thick] table[x index=0,y index=2]{figures/data/dynamic_energy.dat};
+ \addplot[derived quantity,standard line] table[x index=0,y index=2]{figures/data/dynamic_energy.dat};
  \addlegendentry{energy-oriented}
 \nextgroupplot[ylabel={$i_f$},xlabel={$t$}]
- \addplot[gray,dashed] table[x index=0,y index=3]{figures/data/dynamic_straight.dat};
- \addplot[BrickRed,thick] table[x index=0,y index=3]{figures/data/dynamic_time.dat};
- \addplot[ForestGreen!70!black,thick] table[x index=0,y index=3]{figures/data/dynamic_energy.dat};
+ \addplot[guide quantity,alternative pattern] table[x index=0,y index=3]{figures/data/dynamic_straight.dat};
+ \addplot[estimated quantity,standard line] table[x index=0,y index=3]{figures/data/dynamic_time.dat};
+ \addplot[derived quantity,standard line] table[x index=0,y index=3]{figures/data/dynamic_energy.dat};
 \nextgroupplot[ylabel={$M$},xlabel={$t$}]
- \addplot[gray,dashed] table[x index=0,y index=4]{figures/data/dynamic_straight.dat};
- \addplot[BrickRed,thick] table[x index=0,y index=4]{figures/data/dynamic_time.dat};
- \addplot[ForestGreen!70!black,thick] table[x index=0,y index=4]{figures/data/dynamic_energy.dat};
+ \addplot[guide quantity,alternative pattern] table[x index=0,y index=4]{figures/data/dynamic_straight.dat};
+ \addplot[estimated quantity,standard line] table[x index=0,y index=4]{figures/data/dynamic_time.dat};
+ \addplot[derived quantity,standard line] table[x index=0,y index=4]{figures/data/dynamic_energy.dat};
 \nextgroupplot[ylabel={$P_{\rm Cu}$},xlabel={$t$}]
- \addplot[gray,dashed] table[x index=0,y index=5]{figures/data/dynamic_straight.dat};
- \addplot[BrickRed,thick] table[x index=0,y index=5]{figures/data/dynamic_time.dat};
- \addplot[ForestGreen!70!black,thick] table[x index=0,y index=5]{figures/data/dynamic_energy.dat};
+ \addplot[guide quantity,alternative pattern] table[x index=0,y index=5]{figures/data/dynamic_straight.dat};
+ \addplot[estimated quantity,standard line] table[x index=0,y index=5]{figures/data/dynamic_time.dat};
+ \addplot[derived quantity,standard line] table[x index=0,y index=5]{figures/data/dynamic_energy.dat};
 \nextgroupplot[ylabel={voltage utilization},xlabel={$t$},ymax=1.08]
- \addplot[gray,dashed] table[x index=0,y index=6]{figures/data/dynamic_straight.dat};
- \addplot[BrickRed,thick] table[x index=0,y index=6]{figures/data/dynamic_time.dat};
- \addplot[ForestGreen!70!black,thick] table[x index=0,y index=6]{figures/data/dynamic_energy.dat};
- \addplot[black,dotted] coordinates {(0,1)(4,1)};
+ \addplot[guide quantity,alternative pattern] table[x index=0,y index=6]{figures/data/dynamic_straight.dat};
+ \addplot[estimated quantity,standard line] table[x index=0,y index=6]{figures/data/dynamic_time.dat};
+ \addplot[derived quantity,standard line] table[x index=0,y index=6]{figures/data/dynamic_energy.dat};
+ \addplot[neutral quantity,sampled pattern] coordinates {(0,1)(4,1)};
 \end{groupplot}
 \node at ($(current bounding box.south)+(0,-6mm)$) {\pgfplotslegendfromname{dynlegend}};
 \end{tikzpicture}

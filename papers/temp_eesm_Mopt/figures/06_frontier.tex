@@ -6,8 +6,8 @@
  \addplot[loss curve,domain=0:4.8,samples=100]{.34*x+.12*x^2};
  \addplot[support line] coordinates {(0,3.25) (5.1,3.25)};
  \addplot[support line] coordinates {(3.72,0) (3.72,5)};
- \addplot[only marks,mark=*,mark size=2.2pt,ForestGreen] coordinates {(2.45,1.55)};
- \addplot[only marks,mark=*,mark size=2.2pt,BrickRed] coordinates {(3.72,3.25)};
+ \addplot[only marks,mark=*,mark size=2.2pt,derived quantity] coordinates {(2.45,1.55)};
+ \addplot[only marks,mark=*,mark size=2.2pt,estimated quantity] coordinates {(3.72,3.25)};
  \node[annotation] at (axis cs:1.45,1.95){tracking};
  \node[annotation] at (axis cs:4.3,3.75){maximum feasible};
  \node[annotation] at (axis cs:1.2,3.55){$P_{\mathrm{Cu},\max}$};

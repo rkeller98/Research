@@ -6,3 +6,6 @@
   exponent-product=\cdot
 }
 \DeclareSIUnit\rpm{rpm}
+% LuaLaTeX with the shared T1/lmodern text font has no U+2126 glyph.
+% Keep the SI symbol available in text-mode table headings as well as mathematics.
+\DeclareSIUnit\ohm{\ensuremath{\Omega}}

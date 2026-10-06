@@ -22,7 +22,7 @@ Useful complements answer different questions:
 \toprule
 Chart & Meaning of complements & Principal risk\\
 \midrule
-\((M,\alpha,z_0)\) & factor sharing; loss-null allocation & \(M=0\) singularity\\
+\((M,\allocationangle,z_0)\) & factor sharing; loss-null allocation & \(M=0\) singularity\\
 \((M,\psi_a,\sigma)\) & active flux; excitation sharing & branch in \(i_q=M/(k_T\psi_a)\)\\
 \((M,\psi_s,i_{\mathrm{exc}})\) & voltage-relevant flux; field current & observer dependence\\
 \((M,P_{\mathrm{Cu}},U^2)\) & three performance levels & local, multi-valued inverse\\
@@ -79,26 +79,26 @@ Near such sets, the inverse noise gain grows like
 
 For either torque sign define
 \begin{equation}
- z_\psi=\frac{i_T}{\sqrt2}e^\alpha,\qquad
- z_q=\operatorname{sgn}(M)\frac{i_T}{\sqrt2}e^{-\alpha},\qquad
+ z_\psi=\frac{i_T}{\sqrt2}e^{\allocationangle},\qquad
+ z_q=\operatorname{sgn}(M)\frac{i_T}{\sqrt2}e^{-\allocationangle},\qquad
  M=\frac{\kappa}{2}\operatorname{sgn}(M)i_T^2.
  \label{eq:signed-hyperbolic-chart}
 \end{equation}
 The inverse on a fixed sign branch is
 \[
  i_T=\sqrt{2|z_\psi z_q|},\qquad
- \alpha=\frac12\log\left|\frac{z_\psi}{z_q}\right|,\qquad z_0=z_0.
+ \allocationangle=\frac12\log\left|\frac{z_\psi}{z_q}\right|,\qquad z_0=z_0.
 \]
 Differentiation gives
 \begin{align}
- \dot z_\psi&=\frac{e^\alpha}{\sqrt2}
-  (\dot i_T+i_T\dot\alpha),&
- \dot z_q&=\frac{\operatorname{sgn}(M)e^{-\alpha}}{\sqrt2}
-  (\dot i_T-i_T\dot\alpha),\\
+ \dot z_\psi&=\frac{e^{\allocationangle}}{\sqrt2}
+  (\dot i_T+i_T\dot{\allocationangle}),&
+ \dot z_q&=\frac{\operatorname{sgn}(M)e^{-\allocationangle}}{\sqrt2}
+  (\dot i_T-i_T\dot{\allocationangle}),\\
  \dot M&=\kappa\operatorname{sgn}(M)i_T\dot i_T.
  \label{eq:hyperbolic-rates-representation}
 \end{align}
-Thus \(\dot i_T\) changes torque, \(\dot\alpha\) reallocates its two factors at
+Thus \(\dot i_T\) changes torque, \(\dot{\allocationangle}\) reallocates its two factors at
 constant \(i_T\), and \(\dot z_0\) supplies a second torque-neutral direction.
 The chart fails at \(i_T=0\) and when either factor vanishes; sign and logarithm
 branches also make it unsuitable as a single global startup chart.

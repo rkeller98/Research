@@ -1,15 +1,15 @@
 \begin{figure}[tb]
 \centering
-\begin{tikzpicture}[scale=1.05,>=Latex,font=\small]
+\begin{tikzpicture}[scale=1.05,annotation text]
 \coordinate (O) at (0,0);
-\draw[->,gray] (O)--(3.1,0) node[right]{\(d\)};
-\draw[->,gray] (O)--(0,2.5) node[above]{\(q\)};
-\draw[->,MidnightBlue,very thick] (O)--({2.7*cos(32)},{2.7*sin(32)}) node[right]{\(\gamma\)-axis};
-\draw[->,MidnightBlue,thick] (O)--({2.0*cos(122)},{2.0*sin(122)}) node[above]{quadrature};
-\draw[->,Purple,very thick] (O)--({2.25*cos(60)},{2.25*sin(60)}) node[above]{\(\vect x\)};
-\draw[->] (0.75,0) arc[start angle=0,end angle=32,radius=.75];
+\draw[coordinate axis,guide quantity] (O)--(3.1,0) node[right]{\(d\)};
+\draw[coordinate axis,guide quantity] (O)--(0,2.5) node[above]{\(q\)};
+\draw[coordinate axis,reference quantity,strong line] (O)--({2.7*cos(32)},{2.7*sin(32)}) node[right]{\(\gamma\)-axis};
+\draw[coordinate axis,reference quantity,standard line] (O)--({2.0*cos(122)},{2.0*sin(122)}) node[above]{quadrature};
+\draw[coordinate axis,torque quantity,strong line] (O)--({2.25*cos(60)},{2.25*sin(60)}) node[above]{\(\vect x\)};
+\draw[coordinate axis] (0.75,0) arc[start angle=0,end angle=32,radius=.75];
 \node at (0.82,.23) {\(\delta\)};
-\node[draw,rounded corners,align=left,fill=Orange!10] at (6.3,1.2)
+\node[draw,rounded corners,align=left,highlighted light region] at (6.3,1.2)
  {\(\delta=\mathrm{const.}\): rotor-fixed\\
   \(\delta=\delta(\vect i,\boldsymbol\psi)\): moving\\
   extra rate: \(-\dot\delta\matr J\vect x_\gamma\)};

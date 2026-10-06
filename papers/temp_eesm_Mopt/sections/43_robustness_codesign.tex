@@ -14,7 +14,7 @@ chart before singularity.
 
 \subsection{No coordinate wins every operating region}
 
-Below base speed, loss-oriented \((i_T,\alpha,z_0)\) or
+Below base speed, loss-oriented \((i_T,\allocationangle,z_0)\) or
 \((M,\psi_a,\sigma_{\mathrm{loss}})\) exposes MTPA allocation. In field
 weakening, \((M,\psi_s,\sigma_U)\) or \(ft\) coordinates expose
 \(U\approx\omega_e\psi_s\). Near the capability boundary, tangent/normal
@@ -74,11 +74,11 @@ implies the other.
 
 The trajectories in Part~III become easier to interpret in task variables.
 A stator-first path produces a rapid \(i_T\) change followed by slower
-\(\alpha\) and \(z_0\) relaxation as the excitation state catches up. Direct
+\(\allocationangle\) and \(z_0\) relaxation as the excitation state catches up. Direct
 linear interpolation in \(dq\)-field current can leave a torque surface;
 projecting the slow redistribution into
 \(\nabla M^{\mathsf T}\dot{\vect i}=0\) suppresses first-order torque error.
-For optimization, \((i_T,\alpha,z_0)\) is therefore the most natural warm
+For optimization, \((i_T,\allocationangle,z_0)\) is therefore the most natural warm
 start among the tested charts, while the final constrained solve should remain
 in regular physical currents or flux states to avoid the \(M=0\) singularity.
 

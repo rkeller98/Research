@@ -1,0 +1,101 @@
+\section{Synthetic evaluation: sample error and physical structure}
+\label{sec:synthetic}
+\subsection{A known nonlinear field and distinct fitting experiments}
+Let $I_*=\SI{100}{\ampere}$, $\psi_*=\SI{0.1}{\weber}$, and
+$L_*=\psi_*/I_*=\SI{1}{\milli\henry}$. With $x=i_d/I_*$, $y=i_q/I_*$,
+and $\coenergy=\psi_*I_*\normalizedcoenergy$, use
+\begin{equation}
+ \normalizedcoenergy=x+0.3x^2+0.5y^2
+      -s(0.01x^4+0.02y^4)-0.03x^2y^2+0.02xy^2.
+ \label{eq:synthetic-energy}
+\end{equation}
+Here $s=1$ is the baseline and $s=3$ strengthens d/q saturation. PM flux,
+nonlinear self-saturation, and reciprocal cross-saturation are all present.
+The normalized flux components are
+\begin{align}
+ \psid/\psi_*&=1+0.6x-0.04s x^3-0.06xy^2+0.02y^2,\\
+ \psiq/\psi_*&=y-0.08s y^3-0.06x^2y+0.04xy,
+\end{align}
+with Hessian
+\begin{equation}
+ \Ldiff/L_*=
+ \begin{bmatrix}
+ 0.6-0.12s x^2-0.06y^2&-0.12xy+0.04y\\
+ -0.12xy+0.04y&1-0.24s y^2-0.06x^2+0.04x
+ \end{bmatrix}.
+\end{equation}
+On $[-1,1]^2$, even at $s=3$, both diagonals are at least $0.18$ and
+the off-diagonal magnitude at most $0.16$. Strict diagonal dominance proves
+positive definiteness with eigenvalues at least $0.02$. This local polynomial
+should not be extrapolated to arbitrarily large currents.
+
+The experiment treats reconstructed flux samples as data with independent
+normalized Gaussian noise of standard deviation $0.005$ per component. It
+does not inject resistance or angle errors; those are the companion's
+experiments. Draw scattered points uniformly on $[-1,1]^2$ using seed
+20261006. Use 200 points for the noisy baseline, 50 for sparse sampling,
+200 with five percent outliers for the outlier case, and 200 with $s=3$ for
+stronger saturation. Outliers add Gaussian contamination of standard deviation
+$0.1$ to both components of selected samples. No assertion about real sensor
+noise is implied by this convenient synthetic distribution.
+
+\subsection{Compare structural classes with the same spline family}
+All candidates use degree-four B-splines with clamped endpoints at $-1,1$
+and simple interior knots $-0.5,0,0.5$. Independent fits use two full tensor
+bases. Parity fits use an even d basis and an odd q basis. The common potential
+uses eight d basis functions and four even q basis functions: 32 coefficients,
+31 after gauge fixing. Noiseless exact field recovery on a $13\times13$ sample
+grid is checked separately; the chosen polynomial is representable in this
+basis. This favorable approximation setting isolates noise and structure,
+and limits conclusions about arbitrary machine maps.
+
+Choose $\lambda$ among $0,10^{-6},10^{-5},10^{-4},10^{-3}$ using a fixed
+80/20 split and validation flux error, then refit all samples with the selected
+weight. Independent flux fits penalize their second derivatives, while the
+potential fit penalizes third derivatives of co-energy, as described earlier.
+These penalties target comparable flux smoothness but are not identical
+optimization problems. The split is shared across candidates within each
+case. One additional potential fit uses eight iteratively reweighted
+least-squares steps with scalar Huber threshold $0.01$ for outliers.
+
+Evaluate on a $25\times25$ grid over $[-0.95,0.95]^2$, distinct from the
+training samples. Report componentwise flux RMSE in $\psi_*$ units, Hessian
+entry RMSE in $L_*$ units, parity residual RMS in $\psi_*$ units, and curl
+RMS in $L_*$ units. The evaluation avoids the exact outer boundary; it cannot
+establish boundary or extrapolation reliability. Potential derivatives are
+analytic basis derivatives, not numerical differences of interpolated flux.
+\begin{table}[tbp]
+\centering\scriptsize\input{figures/data/fit_metrics.tex}
+\caption{A single seeded illustrative experiment. Independent and parity
+fits use flux B-splines; potential fits use co-energy gradients. Structural
+zeros hold by construction. This is not an RBF benchmark or a statistical
+ranking across many machines and sampling realizations.}
+\label{tab:fit-metrics}
+\end{table}
+\input{figures/05_fitted_slopes_curvature.tex}
+
+\subsection{What the numbers do and do not establish}
+In the baseline, the potential fit has normalized flux RMSE about $0.00150$,
+versus $0.00243$ for independent fits and $0.00181$ for parity fits.
+Yet its Hessian RMSE is about $0.0124$, slightly higher than the parity fit's
+$0.0111$. Better pointwise prediction therefore does not automatically mean
+better derivatives. Selecting regularization only on flux error can underweight
+the engineering importance of differential-inductance quality.
+
+Parity fits eliminate forbidden reflection components but retain nonzero
+curl. The common potential eliminates both structurally, even in noisy and
+sparse cases. This is a representation guarantee, not evidence that every
+remaining prediction is true. With outliers, the ordinary potential fit
+still develops a negative minimum Hessian eigenvalue of approximately
+$-0.0764$ on the evaluation grid. Energy consistency and symmetry alone do
+not enforce positive differential inductance. The robust potential fit
+reduces flux RMSE from approximately $0.00739$ to $0.00150$ and keeps positive
+sampled eigenvalues in this realization. Grid positivity still does not prove
+global positivity; an explicit convexity constraint would be a separate step.
+
+The script verifies B-spline partition of unity and analytic derivative
+recurrences, gauge, gauge-fixed rank, exact noiseless flux/Hessian recovery,
+and structural parity and curl of fitted candidates. It stores metrics,
+selected weights, and sampled Hessian eigenvalues in
+\texttt{numerics/evaluation.json}. These checks support reproducibility of
+the illustration; they are not substitutes for varied-data validation.

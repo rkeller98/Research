@@ -6,6 +6,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+& (Join-Path $PSScriptRoot 'check_architecture.ps1')
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $templateDir = Join-Path $repoRoot 'paper_template'
 $papersDir = Join-Path $repoRoot 'papers'
@@ -20,5 +21,8 @@ if (Test-Path -LiteralPath $targetDir) {
 
 New-Item -ItemType Directory -Path $papersDir -Force | Out-Null
 Copy-Item -LiteralPath $templateDir -Destination $targetDir -Recurse
-Write-Host "Created self-contained paper: $targetDir"
-Write-Host "Next: edit metadata.tex, local.tex, sections/, and figures/."
+$newMain = Join-Path $targetDir 'main.tex'
+$newMainText = [IO.File]::ReadAllText($newMain).Replace('\subimport{../shared/}', '\subimport{../../shared/}')
+[IO.File]::WriteAllText($newMain, $newMainText, (New-Object Text.UTF8Encoding($false)))
+Write-Host "Created paper using canonical shared infrastructure: $targetDir"
+Write-Host "Read WRITING_GUIDE.md first; then edit metadata, sections, figures, and bibliography."

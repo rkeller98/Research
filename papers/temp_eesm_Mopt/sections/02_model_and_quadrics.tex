@@ -15,7 +15,7 @@ linear model is
  \gls{sym:pcu}&=\gls{sym:rexc}\gls{sym:iexc}^{2}
  +\frac32\gls{sym:rs}(\gls{sym:id}^{2}+\gls{sym:iq}^{2}),
  \label{eq:model-loss}\\
- \gls{sym:torque}&=\gls{sym:kt}\gls{sym:iq}
+ \gls{sym:te}&=\gls{sym:kt}\gls{sym:iq}
  (\gls{sym:lexc}\gls{sym:iexc}+\gls{sym:dl}\gls{sym:id}),
  \label{eq:model-torque}\\
  \gls{sym:ud}&=\gls{sym:rs}\gls{sym:id}
@@ -48,7 +48,7 @@ loss model contains no coupled loss term.
 
 Torque is also quadratic, although it is visibly a product:
 \begin{equation}
- \gls{sym:torque}=\gls{sym:i}^{\mathsf T}\gls{sym:hmat}\gls{sym:i},\qquad
+ \gls{sym:te}=\gls{sym:i}^{\mathsf T}\gls{sym:hmat}\gls{sym:i},\qquad
  \gls{sym:hmat}=\frac{\gls{sym:kt}}2
  \begin{bmatrix}
  0&\gls{sym:dl}&0\\
@@ -119,7 +119,7 @@ stationary model.
 For every real scale \(a\),
 \begin{equation}
  \gls{sym:pcu}(a\gls{sym:i})=a^2\gls{sym:pcu}(\gls{sym:i}),\quad
- \gls{sym:torque}(a\gls{sym:i})=a^2\gls{sym:torque}(\gls{sym:i}),\quad
+ \gls{sym:te}(a\gls{sym:i})=a^2\gls{sym:te}(\gls{sym:i}),\quad
  U^2(a\gls{sym:i})=a^2U^2(\gls{sym:i}).
  \label{eq:homogeneity}
 \end{equation}

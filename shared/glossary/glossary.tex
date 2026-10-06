@@ -1,3 +1,9 @@
 \newglossaryentry{quadraticform}{name={quadratic form},description={Scalar map $\vect{x}\mapsto\vect{x}\trans\matr{A}\vect{x}$}}
 \newglossaryentry{principalaxis}{name={principal axis},description={Eigenvector direction of the symmetric quadratic part}}
-\makenoidxglossaries
+% Initialize the printable index only when this document requests one.
+% Definitions remain available in short venue papers without a symbol appendix.
+\AtEndPreamble{%
+  \ifcsdef{ifshowglossary}
+    {\ifshowglossary\makenoidxglossaries\else\glsdisablehyper\fi}
+    {\makenoidxglossaries}% Older full papers print their appendix unconditionally.
+}

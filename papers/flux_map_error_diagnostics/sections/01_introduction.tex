@@ -1,0 +1,41 @@
+\section{Purpose: distinguish magnetics, coordinates, and reconstruction}
+A measured direct-axis flux curve that tilts between positive and negative
+quadrature current invites several explanations: saturation, an incorrect
+resistance, or a misaligned rotor frame. A curve alone cannot decide between
+them. The useful question is which features an admissible magnetic map can
+have, and which measurement operations introduce features outside that class.
+Steady-state rotor-oriented voltage conventions follow standard machine
+modeling \cite{binder2017,schroeder2021}. The companion co-energy reconstruction
+framework establishes which components belong to symmetric quasi-static
+machine magnetics \cite{companion-coenergy}. The present work studies the
+complementary question: what information is contained in components that
+violate this structure?
+
+The central question is: given steady-state voltage, current, electrical speed,
+and reconstructed flux maps, which reflection symmetries are required by a
+magnetically symmetric machine, how do errors change them, and when can
+resistance and angle errors be separately estimated? We keep four layers
+distinct: the magnetic constitutive map, its coordinate representation,
+voltage-based reconstruction, and imperfect measurements or used parameters.
+Their separation matters because a coordinate error moves the argument of a
+map as well as its output, whereas a resistance error changes reconstruction.
+
+The paper proceeds from reconstruction and a compact structural foundation
+to error propagation, exact frame rotation, parity residuals, and
+identifiability. A normalized experiment then builds intuition from an
+isotropic PM machine to a saturated cross-coupled one. It uses synthetic data,
+not a claimed motor calibration or a comparison of interpolation methods.
+The final sections explain correction proposals for future MeasEval analysis
+and interpretation of residuals to the admissible magnetic model. Full
+co-energy fitting theory and its noise/sampling experiments belong to the
+companion; this paper tests error injection and parameter recovery.
+
+\paragraph{Reading conventions.}
+Unadorned quantities denote truth. Hats denote measured coordinates, measured
+signals, or a used parameter, identified explicitly at each introduction.
+$\flux(\current)$ is the true constitutive map; $\flux^{\rm rec}$ is a
+voltage-reconstructed value. The measured map $\hat\flux(\hat\current)$
+contains both frame and reconstruction effects. Differences between maps are
+always compared at the same \emph{numerical current argument}. Angles are
+electrical radians; speed is signed electrical angular speed. Temperature,
+magnet state, and averaging convention are held fixed unless stated otherwise.

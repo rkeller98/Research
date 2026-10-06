@@ -1,5 +1,8 @@
 # Didactic contract
 
+Read [WRITING_GUIDE.md](../WRITING_GUIDE.md) first for the repository-wide
+notation, style and build contract. This document specifies its didactic intent.
+
 The papers are learning papers, not compressed derivation notes. A reader
 should understand why a result must be true, not only reproduce the algebra.
 

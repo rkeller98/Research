@@ -1,7 +1,8 @@
 \documentclass[11pt,a4paper]{article}
-\input{includes/preamble.tex}
+\usepackage{import}
+\subimport{../../shared/}{preamble.tex}
+\addbibresource{bibliography/references.bib}
 \input{metadata.tex}
-\input{local.tex}
 
 \begin{document}
 \maketitle
@@ -20,7 +21,6 @@
 \input{sections/08_conclusion.tex}
 
 \printnoidxglossary[type=\acronymtype,title={Acronyms}]
-\glsaddall[types={symbols}]
 \printnoidxglossary[type=symbols,title={Symbols}]
 \printbibliography
 \end{document}

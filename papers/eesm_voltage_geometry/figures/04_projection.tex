@@ -8,7 +8,7 @@
  \addplot[feasible region] fill between[of=upper and lower];
  \addplot[constraint curve,domain=-3:3]{.35*x+1};
  \addplot[constraint curve,domain=-3:3]{.35*x-1};
- \addplot[voltage limit,MidnightBlue,domain=0:360,samples=120]
+ \addplot[voltage limit,reference quantity,domain=0:360,samples=120]
   ({-.8+1.3*cos(x)},{.05+.65*sin(x)});
  \node[annotation] at (axis cs:1.5,-.1){projection over free $i_e$};
  \node[annotation] at (axis cs:-.9,.65){slice $i_e=\mathrm{const.}$};

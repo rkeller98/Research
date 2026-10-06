@@ -1,0 +1,33 @@
+\section{Purpose: reconstruct admissible magnetics from electrical samples}
+An accurate interpolator can match two measured flux surfaces without making
+them the gradient of any common magnetic potential. If those surfaces are
+later differentiated, visually small inconsistencies may become large errors
+in differential inductance. The research question here is therefore not only
+how to minimize pointwise flux error, but how to reconstruct smooth saturated
+$dq$ maps while retaining known magnetic structure.
+
+We begin with terminal voltage, current, and electrical speed. The stationary
+voltage balance yields flux samples. A conservative magnetic description
+then interprets those vectors as local slopes of a latent scalar co-energy
+surface. Reflection symmetry constrains that surface, its gradient supplies
+both flux components, and its Hessian supplies their differential inductances.
+Energy-based machine descriptions and saturation models support this approach
+\cite{jebai2014,jebai2011}; standard voltage conventions follow
+\cite{binder2017,schroeder2021}.
+
+This paper owns the full co-energy, symmetry, integrability, and fitting
+development. Its companion studies the complementary question: how do
+departures from this admissible structure identify resistance, rotor-angle,
+and related reconstruction errors \cite{companion-diagnostics}? Here those
+errors motivate preserving fit residuals; they are not estimated. Both papers
+remain independently readable and carry their own framework and numerical
+data. The synthetic evaluation below concerns noise, sampling, and derivative
+quality rather than parameter-error injections.
+
+Unadorned quantities denote a true constitutive field, measured electrical
+inputs are explicitly marked, $\flux^{\rm rec}$ denotes reconstructed samples,
+and $\hat\flux_{\rm fit}=\nabla\hat\coenergy$ denotes a fitted field. All magnetic
+statements refer to fixed temperature and magnet state, with an effective
+fundamental or consistently averaged quasi-static description. No additional
+energy measurement is assumed.
+\input{figures/01_measurement_pipeline.tex}

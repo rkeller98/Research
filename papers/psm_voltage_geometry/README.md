@@ -1,6 +1,8 @@
+Read the repository `WRITING_GUIDE.md` first.
+
 # PSM voltage geometry paper
 
-This directory is a self-contained publication. Compile it directly with:
+This directory is a publication using the canonical repository shared/ infrastructure. Compile it directly with:
 
     latexmk -lualatex -interaction=nonstopmode -halt-on-error main.tex
 

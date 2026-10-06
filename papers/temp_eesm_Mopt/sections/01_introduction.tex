@@ -26,7 +26,7 @@ Two precise problems will be connected. For requested torque
 \begin{equation}
  \gls{sym:preq}(\gls{sym:mref})
  =\min_{\gls{sym:i}}\left\{\gls{sym:pcu}(\gls{sym:i})\;\middle|\;
- \gls{sym:torque}(\gls{sym:i})=\gls{sym:mref},\ 
+ \gls{sym:te}(\gls{sym:i})=\gls{sym:mref},\
  \norm{\gls{sym:u}(\gls{sym:i})}\leq\gls{sym:umax}\right\}.
  \label{eq:preq-definition}
 \end{equation}
@@ -40,8 +40,8 @@ the minimization: it is the acceptance test on the minimum. Removing it from
 the controller would remove the thermal feasibility statement, not simplify
 the physics. The companion problem is
 \begin{equation}
- \gls{sym:mmax}=\max_{\gls{sym:i}}\left\{\gls{sym:torque}(\gls{sym:i})
- \;\middle|\;\gls{sym:pcu}\leq\gls{sym:pcumax},\ 
+ \gls{sym:mmax}=\max_{\gls{sym:i}}\left\{\gls{sym:te}(\gls{sym:i})
+ \;\middle|\;\gls{sym:pcu}\leq\gls{sym:pcumax},\
  \norm{\gls{sym:u}}\leq\gls{sym:umax}\right\}.
  \label{eq:mmax-definition}
 \end{equation}

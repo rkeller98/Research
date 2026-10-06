@@ -1,0 +1,92 @@
+\section{Co-energy is a latent surface inferred from its slopes}
+\label{sec:potential}
+\subsection{The experiment measures slopes, not absolute height}
+Voltage reconstruction provides current locations and two flux components.
+For a conservative static magnetic relation define
+\begin{equation}
+ \boxed{d\coenergy=\psid\,di_d+\psiq\,di_q,\qquad
+        \nabla_{\current}\coenergy=\flux.}\label{eq:potential-gradient}
+\end{equation}
+The current plane is the horizontal domain of a scalar landscape.
+$\psi_d$ is its slope along d current and $\psi_q$ its slope along q current.
+The reconstructed flux vector thus provides local slope information, from
+which a compatible landscape can be inferred. It does not provide an
+independently measured co-energy height.
+
+For amplitude-invariant dq conventions, use physical three-phase co-energy
+divided by $3/2$, so \cref{eq:potential-gradient} has exactly the usual dq
+flux components. $W'$ has units $\si{\weber\ampere}=\si{\joule}$ under
+this fixed normalization. It is not interchangeable with magnetic energy;
+where a local Legendre relation exists, their distinction is the usual energy
+versus co-energy distinction. The fixed PM state and reference offset remain
+part of the model.
+\input{figures/03_potential_landscape.tex}
+
+\subsection{Relative co-energy and gauge freedom}
+For any admissible path $\mathcal C$ from $\current_0$ to $\current$,
+\begin{equation}
+ \boxed{\coenergy(\current)-\coenergy(\current_0)
+       =\int_{\mathcal C}\flux\cdot d\current.}\label{eq:path-integral}
+\end{equation}
+Adding a constant changes no slope:
+$\nabla(\coenergy+C)=\nabla\coenergy$. If the origin lies in the domain, choose
+$\coenergy(0,0)=0$. This is a gauge, not a measurement of absolute energy.
+On a connected domain with a fully known conservative field the potential
+is unique up to this constant. Finite samples can leave additional unobserved
+shape directions; a gauge alone does not eliminate them.
+
+\subsection{Two paths reveal integrability}
+On a rectangle connecting the origin to $(i_d,i_q)$, compare
+\begin{align}
+ W'_1&=\int_0^{i_d}\psi_d(\xi,0)\,d\xi
+        +\int_0^{i_q}\psi_q(i_d,\eta)\,d\eta,\\
+ W'_2&=\int_0^{i_q}\psi_q(0,\eta)\,d\eta
+        +\int_0^{i_d}\psi_d(\xi,i_q)\,d\xi.
+\end{align}
+The same endpoint must have the same height. Going around a small rectangle
+therefore produces no accumulated co-energy. For a $C^1$ field the local
+condition is
+\begin{equation}
+ \boxed{\partial_{i_q}\psid=\partial_{i_d}\psiq.}\label{eq:integrability}
+\end{equation}
+On an open simply connected domain this condition is also sufficient for a
+potential. On a domain with holes, zero circulation around noncontractible
+loops is additionally required. Smooth local cross-derivative equality alone
+does not settle that global topology.
+
+Define the curl-like residual
+\begin{equation}
+ r_{\rm curl}=\partial_{i_d}\psiq-\partial_{i_q}\psid.
+\end{equation}
+Green's theorem for a counterclockwise boundary gives
+\begin{equation}
+ \boxed{\oint_{\partial\mathcal A}\flux\cdot d\current
+        =\iint_{\mathcal A}r_{\rm curl}\,di_d\,di_q.}
+ \label{eq:green}
+\end{equation}
+For positive $i_d,i_q$, the d-then-q path followed by the reverse alternative
+path is counterclockwise, so $W'_1-W'_2$ equals this integral over their
+rectangle. Circulation means no single-valued static scalar surface can
+reproduce that field exactly. It does not specify the cause of inconsistency.
+\input{figures/04_integration_paths.tex}
+
+\subsection{Why path integration is explanatory rather than the primary fit}
+Noise, resistance mismatch, voltage error, current bias, interpolation, or
+excluded dynamic physics can make measured paths disagree. Selecting one
+arbitrary path hides that disagreement and accumulates sampling error.
+A coherent constant rotor-angle rotation, however, can retain integrability
+while rotating the symmetry axis; the companion derives this distinction.
+It must not be listed as an automatic cause of nonzero curl.
+We therefore fit gradients directly, using all samples jointly, rather than
+first creating noisy co-energy observations by integration.
+
+\subsection{A linear PM example as a check}
+For $\psi_d=\psi_{\rm pm}+L_di_d$ and $\psi_q=L_qi_q$, either path yields
+\begin{equation}
+ \coenergy=\psi_{\rm pm}i_d+\tfrac12L_di_d^2+\tfrac12L_qi_q^2+C.
+\end{equation}
+Its d derivative is $\psi_{\rm pm}+L_di_d$ and its q derivative is $L_qi_q$.
+The PM supplies a linear d tilt, not an obstacle to a scalar representation.
+Saturation generalizes the quadratic curvature while leaving the gradient
+relationship intact. We next derive reflection without relying on this
+linear special case.

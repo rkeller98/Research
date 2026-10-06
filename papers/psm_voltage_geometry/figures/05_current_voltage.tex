@@ -9,7 +9,7 @@
   \addplot[voltage limit,domain=0:360,samples=181]
     ({-1.0+1.8*cos(x)*cos(12)-.9*sin(x)*sin(12)},
      {.15+1.8*cos(x)*sin(12)+.9*sin(x)*cos(12)});
-  \addplot[only marks,mark=*,black] coordinates {(-1.2,1.05)};
+  \addplot[only marks,mark=*,neutral quantity] coordinates {(-1.2,1.05)};
   \legend{current limit,voltage limit,feasible operating point}
  \end{axis}
 \end{tikzpicture}

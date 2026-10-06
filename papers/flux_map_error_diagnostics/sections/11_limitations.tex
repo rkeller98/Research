@@ -1,0 +1,71 @@
+\section{Other errors and the limits of causal attribution}
+The explicitly derived models cover resistance mismatch, constant coherent
+frame rotation, additive voltage/current/speed perturbations, current relabeling,
+and a simple timing extension. Gain errors can be expressed locally as
+$\vect\varepsilon_u=\matr G_u\voltage+\vect b_u$ and
+$\vect\varepsilon_i=\matr G_i\current+\vect b_i$, but their parity depends
+on those matrices and on the frame in which gains and offsets originate.
+These expressions parameterize errors; they do not establish a complete
+sensor-identification procedure.
+
+Deadtime and semiconductor drops contribute structured terminal-voltage errors
+that can depend on phase-current signs, switching conditions, and temperature.
+Their dq averages are not generally constant sensor offsets. Work on magnetic
+map identification explicitly addresses inverter nonlinearities and uncertain
+resistance \cite{liu2018}; here they remain nuisance sources unless an
+independent voltage model is available. Commanded inverter voltage and actual
+terminal voltage must not be silently equated.
+
+\begin{table}[tb]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}lXXX@{}}
+\toprule
+Effect & Forbidden d channel & Forbidden q channel & Speed behavior\\
+\midrule
+Resistance mismatch & Odd, $-i_q\resistanceerror/\omegae$ & Even, $i_d\resistanceerror/\omegae$;
+zero at $i_d=0$ & $1/\omegae$ for fixed mismatch\\
+Constant angle & Odd angle sensitivity & Even angle sensitivity & No explicit
+speed factor in quasi-static map\\
+Saturation alone & None under reflection & None under reflection & Magnetic
+map held fixed\\
+Saturation with angle & Changes odd sensitivity & Changes even sensitivity &
+Through operating point or changing magnetics\\
+Paired scalar speed error & None for ideal parity & None for ideal parity &
+Common multiplicative flux error\\
+Voltage/inverter error & Potentially odd & Potentially even & Voltage error
+divided by speed; voltage error itself may vary\\
+\bottomrule
+\end{tabularx}
+\caption{Conditional fingerprints derived earlier. Zero forbidden residual
+does not imply zero reconstruction error. Pair speed and thermal state must
+match; channel amplitudes may vanish at special operating points.}
+\label{tab:fingerprints}
+\end{table}
+
+The remaining limitations are qualitative. Real construction or magnet
+asymmetry can break reflection physically. Harmonics and skew require attention
+to rotor-position dependence and the averaging convention; symmetric skew
+need not destroy effective reflection. Hysteresis makes flux history-dependent.
+Iron loss and other dynamic effects can make a speed-independent static map
+inadequate even in an apparently steady fundamental operating condition.
+Temperature changes both winding resistance and magnetics. Frequency-dependent
+effective drops need not equal a constant winding resistance. These effects
+cannot all be resolved from two parity channels.
+
+The method also requires measured support on both sides of the reflection.
+Interpolation cannot supply missing experimental information, and extrapolated
+partners should not be treated as independent observations. Differentiating
+noisy data can corrupt angle sensitivities, so a constrained reference and
+uncertainty propagation are prerequisites to quantitative use. Correlated
+sensor errors and nuisance terms can invalidate nominal least-squares intervals.
+
+\paragraph{Evidence boundary.}
+The equations are analytical under their stated assumptions, and the numerical
+checks validate their implementation on a known synthetic model. No experimental
+accuracy, temperature range, or inverter rejection performance is claimed.
+The cited literature supports the model background and related identification
+problems; the specific residual derivations are developed here. A dedicated
+experimental reference on calibrating an unknown constant encoder offset from
+paired saturated maps, and a measured comparison of effective versus DC winding
+resistance, remain open source and validation work. No bibliographic placeholder
+is used for these gaps.

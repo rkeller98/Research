@@ -1,17 +1,13 @@
 \begin{figure}[tb]
   \centering
   \begin{tikzpicture}[
-    node distance=9mm,
-    box/.style={draw,rounded corners,align=center,minimum height=12mm,
-      text width=.19\linewidth,fill=gray!6},
-    flow/.style={-{Latex[length=2mm]},thick}
-  ]
-    \node[box] (input) {$\R^3$ current space\\three directions};
-    \node[box,right=of input] (rotate) {$\matr V\trans$\\rotate to principal
+    node distance=9mm]
+    \node[model block] (input) {$\R^3$ current space\\three directions};
+    \node[model block,right=of input] (rotate) {$\matr V\trans$\\rotate to principal
       currents};
-    \node[box,right=of rotate] (scale) {$[\matr\Sigma\ \vect0]$\\scale two,
+    \node[model block,right=of rotate] (scale) {$[\matr\Sigma\ \vect0]$\\scale two,
       collapse one};
-    \node[box,right=of scale] (output) {$\matr U$\\rotate in $\R^2$ voltage
+    \node[model block,right=of scale] (output) {$\matr U$\\rotate in $\R^2$ voltage
       space};
     \draw[flow] (input)--(rotate);
     \draw[flow] (rotate)--(scale);

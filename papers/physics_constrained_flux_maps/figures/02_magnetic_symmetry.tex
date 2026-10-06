@@ -1,0 +1,22 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[diagnostic axis,title={Even d flux},ylabel={$\psi_d/\psi_*$},
+ xmin=-1.1,xmax=1.1,ymin=.99,ymax=1.04]
+ \addplot[strong line,reference quantity,domain=-1:1,samples=81]{1+.02*x^2};
+ \addplot[only marks,estimated quantity] coordinates {(-.8,1.0128) (.8,1.0128)};
+ \draw[alternative pattern,guide quantity] (axis cs:-.8,1.0128)--(axis cs:.8,1.0128);
+\end{axis}
+\begin{axis}[diagnostic axis,at={(.5\textwidth,0)},anchor=south west,
+ title={Odd q flux},ylabel={$\psi_q/\psi_*$},xmin=-1.1,xmax=1.1,ymin=-1.1,ymax=1.1]
+ \addplot[strong line,derived quantity,domain=-1:1,samples=81]{x-.08*x^3};
+ \addplot[only marks,estimated quantity] coordinates {(-.8,-.75904) (.8,.75904)};
+ \draw[alternative pattern,guide quantity] (axis cs:-.8,-.75904)--(axis cs:.8,.75904);
+\end{axis}
+\end{tikzpicture}
+\caption{A nonlinear symmetric example at $i_d=0$. Reflected q currents
+give equal d flux and opposite q flux despite curved responses. Curves are
+from the co-energy later specified in \cref{eq:synthetic-energy}; estimated quantity marks
+identify a reflected pair.}
+\label{fig:magnetic-symmetry}
+\end{figure}

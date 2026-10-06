@@ -1,0 +1,36 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{import}
+\subimport{../../shared/}{preamble.tex}
+\addbibresource{bibliography/references.bib}
+\input{metadata.tex}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\PaperAbstract
+\end{abstract}
+\tableofcontents
+
+\input{sections/01_introduction.tex}
+\input{sections/02_steady_state_flux_reconstruction.tex}
+\input{sections/03_structural_flux_map_properties.tex}
+\input{sections/05_reconstruction_error_sensitivity.tex}
+\input{sections/06_rotor_angle_misalignment.tex}
+\input{sections/07_symmetry_residuals.tex}
+\input{sections/08_parameter_identification.tex}
+\input{sections/09_synthetic_examples.tex}
+\input{sections/10_engineering_implications.tex}
+\input{sections/11_limitations.tex}
+\input{sections/12_conclusion.tex}
+
+\ifshowglossary
+  \glsadd{pmsm}\glsadd{dq}\glsadd{svd}
+  \glsadd{sym:id}\glsadd{sym:iq}\glsadd{sym:rs}\glsadd{sym:omega}
+  \glsadd{sym:er}\glsadd{sym:dg}\glsadd{sym:ldiff}\glsadd{sym:coenergy}
+  \printnoidxglossary[type=\acronymtype,title={Acronyms}]
+  \printnoidxglossary[type=symbols,title={Symbols}]
+\fi
+\ifshowbibliography
+  \printbibliography
+\fi
+\end{document}

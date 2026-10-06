@@ -1,0 +1,25 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[diagnostic axis,xlabel={$\normalizedspeed=\omega_e/\omega_*$},
+ title={Fixed current, separate error injections},ylabel={$r/\psi_*$},
+ xmin=.5,xmax=2,ymin=-.045,ymax=.012]
+ \addplot[estimated quantity,strong line] table[x=speed,y=rdR]{figures/data/speeds.dat};
+ \addlegendentry{$r_{d,R}$}
+ \addplot[torque quantity,standard line] table[x=speed,y=rdg]{figures/data/speeds.dat};
+ \addlegendentry{$r_{d,\gamma}$}
+ \addplot[reference quantity,alternative pattern,standard line] table[x=speed,y=rqg]{figures/data/speeds.dat};
+ \addlegendentry{$r_{q,\gamma}$}
+\end{axis}
+\begin{axis}[diagnostic axis,at={(.5\textwidth,0)},anchor=south west,
+ xlabel={$\normalizedspeed=\omega_e/\omega_*$},title={Remove the inverse-speed factor},
+ ylabel={$\normalizedspeed r_{d,R}/\psi_*$},xmin=.5,xmax=2,ymin=-.025,ymax=-.015]
+ \addplot[estimated quantity,strong line] table[x=speed,y=scaledR]{figures/data/speeds.dat};
+\end{axis}
+\end{tikzpicture}
+\caption{Exact synthetic residuals at $(x,y)=(0,0.8)$ for separate injections
+$\resistanceerror/R_*=0.025$ and $\angleerror=0.02$ rad. Resistance scales inversely with
+speed; constant geometric misalignment does not. The right plot is a scaling
+check, not proof of resistance rather than inverter error.}
+\label{fig:speed}
+\end{figure}

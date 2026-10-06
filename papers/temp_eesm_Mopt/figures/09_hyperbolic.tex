@@ -8,12 +8,12 @@
  \addplot[torque curve,domain=-3:-1,samples=100]{sqrt(x^2-1)};
  \addplot[torque curve,domain=-3:-1,samples=100]{-sqrt(x^2-1)};
  \addplot[loss curve,domain=0:360,samples=121] ({1.75*cos(x)},{1.75*sin(x)});
- \addplot[only marks,mark=*,ForestGreen] coordinates {(1,0)};
- \node[annotation,anchor=west] at (axis cs:1.08,.05){$\alpha=0$};
+ \addplot[only marks,mark=*,derived quantity] coordinates {(1,0)};
+ \node[annotation,anchor=west] at (axis cs:1.08,.05){$\allocationangle=0$};
  \node[annotation] at (axis cs:2.25,1.55){same product,\\more loss};
 \end{axis}
 \end{tikzpicture}
 \caption{A constant-torque hyperbola is parameterized by a hyperbolic angle.
-The smallest loss circle touches it at balanced factors, $\alpha=0$.}
+The smallest loss circle touches it at balanced factors, $\allocationangle=0$.}
 \label{fig:hyperbolic}
 \end{figure}

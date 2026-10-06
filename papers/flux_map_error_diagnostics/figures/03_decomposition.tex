@@ -1,0 +1,24 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[diagnostic axis,title={Reflect the same curve},ylabel={$f(y)$},
+ xmin=-1,xmax=1,ymin=.5,ymax=1.6]
+ \addplot[reference quantity,strong line,domain=-1:1]{1+.2*x^2+.3*x};
+ \addlegendentry{$f(y)$}
+ \addplot[estimated quantity,alternative pattern,standard line,domain=-1:1]{1+.2*x^2-.3*x};
+ \addlegendentry{$f(-y)$}
+\end{axis}
+\begin{axis}[diagnostic axis,at={(.5\textwidth,0)},anchor=south west,
+ title={Average and half-difference},ylabel={Component},xmin=-1,xmax=1,ymin=-.4,ymax=1.4]
+ \addplot[derived quantity,strong line,domain=-1:1]{1+.2*x^2};
+ \addlegendentry{$\evenq[f]$}
+ \addplot[torque quantity,standard line,domain=-1:1]{.3*x};
+ \addlegendentry{$\oddq[f]$}
+\end{axis}
+\end{tikzpicture}
+\caption{Reflection separates an illustrative curve
+$f(y)=1+0.2y^2+0.3y$ into its allowed even part and its odd tilt.
+The same projections applied to d and q flux select opposite diagnostic
+channels. The schematic curve is not a second machine model.}
+\label{fig:decomposition}
+\end{figure}

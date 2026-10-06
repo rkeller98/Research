@@ -6,20 +6,20 @@
     \coordinate (D) at (2.4,1.2);
     \coordinate (E) at (2.2,2.4);
     \coordinate (F) at (0.6,2.2);
-    
+
     % Triangles (aus Delaunay-Triangulation)
-    \draw[thick] (A) -- (B) -- (C) -- cycle;
-    \draw[thick] (B) -- (C) -- (D) -- cycle;
-    \draw[thick] (C) -- (D) -- (E) -- cycle;
-    \draw[thick] (C) -- (E) -- (F) -- cycle;
-    \draw[thick] (A) -- (C) -- (F) -- cycle;
-    
+    \draw[standard line] (A) -- (B) -- (C) -- cycle;
+    \draw[standard line] (B) -- (C) -- (D) -- cycle;
+    \draw[standard line] (C) -- (D) -- (E) -- cycle;
+    \draw[standard line] (C) -- (E) -- (F) -- cycle;
+    \draw[standard line] (A) -- (C) -- (F) -- cycle;
+
     % Punkte markieren
-    \foreach \p/\name in {A/A, B/B, C/C, D/D, E/E, F/F} 
+    \foreach \p/\name in {A/A, B/B, C/C, D/D, E/E, F/F}
     {
-        \fill[red] (\p) circle (2pt);
-    }    
-    
+        \fill[estimated quantity] (\p) circle (2pt);
+    }
+
     \node[left] at (A) {A};
     \node[above right] at (B) {B};
     \node[left] at (C) {C};

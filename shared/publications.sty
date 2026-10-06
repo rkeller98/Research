@@ -1,20 +1,22 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesFile{publications.sty}[2026/09/24 Reusable publications framework]
+\ProvidesFile{publications.sty}[2026/10/06 Reusable publications framework]
 
-\input{includes/config/packages.tex}
-\input{includes/config/typography.tex}
-\input{includes/config/mathematics.tex}
-\input{includes/config/units.tex}
-\input{includes/config/references.tex}
-\input{includes/config/bibliography.tex}
-\input{includes/commands/math_commands.tex}
-\input{includes/commands/machine_commands.tex}
-\input{includes/commands/notation.tex}
-\input{includes/tikz/tikz_setup.tex}
-\input{includes/tikz/tikz_styles.tex}
-\input{includes/tikz/machine_styles.tex}
-\input{includes/glossary/acronyms.tex}
-\input{includes/glossary/symbols.tex}
-\input{includes/glossary/glossary.tex}
+\subimport{config/}{packages.tex}
+\subimport{config/}{palette.tex}
+\subimport{config/}{typography.tex}
+\subimport{config/}{listings.tex}
+\subimport{config/}{mathematics.tex}
+\subimport{config/}{units.tex}
+\subimport{config/}{references.tex}
+\subimport{config/}{bibliography.tex}
+\subimport{commands/}{math_commands.tex}
+\subimport{commands/}{machine_commands.tex}
+\subimport{commands/}{notation.tex}
+\subimport{tikz/}{tikz_setup.tex}
+\subimport{tikz/}{tikz_styles.tex}
+\subimport{tikz/}{machine_styles.tex}
+\subimport{glossary/}{acronyms.tex}
+\subimport{glossary/}{symbols.tex}
+\subimport{glossary/}{glossary.tex}
 
 \endinput

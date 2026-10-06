@@ -3,7 +3,7 @@
 
 \begin{landscape}
 \scriptsize\sloppy
-\renewcommand{\arraystretch}{0.88}
+
 \setlength{\tabcolsep}{2.5pt}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{.13\linewidth}>{\raggedright\arraybackslash}p{.18\linewidth}>{\raggedright\arraybackslash}p{.15\linewidth}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.22\linewidth}@{}}
 \caption{What each method simplifies and what it costs.}\label{tab:comparison}\\
@@ -20,7 +20,7 @@ KKT active set & Multiple active boundaries and status logic & Enumerate active 
 Generalized eigenvalue & Torque per fixed loss when voltage is inactive & One extreme eigenpair & Excellent: small, symmetric, well conditioned after whitening & Recompute locally; strong resource-efficiency interpretation\\
 Whitening plus torque rotation & Loss sphere and \(M=\kappa z_\psi z_q\) & Generic voltage quadratic in 3D & Very cheap transforms; ideal preprocessing & Local metrics remain useful; strongest physical coordinate view\\
 Active flux & Isolates torque-producing flux & Needs independent loss-orthogonal complement & Excellent physical signal, but not alone a complete optimizer & Established machine concept; intuitive bridge\\
-Hyperbolic coordinates & Constant torque becomes fixed \(i_T\) & Allocate \(\alpha,z_0\) under voltage & Transcendentals unnecessary if replaced by ratios & Excellent explanation of imbalance; moderate solver value\\
+Hyperbolic coordinates & Constant torque becomes fixed \(i_T\) & Allocate \(\allocationangle,z_0\) under voltage & Transcendentals unnecessary if replaced by ratios & Excellent explanation of imbalance; moderate solver value\\
 Projective ratios & Removes radius; loss levels become circles & Tangency of two conics, generic sextic stationary equation & Good 2D scalar/curve solver; explicit branch \(\eta>0\) & Local affine voltage still conic-like; excellent visual value\\
 Complex square map & Hyperbolas become lines; loss radius retained & Voltage introduces roots and branches, especially with \(z_0\) & Square-root inverse is cheap, but full constraint is not simpler & Elegant interpretation, weak primary-solver choice\\
 Resultants / discriminants & Removes variables; contact is repeated root & Quartic intersections; up to sextic stationary polynomial here & Exact offline/reference route; root conditioning and selection costly & PWA region by region; shows why tangency changes root multiplicity\\

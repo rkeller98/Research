@@ -1,5 +1,8 @@
 # Didactic guide for this paper
 
+Read the repository `WRITING_GUIDE.md` first for the canonical shared notation,
+glossary, and visual architecture. This file defines the learning-paper method.
+
 Write this as a learning paper. The target reaction is: "I understand why this
 result must be true."
 

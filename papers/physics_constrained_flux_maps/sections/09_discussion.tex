@@ -1,0 +1,40 @@
+\section{Discussion: admissibility, support, and residual interpretation}
+Symmetry and integrability are distinct tests. Parity can hold for a field
+with nonzero circulation, while a conservative field can have a symmetry
+axis different from the chosen coordinates. A small independent interpolation
+error therefore says little about whether the field belongs to the expected
+magnetic class. Conversely, a model constructed within that class can have
+significant residuals if measurements are biased or the model is inappropriate.
+
+Conceptually write $\flux_{\rm meas}=\nabla\coenergy_{\rm physical}+\vect r$.
+For matched pairs the forbidden parity channels of $\vect r$ equal those
+of the measured field, because the admissible magnetic fit has no contribution
+there. The residual to the closest admissible map carries useful information,
+but also includes basis limitations, regularization bias, and excluded
+magnetics. The companion develops error hypotheses and identifiability rather
+than automatically deleting this residual \cite{companion-diagnostics}.
+
+The scalar potential presumes approximately quasi-static conservative
+magnetics with fixed thermal and magnet state. Hysteresis, irreversible
+demagnetization, dynamic iron-loss states, and strong frequency-dependent
+effects require additional treatment. Real asymmetry can break reflection
+without invalidating integrability. Inconsistency with this model is not proof
+of a faulty measurement. The fitted field is the best representation in an
+assumed class and chosen basis, not guaranteed ground truth.
+
+Scattered data require coverage in both current directions; boundary sparsity
+can amplify derivative error. Symmetry reduces model freedom but does not
+create independent observations on the unmeasured side. Extrapolation outside
+the data support requires an explicit physical policy. Dimensionless scaling,
+rank inspection, and region-based validation help expose fragile estimates.
+Derivative quality should be assessed against independent references where
+possible, not merely judged from a smooth plot.
+
+The present synthetic study has a known representable polynomial, one random
+seed, limited knot and weight choices, and a deliberately simple noise model.
+RBFs are discussed conceptually but not numerically compared. Future evaluation
+should vary seeds, nonrepresentable magnetic maps, noise correlations, outlier
+patterns, gridded versus scattered data, boundary holes, and extrapolation.
+Compare flux prediction, parity, reciprocity/curl, differential-inductance
+smoothness and accuracy, robustness to bias, computational cost, and tuning
+effort. No universal benchmark winner follows from a structural advantage.

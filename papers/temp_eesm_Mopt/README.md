@@ -1,24 +1,9 @@
-# Self-contained paper template
+# Extended EESM optimization learning paper
 
-Copy this entire directory to papers/<paper-name> or run:
+Read the repository WRITING_GUIDE.md first. This paper loads ../../shared/
+for canonical notation, glossary, configuration, and semantic visual styles.
+The scientific sections, figures, bibliography/, and validation/ remain local.
+There is no vendored include bundle or local.tex.
 
-    .\scripts\new_paper.ps1 <paper-name>
-
-The copied paper has no runtime dependency on the repository-level shared/
-directory.
-
-## Where content belongs
-
-- main.tex: document order only
-- metadata.tex: title, authors, date, abstract, and output switches
-- local.tex: definitions used by this paper only
-- sections/: one source file per logical section
-- figures/: TikZ/PGFPlots figures and local figure data
-- includes/: the paper's private LaTeX framework, glossary, and bibliography
-
-Compile from inside the paper directory:
-
-    latexmk -lualatex -interaction=nonstopmode -halt-on-error main.tex
-
-Use \showglossaryfalse or \showbibliographyfalse in metadata.tex when a paper
-does not need those components.
+Build with ./scripts/build.ps1 temp_eesm_Mopt from the repository root.
+The validation scripts cover geometry, dynamics, and coordinate identities.

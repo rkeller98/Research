@@ -1,5 +1,10 @@
 # Baseline migration matrix
 
+Read [WRITING_GUIDE.md](../WRITING_GUIDE.md) first. This historical scientific
+allocation remains valid; current infrastructure is audited in
+[architecture_migration.md](architecture_migration.md). The later flux-paper
+split is recorded separately in [flux_papers_split.md](flux_papers_split.md).
+
 This internal regression checklist records where every substantive result of
 the preserved combined baseline is carried forward.
 

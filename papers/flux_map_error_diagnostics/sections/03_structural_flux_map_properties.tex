@@ -1,0 +1,51 @@
+\section{The admissible magnetic structure: a compact foundation}
+\label{sec:symmetry}
+The companion co-energy framework establishes which components can be
+attributed to symmetric quasi-static machine magnetics
+\cite{companion-coenergy}. We repeat the required statements so this paper
+is independently readable, while leaving the full potential, path-integration,
+and gradient-fitting derivations to that work.
+
+Assume fixed thermal and magnet state, a single-valued conservative $C^2$
+co-energy, and an effective machine reflection that reverses q excitation
+without changing d excitation. Harmonics must be neglected or averaged
+consistently; hysteresis and irreversible state changes are excluded.
+For amplitude-invariant dq conventions use co-energy normalized by $3/2$.
+Then
+\begin{equation}
+ \flux=\nabla_{\current}\coenergy,\qquad
+ \coenergy(i_d,i_q)=\coenergy(i_d,-i_q).\label{eq:energy-parity}
+\end{equation}
+Differentiate once in each direction. The reflected q argument contributes
+a minus sign to the q derivative, but not to the d derivative:
+\begin{equation}
+ \boxed{\psid(i_d,i_q)=\psid(i_d,-i_q),\qquad
+ \psiq(i_d,i_q)=-\psiq(i_d,-i_q).}\label{eq:flux-parity}
+\end{equation}
+A d-axis PM bias selects a preferred d direction, not a preferred q sign.
+Nonlinear self- and cross-saturation remain compatible with this reflection.
+The voltage inversion alone does not enforce it.
+
+Define the current-to-flux Jacobian
+\begin{equation}
+ \Ldiff=\frac{\partial\flux}{\partial\current}
+ =\begin{bmatrix}L_{dd}&L_{dq}\\L_{qd}&L_{qq}\end{bmatrix}
+ =\nabla^2\coenergy.\label{eq:jacobian}
+\end{equation}
+Its entries are $L_{ab}=\partial_{i_b}\psi_a$ for $a,b\in\{d,q\}$.
+The common smooth potential implies
+\begin{equation}
+ L_{dq}=L_{qd},\qquad
+ L_{dd},L_{qq}\text{ even in }i_q,\quad
+ L_{dq},L_{qd}\text{ odd in }i_q.\label{eq:inductance-parities}
+\end{equation}
+The curl-like consistency residual is
+\begin{equation}
+ r_{\rm curl}=\partial_{i_d}\psi_q-\partial_{i_q}\psi_d.
+ \label{eq:curl-definition}
+\end{equation}
+It vanishes for an admissible conservative map. On a simply connected smooth
+domain, curl-free flux is locally and globally integrable. Reflection is a
+separate property: a gradient can have the wrong symmetry axis, and independent
+parity fits can have nonzero curl. The diagnosis below uses this distinction,
+not a claim that every structural deviation is a hardware fault.

@@ -1,0 +1,56 @@
+\section{Fit a common scalar potential directly in the gradient domain}
+Two independent approximations $\psi_d=f_d(i_d,i_q)$ and
+$\psi_q=f_q(i_d,i_q)$ can have low sample error without correct parity or
+integrability. Even parity-constrained independent fits do not guarantee a
+common potential: $f_d=1+i_q^2$, $f_q=i_q$ have the required parities but
+mixed derivatives $2i_q$ and zero. The missing information is the coupling
+between their slopes.
+
+The physically structured representation is
+\begin{equation}
+ \boxed{\hat\flux_{\rm fit}=\nabla\hat\coenergy,\qquad
+ \hat\coenergy(i_d,i_q)=\hat\coenergy(i_d,-i_q).}\label{eq:fit-potential}
+\end{equation}
+A $C^2$ even scalar basis guarantees flux parity by the chain rule and
+reciprocity by equality of mixed derivatives. Saturation and cross-saturation
+are retained in the variation of its Hessian, not removed by symmetry.
+The potential ties both flux surfaces to the same source of curvature.
+
+Let $\vect c$ be its coefficients and $\vect\psi_k^{\rm rec}$ reconstructed
+samples. The basic fitting problem is
+\begin{equation}
+ \boxed{\min_{\vect c}\sum_k
+ \norm{\nabla\coenergy(\current_k;\vect c)-\vect\psi_k^{\rm rec}}^2
+       +\lambda\mathcal R(\coenergy),\quad \coenergy(\current_0)=0.}
+ \label{eq:gradient-fit}
+\end{equation}
+This asks for the admissible scalar landscape whose slopes best match the
+observed vectors. It never requires directly measured energy samples. Use
+whitened residuals when uncertainties differ or share correlations; the
+reconstruction divides voltage error by speed, so uniform flux uncertainty
+should not be assumed across speeds.
+
+Regularization controls degrees of freedom that measurements constrain weakly.
+For example, a penalty on the spatial variation of the Hessian discourages
+rapidly oscillating differential inductance. A penalty on the Hessian itself
+also biases nonzero inductance toward zero; that distinction matters. Select
+penalty strength using held-out regions and derivative targets, not training
+error alone. Nondimensionalize current and flux so the numerical weight and
+penalty have interpretable units. Robust losses may limit isolated outliers,
+but cannot distinguish systematic bias from genuine magnetics.
+
+Gauge removes the constant null direction. Additional rank deficiency can
+remain if sample locations do not excite basis directions. Check the gradient
+design rank on the gauge-fixed subspace and inspect scaled singular values
+\cite{horn2013}. A smooth fitted potential is not necessarily locally convex:
+positive differential inductance requires a separate Hessian constraint or
+an explicit check over the supported domain.
+
+\paragraph{Keep fit quality separate from physical consistency.}
+A small numerical residual measures agreement with measured samples. Parity,
+curl, reciprocal mixed derivatives, differential-inductance smoothness, and
+support coverage measure different properties. The admissible fit is the
+best fit within the chosen conservative symmetric model, not automatically
+the true machine. A larger structured residual can be more informative than
+a nearly exact unconstrained interpolation of a distorted field. Excluded
+physics, basis bias, and sensor errors can all contribute.
