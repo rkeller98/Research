@@ -1,0 +1,159 @@
+﻿\documentclass[conference]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{hyperref}
+\pgfplotsset{compat=1.18}
+
+\title{Gradient-Iso Geometric Nth-Order Derivative Reconstruction for Search Guidance in Scalar Potential Fields}
+
+\author{\IEEEauthorblockN{Raphael Keller and Collaborators}
+\IEEEauthorblockA{Independent Research Project\\
+Email: placeholder@example.com}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a mesh-geometric framework to reconstruct $N$th-order derivatives from unstructured point clouds of scalar potential measurements. The method avoids global surrogate assumptions by combining local affine reconstruction on Delaunay simplices with recursive derivative lifting. This yields first-order vector fields (gradient), second-order matrix fields (Hessian), and Laplacian-derived curvature indicators together with a local confidence measure from iso-derivative consistency. The primary target is search guidance: estimating whether a measured operating point is locally improvable and in which direction the search should continue. Outlier detection is treated as a secondary application.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Delaunay triangulation, derivative reconstruction, gradient field, Hessian, Laplacian, search guidance, confidence estimation
+\end{IEEEkeywords}
+
+\section{Introduction}
+Many engineering workflows require deciding where to measure next in a sparse operating map. For electrical machine characterization, sampled $(i_d,i_q)$ points with measured torque define a scalar potential field where one seeks neighboring operating points with improved objective value. Classical methods typically rely on global regressors or manually tuned local models. We instead exploit geometric locality induced by Delaunay triangulation \cite{delaunay1934,edelsbrunner2001} and reconstruct local differential structure directly from the point cloud.
+
+The core contribution is a recursive \emph{Gradient-Iso} pipeline that estimates derivative tensors directly on simplices and converts iso-level agreement into a confidence signal usable by search algorithms. Compared to purely statistical filters, the method encodes smoothness constraints through piecewise-affine differential reconstruction and naturally provides gradient-, Hessian-, and Laplacian-level information.
+
+\section{Method}
+Let $X = \{\mathbf{x}_i\}_{i=1}^N \subset \mathbb{R}^d$ and scalar field values $f_i = f(\mathbf{x}_i)$. For each simplex $\sigma = \{\mathbf{x}_{i_0},\dots,\mathbf{x}_{i_d}\}$ from Delaunay triangulation, we fit
+\begin{equation}
+\hat{f}(\mathbf{x}) = \mathbf{a}^\top \mathbf{x} + b,
+\end{equation}
+via
+\begin{equation}
+\begin{bmatrix}
+\mathbf{x}_{i_0}^\top & 1 \\
+\vdots & \vdots \\
+\mathbf{x}_{i_d}^\top & 1
+\end{bmatrix}
+\begin{bmatrix}
+\mathbf{a} \\ b
+\end{bmatrix}
+=
+\begin{bmatrix}
+f_{i_0} \\
+\vdots \\
+f_{i_d}
+\end{bmatrix}.
+\end{equation}
+The local gradient estimate is $\nabla \hat{f}=\mathbf{a}$. Using simplex representatives (centroids), we obtain a new point cloud with derivative values and recursively repeat this construction to order $K$.
+
+For each derivative component $g_c$, iso-levels $\ell_m$ are sampled uniformly,
+\begin{equation}
+\ell_m = \min(g_c) + \frac{m-1}{M-1}\left(\max(g_c)-\min(g_c)\right),\quad m=1,\dots,M,
+\end{equation}
+and iso-points are extracted by simplex-edge interpolation. The aggregated iso-set $\mathcal{P}_c$ defines a component score at point $\mathbf{z}_i$:
+\begin{equation}
+s_{i,c} = \frac{1}{|\mathcal{N}_{i,c}|}\sum_{\mathbf{p}\in \mathcal{N}_{i,c}} \exp\!\left(-\frac{\lVert \mathbf{p}-\mathbf{z}_i\rVert_2^2}{2h^2}\right),
+\end{equation}
+where $h$ is a geometric bandwidth and $\mathcal{N}_{i,c}$ are nearest iso-points. The final confidence score is geometric-mean fused:
+\begin{equation}
+S_i = \exp\!\left(\frac{1}{C}\sum_{c=1}^C \log(s_{i,c}+\varepsilon)\right).
+\end{equation}
+For search guidance around a current point $\mathbf{z}_i$, the ascent direction is
+\begin{equation}
+\mathbf{d}_i = \frac{\nabla \hat{f}(\mathbf{z}_i)}{\lVert\nabla \hat{f}(\mathbf{z}_i)\rVert_2 + \varepsilon},
+\end{equation}
+and local curvature is characterized by Hessian $\mathbf{H}_i$ and Laplacian
+\begin{equation}
+\Delta \hat{f}(\mathbf{z}_i) = \mathrm{tr}(\mathbf{H}_i).
+\end{equation}
+Large confidence $S_i$ with non-vanishing $\lVert\nabla \hat{f}\rVert$ indicates reliable improvement directions; low confidence marks uncertain regions where additional measurements are recommended.
+
+A secondary decision layer for anomaly screening follows a distributional threshold
+\begin{equation}
+\tau = \mu_S + \lambda\sigma_S, \qquad \hat{y}_i=\mathbb{I}[S_i<\tau],
+\end{equation}
+with $\lambda$ as sensitivity factor.
+
+\section{Experimental Setup}
+We generated synthetic datasets from Himmelblau ($d=2$), Rosenbrock ($d=3$), Rastrigin ($d=4$), and Ackley ($d=4$), each with additive Gaussian noise and sparse perturbations. The pipeline used centroid representatives and iso-consistency scoring. We report confidence-structured field behavior and include anomaly metrics only as an auxiliary benchmark \cite{fawcett2006,saito2015}.
+
+\section{Results}
+\begin{table}[t]
+\caption{Auxiliary anomaly-screening metrics (secondary usecase).}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Function & Dimension & Precision & Recall & $F_1$ \\
+\midrule
+himmelblau & 2 & 0.0658 & 0.7105 & 0.1204 \\
+rosenbrock & 3 & 0.0688 & 0.7515 & 0.1260 \\
+rastrigin & 4 & 0.0699 & 0.7389 & 0.1277 \\
+ackley & 4 & 0.0864 & 0.8495 & 0.1569 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.46\textwidth,height=0.28\textwidth,xlabel={$x_1$},ylabel={$x_2$},title={Perturbed Samples (Himmelblau)}]
+\addplot[only marks,mark=*,mark size=0.6pt,gray] table [x=x, y=y, col sep=comma, filter discard warning=false, restrict expr to domain={\thisrow{gt_out}}{0:0}] {data/ground_truth_himmelblau.csv};
+\addplot[only marks,mark=*,mark size=1.0pt,red] table [x=x, y=y, col sep=comma, filter discard warning=false, restrict expr to domain={\thisrow{gt_out}}{1:1}] {data/ground_truth_himmelblau.csv};
+\end{axis}
+\end{tikzpicture}
+\caption{Sparse perturbed samples projected to domain coordinates.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.46\textwidth,height=0.28\textwidth,xlabel={$x_1$},ylabel={$x_2$},title={Confidence Score Field}]
+\addplot[only marks,mark=*,mark size=0.7pt,scatter,scatter src=explicit] table [x=x,y=y,meta=score,col sep=comma] {data/score_scatter_himmelblau.csv};
+\end{axis}
+\end{tikzpicture}
+\caption{Iso-density derived confidence score on first-order simplex representatives; high-confidence regions are suitable for directional search updates.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.46\textwidth,height=0.26\textwidth,xlabel={FPR},ylabel={TPR},title={ROC Curve}]
+\addplot[thick] table [x=fpr,y=tpr,col sep=comma] {data/roc_himmelblau.csv};
+\addplot[dashed] coordinates {(0,0) (1,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{ROC characteristic for Himmelblau benchmark.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.46\textwidth,height=0.26\textwidth,xlabel={Recall},ylabel={Precision},title={PR Curve}]
+\addplot[thick] table [x=recall,y=precision,col sep=comma] {data/pr_himmelblau.csv};
+\end{axis}
+\end{tikzpicture}
+\caption{Precision-recall behavior under varying score thresholds.}
+\end{figure}
+
+\section{Discussion}
+The method is effective when local simplices remain well-conditioned and coverage is sufficient for stable iso extraction. Its main engineering strengths are: (i) no global regression bias, (ii) direct geometric interpretability of gradient/Hessian/Laplacian information, and (iii) naturally multi-dimensional extension. Limitations arise from Delaunay complexity in high dimensions and potential sensitivity to sparse sampling regions.
+
+For practical deployment in measurement-driven search loops (e.g., electrical machine maps over $(i_d,i_q)$), robust operation is obtained by tuning only three parameters: iso-level count $M$, edge-validity factor, and confidence sensitivity. In operation, a controller can combine confidence and gradient direction to propose the next candidate measurement and use Laplacian/Hessian cues to avoid flat or unstable regions.
+
+\section{Conclusion}
+We introduced a recursive geometric derivative framework that reconstructs $N$th-order differential structure from scalar point-cloud measurements and transforms iso-consistency into a confidence signal for guided search. The approach provides mathematically interpretable gradient, Hessian, and Laplacian information for deciding whether and where better neighboring operating points are expected. Outlier detection remains a valid but secondary application. Future work will focus on adaptive iso-level placement, anisotropic bandwidths, and scalable triangulation surrogates for higher-dimensional industrial datasets.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

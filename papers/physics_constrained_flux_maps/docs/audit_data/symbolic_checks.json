@@ -8,5 +8,5 @@
   "arbitrary_R_invariance_difference": "0",
   "nonlinear_potential": "-i_d**4/50 - 3*i_d**2*i_q**2/100 + i_d**2/2 + i_d*i_q**2/50 + 4*i_d/5 - i_q**4/40 + 13*i_q**2/20",
   "illustrative_core_loss_curl": "-2*L_d*L_q*c/(L_d*L_q*c**2 + 1)",
-  "script_sha256": "4486e19623b1f8858e804487bade0351911b3c9e6f10c692b3c41bf96f278862"
+  "script_sha256": "c4773da52f9a131b4727b9df10af38de8c8f2ebaaaf4f3971a8b22f895c8ff73"
 }

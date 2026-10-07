@@ -1,3 +1,11 @@
+% Generic sampled-field geometry; units follow the declared coordinate metric.
+\newglossaryentry{sym:sampleposition}{type=symbols,name={\ensuremath{\vect x}},description={Sample coordinate vector; each component has its declared domain unit},sort=sampleposition}
+\newglossaryentry{sym:scalarfield}{type=symbols,name={\ensuremath{f}},description={Scalar sampled objective or field; application-defined unit; not necessarily a physical potential},sort=scalarfield}
+\newglossaryentry{sym:simplexedge}{type=symbols,name={\ensuremath{\matr E_\sigma}},description={Simplex edge matrix with anchored edge vectors as rows; in the declared coordinate metric},sort=simplexedge}
+\newglossaryentry{sym:recoveredgradient}{type=symbols,name={\ensuremath{\vect g_\sigma}},description={Gradient of the affine simplex interpolant; field unit divided by coordinate unit},sort=recoveredgradient}
+\newglossaryentry{sym:recoveredhessian}{type=symbols,name={\ensuremath{\matr H^{(2)}}},description={Jacobian of the reinterpolated first derivative cloud; not assumed symmetric; field unit divided by two coordinate units},sort=recoveredhessian}
+\newglossaryentry{sym:isocoverage}{type=symbols,name={\ensuremath{S}},description={Dimensionless Gaussian iso-intersection coverage; not calibrated confidence},sort=isocoverage}
+\newglossaryentry{sym:kernelbandwidth}{type=symbols,name={\ensuremath{h}},description={Positive Gaussian bandwidth in the declared coordinate metric},sort=kernelbandwidth}
 \newglossaryentry{sym:umax}{type=symbols,name={\ensuremath{U_{\max}}},description={Available stator-voltage magnitude; unit V},sort=umax}
 \newglossaryentry{sym:imax}{type=symbols,name={\ensuremath{I_{\max}}},description={Available stator-current magnitude; unit A},sort=imax}
 \newglossaryentry{sym:te}{type=symbols,name={\ensuremath{M}},description={Electromagnetic torque; unit N m},sort=te}
@@ -169,3 +177,12 @@
 \newglossaryentry{sym:psiq}{type=symbols,name={\ensuremath{\psi_q}},description={Quadrature-axis flux linkage; unit Wb},sort=psiq}
 \newglossaryentry{sym:psif}{type=symbols,name={\ensuremath{\psi_{\mathrm f}}},description={Rotor-excitation flux linkage; unit Wb},sort=psif}
 \newglossaryentry{sym:timingdelay}{type=symbols,name={\ensuremath{\tau_{\mathrm d}}},description={Signed angle timing mismatch in $\delta\gamma=\gamma_0+\omega_e\tau_{\mathrm d}$; unit s; positive for estimated phase advance, negative for sensing lag},sort=timingdelay}
+\newglossaryentry{sym:statorcurrentmagnitude}{type=symbols,name={\ensuremath{I_s}},description={Euclidean magnitude of the two-dimensional stator dq current, excluding EESM excitation current; unit A},sort=Is}
+\newglossaryentry{sym:currentunitdirection}{type=symbols,name={\ensuremath{\vect n_i}},description={Unit stator-current direction $\vect i_s/I_s$ for $I_s>0$; unit 1},sort=ni}
+\newglossaryentry{sym:torqueunitdirection}{type=symbols,name={\ensuremath{\vect n_\tau}},description={Clockwise torque-normal direction $-\matr J\vect i_s/I_s=[i_q,-i_d]^{\mathsf T}/I_s$ for $I_s>0$; unit 1},sort=ntau}
+\newglossaryentry{sym:currentparallelflux}{type=symbols,name={\ensuremath{\psi_i}},description={Current-parallel dq flux projection $\vect n_i^{\mathsf T}\vect\psi$ for $I_s>0$; unit Wb; locally invisible to torque at fixed current},sort=psii}
+\newglossaryentry{sym:torqueobservableflux}{type=symbols,name={\ensuremath{\psi_\tau}},description={Signed torque-observable dq flux projection $(i_q\psi_d-i_d\psi_q)/I_s$ for $I_s>0$; unit Wb; current-dependent projection, not flux magnitude},sort=psitau}
+\newglossaryentry{sym:electromagnetictorquereference}{type=symbols,name={\ensuremath{M_{\mathrm{em,ref}}}},description={Qualified reference for the electromagnetic torque represented by the chosen dq model; unit N m; not automatically raw shaft or CAN torque},sort=Memref}
+\newglossaryentry{sym:torqueconsistencyresidual}{type=symbols,name={\ensuremath{e_M}},description={Map-predicted minus reference electromagnetic torque $M_{\mathrm{map}}-M_{\mathrm{em,ref}}$; unit N m},sort=eM}
+\newglossaryentry{sym:torquefluxresidual}{type=symbols,name={\ensuremath{e_{\psi_\tau}}},description={Torque-equivalent flux residual $e_M/(k_{\mathrm T}I_s)$ for $I_s>0$; unit Wb; map projection minus reference projection, without causal attribution},sort=epsitau}
+\newglossaryentry{sym:torqueresistanceequivalent}{type=symbols,name={\ensuremath{\Delta R_{\mathrm{eq,torque}}}},description={Conditional torque-derived resistance-equivalent residual $-\omega_e e_M/(k_{\mathrm T}I_s^2)$ for $I_s>0$ and $\omega_e\ne0$; unit ohm; equals used-minus-true resistance only under the sole resistance-mismatch hypothesis},sort=Reqtorque}

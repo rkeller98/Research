@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+\begin{scope}[scale=2.4]
+\draw[constraint curve] (0,0)--(1,0)--(0,1)--cycle;
+\draw[coordinate vector] (0,0)--(1.35,0) node[annotation,right] {$x_1$};
+\draw[coordinate vector] (0,0)--(0,1.2) node[annotation,left] {$x_2$};
+\node[annotation,below left] at (0,0) {$f_0=0$};
+\node[annotation,below] at (1,0) {$f_1=2$};
+\node[annotation,left] at (0,1) {$f_2=-1$};
+\draw[eigenvector] (.33,.33)--(.93,.03);
+\node[annotation,above right] at (.5,.5) {$\vect g=(2,-1)$};
+\end{scope}
+\begin{scope}[xshift=6cm,scale=2.4]
+\draw[constraint curve] (0,0)--(1,0)--(.4,.12)--cycle;
+\draw[coordinate vector] (0,0)--(1.2,0) node[annotation,below] {$x_1$};
+\draw[coordinate vector] (0,0)--(0,.8) node[annotation,left] {$x_2$};
+\draw[projection line] (.4,0)--(.4,.12);
+\node[annotation,above] at (.4,.12) {$(a,\delta)$};
+\node[annotation,above right] at (.2,.62) {$g_2=(\Delta f_2-a\Delta f_1)/\delta$};
+\end{scope}
+\end{tikzpicture}

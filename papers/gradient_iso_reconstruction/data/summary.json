@@ -1,0 +1,103 @@
+{
+  "hessian": {
+    "0.0": {
+      "interior_median_error": 1.5666689253005925,
+      "median_symmetry_defect": 1.0351223051067955,
+      "median_laplacian_error": 0.9683575180910807
+    },
+    "0.001": {
+      "interior_median_error": 1.612935172413258,
+      "median_symmetry_defect": 1.0436707797321938,
+      "median_laplacian_error": 1.0149193817814013
+    }
+  },
+  "guidance": {
+    "0.0": {
+      "improvement_fraction_inside": 1.0,
+      "improvement_fraction_high_coverage": 1.0,
+      "coverage_error_spearman": 0.04895805841378483
+    },
+    "0.01": {
+      "improvement_fraction_inside": 0.9913792702168674,
+      "improvement_fraction_high_coverage": 0.9971264367816092,
+      "coverage_error_spearman": 0.0502019564146275
+    }
+  },
+  "outliers": {
+    "iso": {
+      "prevalence": {
+        "mean": 0.20977281109366355,
+        "std": 0.013721633909389713
+      },
+      "flag_rate": {
+        "mean": 0.9144983872211192,
+        "std": 0.04749119298247844
+      },
+      "precision": {
+        "mean": 0.17684272634002618,
+        "std": 0.045702898036331596
+      },
+      "recall": {
+        "mean": 0.7693436010267694,
+        "std": 0.18836098043470895
+      },
+      "auc": {
+        "mean": 0.37233317238136227,
+        "std": 0.17808322868674145
+      },
+      "ap": {
+        "mean": 0.1762784504957987,
+        "std": 0.05611726661501081
+      }
+    },
+    "quadratic_residual": {
+      "prevalence": {
+        "mean": 0.20977281109366355,
+        "std": 0.013721633909389713
+      },
+      "flag_rate": {
+        "mean": 0.9144983872211192,
+        "std": 0.04749119298247844
+      },
+      "precision": {
+        "mean": 0.2292817347081182,
+        "std": 0.0038526444839295094
+      },
+      "recall": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "auc": {
+        "mean": 0.9989955615301218,
+        "std": 0.0014668938776023091
+      },
+      "ap": {
+        "mean": 0.9969934860620017,
+        "std": 0.004021467585427729
+      }
+    }
+  },
+  "dimensions": [
+    {
+      "dimension": 2,
+      "N": 50,
+      "representatives": 84,
+      "median_error": 0.1365215881530567,
+      "intersections": 217
+    },
+    {
+      "dimension": 3,
+      "N": 50,
+      "representatives": 224,
+      "median_error": 0.5990898414544312,
+      "intersections": 446
+    },
+    {
+      "dimension": 4,
+      "N": 50,
+      "representatives": 617,
+      "median_error": 1.5177058380732507,
+      "intersections": 4981
+    }
+  ]
+}

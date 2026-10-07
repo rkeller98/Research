@@ -1,0 +1,61 @@
+\section{The question: which nearby measurement is informative?}
+An operating map rarely arrives as an evenly spaced grid. Some measurements
+are missing, accessible operating points obey constraints, and a new
+measurement may be expensive. Given coordinates $\vect x_i\in\R^d$ and scalar
+observations $f_i$, we would like to estimate a nearby direction of increase
+or decrease. A second question is whether that direction is accurate enough
+to use. These questions require different evidence.
+\glsadd{sym:sampleposition}\glsadd{sym:scalarfield}
+
+For machine characterization, the coordinates might be normalized direct,
+quadrature, and excitation currents, and $f$ might be torque, a loss, or an
+efficiency-related objective. Such an objective is a scalar field; calling it
+a potential does not establish a conservation law. Physical flux maps
+derived from magnetic co-energy have additional structure that a generic
+torque or loss map does not share.
+
+The simplest local reconstruction asks what affine function passes through
+the vertices of a simplex. Its slope is an interpretable finite difference
+in several directions at once. Delaunay triangulation supplies those
+neighborhoods. Interpolation creates a continuous piecewise-affine scalar
+field, whose gradient is constant within each cell and jumps between cells.
+The derivative values can then be represented at cell centroids and
+triangulated again. This creates a new interpolant, with a new modeling
+choice at each recursion.
+
+Gradient-Iso adds a geometric diagnostic: intersect level sets of each
+derivative component with edges of the derivative mesh, then measure the
+proximity of those intersections to its support points. The crucial issue is
+whether this proximity measures reliability, or merely the shape and sampling
+of derivative variation. We derive the construction before interpreting it.
+
+\paragraph{What is established here.}
+The first-order solve reproduces affine fields, its sensitivity follows from
+the simplex edge matrix, and the edge cuts satisfy a linear interpolation
+identity. Recursion provides an implementable higher-order estimator, but
+does not by itself give accuracy guarantees. Iso coverage has counterexamples
+to a general confidence interpretation. Synthetic experiments evaluate these
+statements separately; they do not validate an industrial measurement loop.
+
+This is a research revision of the earlier MATLAB laboratory and IEEE-style
+draft. Historical sources are retained outside the active paper. Python
+uses the existing VICE geometry backend rather than another port of the
+Delaunay search routines. The RooTri draft in this repository addresses edge
+extraction; this paper concentrates on the differential reconstruction.
+
+\paragraph{Relation to derivative recovery.}
+Recovering derivatives from local interpolants belongs to a broader numerical
+analysis literature. Polynomial preserving recovery provides a useful
+comparison: its accuracy statements depend on explicit mesh and recovery
+assumptions \cite{naga2004}. Our centroid recursion is a different operator,
+and those results cannot be transferred to it. We include a local quadratic
+fit as an independently implemented comparator, not as a claim that it is
+identical to an established recovery scheme.
+
+\begin{figure}[htbp]
+\centering\input{figures/01_pipeline.tex}
+\caption{A derivative proposes a direction; an iso descriptor measures the
+proximity of selected geometric cuts. Accuracy requires additional evidence.
+Each higher-order stage changes both support and interpolant.}
+\label{fig:pipeline}
+\end{figure}

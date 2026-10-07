@@ -1,0 +1,45 @@
+\section{Python interface and migration contract}
+The paper owns \texttt{python/gradient\_iso/}, experiments, raw synthetic
+arrays and generated tables. It imports \texttt{PointSet},
+\texttt{SampledField} and \texttt{EdgeIntersector} from the existing VICE
+repository. For reproducibility, three unchanged modules are retained under
+\texttt{python/vendor}, pinned to the revision and hashes in its provenance
+manifest. Set \texttt{VICE\_MEASEVAL\_SOURCE} to a live \texttt{SourceCode/python}
+checkout to explicitly test a newer backend. No geometry implementation is
+rederived or silently substituted.
+
+\begin{lstlisting}[style=python,float=htbp,caption={A normalized two-order reconstruction. Each cloud has its own support and source-simplex provenance.}]
+import numpy as np
+from gradient_iso import Options, reconstruct, search_guidance
+
+# X_phys: N by d coordinates; y: N scalar observations
+scale = np.array([100.0, 200.0])
+X = X_phys / scale
+clouds = reconstruct(X, y, Options(order=2, levels=15))
+
+gradient_phys = clouds[0].values / scale
+H_phys = (clouds[1].raw_hessian
+          / scale[None, :, None] / scale[None, None, :])
+laplacian_phys = np.trace(H_phys, axis1=1, axis2=2)
+coverage = clouds[-1].coverage  # may be NaN; not confidence
+proposal = search_guidance(clouds, X, minimize=True)
+trial_phys = proposal["proposed"] * scale
+\end{lstlisting}
+
+The physical Hessian remains a recovered estimate. Search uses the normalized
+metric; trials are transformed back afterward. Ordered components are
+preserved at all requested orders subject to guards; convenience Hessian
+properties apply to order two.
+
+Intentional changes from MATLAB include anchored solves, a conditioning
+filter, the VICE unique-edge contract, undefined constant/empty iso
+components, and steps independent of uncalibrated coverage. The original
+Python benchmark used simplex-edge multiplicity, capped simplices, random
+global bandwidths and only 32 nearest cuts. Its results are not numerically
+comparable to either MATLAB or the active implementation.
+
+Install the paper requirements in a virtual environment. Run the tests and
+experiment script, then build the named paper with the repository build
+script. The README gives exact commands and demo options. Saved CSV and NPZ
+files retain source labels; provenance hashes identify the imported backend.
+The historical source archive has its own SHA-256 manifest.

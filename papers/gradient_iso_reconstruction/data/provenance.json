@@ -1,0 +1,40 @@
+{
+  "python": "3.13.12",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "backend_revision": "1ecd269739833ae343e864d91fdeb2d2c5669342",
+  "backend_modules": {
+    "PointSet": {
+      "path": "C:\\Git\\Research\\papers\\gradient_iso_reconstruction\\python\\vendor\\vice_measeval\\backend\\numeric\\model\\point_set.py",
+      "sha256": "7be77e67c32302ea80fc7d176877008690098738cba03676655dabceb230a79c"
+    },
+    "SampledField": {
+      "path": "C:\\Git\\Research\\papers\\gradient_iso_reconstruction\\python\\vendor\\vice_measeval\\backend\\numeric\\model\\sampled_field.py",
+      "sha256": "f435dfe30fb3b1d7c32bb45875d107cffa18207f84621db6ae136a97b564ae1f"
+    },
+    "EdgeIntersector": {
+      "path": "C:\\Git\\Research\\papers\\gradient_iso_reconstruction\\python\\vendor\\vice_measeval\\backend\\numeric\\geometry\\levelset\\edge_intersector.py",
+      "sha256": "5e82420b6ccdc1fdc8af6a9d4d093c0c6f500e26c3ab16b1f95f63125e8d8bb5"
+    }
+  },
+  "default_options": {
+    "order": 1,
+    "levels": 25,
+    "validity_range": 3.0,
+    "representative": "centroid",
+    "bandwidth": null,
+    "sigma_factor": 1.0,
+    "max_condition": 100000000.0,
+    "max_simplices": 100000,
+    "max_intersections": 2000000,
+    "level_mode": "uniform",
+    "query_chunk": 128,
+    "intersection_chunk": 4096,
+    "constant_tolerance": 1e-10
+  },
+  "seeds": [
+    11,
+    12,
+    13
+  ]
+}

@@ -1,0 +1,28 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{import}
+\subimport{../../shared/}{preamble.tex}
+\addbibresource{bibliography/references.bib}
+\input{metadata.tex}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\PaperAbstract
+\end{abstract}
+\tableofcontents
+
+\input{sections/01_question.tex}
+\input{sections/02_simplex_gradient.tex}
+\input{sections/03_recursive_iso.tex}
+\input{sections/04_evidence.tex}
+\input{sections/05_synthesis.tex}
+\appendix
+\input{sections/06_reproduction.tex}
+
+\ifshowglossary
+  \printnoidxglossary[type=symbols,title={Symbols}]
+\fi
+\ifshowbibliography
+  \printbibliography
+\fi
+\end{document}

@@ -1,0 +1,175 @@
+\section{Recursive derivatives and derivative-component level sets}
+\subsection{Representatives label estimates; they do not create information}
+The affine gradient is constant throughout its source simplex. To turn the
+cell gradients into another sampled field, assign a point to each retained
+cell. The default is its centroid,
+$\vect z_\sigma=(d+1)^{-1}\sum_j\vect x_j$, which stays inside the cell.
+The code stores this point and the indices of its source vertices.
+That provenance is needed to reason about contamination.
+
+A circumcenter is an alternative. Subtracting squared distance equations gives
+\begin{equation}
+ 2\matr E_\sigma(\vect c_\sigma-\vect x_0)
+ =\begin{bmatrix}\norm{\vect e_1}^2&\cdots&\norm{\vect e_d}^2\end{bmatrix}^{\mathsf T}.
+\end{equation}
+For the isotropic quadratic $f=\norm{\vect x}^2/2$, the secant gradient equals
+the exact gradient at the circumcenter. This explains why that representative
+can look attractive. It is not generally true for an anisotropic Hessian.
+An obtuse cell can place its circumcenter outside its convex hull: for
+$(0,0),(2,0),(0.4,0.3)$ it is approximately $(1,-0.917)$, while the centroid is
+$(0.8,0.1)$. Recursing on the former can extend support into an unmeasured
+region. This optional mode is retained for experiments; duplicate
+representatives cause an explicit error.
+
+\subsection{Each recursion differentiates a newly interpolated field}
+Let $V^{(0)}=f$. For order $k$, triangulate the support of $V^{(k-1)}$ and
+apply \cref{eq:edgesolve} to every value component with the same edge matrix.
+Place the resulting derivatives at new representatives. Ordered derivative
+indices are retained; the number of components is $d^k$.
+
+At order two, component-major flattening gives
+\begin{equation}
+ V^{(2)}=[\partial_1 g_1,\partial_2 g_1,\ldots,
+          \partial_1 g_2,\partial_2 g_2,\ldots].
+\end{equation}
+Reshaping produces $H^{(2)}_{ij}=\partial_j g_i$ on the second-order support.
+\glsadd{sym:recoveredhessian}
+Its trace is the recovered Laplacian in the declared metric.
+This matrix is the Jacobian of the reinterpolated gradient cloud. It is not
+the classical Hessian of the original piecewise-affine scalar interpolant:
+that Hessian is zero inside each original cell, with interface contributions
+in a weak interpretation.
+
+The raw recovered matrix need not be symmetric. Expose
+\begin{equation}
+ \matr H_{\mathrm{sym}}=\tfrac12(\matr H^{(2)}+
+          (\matr H^{(2)})^{\mathsf T}),\qquad
+ a_H=\norm{\matr H^{(2)}-(\matr H^{(2)})^{\mathsf T}}_{\mathrm F}.
+ \label{eq:symmetry}
+\end{equation}
+Symmetrization is the closest symmetric matrix in Frobenius norm.
+It removes an incompatible component without establishing the accuracy of
+the remaining curvature. A small trace cannot exclude a saddle:
+$\diag(1,-1)$ has zero trace and opposite curvatures. Eigenvalues of an
+accurate symmetric Hessian can distinguish those directions; the trace alone
+cannot.
+
+An affine field is a useful limiting test: its recovered first gradient is
+constant, and the next derivative is zero up to roundoff. Exact quadratic
+Hessians require more. Secant gradients of a quadratic are not generally its
+exact gradients at centroids; retriangulating those approximate values does
+not repair that discrepancy. We test both an analytically supplied linear
+vector gradient and the complete scalar recursion.
+
+\subsection{What an edge intersection represents}
+On the derivative mesh, consider component $v_c$ along an edge from
+$\vect z_a$ to $\vect z_b$. For level $\ell$,
+\begin{equation}
+ t=\frac{\ell-v_{a,c}}{v_{b,c}-v_{a,c}},\qquad
+ \vect p=(1-t)\vect z_a+t\vect z_b,\qquad 0\leq t\leq1.
+ \label{eq:intersection}
+\end{equation}
+Every value component is interpolated with this same $t$. The selected
+interpolated component should equal the requested level to numerical
+precision, giving an independent test of the geometry.
+
+The VICE backend prepares unique undirected edges and accepts lengths strictly
+below $r$ times the RMS length of all unique edges; the default is $r=3$.
+This filters long connections on the derivative mesh, not bad source cells
+in the gradient solve. Equal-value edges are skipped: their intersection is
+either empty or the whole edge, not one unique point. Shared-vertex cuts
+remain once per incident edge. The result is an edge-intersection cloud,
+not a connected contour mesh or a complete higher-dimensional isosurface.
+
+By default, $M$ levels span $[\min v_c,\max v_c]$ uniformly. A quantile option
+provides an explicit sensitivity experiment. Triangulation uses spatial
+coordinates only. Field amplitude does not enter its distance metric, but
+one very large derivative value can stretch the uniform level range and
+leave few levels in the ordinary part of the field.
+
+\begin{figure}[htbp]
+\centering\includegraphics[width=\textwidth]{figures/generated/iso_geometry.pdf}
+\caption{Derivative-component cuts on the same Himmelblau sample geometry,
+before and after value perturbations. Each panel uses 15 uniformly spaced
+levels over its own component range. Perturbed slopes change both that range
+and cut locations. The dots are edge cuts, not connected contour lines.}
+\label{fig:isogeometry}
+\end{figure}
+
+\subsection{Iso coverage is a counting-measure descriptor}
+Pool the intersections over levels, retaining per-edge multiplicity, into
+$\mathcal P_c$. At derivative support point $\vect z_i$, define
+\begin{equation}
+ s_{i,c}=\frac1{|\mathcal P_c|}\sum_{\vect p\in\mathcal P_c}
+ \exp\!\left(-\frac{\norm{\vect p-\vect z_i}_2^2}{2h^2}\right),\qquad
+ S_i=\left(\prod_{c=1}^{d^k}s_{i,c}\right)^{1/d^k}.
+ \label{eq:coverage}
+\end{equation}
+\glsadd{sym:isocoverage}\glsadd{sym:kernelbandwidth}
+The default $h$ is the RMS unique-edge length before filtering. The code
+evaluates the mean over all intersections in memory-bounded chunks; it does
+not silently substitute nearest neighbors or subsample the mesh.
+Defined component scores lie in $[0,1]$, with Gaussian underflow possibly
+producing zero. If any component has no usable cuts, the fused score is
+undefined. Nearly constant components use the declared test
+\begin{equation}
+ \max v_c-\min v_c\leq10^{-10}\max(1,\max|v_c|).
+\end{equation}
+Reconsider this tolerance for very small physical derivative units.
+
+The normalization by $|\mathcal P_c|$ makes this a kernel integral of an
+empirical probability measure. It is not contour length or surface area:
+edges and levels supply unequal geometric sampling, and vertex multiplicity
+remains. For $d>2$, edge cuts additionally omit the interior of level-set
+facets. Dense cuts indicate nearby derivative-level crossings, which can
+come from genuine curvature, noise or contamination as well as a smoothly
+resolved field.
+
+If a smooth component varies approximately linearly and neighboring levels
+differ by $\Delta\ell$, their hyperplanes have separation approximately
+$\Delta\ell/\norm{\nabla v_c}$. Strong variation packs them closer.
+Cut proximity can therefore encode variation while accuracy depends on noise
+and geometry. As $h\to\infty$, every defined component score tends to one
+and discrimination disappears. As $h\to0$, scores concentrate at sampled cuts.
+
+\paragraph{The affine counterexample.}
+For an exactly affine scalar field, all derivative components are constant.
+The gradient is exact, yet its components yield no unique cuts. Assigning a
+tiny score to missing cuts would classify an ideal case as unreliable.
+The active code returns an undefined score and a
+\texttt{constant\_component} status. Absence of derivative variation is not
+absence of derivative information.
+
+\subsection{Historical threshold and conservative search proposals}
+For comparison with MATLAB, retain
+\begin{equation}
+ \tau=\mu_S+\lambda\sigma_S,\qquad
+ \widehat y_i=\mathbb I[S_i<\tau].
+ \label{eq:threshold}
+\end{equation}
+The standard deviation uses the sample convention. Increasing $\lambda$
+raises $\tau$ and can only increase the number of low-score flags.
+For skewed scores the threshold may exceed almost all values.
+It is not a calibrated false-positive rule.
+
+A nonzero first gradient supplies direction
+$\vect d_i=\pm\vect g_i/\norm{\vect g_i}$ in the supplied coordinate metric.
+The default step is one quarter of the distance from the representative to
+its second-nearest original sample:
+\begin{equation}
+ \vect x_{i,\mathrm{trial}}=\vect z_i+\alpha_i\vect d_i.
+ \label{eq:proposal}
+\end{equation}
+Zero gradients give zero steps. The sign selects ascent or descent.
+The predicted linear gain magnitude is $\alpha_i\norm{\vect g_i}$, not a
+guarantee of improvement. Proposals outside the original convex hull are
+flagged. The hull fills holes and nonconvex forbidden regions; being inside
+does not imply physical feasibility.
+
+At $K>1$, the final coverage has a different support. Nearest-neighbor
+transfer to first-order representatives returns both the descriptor and
+transfer distance, even if the two support arrays have the same row count.
+The default step is not scaled by uncalibrated coverage. A future acceptance
+rule should evaluate a new measurement, or use independently justified error
+bounds and a line search. A machine application must still impose current,
+voltage, thermal and measurement-validity constraints.

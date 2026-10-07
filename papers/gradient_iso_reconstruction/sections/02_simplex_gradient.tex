@@ -1,0 +1,133 @@
+\section{A simplex gradient is a multidirectional finite difference}
+\subsection{Choose the metric before choosing the neighborhood}
+Distances between coordinates with different units have no canonical meaning.
+Even when all coordinates are currents, different allowed ranges can dominate
+the triangulation. Declare reference scales $q_j>0$, let
+$\matr Q=\diag(q_1,\ldots,q_d)$, and use
+\begin{equation}
+ \vect u=\matr Q^{-1}(\vect x-\vect x_*).
+ \label{eq:metric}
+\end{equation}
+All examples use dimensionless coordinates; the code triangulates exactly
+the coordinates supplied by its caller. Automatic rescaling would hide the
+choice of locality. Translation and common scaling preserve the Euclidean
+geometry in exact arithmetic; anisotropic scaling can change the neighbors.
+
+If $\widetilde f(\vect u)=f(\vect x_*+\matr Q\vect u)$, the chain rule gives
+\begin{equation}
+ \nabla_{\vect x} f=\matr Q^{-\mathsf T}\nabla_{\vect u}\widetilde f,
+ \qquad
+ \matr H_{\vect x}=\matr Q^{-\mathsf T}\matr H_{\vect u}\matr Q^{-1}.
+ \label{eq:chain}
+\end{equation}
+A gradient component has field units divided by its coordinate unit;
+Hessian entries divide by two coordinate units. A normalized gradient step
+in $\vect u$ selects a search metric and generally differs from a Euclidean
+steepest step in physical $\vect x$ coordinates.
+
+\subsection{Subtracting the reference vertex exposes the slope}
+Consider a nondegenerate simplex $\sigma$ with vertices
+$\vect x_0,\ldots,\vect x_d$. Define
+$\vect e_j=\vect x_j-\vect x_0$ and
+\begin{equation}
+ \matr E_\sigma=
+ \begin{bmatrix}\vect e_1^{\mathsf T}\\\vdots\\\vect e_d^{\mathsf T}\end{bmatrix},
+ \qquad
+ \Delta\vect f_\sigma=
+ \begin{bmatrix}f_1-f_0\\\vdots\\f_d-f_0\end{bmatrix}.
+\end{equation}
+\glsadd{sym:simplexedge}\glsadd{sym:recoveredgradient}
+An affine interpolant is
+\begin{equation}
+ \widehat f_\sigma(\vect x)=f_0+
+ \vect g_\sigma^{\mathsf T}(\vect x-\vect x_0).
+\end{equation}
+Matching the other vertices gives the central solve
+\begin{equation}
+ \boxed{\matr E_\sigma\vect g_\sigma=\Delta\vect f_\sigma.}
+ \label{eq:edgesolve}
+\end{equation}
+Each row specifies one directional change. Independent edges determine all
+gradient components. A nearly collapsed simplex leaves a direction poorly
+observed, so small value changes can require large slopes.
+
+The equivalent augmented solve uses rows $[\vect x_j^{\mathsf T},1]$ and
+solves for slope and intercept simultaneously. Subtraction eliminates the
+intercept first and avoids a large coordinate offset in that matrix.
+Barycentric interpolation is another view: for affine barycentric weights
+$\lambda_j$, $\widehat f=\sum_j\lambda_j f_j$ and
+$\vect g=\sum_j f_j\nabla\lambda_j$. These describe the same $P_1$
+interpolant. A solve through exactly $d+1$ values neither averages nor
+regularizes measurement noise.
+
+For $f(\vect x)=\vect a^{\mathsf T}\vect x+b$,
+$\Delta\vect f_\sigma=\matr E_\sigma\vect a$, hence
+$\vect g_\sigma=\vect a$ on every admissible cell. This affine reproduction
+is an algebraic invariant, not an empirical accuracy claim.
+
+\subsection{A normalized triangle makes the approximation visible}
+Take $(0,0)$, $(1,0)$ and $(0,1)$. If their values are $0$, $2$ and
+$-1$, the edge matrix is the identity and the gradient is $(2,-1)$.
+The plane increases by two units in the first coordinate and decreases by
+one in the second. Its level lines are perpendicular to that vector.
+
+For $f=(x_1^2+x_2^2)/2$ on the same vertices, the affine gradient is
+$(1/2,1/2)$, while the exact gradient at centroid $(1/3,1/3)$ is
+$(1/3,1/3)$. Interpolating the values exactly does not differentiate the
+underlying nonlinear field exactly at the representative. The residual at
+every vertex is zero in both examples, so interpolation residual cannot
+diagnose gradient error.
+
+\begin{figure}[htbp]
+\centering\input{figures/02_simplex.tex}
+\caption{An affine slope is recovered exactly, but nonlinear slopes are
+approximated. A thin triangle magnifies vertical value error: the second
+slope contains division by the height $\delta$.}
+\label{fig:simplex}
+\end{figure}
+
+\subsection{Noise amplification and curvature bias are different errors}
+Write observations as $f_j=f(\vect x_j)+\eta_j$. Then
+\begin{equation}
+ \delta\vect g_\sigma=\matr E_\sigma^{-1}\Delta\vect\eta_\sigma,
+ \qquad
+ \norm{\delta\vect g_\sigma}_2\leq
+ \norm{\matr E_\sigma^{-1}}_2\norm{\Delta\vect\eta_\sigma}_2.
+ \label{eq:noisebound}
+\end{equation}
+For independent errors of common variance $\sigma_\eta^2$, every difference
+shares $\eta_0$. Their covariance is therefore not diagonal:
+\begin{align}
+ \operatorname{Cov}(\Delta\vect\eta)&=
+ \sigma_\eta^2(\matr I+\vect 1\vect 1^{\mathsf T}),\\
+ \operatorname{Cov}(\delta\vect g)&=\sigma_\eta^2
+ \matr E^{-1}(\matr I+\vect1\vect1^{\mathsf T})\matr E^{-\mathsf T}.
+ \label{eq:covariance}
+\end{align}
+For unequal or correlated errors, replace the middle covariance by the one
+induced by the differencing operator. The implementation records
+$\norm{\matr E^{-1}}_2$ and edge condition number separately. A tiny
+equilateral cell can be well-conditioned and still amplify noise strongly.
+Filtering only by condition number cannot address that situation.
+
+If the Hessian norm of a twice differentiable $f$ is bounded by $L$ on the
+cell, Taylor expansion at $\vect x_0$ gives remainders
+$|r_j|\leq L\norm{\vect e_j}^2/2$. Thus
+\begin{align}
+ \norm{\vect g_\sigma-\nabla f(\vect x_0)}_2
+ &\leq \frac{L}{2}\norm{\matr E_\sigma^{-1}}_2
+ \left(\sum_{j=1}^d\norm{\vect e_j}_2^4\right)^{1/2}\nonumber\\
+ &\quad+\norm{\matr E_\sigma^{-1}}_2\norm{\Delta\vect\eta}_2.
+ \label{eq:bias}
+\end{align}
+Moving the reference to the centroid adds at most
+$L\norm{\vect z_\sigma-\vect x_0}$ to the bound. On shape-regular cells
+of characteristic length $\rho$, curvature bias decreases like $L\rho$,
+whereas fixed-amplitude noise is amplified like $\sigma_\eta/\rho$.
+More samples do not automatically mean better derivatives.
+
+The determinant measures oriented volume up to the factor $d!$. Its
+vanishing signals collapse, but its magnitude mixes size and shape.
+Singular values separate poor directional support from overall scale.
+Delaunay connectivity does not ensure well-conditioned cells, especially
+in higher dimensions or near support boundaries.

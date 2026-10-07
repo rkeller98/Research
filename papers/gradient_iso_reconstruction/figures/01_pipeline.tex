@@ -1,0 +1,13 @@
+\begin{tikzpicture}[node distance=7mm]
+\node[pipeline block,model block] (samples) {Scattered samples $(\vect x_i,f_i)$\\declared coordinate metric};
+\node[pipeline block,below=of samples] (fit) {Delaunay cells and anchored edge solves\\$\matr E_\sigma\vect g_\sigma=\Delta\vect f_\sigma$};
+\node[pipeline block,below=of fit] (cloud) {Derivative samples at representatives\\new mesh at each order};
+\node[diagnostic block,below left=10mm and 0mm of cloud] (search) {Gradient direction\\candidate measurement};
+\node[diagnostic block,below right=10mm and 0mm of cloud] (iso) {Derivative level cuts\\iso coverage descriptor};
+\draw[flow] (samples)--(fit);
+\draw[flow] (fit)--(cloud);
+\draw[flow] (cloud)--(search);
+\draw[flow] (cloud)--(iso);
+\draw[flow,guide pattern] (cloud.east)--++(1.5,0)|-(fit.east)
+ node[annotation,pos=.7] {recurse};
+\end{tikzpicture}

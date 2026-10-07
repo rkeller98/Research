@@ -1,0 +1,25 @@
+\title{Gradient-Iso Reconstruction from Scattered Samples:\\
+Local Derivatives, Level-Set Geometry, and the Limits of Confidence}
+\author{Raphael Keller}
+\date{Research draft --- 7 October 2026}
+\newcommand{\PaperAbstract}{%
+Sparse scalar measurements can reveal local improvement directions without
+a global surrogate. We develop affine interpolation on Delaunay simplices,
+explain how geometry controls derivative error, and recursively lift the
+derivative cloud to higher orders. A Python implementation reuses the VICE
+\texttt{EdgeIntersector} and retains source-simplex provenance. Exact affine
+tests, noise propagation, quadratic refinement, recursive curvature, and
+synthetic contamination checks separate algebraic correctness from
+statistical reliability. Clean first derivatives improve with refinement,
+whereas fixed measurement noise is amplified. Recursive second derivatives
+are not automatically symmetric or polynomial preserving. The historical
+iso-density confidence interpretation fails an affine counterexample and
+performs poorly as a low-score anomaly ranking in the reported experiments.
+We retain iso coverage as a geometric descriptor, expose undefined plateau
+cases, and re-evaluate proposed search steps using the true synthetic
+objective. This yields a reproducible research method with explicit
+assumptions and limitations.}
+\newif\ifshowglossary
+\showglossarytrue
+\newif\ifshowbibliography
+\showbibliographytrue

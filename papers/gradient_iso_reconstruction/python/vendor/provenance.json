@@ -1,0 +1,9 @@
+{
+  "origin": "C:/Git/GUI_VICE-MeasurementEvalKit",
+  "revision": "1ecd269739833ae343e864d91fdeb2d2c5669342",
+  "files": {
+    "SourceCode/python/vice_measeval/backend/numeric/model/point_set.py": "7be77e67c32302ea80fc7d176877008690098738cba03676655dabceb230a79c",
+    "SourceCode/python/vice_measeval/backend/numeric/model/sampled_field.py": "f435dfe30fb3b1d7c32bb45875d107cffa18207f84621db6ae136a97b564ae1f",
+    "SourceCode/python/vice_measeval/backend/numeric/geometry/levelset/edge_intersector.py": "5e82420b6ccdc1fdc8af6a9d4d093c0c6f500e26c3ab16b1f95f63125e8d8bb5"
+  }
+}

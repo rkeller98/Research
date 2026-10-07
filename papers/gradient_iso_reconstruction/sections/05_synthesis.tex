@@ -1,0 +1,27 @@
+\section{What can be used, and what needs a different estimator?}
+The derivative direction comes from independent directional differences,
+not from the iso score. Its error mechanisms are concrete: curvature bias
+decreases on smaller well-shaped cells, while noise is amplified by the
+inverse edge matrix. Conditioning and noise scale can therefore inform a
+search decision.
+
+Recursive lifting is an understandable research construction, but every
+stage changes the field and support. Raw mixed partials, symmetry defect
+and Laplacian are useful outputs to inspect. The clean quadratic counterexample
+prevents treating them as validated curvature. Larger local polynomial
+neighborhoods, recovered gradient regularization or a potential-based fit
+are appropriate next investigations when curvature accuracy matters.
+
+Iso coverage visualizes where selected derivative levels cross the mesh.
+Its counting measure, level selection and bandwidth are part of its
+definition. The affine counterexample and contamination tests show why
+this descriptor cannot generally serve as confidence. Reversing the anomaly
+sign on one dataset would merely substitute another uncalibrated rule.
+
+A measurement system should combine a declared metric, derivative estimates,
+support and noise diagnostics, application constraints, and acceptance
+against a new objective measurement. Confidence additionally needs held-out
+accuracy targets, independent repetitions or known measurement uncertainty,
+and validation across curvature, support and contamination regimes.
+The Python package makes these distinctions reproducible; it does not yet
+provide an experimentally validated controller.

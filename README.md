@@ -24,9 +24,18 @@ optimization draft, and the two complementary flux-map drafts:
 
 - `physics_constrained_flux_maps`: admissible co-energy reconstruction and fitting.
 - `flux_map_error_diagnostics`: experimental symmetry residuals, resistance-equivalent interpretation, and limits of causal attribution.
+- `gradient_iso_reconstruction`: local simplex derivatives, recursive derivative
+  clouds, iso geometry, synthetic validation and an audited Python migration
+  using the existing VICE geometry implementation.
 
 The former combined `dq_flux_symmetry_diagnostics` directory has been split;
 it is not an additional active paper. See [the split report](docs/flux_papers_split.md).
+
+The [torque/flux consistency research note](docs/torque_flux_consistency.md)
+connects torque projections to the existing voltage, resistance-equivalent and
+co-energy diagnostics. It includes six geometric/observability figures and an
+isolated synthetic proof of concept; no measured maps or production correction
+are changed. Torque-channel provenance remains an experimental prerequisite.
 
 ## Start and validate a paper
 
