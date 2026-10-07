@@ -8,11 +8,42 @@ the exact confounder remains. This result is generated from the fixture,
 not inferred from the appearance of its measured flux residuals.
 Two speed slices cannot separate two identically scaled columns.
 
+For a direct pointwise speed test, interpolate both actual speed slices to the
+same requested-current labels and retain only points inside both measured
+convex hulls. This yields 83 of 104 unique labels; the largest ordered measured
+current mismatch before interpolation is \SI{0.759}{\ampere}. Fit the pure
+resistance prediction
+\begin{equation}
+ \flux_{1000}-\flux_{3000}
+ =\varepsilon_R\rotationgenerator\current
+ \left(\omega_{e,1000}^{-1}-\omega_{e,3000}^{-1}\right)
+\end{equation}
+point by point. Its resistance-equivalent coefficient is
+\SI{1.12}{\milli\ohm}, but flux-difference RMS decreases only from 0.362 to
+\SI{0.352}{\milli\weber} and pointwise correlation is 0.064. Thus the measured
+speed difference is not well explained by this sole inverse-speed mechanism.
+The result is stored pointwise rather than inferred from two aggregate means.
+
+Augment the design by the exact current-proportional voltage nuisance, two
+constant voltage offsets and two static flux offsets. With parameter scales
+10 m$\Omega$, 10 mV/A, 0.1 V and 1 mWb, and a declared nominal 1-mWb row scale,
+the design has rank five of six. The nonzero scaled condition number is about
+2481: resistance versus proportional voltage is exactly unidentifiable, while
+voltage versus static flux offsets are only weakly separated by the small
+within-slice speed variation. This is physical scaling but not covariance
+whitening because no calibrated covariance is available.
+
 The synthetic tests use a known magnetic reference. On real data, angle
 columns depend on flux and differential inductance that require independent
 qualification. Current errors change both coordinates and values; an apparent
 local correction can reflect an erroneous reference derivative. Rank after
 whitening and parameter scaling matters more than visual separation.
+
+The fixture contains terminal current, not a separately measured magnetic
+storage current or iron-loss branch current. Terminal-current versus
+magnetic-current attribution is therefore unidentifiable from these channels;
+adding a loss-aware state without an observation would only add nuisance
+directions.
 
 Inverter dead time, nonlinear device drops, timing, losses, thermal state and
 genuine asymmetry can add nuisance directions \cite{liu2018,richter2014}.

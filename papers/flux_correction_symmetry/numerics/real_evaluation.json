@@ -11,8 +11,14 @@
       "candidate_pairs": 158,
       "supported_pairs": 142,
       "forbidden_rms_mWb": [
-        2.873203525108655,
+        2.8732035251086554,
         2.184473279284725
+      ],
+      "full_map_candidate_pairs": 172,
+      "full_map_supported_pairs": 156,
+      "full_map_forbidden_rms_mWb": [
+        2.7631731064639657,
+        2.2029654475263603
       ],
       "method": "P1 mirror interpolation on measured-current hull; positive q representatives",
       "pointwise_output": "papers/flux_correction_symmetry/figures/data/real_projection_30.csv"
@@ -31,9 +37,21 @@
         2.4766940579832455,
         2.1272238653910196
       ],
+      "full_map_candidate_pairs": 170,
+      "full_map_supported_pairs": 156,
+      "full_map_forbidden_rms_mWb": [
+        2.3986038574597437,
+        2.1440618774493188
+      ],
       "method": "P1 mirror interpolation on measured-current hull; positive q representatives",
       "pointwise_output": "papers/flux_correction_symmetry/figures/data/real_projection_70.csv"
     }
   ],
+  "synthetic_checks": {
+    "used_minus_true_resistance_ohm": 0.02,
+    "electrical_speed_rad_per_s": 1000.0,
+    "analytic_residual_max_error_Wb": 3.3881317890172014e-21,
+    "current_proportional_voltage_confounder_max_error_Wb": 3.3881317890172014e-21
+  },
   "limitation": "Interpolation errors are correlated; zero projected residual is structural"
 }

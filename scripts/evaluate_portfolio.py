@@ -2,15 +2,22 @@
 
 No raw MAT, external repository, GUI, or absolute local data path is required.
 """
+import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
+import subprocess
 import sys
 import numpy as np
 from scipy.interpolate import LinearNDInterpolator
 from scipy.spatial import Delaunay
 
 ROOT = Path(__file__).resolve().parents[1]
+MPL_CONFIG = ROOT / "tmp" / "matplotlib"
+MPL_CONFIG.mkdir(parents=True, exist_ok=True)
+os.environ.setdefault("MPLCONFIGDIR", str(MPL_CONFIG))
+os.environ.setdefault("XDG_CACHE_HOME", str(ROOT / "tmp" / "cache"))
 sys.path.insert(0, str(ROOT / "shared/python"))
 from canonical_dataset import load_dataset
 from coenergy_mesh import AffineMesh
@@ -82,6 +89,13 @@ def parity():
         d, source = fixture("psm_temperature_2500", temp)
         p, f = points(d)
         interp = LinearNDInterpolator(p, f)
+        full_candidate = p[:, 1] > 0
+        full_mirror = interp(p[full_candidate] * [1, -1])
+        full_valid = np.isfinite(full_mirror).all(axis=1)
+        full_raw = f[full_candidate][full_valid]
+        full_mirror = full_mirror[full_valid]
+        full_forbidden = .5*np.column_stack([
+            full_raw[:,0]-full_mirror[:,0], full_raw[:,1]+full_mirror[:,1]])
         # Only positive q is an independent representative; reflected arguments
         # use actually measured coordinates. No requested-key geometry is assumed.
         candidate = p[:, 1] > .1 * np.max(abs(p[:, 1]))
@@ -100,6 +114,9 @@ def parity():
                    header="id_A,iq_A,raw_psi_d_Wb,raw_psi_q_Wb,mirror_psi_d_Wb,mirror_psi_q_Wb,projected_psi_d_Wb,projected_psi_q_Wb,projected_mirror_psi_d_Wb,projected_mirror_psi_q_Wb,removed_psi_d_Wb,removed_psi_q_Wb")
         entry = dict(source=source, points=len(p), candidate_pairs=int(candidate.sum()),
                      supported_pairs=len(pp), forbidden_rms_mWb=(1000*np.sqrt(np.mean(forbidden**2, axis=0))).tolist(),
+                     full_map_candidate_pairs=int(full_candidate.sum()),
+                     full_map_supported_pairs=int(full_valid.sum()),
+                     full_map_forbidden_rms_mWb=(1000*np.sqrt(np.mean(full_forbidden**2,axis=0))).tolist(),
                      method="P1 mirror interpolation on measured-current hull; positive q representatives",
                      pointwise_output=output.relative_to(ROOT).as_posix())
         report.append(entry)
@@ -109,7 +126,28 @@ def parity():
             ax.axhline(0, color=colors["guide"], lw=.8)
     axes[0].legend()
     figure(fig, "flux_correction_symmetry", "real_projection")
-    save_report("flux_correction_symmetry", dict(slices=report, limitation="Interpolation errors are correlated; zero projected residual is structural"))
+    # Reproduce the resistance-equivalent sign and an exact voltage-drop
+    # confounder independently of real-data interpolation.
+    sg = np.array([(x,y) for x in np.linspace(-1,1,17) for y in np.linspace(.1,1,9)])
+    epsilon_r, omega = .02, 1000.
+    J = np.array([[0.,-1.],[1.,0.]])
+    injected = epsilon_r/omega*(sg@J.T)
+    mirrored = epsilon_r/omega*((sg*[1,-1])@J.T)
+    observed = .5*np.column_stack([injected[:,0]-mirrored[:,0],
+                                   injected[:,1]+mirrored[:,1]])
+    expected = np.column_stack([-epsilon_r*sg[:,1]/omega,
+                                 epsilon_r*sg[:,0]/omega])
+    resistance_error = float(np.max(abs(observed-expected)))
+    # Reconstruction of voltage error -a*i produces the identical flux term.
+    confounder_error = float(np.max(abs(injected-(-J@(-epsilon_r*sg).T/omega).T)))
+    assert resistance_error < 1e-14 and confounder_error < 1e-14
+    save_report("flux_correction_symmetry", dict(
+        slices=report,
+        synthetic_checks=dict(used_minus_true_resistance_ohm=epsilon_r,
+            electrical_speed_rad_per_s=omega,
+            analytic_residual_max_error_Wb=resistance_error,
+            current_proportional_voltage_confounder_max_error_Wb=confounder_error),
+        limitation="Interpolation errors are correlated; zero projected residual is structural"))
 
 
 def coenergy():
@@ -162,7 +200,34 @@ def coenergy():
     affine = AffineMesh(grid, np.column_stack([1+.6*grid[:,0], grid[:,1]]))
     assert np.max(abs(affine.curl)) < 1e-12
     assert abs(np.subtract(*affine.paths(.6, .7))) < 1e-12
-    save_report("magnetic_coenergy_consistency", dict(slices=reports, affine_reference="passed", interpretation="Measured terminal-current P1 reconstruction is inconsistent; no cause or continuum error bound inferred"))
+    # A nonlinear conservative continuum field can acquire nonzero element curl
+    # when its two components are interpolated independently with P1 elements.
+    from magnetic_model import flux as conservative_flux
+    nonlinear = AffineMesh(grid, conservative_flux(grid))
+    nonlinear_curl_rms = float(np.sqrt(np.sum(nonlinear.area*nonlinear.curl**2)/np.sum(nonlinear.area)))
+    nonlinear_path = float(abs(np.subtract(*nonlinear.paths(.6, .7))))
+    assert nonlinear_curl_rms > 1e-3 and nonlinear_path > 1e-5
+    # Pure used-minus-true resistance mismatch has an analytic affine curl and
+    # circulation, providing an independent sign and dimensional check.
+    epsilon_r, omega = .02, 1000.
+    J = np.array([[0.,-1.],[1.,0.]])
+    resistance = AffineMesh(grid, epsilon_r/omega*(grid@J.T))
+    expected_curl = 2*epsilon_r/omega
+    expected_path = expected_curl*.6*.7
+    assert np.max(abs(resistance.curl-expected_curl)) < 1e-14
+    assert abs(np.subtract(*resistance.paths(.6,.7))-expected_path) < 1e-14
+    save_report("magnetic_coenergy_consistency", dict(
+        slices=reports,
+        synthetic_checks=dict(
+            affine_conservative_max_abs_curl=float(np.max(abs(affine.curl))),
+            affine_conservative_path_difference=float(abs(np.subtract(*affine.paths(.6,.7)))),
+            nonlinear_conservative_p1_curl_rms=nonlinear_curl_rms,
+            nonlinear_conservative_p1_path_difference=nonlinear_path,
+            pure_resistance_mismatch_ohm=epsilon_r,
+            pure_resistance_speed_rad_per_s=omega,
+            pure_resistance_curl_H=expected_curl,
+            pure_resistance_path_difference=expected_path),
+        interpretation="Measured terminal-current P1 reconstruction is inconsistent; no cause or continuum error bound inferred"))
 
 
 def reconstruction():
@@ -228,34 +293,16 @@ def reconstruction():
 
 
 def torque():
-    import matplotlib.pyplot as plt
-    colors = configure()
-    d, source = fixture("psm_dual_system_multirpm")
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.7), layout="constrained")
-    reports = []
-    for rpm, role in [(1000,"reference"),(3000,"estimated")]:
-        mask = d["rpm_req"] == rpm
-        v = {k:a[mask] for k,a in d.items()}
-        mag = np.hypot(v["id"],v["iq"])
-        selected = mag >= .1*np.max(mag)
-        em = v["torque_map"]-v["torque"]
-        epsi = em[selected]/(v["kt"][selected]*mag[selected])
-        assert np.all(v["kt"] == 12)
-        reports.append(dict(rpm=rpm, points=len(mag), normalized_points=int(selected.sum()),
-            torque_bias_Nm=float(em.mean()), torque_rms_Nm=float(np.sqrt(np.mean(em**2))),
-            normalized_flux_rms_mWb=float(np.sqrt(np.mean(epsi**2))*1000),
-            median_torque_std_Nm=float(np.median(v["torque_std"]))))
-        axes[0].scatter(v["torque_map"],v["torque"],s=12,color=colors[role],label=f"{rpm} rpm")
-        axes[1].scatter(mag[selected],epsi*1000,s=12,color=colors[role])
-    axes[0].plot([-75,75],[-75,75],color=colors["guide"],linestyle="--",label="equal values")
-    axes[0].set(xlabel="$M_{map}$ / Nm, $k_T=3p$",ylabel="$M_{CAN}$ / Nm")
-    axes[0].legend()
-    axes[1].set(xlabel="$I_s$ / A",ylabel="$e_\\psi$ / mWb")
-    figure(fig,"torque_flux_consistency","real_torque")
-    save_report("torque_flux_consistency",dict(source=source,slices=reports,
-        phase_selector=1,systems=2,kt=12,nominal_pole_pairs=4,
-        evidence="Recorded selector and MeasEval phase-system interpretation; unity CAN gain retained",
-        limit="CAN indication is not calibrated electromagnetic truth; equal represented system currents assumed"))
+    # The paper experiment is deliberately a standalone research tool.  The
+    # portfolio automation selects its explicit headless mode rather than
+    # changing the script's interactive default globally.
+    subprocess.run(
+        [sys.executable,
+         str(ROOT / "papers/torque_flux_consistency/numerics/torque_consistency.py"),
+         "--save-only"],
+        cwd=ROOT,
+        check=True,
+    )
 
 
 def identifiability():
@@ -274,13 +321,79 @@ def identifiability():
     offset_columns = np.stack([offset_columns[:,:2].reshape(-1),offset_columns[:,2:].reshape(-1)],axis=1)
     augmented = np.column_stack([S,offset_columns])
     assert np.linalg.matrix_rank(augmented) == 3
-    save_report("flux_error_identifiability",dict(source=source,points=len(i),
-        resistance_voltage_nuisance_rank=1, columns=2, offset_augmented_rank=3,
-        augmented_columns=4, singular_values=np.linalg.svd(S,compute_uv=False).tolist(),
-        interpretation="Real support checks a mathematical exact confounder; no sensor error is estimated"))
+    # Match the two actual speed slices on their common measured-current hull.
+    slices = [d["rpm_req"] == rpm for rpm in (1000, 3000)]
+    requested = np.unique(np.column_stack([d["id_req"][slices[0]], d["iq_req"][slices[0]]]), axis=0)
+    interpolated = []
+    for selected in slices:
+        location = np.column_stack([d["id"][selected], d["iq"][selected]])
+        field = LinearNDInterpolator(location, np.column_stack([d["psi_d"][selected], d["psi_q"][selected]]))(requested)
+        omega = LinearNDInterpolator(location, d["omega_e"][selected])(requested)
+        interpolated.append((field, omega))
+    (flux1, omega1), (flux3, omega3) = interpolated
+    supported = (np.isfinite(flux1).all(axis=1) & np.isfinite(flux3).all(axis=1)
+                 & np.isfinite(omega1) & np.isfinite(omega3))
+    target = requested[supported]
+    flux_difference = flux1[supported]-flux3[supported]
+    inverse_speed = 1/omega1[supported]-1/omega3[supported]
+    resistance_prediction = (inverse_speed[:,None]*(target@J.T)).reshape(-1)
+    epsilon_fit = float(np.linalg.lstsq(resistance_prediction[:,None], flux_difference.reshape(-1), rcond=None)[0][0])
+    predicted = (epsilon_fit*resistance_prediction).reshape(-1,2)
+    pointwise = ROOT/"papers/flux_error_identifiability/figures/data/multispeed_pointwise.csv"
+    np.savetxt(pointwise, np.column_stack([target, flux_difference, predicted,
+               flux_difference-predicted, omega1[supported], omega3[supported]]),
+               delimiter=",", fmt="%.17g", comments="",
+               header="id_A,iq_A,delta_psi_d_observed_Wb,delta_psi_q_observed_Wb,delta_psi_d_Rfit_Wb,delta_psi_q_Rfit_Wb,residual_d_Wb,residual_q_Wb,omega_1000_rad_per_s,omega_3000_rad_per_s")
+    # Physically scaled nuisance design: 10 mOhm resistance/drop slopes,
+    # 0.1 V constant voltage offsets and 1 mWb static flux offsets. A nominal
+    # 1 mWb row scale is used because no calibrated covariance is available.
+    q = inverse_speed
+    voltage_d = (q[:,None]*np.tile([0.,-1.],(len(q),1))).reshape(-1)
+    voltage_q = (q[:,None]*np.tile([1.,0.],(len(q),1))).reshape(-1)
+    flux_d = np.tile([1.,0.],(len(q),1)).reshape(-1)
+    flux_q = np.tile([0.,1.],(len(q),1)).reshape(-1)
+    nuisance = np.column_stack([resistance_prediction, resistance_prediction,
+                                voltage_d, voltage_q, flux_d, flux_q])
+    parameter_scales = np.array([.01,.01,.1,.1,.001,.001])
+    scaled = nuisance*parameter_scales/.001
+    singular = np.linalg.svd(scaled,compute_uv=False)
+    rank = int(np.linalg.matrix_rank(scaled))
+    save_report("flux_error_identifiability",dict(
+        source=source,points=len(i),
+        support_matching=dict(requested_unique_points=len(requested),
+            common_hull_points=len(target),
+            maximum_ordered_measured_current_mismatch_A=float(np.max(np.linalg.norm(
+                np.column_stack([d["id"][slices[0]]-d["id"][slices[1]],
+                                 d["iq"][slices[0]]-d["iq"][slices[1]]]),axis=1))),
+            method="P1 interpolation of both speed slices to shared requested-current labels inside both measured hulls"),
+        inverse_speed_pointwise_test=dict(
+            fitted_resistance_equivalent_ohm=epsilon_fit,
+            observed_flux_difference_rms_mWb=float(1000*np.sqrt(np.mean(flux_difference**2))),
+            prediction_residual_rms_mWb=float(1000*np.sqrt(np.mean((flux_difference-predicted)**2))),
+            pointwise_correlation=float(np.corrcoef(flux_difference.reshape(-1),predicted.reshape(-1))[0,1]),
+            output=pointwise.relative_to(ROOT).as_posix()),
+        resistance_voltage_nuisance_rank=1, columns=2,
+        nuisance_design=dict(rank=rank,columns=6,
+            column_order=["resistance","current_proportional_voltage","d_voltage_offset","q_voltage_offset","d_flux_offset","q_flux_offset"],
+            parameter_scales=["0.01 ohm","0.01 V/A","0.1 V","0.1 V","0.001 Wb","0.001 Wb"],
+            row_scale="0.001 Wb nominal; not covariance whitening",
+            singular_values=singular.tolist(),
+            nonnull_condition_number=float(singular[0]/singular[rank-1])),
+        classification=dict(
+            resistance="unidentifiable separately from current-proportional voltage error (exact shared column)",
+            voltage_vs_flux_offsets="weakly identifiable on small within-slice speed variation",
+            terminal_vs_magnetic_current="unidentifiable: fixture has no magnetic-current or iron-loss branch channel"),
+        interpretation="Pointwise inverse-speed prediction is weak and exact nuisance confounding remains; no physical sensor error is estimated"))
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--save-only", action="store_true",
+                        help="select a headless Matplotlib backend for automated portfolio evaluation")
+    args = parser.parse_args()
+    if args.save_only:
+        import matplotlib
+        matplotlib.use("Agg")
     parity()
     coenergy()
     reconstruction()

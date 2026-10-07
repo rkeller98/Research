@@ -52,3 +52,24 @@ has zero curl and path disagreement to roundoff. It checks signs and exact
 integration where interpolation reproduces the known field. For curved real
 fields, P1 interpolation itself can violate reciprocity; the measured result
 cannot assign the full observed discrepancy to the underlying machine.
+
+This interpolation effect is quantified with the known nonlinear conservative
+benchmark on a $9\times9$ square grid. Although its continuum curl is exactly
+zero, independently interpolating the two gradient components gives an
+area-weighted P1 curl RMS of $1.287\times10^{-2}$ in normalized inductance and
+a path difference of $2.25\times10^{-4}$ in normalized co-energy at
+$(0.6,0.7)$. Refining the same grid reduces the curl RMS from $1.618\times10^{-2}$
+at $7\times7$ to $6.570\times10^{-3}$ at $17\times17$. Thus ``nonzero discrete
+curl'' and ``nonconservative continuum law'' are not synonymous.
+
+As a separate analytic sign check, a pure used-minus-true resistance mismatch
+$\varepsilon_R$ contributes
+\begin{equation}
+ \delta\flux_R=\frac{\varepsilon_R}{\omegae}\rotationgenerator\current,
+ \qquad r_{\mathrm{curl},R}=\frac{2\varepsilon_R}{\omegae}.
+\end{equation}
+For $\varepsilon_R=\SI{0.02}{\ohm}$ and
+$\omega_e=\SI{1000}{\per\second}$ the affine mesh reproduces
+$r_{\mathrm{curl},R}=\SI{4e-5}{\henry}$ and the rectangle circulation
+$1.68\times10^{-5}$ J at $(0.6,0.7)$ exactly to roundoff. This is a reproduced
+conditional mechanism, not identification of the real dataset's resistance.

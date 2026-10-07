@@ -78,9 +78,9 @@
   },
   {
     "paper": "torque_flux_consistency",
-    "reachable_tex": 10,
-    "labels": 24,
-    "citations": 4,
+    "reachable_tex": 11,
+    "labels": 32,
+    "citations": 6,
     "errors": []
   }
 ]

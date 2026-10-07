@@ -1,0 +1,58 @@
+\section{Stationary torque residual and its nuisance offset}
+\label{sec:stationary-residual}
+Under a declared dq scaling and phase-system configuration, a reconstructed
+flux map predicts
+\begin{equation}
+ M_{\mathrm{theo}}=\kt(\psid\iq-\psiq\id).
+ \label{eq:theoretical-torque}
+\end{equation}
+Define measured minus theoretical torque,
+\begin{equation}
+ \boxed{\stationarytorqueresidual=M_{\mathrm{meas}}-M_{\mathrm{theo}}.}
+ \label{eq:stationary-residual}
+\end{equation}
+The sign matters: a positive flux correction that increases theoretical torque
+decreases this residual. The measured channel must be independent of the voltage
+signals used for flux reconstruction; independence of electronics does not by
+itself establish calibrated electromagnetic truth.
+
+At stationary mechanical speed the schematic rotor balance is
+\begin{equation}
+ \rotorinertia\dot{\mechanicalspeed}
+ =M_{\mathrm{em}}-\shafttorque-\mechanicallosstorque,
+ \qquad \dot\omega_{\mathrm m}\simeq0.
+ \label{eq:stationary-balance}
+\end{equation}
+Mechanical friction and windage, sensor-chain offset and some nearly constant
+loss contribution can therefore separate measured shaft torque from the
+electromagnetic model. Iron loss is not generally constant across a current
+map even at fixed speed: flux amplitude, saturation and harmonics vary with
+operating point. Current-dependent mechanical or electrical loss and calibration
+gain can likewise create structure. A constant offset is consequently a first
+model level, not a law of the machine.
+
+For a group $g$ with approximately equal speed, thermal state, excitation and
+measurement configuration, write
+\begin{equation}
+ \stationarytorqueresidual(i_d,i_q)
+ =\torquegroupoffset+\delta r_M(i_d,i_q)+\varepsilon.
+ \label{eq:residual-decomposition}
+\end{equation}
+The nuisance offset $c_g$ is not a target for flux correction. The structured
+part $\delta r_M$ is the diagnostic signal; $\varepsilon$ represents measurement
+and reconstruction scatter. The first hypothesis is
+\begin{equation}
+ \boxed{M_{\mathrm{meas}}-M_{\mathrm{theo,corr}}\simeq c_g
+ \quad\text{within each qualified group}.}
+ \label{eq:flat-residual-hypothesis}
+\end{equation}
+A nearly constant nonzero residual is therefore a successful first-order
+consistency pattern. If spatially cross-validated low-order residual structure
+remains, the next model level is a slowly varying nuisance surface. It should be
+introduced only after the constant model fails, and it must not silently absorb
+the same high-frequency structure that the flux diagnostic is meant to test.
+
+Algebraically, centering removes one scalar per group. Geometrically, it aligns
+the vertical level of the two torque surfaces without changing their shape.
+Physically, it tolerates unmodeled mean loss and offset. Experimentally, it
+prevents a large harmless bias from dominating a spatial-consistency metric.

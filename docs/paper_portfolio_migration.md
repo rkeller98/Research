@@ -7,7 +7,7 @@
 | `flux_correction_symmetry` | Which flux components does reflection detect/project? | Complementary even/odd residuals, closest-pair projection, weighted interpretation and physical evidence boundary | Diagnostics structural/parity sections plus ZIP's projection framing | Algebra; portable PSM 2500-rpm measured-coordinate mirror interpolation |
 | `magnetic_coenergy_consistency` | Can the measured field be one potential gradient? | Reciprocity/circulation tests, coordinate counterexamples, exact P1/independent Green audit and geometric sensitivity | Physics composite co-energy, Hessian and admissibility sections | Analytic affine checks; same original PSM lineage at 30/70°C references |
 | `flux_correction_coenergy` | How can samples be projected into a common potential class? | Gauge-fixed gradient fit, even B-spline potential, curvature penalty and retained residuals | Physics composite fitting/numerical/synthetic sections | Original controlled synthetic regression; portable real spatial tuning experiment |
-| `torque_flux_consistency` | Which component does torque observe, and what ambiguity survives? | Rank-one projection, solution family, minimum-change/weighted representatives, reciprocal radial nullspace | Current physics composite torque theory and synthetic extension | 58 synthetic checks; newly interpreted six-phase Multi-RPM with kT=3p |
+| `torque_flux_consistency` | Can stationary torque residual shape regularize a reconstructed flux map while group offsets remain free? | Global minimum-change/smooth correction, co-energy variant, offset nuisance model; rank-one/radial-null theory retained as its identifiability limit | Current physics composite torque theory plus new global recovery | Known-truth recovery and lambda path; portable two-speed residual/transfer study; 58 retained observability checks; six-phase kT=3p qualification |
 | `flux_error_identifiability` | Which reconstruction-error directions are distinguishable? | Exact/linear transformations, scaled/whitened ranks and exact nuisance confounding | Diagnostics error-sensitivity, angle, identification and synthetic sections | Original symbolic/numeric regression; measured support nullspace check |
 
 The independent-reference umbrella remains
@@ -26,6 +26,15 @@ QP within a simplex; and the extended constrained EESM torque-optimization
 working draft. Their source was not changed by this scientific split; all
 were rebuilt against the canonical glossary. Page counts and QA appear in
 `portfolio_completion_report.md`.
+
+## Research-issue completion map
+
+| Research question | Owning paper | Reproducible evidence | Principal limitation | Issue |
+|---|---|---|---|---|
+| Which reflection-forbidden flux components and resistance-equivalent patterns are identifiable? | `flux_correction_symmetry` | Full-map/selected-region mirror metrics plus analytic resistance injection and exact voltage-drop confounder from `python scripts/evaluate_portfolio.py --save-only` | Symmetry identifies a forbidden subspace, not physical resistance or a cause | #2 |
+| Is the reconstructed field compatible with one magnetic co-energy? | `magnetic_coenergy_consistency` | Affine zero-curl check, nonlinear conservative P1 artifact, analytic resistance curl, exact path/Green audit and conditioning subsets | Terminal-current coordinates, interpolation and loss branches prevent causal interpretation | #3 |
+| Which multi-speed error directions are distinguishable? | `flux_error_identifiability` | Synthetic scaled rank plus 83-point inverse-speed test, physically scaled nuisance design and pointwise CSV | Resistance/proportional voltage are exactly confounded; magnetic current is unobserved | #4 |
+| How do correction hypotheses, admissibility and identifiability fit together? | Five-paper flux portfolio; torque paper owns independent-reference regularization | Derivations, known-truth counterexamples, portable diagnostics, local/integrated tests and boundaries in `docs/research_epic_completion.md` | No portable fixture supplies calibrated true flux or certified electromagnetic torque | #1 |
 
 ## Source and result map
 

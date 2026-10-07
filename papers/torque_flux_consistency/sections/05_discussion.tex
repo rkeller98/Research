@@ -1,28 +1,28 @@
-\section{Interpretation after the configuration check}
-\label{sec:torque-ambiguity-discussion}
-Torque observes a normal projection and leaves a radial slope free. Adding
-a smooth radial potential can preserve reflection, reciprocity and positive
-curvature while leaving every torque value unchanged. Zero discrepancy is
-therefore insufficient for full flux reconstruction, even with an ideal sensor.
-Pointwise minimum change chooses a representative; it need not retain curl-free
-structure across the current plane.
+\section{Limitations and interpretation boundary}
+The method needs a torque channel independent of the voltage reconstruction,
+but the portable CAN signal is not a certified electromagnetic reference.
+Mechanical friction, windage and sensor offset may look approximately constant
+inside a group. Iron loss, harmonic loss and current-dependent loss need not;
+the constant $c_g$ is therefore falsifiable and should be replaced only by a
+cross-validated low-complexity nuisance model when evidence requires it.
 
-The six-phase interpretation resolves the leading scale disagreement in the
-real case. It does not qualify the independent CAN observation as electromagnetic
-truth. If its shaft meaning were established, the signed rotor balance would be
-\begin{equation}
- \rotorinertia\dot{\mechanicalspeed}
- =M_{\rm em}-\shafttorque-\mechanicallosstorque.
- \label{eq:shaft-torque-balance}
-\end{equation}
-Even at steady speed mechanical losses separate transmitted and electromagnetic
-torque. Equal represented system currents, matched acquisition windows and
-terminal-voltage meaning are additional requirements. Sensor offset produces
-inverse-current amplification, gain a torque-proportional term, and current
-bias changes both the map argument and lever arm. A coherent common rotation
-preserves oriented area, while inconsistent frames can change it.
+The stationary dq equation reconstructs terminal-current flux. In a loss-aware
+equivalent circuit the magnetic storage current can differ, so applying the
+same torque law to terminal coordinates needs justification. Voltage offsets,
+dead time, used resistance, speed error, angle error and unequal representation
+of the two phase systems can all imprint spatial residual structure. A fitted
+flux correction can absorb them without identifying their cause.
 
-The synthetic ranks apply to their stated operators and support. Real
-joint electrical-mechanical estimation needs covariance, parameter scaling
-and nuisance columns. A radial magnetic or electrical observation remains
-necessary even after the torque channel is fully qualified.
+Torque observes only one local projection. Smoothness, minimum change,
+reciprocity and any bounds select the unobserved component by assumption. The
+radial potential counterexample remains even for smooth reciprocal fields with
+positive added curvature. Near zero current normalized torque-to-flux residuals
+amplify noise and are undefined at the origin; the global objective can retain
+raw torque units instead of inserting an arbitrary denominator epsilon.
+
+The synthetic experiment validates implementation against known truth, not an
+experimental machine. The real experiment has one PSM lineage, two speeds and
+one temperature reference. Its in-sample reduction is expected from fitting;
+the failed leave-one-speed-out transfer is the stronger scientific result.
+No corrected real map is promoted to product use, and no automatic MeasEval
+integration follows from this research demonstration.

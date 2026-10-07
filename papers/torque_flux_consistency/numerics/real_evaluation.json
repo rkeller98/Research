@@ -1,34 +1,106 @@
 {
+  "experiment": "portable Multi-RPM stationary residual regularization",
   "source": {
     "dataset": "psm_dual_system_multirpm",
     "csv_sha256": "48b6669646fe326e4cda54a457585e1c50e92ff587729155cc9a112c786b26c0",
-    "temp": null,
-    "rpm": null
+    "requested_speed_slices_rpm": [
+      1000,
+      3000
+    ],
+    "temperature_reference_C": 70
+  },
+  "machine": {
+    "phase_selector": 1,
+    "represented_three_phase_systems": 2,
+    "pole_pairs": 4,
+    "k_T": 12,
+    "torque_factor_basis": "3p for two equally represented amplitude-invariant systems"
+  },
+  "hypothesis": "M_meas-M_theo,corr is approximately constant within each qualified group",
+  "regularization": {
+    "parameterization": "one shared gauge-fixed co-energy correction plus one offset per speed",
+    "selected_lambda": 10.0,
+    "selection": "fixed conservative demonstration value; lambda path reported, not optimized on unknown truth",
+    "lambda_grid": [
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "change_weight_relative_to_lambda": 0.05,
+    "change_rms_mWb": 0.7278699570453426,
+    "correction_roughness_norm": 0.4338162638420732,
+    "correction_reciprocity_max_H": 0.0
   },
   "slices": [
     {
       "rpm": 1000,
+      "temperature_reference_C": 70,
       "points": 109,
       "normalized_points": 108,
-      "torque_bias_Nm": 0.8764654181501452,
-      "torque_rms_Nm": 0.9576466429617672,
-      "normalized_flux_rms_mWb": 1.5418876343047503,
-      "median_torque_std_Nm": 0.4915272170775341
+      "raw_residual_bias_Nm": -0.8764654181501452,
+      "raw_residual_rms_Nm": 0.9576466429617672,
+      "raw_centered_rms_Nm": 0.38586974947880187,
+      "estimated_group_offset_Nm": -0.9044813531153797,
+      "corrected_residual_rms_Nm": 0.9582946686126071,
+      "corrected_centered_rms_Nm": 0.3166104132177561,
+      "median_torque_std_Nm": 0.4915272170775341,
+      "constant_offset_hypothesis": {
+        "model_rms_Nm": 0.38586974947880187,
+        "quadratic_residual_model": {
+          "in_sample_rms_Nm": 0.30951392421659385,
+          "spatial_five_fold_rms_Nm": 0.333925936074559
+        }
+      }
     },
     {
       "rpm": 3000,
+      "temperature_reference_C": 70,
       "points": 109,
       "normalized_points": 108,
-      "torque_bias_Nm": 1.3308266416239682,
-      "torque_rms_Nm": 1.4271334380333394,
-      "normalized_flux_rms_mWb": 2.6695581656193923,
-      "median_torque_std_Nm": 0.26851452185436103
+      "raw_residual_bias_Nm": -1.3308266416239682,
+      "raw_residual_rms_Nm": 1.4271334380333394,
+      "raw_centered_rms_Nm": 0.5153739418099531,
+      "estimated_group_offset_Nm": -1.3593608183448769,
+      "corrected_residual_rms_Nm": 1.4345611244053391,
+      "corrected_centered_rms_Nm": 0.4583707944490561,
+      "median_torque_std_Nm": 0.26851452185436103,
+      "constant_offset_hypothesis": {
+        "model_rms_Nm": 0.5153739418099531,
+        "quadratic_residual_model": {
+          "in_sample_rms_Nm": 0.48248114295252714,
+          "spatial_five_fold_rms_Nm": 0.5146482453946565
+        }
+      }
     }
   ],
-  "phase_selector": 1,
-  "systems": 2,
-  "kt": 12,
-  "nominal_pole_pairs": 4,
-  "evidence": "Recorded selector and MeasEval phase-system interpretation; unity CAN gain retained",
-  "limit": "CAN indication is not calibrated electromagnetic truth; equal represented system currents assumed"
+  "leave_one_speed_out_transfer": [
+    {
+      "trained_rpm": 1000,
+      "evaluated_rpm": 1000,
+      "raw_centered_rms_Nm": 0.38586974947880187,
+      "corrected_centered_rms_Nm": 0.2351445342476027
+    },
+    {
+      "trained_rpm": 1000,
+      "evaluated_rpm": 3000,
+      "raw_centered_rms_Nm": 0.5153739418099531,
+      "corrected_centered_rms_Nm": 0.5823659225308245
+    },
+    {
+      "trained_rpm": 3000,
+      "evaluated_rpm": 1000,
+      "raw_centered_rms_Nm": 0.38586974947880187,
+      "corrected_centered_rms_Nm": 0.47411874568803863
+    },
+    {
+      "trained_rpm": 3000,
+      "evaluated_rpm": 3000,
+      "raw_centered_rms_Nm": 0.5153739418099531,
+      "corrected_centered_rms_Nm": 0.408754981025858
+    }
+  ],
+  "interpretation": "Offsets dominate the uncentered discrepancy. A shared conservative correction reduces in-sample centered spread, but each single-speed correction worsens the other slice; these data do not validate a speed-invariant physical flux correction.",
+  "limit": "CAN torque is not calibrated electromagnetic ground truth; losses, sensor offset, terminal-versus-magnetic current, and speed-dependent voltage reconstruction remain unresolved."
 }

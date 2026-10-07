@@ -6,13 +6,55 @@
     "rpm": null
   },
   "points": 218,
+  "support_matching": {
+    "requested_unique_points": 104,
+    "common_hull_points": 83,
+    "maximum_ordered_measured_current_mismatch_A": 0.7587996841589496,
+    "method": "P1 interpolation of both speed slices to shared requested-current labels inside both measured hulls"
+  },
+  "inverse_speed_pointwise_test": {
+    "fitted_resistance_equivalent_ohm": 0.001124145976608301,
+    "observed_flux_difference_rms_mWb": 0.3624257287030185,
+    "prediction_residual_rms_mWb": 0.3517966458324657,
+    "pointwise_correlation": 0.06436629476036192,
+    "output": "papers/flux_error_identifiability/figures/data/multispeed_pointwise.csv"
+  },
   "resistance_voltage_nuisance_rank": 1,
   "columns": 2,
-  "offset_augmented_rank": 3,
-  "augmented_columns": 4,
-  "singular_values": [
-    2.792515098800141,
-    1.2133888789657869e-16
-  ],
-  "interpretation": "Real support checks a mathematical exact confounder; no sensor error is estimated"
+  "nuisance_design": {
+    "rank": 5,
+    "columns": 6,
+    "column_order": [
+      "resistance",
+      "current_proportional_voltage",
+      "d_voltage_offset",
+      "q_voltage_offset",
+      "d_flux_offset",
+      "q_flux_offset"
+    ],
+    "parameter_scales": [
+      "0.01 ohm",
+      "0.01 V/A",
+      "0.1 V",
+      "0.1 V",
+      "0.001 Wb",
+      "0.001 Wb"
+    ],
+    "row_scale": "0.001 Wb nominal; not covariance whitening",
+    "singular_values": [
+      15.396352202152167,
+      9.224942682694653,
+      6.891758429740358,
+      0.006214846257649645,
+      0.00620493218909137,
+      1.3930406888961991e-15
+    ],
+    "nonnull_condition_number": 2481.308696526909
+  },
+  "classification": {
+    "resistance": "unidentifiable separately from current-proportional voltage error (exact shared column)",
+    "voltage_vs_flux_offsets": "weakly identifiable on small within-slice speed variation",
+    "terminal_vs_magnetic_current": "unidentifiable: fixture has no magnetic-current or iron-loss branch channel"
+  },
+  "interpretation": "Pointwise inverse-speed prediction is weak and exact nuisance confounding remains; no physical sensor error is estimated"
 }

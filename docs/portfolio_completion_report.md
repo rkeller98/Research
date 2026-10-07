@@ -17,8 +17,8 @@ Page counts include contents, glossary and references in the final all-paper bui
 | `flux_correction_symmetry` | Which flux components does reflection observe and project? Complementary parity channels and the closest admissible pair, including unequal-weight interpretation. | 7 | Rewritten scope, independent projection derivation, measured-coordinate mirror support and explicit correction boundary. PSM original 2500-rpm lineage, 30/70°C references; 142/158 and 144/158 supported positive-q pairs. Raw, mirror, projected and removed values are exported separately. |
 | `magnetic_coenergy_consistency` | Can measured flux be the gradient of one potential? Reciprocity and circulation, coordinate counterexamples and exact interpolant integration. | 9 | Retains potential/path/Hessian intuition; new P1 triangulation, independent clipped-area Green check and geometry sensitivity study on the same PSM lineage. Path disagreement RMS 1.064/0.933 J; independent integration discrepancies below 8.2e-15 J. This certifies the interpolant calculation, not true machine error. |
 | `flux_correction_coenergy` | How can inconsistent samples be reconstructed in a common potential class? Gauge-fixed even B-spline gradient fitting with curvature regularization. | 9 | Original controlled synthetic regression retained with shared solver/model; new real spatial tuning fold: 267 training, 73 withheld, 61 inside training hull. Potential fit has zero parity/curl by construction but 2.713 mWb tuning RMS, versus 0.573 mWb independent fit. No true-flux superiority is inferred. Pointwise raw/fit/residual CSV retained. |
-| `torque_flux_consistency` | What does torque observe and what ambiguity survives magnetic constraints? Rank-one normal projection, solution line, weighted/minimum-change representative and reciprocal radial null family. | 9 | Complete theory, 58 synthetic checks, new configuration-based six-phase Multi-RPM comparison. Total kT=3p=12; CAN gain remains one. Actual measured electrical speed replaces the historical requested-speed audit. Calibration/loss qualification remains open. |
-| `flux_error_identifiability` | Which measurement-error directions can flux residuals distinguish? Exact and linear transformations, coordinate relabeling, rank/conditioning and nuisance confounding. | 16 | Original symbolic and numeric derivations retained, long magnetic foundations shortened, old real attribution removed. The 218-point Multi-RPM support gives rank 1/2 for resistance versus proportional voltage error, and 3/4 with two voltage offsets. No real sensor error is estimated. |
+| `torque_flux_consistency` | Can independently measured stationary torque regularize spatially implausible dq-flux-map structure while allowing one nuisance offset per comparable operating condition? Global minimum-change regularization with a smooth scalar co-energy correction; local rank-one observability is retained as the identifiability limit. | 13 | Known-truth recovery, 58 observability checks and a qualified two-speed demonstration. Synthetic flux RMSE falls from 4.636 to 1.893 mWb and centered torque-residual RMS from 1.884 to 0.211 Nm; the injected radial null component remains unchanged. On the real Selector-1 fixture, total kT=3p=12 and shared correction reduces centered residual RMS from 0.386/0.515 to 0.317/0.458 Nm at 1000/3000 rpm. CAN calibration and the loss model remain open qualifications. |
+| `flux_error_identifiability` | Which measurement-error directions can flux residuals distinguish? Exact and linear transformations, coordinate relabeling, rank/conditioning and nuisance confounding. | 17 | Original symbolic and numeric derivations retained. Multi-speed support is matched at 83 common current points. The pointwise inverse-speed resistance-equivalent fit leaves 0.352 mWb RMS and only 0.064 correlation; the physically scaled nuisance matrix has rank 5/6 and non-null condition number 2481. Resistance versus proportional voltage error is unidentifiable, offsets are weakly identifiable, and terminal versus magnetic current is unidentifiable without another channel. |
 | `psm_voltage_geometry` | How does the stationary voltage limit shape the current plane? Affine/quadratic geometry, centers, principal directions and operating regions. | 14 | Existing scientific source retained; rebuilt with shared notation. Evidence remains its analytic linear-machine derivations and geometric examples, rather than the new measured fixtures. |
 | `eesm_voltage_geometry` | How does excitation extend voltage geometry? Rank, nullspace, projected slices, torque surfaces and boundedness qualifications. | 12 | Existing source retained and rebuilt. Analytic linear EESM model and constructed geometry; no new experimental validation claim. |
 | `gradient_iso_reconstruction` | What can sparse samples reveal about local directions and level sets? Simplex derivatives and iso reconstruction with a stated boundary between geometry and confidence. | 14 | Existing source retained and rebuilt. Existing synthetic/reference checks and documented Python/MATLAB comparison remain its evidence; this task does not turn confidence scores into calibration. |
@@ -92,7 +92,8 @@ to 1.2122 Nm. At requested 1000/3000 rpm the respective torque RMS values are
 109 OPs, of which 108 meet the current threshold. These are newly computed
 from unchanged CAN values and recorded mean electrical speed, with no gain fit.
 
-The reader and CAN-source selection transport the numeric channel unchanged.
+The torque convention is now a prerequisite to, rather than the main result
+of, the torque paper. The reader and CAN-source selection transport the numeric channel unchanged.
 Raw CAN unit metadata is empty; software's Nm semantics are not a transducer
 certificate. Voltage/power-analyzer zero channels cannot certify power or
 line/phase scaling. Pole pairs alone cancel between kT and electrical speed
@@ -102,7 +103,21 @@ configuration. Sensor gain, shaft location, gear ratio, unequal system loading,
 voltage errors and mechanical/magnetic losses remain unqualified contributors.
 The leading scale disagreement is explained; quantitative signal comparison
 is possible, but calibrated electromagnetic flux-error validation remains
-conditional. No measured flux field was physically corrected.
+conditional.
+
+The revised experiment therefore fits a shared, smooth, gauge-fixed scalar
+co-energy correction over both speed slices while estimating a separate
+constant residual offset per speed. It is a regularized consistency
+representative, not a claim of true flux. The centered residual RMS changes
+from 0.386 to 0.317 Nm at 1000 rpm and from 0.515 to 0.458 Nm at 3000 rpm.
+A speed-only correction worsens the held-out speed in both directions, so the
+real result does not establish a speed-invariant physical correction. The
+synthetic known-truth case establishes recoverability only for the
+torque-visible component under the stated smoothness/change prior; its
+torque-null radial component is deliberately preserved.
+
+The issue-by-issue exit-criterion audit, evidence paths and ready-to-post
+closure comments are recorded in `research_epic_completion.md`.
 
 ## Canonical data and import/export boundary
 

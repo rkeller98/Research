@@ -1,0 +1,68 @@
+\section{From residual structure to a global flux correction}
+\label{sec:global-regularization}
+Let the corrected field be
+\begin{equation}
+ \flux_{\mathrm{corr}}=\flux_{\mathrm{raw}}+\Delta\flux,
+ \qquad \Delta\flux=\begin{bmatrix}\Delta\psi_d&\Delta\psi_q\end{bmatrix}^{\mathsf T}.
+\end{equation}
+At a fixed current the torque change is
+\begin{equation}
+ \Delta M=\kt(\iq\Delta\psi_d-\id\Delta\psi_q),
+\end{equation}
+and hence
+\begin{equation}
+ r_{M,\mathrm{corr}}=r_{M,\mathrm{raw}}
+ -\kt(\iq\Delta\psi_d-\id\Delta\psi_q).
+ \label{eq:corrected-residual}
+\end{equation}
+Applying this equation independently at every point would reproduce noise and
+choose an arbitrary member of a local solution line. The desired object is a
+single field over the complete supported current domain. A general discrete
+formulation is
+\begin{multline}
+ \min_{\Delta\flux,\{c_g\}}
+ \sum_k w_k\left[r_{M,k}-c_{g(k)}
+ -\kt(i_{q,k}\Delta\psi_{d,k}-i_{d,k}\Delta\psi_{q,k})\right]^2\\
+ +\lambda_{\mathrm{smooth}}J_{\mathrm{smooth}}(\Delta\flux)
+ +\lambda_{\mathrm{change}}J_{\mathrm{change}}(\Delta\flux)
+ +J_{\mathrm{prior}}.
+ \label{eq:global-objective}
+\end{multline}
+The data term flattens residual shape rather than forcing zero. Smoothness
+couples neighboring operating points; change regularization keeps the raw map
+unless torque provides enough evidence to move it. Weights can represent a
+declared covariance, but repeat scatter is not automatically independent sensor
+uncertainty. Bounds, parity or other physics enter through $J_{\mathrm{prior}}$
+and must remain visible assumptions.
+This data-fidelity-plus-penalty structure is generalized Tikhonov
+regularization; the penalty encodes prior information rather than another
+measurement \cite{hohage2020inverse}.
+
+\subsection{Why the numerical experiment uses a co-energy correction}
+A particularly coherent variant introduces one scalar surface,
+\begin{equation}
+ \Delta\coenergy(i_d,i_q),\qquad
+ \Delta\psid=\partial_{i_d}\Delta W',\quad
+ \Delta\psiq=\partial_{i_q}\Delta W'.
+ \label{eq:coenergy-correction}
+\end{equation}
+Both components then come from one smooth potential and the mixed derivatives
+are reciprocal by construction. Curvature regularization acts on the scalar
+surface rather than coordinating two unrelated maps. The experiments use the
+repository's gauge-fixed degree-four tensor B-spline basis and penalize its
+third derivatives plus correction magnitude. No reflection parity is imposed.
+
+This parameterization is used as a physically motivated variant of the general
+objective, not as a theorem that the measured terminal-current field is a true
+storage gradient. Torque alone does not determine radial co-energy, and a
+conservative low-residual fit can still be physically wrong. The companion
+integrability paper owns the admissibility tests; the companion reconstruction
+paper owns general potential fitting. Here the potential basis supplies a
+transparent global regularizer and a reproducible reciprocity prior.
+
+The change and smoothness weights select a representative inside a large
+feasible family. Sensitivity across $\lambda$ must therefore accompany any
+reported correction. On real data, where true flux is unavailable, $\lambda$
+cannot be selected by flux RMSE; the paper reports a fixed conservative example
+and its path rather than optimizing against the same torque residual and calling
+that validation.

@@ -2,7 +2,6 @@
 No quadrature error implies nothing about interpolation or measurement error.
 """
 import numpy as np
-import pandas as pd
 from scipy.spatial import Delaunay
 from scipy.interpolate import LinearNDInterpolator
 
@@ -117,6 +116,9 @@ class AffineMesh:
         return np.sign(x * y) * total
 
     def table(self, omega):
+        # Keep the exact mesh/integration checks usable in lightweight NumPy/
+        # SciPy research environments; tabular export alone needs pandas.
+        import pandas as pd
         center = self.vertices.mean(axis=1)
         lengths = np.stack(
             [
@@ -141,4 +143,3 @@ class AffineMesh:
                 "L_qd_H": self.gradient[:, 1, 0],
             }
         )
-

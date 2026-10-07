@@ -1,59 +1,54 @@
-\section{Synthetic validation with known flux errors}
+\section{Known-truth global recovery}
 \label{sec:synthetic-torque}
-The torque experiment uses a known saturated potential with dimensional
-bases $I_*=\SI{100}{\ampere}$ and $\psi_*=\SI{0.1}{\weber}$, and $p=3$.
-For $x=i_d/I_*$, $y=i_q/I_*$, set $W'=\psi_*I_*\bar W'$ with
-\begin{equation}
- \bar W'=x+0.3x^2+0.5y^2-0.01x^4-0.02y^4-0.03x^2y^2+0.02xy^2.
-\end{equation}
-Its gradient defines the true flux. The synthetic configuration is one
-amplitude-invariant three-phase system, so $k_T=3p/2=4.5$.
-The ground truth is known; this is separate from the unqualified CAN comparison.
-At $I_s=\SI{100}{\ampere}$ add a radial error of \SI{8}{\milli\weber},
-a normal error $5\sin(2\theta)$ mWb, or their sum.
-\Cref{fig:torque-synthetic} shows that radial error is invisible and that
-the mixed residual reproduces only the normal term. Minimum-change torque
-agreement would remove that term while retaining the radial error.
-The noise panel uses independent zero-mean torque noise with standard
-deviation \SI{0.2}{\newton\metre}; its conversion follows the inverse-current
-law, not an observed real sensor uncertainty.
+The recovery experiment starts from the smooth reciprocal saturated co-energy
+used by the companion numerical benchmarks. On a $17\times17$ grid with
+$|i_d|,|i_q|\leq\SI{90}{\ampere}$, $p=3$ and $k_T=4.5$, its exact gradient is
+the ground-truth flux. The raw map adds four controlled components: a smooth
+conservative distortion, a spatially oscillating torque-normal wave, a radial
+torque-null potential and independent \SI{0.5}{\milli\weber} point noise.
+Synthetic measured torque is generated from truth with a \SI{1.2}{\newton\metre}
+constant offset and \SI{0.12}{\newton\metre} standard-deviation noise.
+
+The global fit uses \cref{eq:global-objective,eq:coenergy-correction}. One offset
+and all potential coefficients are solved simultaneously. The reported
+$\lambda=0.1$ is fixed before inspecting ground-truth flux error; truth evaluates
+the result but does not tune it. The CSV output retains every truth, raw and
+corrected vector, both torque residuals and the injected radial null component.
 
 \begin{figure}[htbp]
  \centering
- \includegraphics[width=\textwidth]{figures/07_torque_synthetic.pdf}
- \caption{Known-field numerical tests. Left: normal and mixed perturbations
- give the same normalized torque residual; a radial perturbation gives zero.
- Right: the original Monte Carlo noise checks agree with analytic
- $1/I_s$ amplification. Line patterns and open markers distinguish cases.}
- \label{fig:torque-synthetic}
+ \includegraphics[width=\textwidth]{figures/08_torque_recovery.pdf}
+ \caption{Standalone known-truth recovery. The global correction approaches the
+ truth on a representative slice, leaves a nonzero group offset, and exhibits a
+ broad regularization range rather than one uniquely physical $\lambda$. The
+ pointwise panel also shows that improvement is not uniform at every sample.}
+ \label{fig:torque-recovery}
 \end{figure}
 
-To test the interaction with reciprocity, use the dimensionless even
-potential basis $[1,x,s,(x^2-y^2)/2,s^2]$, with
-$x=i_d/I_*$, $y=i_q/I_*$, and $s=(x^2+y^2)/2$ on a full square grid.
-Every candidate is reciprocal and has the required reflection.
-Torque still annihilates the constant, $s$, and $s^2$ columns.
-\Cref{tab:torque-rank} reports the generated ranks: voltage with known
-resistance observes both radial slopes, and only the potential gauge remains.
-Rows are dimensionless and scaled by $k_{\rm T}I_*\psi_*$ for torque and
-$\omega_e\psi_*$ for voltage. These exact rank statements do not require
-assuming equal real measurement uncertainties. Narrower current support
-can lower rank further.
+Flux RMSE falls from 4.636 to \SI{1.893}{\milli\weber}; centered torque-residual
+RMS falls from 1.884 to \SI{0.211}{\newton\metre}. The estimated offset is
+\SI{1.212}{\newton\metre}, close to the injected value. Torque-normal error
+falls from 4.405 to \SI{0.584}{\milli\weber}. The fitted correction has reciprocal
+mixed derivatives to roundoff.
 
-\begin{table}[htbp]
- \centering
- \input{figures/data/torque/ranks.tex}
- \caption{Generated observation ranks for the five-column reciprocal,
- even potential example. Torque alone leaves two radial modes besides
- gauge; fixing gauge alone would not recover them.}
- \label{tab:torque-rank}
-\end{table}
+The full-map second-difference RMS changes from 1.289 to 1.317 mWb rather than
+decreasing. This is not a contradiction: the correction itself is smooth, but
+torque cannot remove the injected radial point structure and a conservative
+addition cannot cancel nonconservative curl. Smoothness of the chosen
+correction and smoothness of the corrected map are distinct reported claims.
 
-The original forty torque checks are retained, including weighted projection,
-rotation, current noise, torque offset/gain, loss terms, resistance signs,
-and joint rank. Additional tests cover both current axes, all quadrants,
-both torque signs, the origin and small currents, reciprocal positive
-isotropic inductance, the even-potential ranks, and excitation slices.
-The pointwise projection is also checked to need not preserve conservation.
-These are mathematical and implementation checks; no real-map correction
-accuracy follows.
+The counterexample is equally important. Repeating the same fit with and without
+the injected radial potential gives identical fitted coefficients, and the
+radial difference survives to $3.7\times10^{-14}$ mWb numerical error. Since a
+conservative correction has zero curl, it also cannot cancel curl introduced by
+the deliberately nonconservative wave and point noise. Reciprocity is therefore
+a model-class choice, not evidence that every raw defect was repaired.
+
+\subsection{Regularization and observability checks}
+The generated sensitivity file reports flux RMSE, centered residual RMS,
+correction magnitude and roughness for five decades of $\lambda$. The retained
+58 local assertions cover weighted projection, torque offset/gain, current and
+torque noise, resistance signs, loss terms, both current axes, all quadrants,
+both torque and speed signs, the origin and small currents, joint voltage--torque
+rank, excitation slices, the reciprocal radial potential and the fact that a
+pointwise minimum-change correction need not be conservative.

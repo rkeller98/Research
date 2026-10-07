@@ -1,5 +1,28 @@
 
-\section{Question: what does torque actually tell us about a flux vector?}
-The familiar dq torque equation is usually used in the forward direction: flux and current predict torque. For flux-map validation the inverse question is more revealing. Given current and an independent torque observation, which part of the two-dimensional flux vector has actually been measured?
+\section{Question: can torque reveal spatially implausible flux structure?}
+A stationary voltage reconstruction can produce a dq flux map that is locally
+noisy or wavy even when its broad magnetic trend is credible. An independently
+measured torque channel supplies a second physical view of the same operating
+points. The question of this paper is whether the \emph{spatial structure} of
+their disagreement can regularize the map without pretending that shaft torque
+equals electromagnetic torque point by point. Whole-map identification under
+resistance and inverter uncertainty illustrates why voltage reconstruction
+requires explicit nuisance treatment \cite{liu2018fluxmap}; torque-assisted
+parameter estimation likewise exists, but does not remove the field-level
+nullspace studied here \cite{wang2026torque}.
 
-The answer is a projection, not a complete reconstruction. This paper develops that geometry, derives the corresponding solution line and minimum-change representative, and then asks whether magnetic reciprocity removes the missing direction. It does not: smooth radial potential terms remain invisible to torque. The synthetic and conditional real-data studies are organized around this observability statement. Co-energy fitting and general measurement-error identification are deliberately kept in separate papers.
+Picture two surfaces above the $(i_d,i_q)$ plane: measured torque and torque
+calculated from the reconstructed flux. At one speed, thermal state and machine
+configuration, friction, nearly constant loss contributions and sensor offset
+may shift the surfaces vertically. Such a shift is not the magnetic defect of
+interest. Different local waviness is. We therefore seek a small, smooth global
+flux correction that makes the torque difference spatially flat while fitting
+one nuisance offset per comparable operating-condition group.
+
+This changes the role of observability. Torque's rank-one projection and radial
+nullspace do not end the reconstruction attempt; they explain why regularization
+and explicit physical priors are necessary and which part remains unverified.
+The contribution is the residual hypothesis, its global objective, a known-truth
+recovery and a qualified portable two-speed demonstration. Symmetry projection,
+integrability testing, general co-energy fitting and multi-error identification
+remain owned by the companion papers rather than being duplicated here.

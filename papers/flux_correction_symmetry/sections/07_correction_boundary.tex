@@ -10,3 +10,14 @@ Independent calibration can justify a physical correction; symmetry alone
 justifies a model projection and residual. Resistance-equivalent normalization
 and geometric error fingerprints are conditional hypotheses in the companion
 identifiability study \cite{companion-diagnostics}, not additional observations.
+
+For an explicit sign regression, the generated synthetic check injects
+$\varepsilon_R=\hat R_s-R_s=\SI{0.02}{\ohm}$ at
+$\omega_e=\SI{1000}{\per\second}$. It reproduces
+$r_d=-\varepsilon_R i_q/\omega_e$ and
+$r_q=+\varepsilon_R i_d/\omega_e$ to $3.4\times10^{-21}$ Wb. Replacing the
+resistance mismatch by the current-proportional voltage error
+$\vect\varepsilon_u=-\varepsilon_R\current$ produces the identical reconstructed
+flux perturbation to the same tolerance. Thus the resistance-equivalent pattern
+is reproducible, including its sign, but resistance itself is not identifiable
+from symmetry.

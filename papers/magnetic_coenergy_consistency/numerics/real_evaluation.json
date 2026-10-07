@@ -10,12 +10,12 @@
       "points": 340,
       "triangles": 635,
       "retained_condition10_triangles": 595,
-      "curl_area_weighted_rms_mH": 6.9022031786578655,
+      "curl_area_weighted_rms_mH": 6.902203178657864,
       "curl_condition10_rms_mH": 0.042333093990201735,
       "path_count": 86,
-      "path_rms_J": 1.0638513831019478,
-      "path_median_abs_J": 0.9561707044202015,
-      "green_max_error_J": 8.104628079763643e-15,
+      "path_rms_J": 1.0638513831019476,
+      "path_median_abs_J": 0.9561707044202024,
+      "green_max_error_J": 8.43769498715119e-15,
       "anchor_A": [
         -7.263347179263531,
         1.6674137404045744
@@ -31,18 +31,27 @@
       "points": 340,
       "triangles": 635,
       "retained_condition10_triangles": 595,
-      "curl_area_weighted_rms_mH": 9.050725866541585,
+      "curl_area_weighted_rms_mH": 9.050725866541613,
       "curl_condition10_rms_mH": 0.039291937348251135,
       "path_count": 85,
       "path_rms_J": 0.9327892303404643,
-      "path_median_abs_J": 0.7633104601294445,
-      "green_max_error_J": 6.217248937900877e-15,
+      "path_median_abs_J": 0.763310460129448,
+      "green_max_error_J": 7.105427357601002e-15,
       "anchor_A": [
         -10.501567524658627,
         -2.420147991982707
       ]
     }
   ],
-  "affine_reference": "passed",
+  "synthetic_checks": {
+    "affine_conservative_max_abs_curl": 0.0,
+    "affine_conservative_path_difference": 0.0,
+    "nonlinear_conservative_p1_curl_rms": 0.012869537676233764,
+    "nonlinear_conservative_p1_path_difference": 0.0002249999999999197,
+    "pure_resistance_mismatch_ohm": 0.02,
+    "pure_resistance_speed_rad_per_s": 1000.0,
+    "pure_resistance_curl_H": 4e-05,
+    "pure_resistance_path_difference": 1.68e-05
+  },
   "interpretation": "Measured terminal-current P1 reconstruction is inconsistent; no cause or continuum error bound inferred"
 }

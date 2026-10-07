@@ -1,10 +1,9 @@
-\section{Torque observes one flux projection}
+\section{Why torque alone does not select a unique correction}
 \label{sec:torque-observability}
-\subsection{The question answered by a torque observation}
-Reciprocity tests whether two flux surfaces can be slopes of one landscape.
-It does not fix the height or all slopes of that landscape. An independent
-mechanical observation poses a different question: which part of a local
-flux vector contributes to electromagnetic torque? Under the amplitude-invariant
+\subsection{The local information behind the global data term}
+The global residual supplies useful shape information only through one local
+combination of the two flux components. To expose the remaining freedom, ask
+which part of a local flux vector contributes to electromagnetic torque. Under the amplitude-invariant
 fundamental dq convention and a declared phase-system configuration, the relation is
 \begin{equation}
  M_{\rm map}=\kt(\psid i_q-\psiq i_d).
@@ -64,8 +63,7 @@ changes no area, whereas a normal addition changes it directly.
  \label{fig:torque-geometry}
 \end{figure}
 
-For a qualified reference for the electromagnetic torque represented by
-this model, define
+For the ideal special case of a qualified electromagnetic reference, define
 \begin{equation}
  \psi_{\tau,\rm ref}=\frac{\electromagnetictorquereference}{k_{\rm T}I_s},
  \quad \torqueconsistencyresidual=M_{\rm map}-M_{\rm em,ref},
@@ -73,7 +71,10 @@ this model, define
                          =\frac{e_M}{k_{\rm T}I_s}.
  \label{eq:torque-residual}
 \end{equation}
-The normalized residual has flux units and compares the same observable
+This $e_M$ uses map minus reference and is deliberately distinct from the
+measured-minus-map residual $r_M$ in \cref{eq:stationary-residual}. After any
+admissible group offset is removed, the same projection geometry applies to
+the structured part. The normalized residual has flux units and compares the same observable
 direction across current magnitudes. It does not attribute disagreement
 to flux alone. If current is treated as exact and torque noise has standard
 deviation $\sigma_M$, its contribution has
