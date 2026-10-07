@@ -1,0 +1,214 @@
+{
+  "exact_duplicate_groups": [
+    [
+      "Flux/2025-07-25_UPI1000-ZF02_V3002_STLA_Gen2_800V_350kW_DS30a_FC09_080_060_040degC_00000-12660.mat",
+      "Flux/WW_Dataset_Outlier.mat"
+    ],
+    [
+      "Flux/ASM/Set_01/Matlab_005.mat",
+      "Flux/CI_Test/Test4/Matlab_005.mat"
+    ],
+    [
+      "Flux/ASM/Set_01/Matlab_006.mat",
+      "Flux/CI_Test/Test4/Matlab_006.mat"
+    ],
+    [
+      "Flux/CI_Test/Test1/EESM_Measdata_Reduced.mat",
+      "Flux/EESM_Measdata_Reduced.mat"
+    ],
+    [
+      "Flux/CI_Test/Test2/WW_Dataset_Merge_1.mat",
+      "Flux/Porsche/Matlab_031.mat",
+      "Flux/WW_Dataset_Merge_1.mat"
+    ],
+    [
+      "Flux/CI_Test/Test2/WW_Dataset_Merge_2.mat",
+      "Flux/Porsche/Matlab_032.mat",
+      "Flux/WW_Dataset_Merge_2.mat"
+    ],
+    [
+      "Flux/CI_Test/Test3/PSM_Measdata.mat",
+      "Flux/PSM_Measdata.mat"
+    ],
+    [
+      "Flux/Matlab_200_Mahle.mat",
+      "Flux/WW_Dataset_neg_rpm_2.mat"
+    ],
+    [
+      "Flux/Matlab_201_Mahle.mat",
+      "Flux/WW_Dataset_neg_rpm_1.mat"
+    ],
+    [
+      "Flux/PSM_Measdata_1500rpm.mat",
+      "Flux/WW_Dataset_1500_rpm.mat"
+    ],
+    [
+      "Flux/PSM_Measdata_2500rpm.mat",
+      "Flux/WW_Dataset_2500_rpm.mat"
+    ],
+    [
+      "Trq/Matlab_009_Mn_incomplete.mat",
+      "Trq/WW_Dataset_TrqChar_2.mat"
+    ],
+    [
+      "Trq/Matlab_014_Mn_complete_active_fieldweakeningctrl.mat",
+      "Trq/WW_Dataset_TrqChar.mat"
+    ]
+  ],
+  "numeric_comparisons": [
+    {
+      "base": "Flux/PSM_Measdata.mat",
+      "variant": "Flux/PSM_Measdata_2500rpm.mat",
+      "equal_signal_count": 226,
+      "changed_signals": []
+    },
+    {
+      "base": "Flux/PSM_Measdata.mat",
+      "variant": "Flux/PSM_Measdata_1500rpm.mat",
+      "equal_signal_count": 220,
+      "changed_signals": [
+        "CAN_RPM_meas",
+        "PE_Rpm_req",
+        "PE_el_angel_rad",
+        "PE_speed_rpm",
+        "PE_w_el_rad",
+        "PE_w_el_rad_avg"
+      ]
+    },
+    {
+      "base": "Flux/Porsche/Matlab_033.mat",
+      "variant": "Flux/Porsche/Matlab_033_MultiTempButDeactivated.mat",
+      "equal_signal_count": 267,
+      "changed_signals": [
+        "Rotor_temp_ref"
+      ]
+    },
+    {
+      "base": "Flux/Matlab_201_Mahle.mat",
+      "variant": "Flux/WW_Dataset_neg_rpm_1.mat",
+      "equal_signal_count": 268,
+      "changed_signals": []
+    },
+    {
+      "base": "Flux/Matlab_200_Mahle.mat",
+      "variant": "Flux/WW_Dataset_neg_rpm_2.mat",
+      "equal_signal_count": 268,
+      "changed_signals": []
+    },
+    {
+      "base": "Trq/Matlab_MnChar_PM2315_200521_028.mat",
+      "variant": "Trq/Matlab_MnChar_PM2315_200521_028_neg_rpm.mat",
+      "equal_signal_count": 72,
+      "changed_signals": [
+        "PE_Id_angle_dependent_0_degree",
+        "PE_Id_angle_dependent_105_degree",
+        "PE_Id_angle_dependent_120_degree",
+        "PE_Id_angle_dependent_135_degree",
+        "PE_Id_angle_dependent_150_degree",
+        "PE_Id_angle_dependent_15_degree",
+        "PE_Id_angle_dependent_165_degree",
+        "PE_Id_angle_dependent_180_degree",
+        "PE_Id_angle_dependent_195_degree",
+        "PE_Id_angle_dependent_210_degree",
+        "PE_Id_angle_dependent_225_degree",
+        "PE_Id_angle_dependent_240_degree",
+        "PE_Id_angle_dependent_255_degree",
+        "PE_Id_angle_dependent_270_degree",
+        "PE_Id_angle_dependent_285_degree",
+        "PE_Id_angle_dependent_300_degree",
+        "PE_Id_angle_dependent_30_degree",
+        "PE_Id_angle_dependent_315_degree",
+        "PE_Id_angle_dependent_330_degree",
+        "PE_Id_angle_dependent_345_degree",
+        "PE_Id_angle_dependent_45_degree",
+        "PE_Id_angle_dependent_60_degree",
+        "PE_Id_angle_dependent_75_degree",
+        "PE_Id_angle_dependent_90_degree",
+        "PE_Iq_angle_dependent_0_degree",
+        "PE_Iq_angle_dependent_105_degree",
+        "PE_Iq_angle_dependent_120_degree",
+        "PE_Iq_angle_dependent_135_degree",
+        "PE_Iq_angle_dependent_150_degree",
+        "PE_Iq_angle_dependent_15_degree",
+        "PE_Iq_angle_dependent_165_degree",
+        "PE_Iq_angle_dependent_180_degree",
+        "PE_Iq_angle_dependent_195_degree",
+        "PE_Iq_angle_dependent_210_degree",
+        "PE_Iq_angle_dependent_225_degree",
+        "PE_Iq_angle_dependent_240_degree",
+        "PE_Iq_angle_dependent_255_degree",
+        "PE_Iq_angle_dependent_270_degree",
+        "PE_Iq_angle_dependent_285_degree",
+        "PE_Iq_angle_dependent_300_degree",
+        "PE_Iq_angle_dependent_30_degree",
+        "PE_Iq_angle_dependent_315_degree",
+        "PE_Iq_angle_dependent_330_degree",
+        "PE_Iq_angle_dependent_345_degree",
+        "PE_Iq_angle_dependent_45_degree",
+        "PE_Iq_angle_dependent_60_degree",
+        "PE_Iq_angle_dependent_75_degree",
+        "PE_Iq_angle_dependent_90_degree",
+        "PE_Rpm_req",
+        "PE_Ud_angle_dependent_0_degree",
+        "PE_Ud_angle_dependent_105_degree",
+        "PE_Ud_angle_dependent_120_degree",
+        "PE_Ud_angle_dependent_135_degree",
+        "PE_Ud_angle_dependent_150_degree",
+        "PE_Ud_angle_dependent_15_degree",
+        "PE_Ud_angle_dependent_165_degree",
+        "PE_Ud_angle_dependent_180_degree",
+        "PE_Ud_angle_dependent_195_degree",
+        "PE_Ud_angle_dependent_210_degree",
+        "PE_Ud_angle_dependent_225_degree",
+        "PE_Ud_angle_dependent_240_degree",
+        "PE_Ud_angle_dependent_255_degree",
+        "PE_Ud_angle_dependent_270_degree",
+        "PE_Ud_angle_dependent_285_degree",
+        "PE_Ud_angle_dependent_300_degree",
+        "PE_Ud_angle_dependent_30_degree",
+        "PE_Ud_angle_dependent_315_degree",
+        "PE_Ud_angle_dependent_330_degree",
+        "PE_Ud_angle_dependent_345_degree",
+        "PE_Ud_angle_dependent_45_degree",
+        "PE_Ud_angle_dependent_60_degree",
+        "PE_Ud_angle_dependent_75_degree",
+        "PE_Ud_angle_dependent_90_degree",
+        "PE_Uq_angle_dependent_0_degree",
+        "PE_Uq_angle_dependent_105_degree",
+        "PE_Uq_angle_dependent_120_degree",
+        "PE_Uq_angle_dependent_135_degree",
+        "PE_Uq_angle_dependent_150_degree",
+        "PE_Uq_angle_dependent_15_degree",
+        "PE_Uq_angle_dependent_165_degree",
+        "PE_Uq_angle_dependent_180_degree",
+        "PE_Uq_angle_dependent_195_degree",
+        "PE_Uq_angle_dependent_210_degree",
+        "PE_Uq_angle_dependent_225_degree",
+        "PE_Uq_angle_dependent_240_degree",
+        "PE_Uq_angle_dependent_255_degree",
+        "PE_Uq_angle_dependent_270_degree",
+        "PE_Uq_angle_dependent_285_degree",
+        "PE_Uq_angle_dependent_300_degree",
+        "PE_Uq_angle_dependent_30_degree",
+        "PE_Uq_angle_dependent_315_degree",
+        "PE_Uq_angle_dependent_330_degree",
+        "PE_Uq_angle_dependent_345_degree",
+        "PE_Uq_angle_dependent_45_degree",
+        "PE_Uq_angle_dependent_60_degree",
+        "PE_Uq_angle_dependent_75_degree",
+        "PE_Uq_angle_dependent_90_degree",
+        "PE_speed_rpm",
+        "PE_w_el_rad",
+        "PE_w_el_rad_avg",
+        "Yok_PAC_U",
+        "Yok_PAC_V",
+        "Yok_PAC_W",
+        "Yok_PM",
+        "Yok_P_DC",
+        "Yok_P_Sum",
+        "Yok_n"
+      ]
+    }
+  ],
+  "policy": "CI copies and edited speed/temperature variants are not independent experiments"
+}

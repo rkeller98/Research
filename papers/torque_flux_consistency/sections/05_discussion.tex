@@ -1,0 +1,28 @@
+\section{Interpretation after the configuration check}
+\label{sec:torque-ambiguity-discussion}
+Torque observes a normal projection and leaves a radial slope free. Adding
+a smooth radial potential can preserve reflection, reciprocity and positive
+curvature while leaving every torque value unchanged. Zero discrepancy is
+therefore insufficient for full flux reconstruction, even with an ideal sensor.
+Pointwise minimum change chooses a representative; it need not retain curl-free
+structure across the current plane.
+
+The six-phase interpretation resolves the leading scale disagreement in the
+real case. It does not qualify the independent CAN observation as electromagnetic
+truth. If its shaft meaning were established, the signed rotor balance would be
+\begin{equation}
+ \rotorinertia\dot{\mechanicalspeed}
+ =M_{\rm em}-\shafttorque-\mechanicallosstorque.
+ \label{eq:shaft-torque-balance}
+\end{equation}
+Even at steady speed mechanical losses separate transmitted and electromagnetic
+torque. Equal represented system currents, matched acquisition windows and
+terminal-voltage meaning are additional requirements. Sensor offset produces
+inverse-current amplification, gain a torque-proportional term, and current
+bias changes both the map argument and lever arm. A coherent common rotation
+preserves oriented area, while inconsistent frames can change it.
+
+The synthetic ranks apply to their stated operators and support. Real
+joint electrical-mechanical estimation needs covariance, parameter scaling
+and nuisance columns. A radial magnetic or electrical observation remains
+necessary even after the torque channel is fully qualified.

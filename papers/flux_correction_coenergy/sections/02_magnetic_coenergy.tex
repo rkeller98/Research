@@ -1,0 +1,21 @@
+\section{Model class and coordinate normalization}
+\label{sec:potential}
+On a fixed quasi-static state, assume a differentiable scalar landscape with
+\begin{equation}
+ \flux=\nabla_{\current}\coenergy,\qquad
+ \coenergy(i_d,i_q)=\coenergy(i_d,-i_q).
+ \label{eq:potential-gradient}
+\end{equation}
+The second condition is an additional reflection assumption. For a single
+amplitude-invariant three-phase system $W'$ is physical co-energy divided by
+$3/2$, so the gradient has the usual dq flux units.
+Height is unobservable from slopes: $W'+C$ produces the same flux. Fix its
+value at a supported reference as a gauge. The Hessian then supplies local
+differential inductance, but the fit does not automatically establish
+positive curvature or a true storage law in terminal-current coordinates.
+
+Flux samples may be inconsistent with this class. Choosing a landscape whose
+slopes best explain them is a projection under a basis, metric and regularizer.
+Path integration is an alternative for exact conservative fields; with noisy
+inconsistent data an arbitrary chosen path hides disagreement. The gradient
+fit retains all sample directions and their residuals instead.

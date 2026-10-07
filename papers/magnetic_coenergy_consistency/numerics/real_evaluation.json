@@ -1,0 +1,48 @@
+{
+  "slices": [
+    {
+      "source": {
+        "dataset": "psm_temperature_2500",
+        "csv_sha256": "311fc6e9439540d9ae46c25acf17a169a46555437f2b35c4fc0fa39c08dfda45",
+        "temp": 30,
+        "rpm": null
+      },
+      "points": 340,
+      "triangles": 635,
+      "retained_condition10_triangles": 595,
+      "curl_area_weighted_rms_mH": 6.9022031786578655,
+      "curl_condition10_rms_mH": 0.042333093990201735,
+      "path_count": 86,
+      "path_rms_J": 1.0638513831019478,
+      "path_median_abs_J": 0.9561707044202015,
+      "green_max_error_J": 8.104628079763643e-15,
+      "anchor_A": [
+        -7.263347179263531,
+        1.6674137404045744
+      ]
+    },
+    {
+      "source": {
+        "dataset": "psm_temperature_2500",
+        "csv_sha256": "311fc6e9439540d9ae46c25acf17a169a46555437f2b35c4fc0fa39c08dfda45",
+        "temp": 70,
+        "rpm": null
+      },
+      "points": 340,
+      "triangles": 635,
+      "retained_condition10_triangles": 595,
+      "curl_area_weighted_rms_mH": 9.050725866541585,
+      "curl_condition10_rms_mH": 0.039291937348251135,
+      "path_count": 85,
+      "path_rms_J": 0.9327892303404643,
+      "path_median_abs_J": 0.7633104601294445,
+      "green_max_error_J": 6.217248937900877e-15,
+      "anchor_A": [
+        -10.501567524658627,
+        -2.420147991982707
+      ]
+    }
+  ],
+  "affine_reference": "passed",
+  "interpretation": "Measured terminal-current P1 reconstruction is inconsistent; no cause or continuum error bound inferred"
+}

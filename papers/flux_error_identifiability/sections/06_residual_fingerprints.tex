@@ -1,0 +1,102 @@
+\section{Even and odd channels as diagnostic residuals}
+We want to remove the legitimate symmetric magnetic structure while retaining
+components that the model forbids. Compare points at equal $i_d$, temperature,
+and signed speed, with opposite equal-magnitude $i_q$. Define
+\begin{equation}
+ \evenq[f](i_d,i_q)=\frac{f(i_d,i_q)+f(i_d,-i_q)}{2},\qquad
+ \oddq[f](i_d,i_q)=\frac{f(i_d,i_q)-f(i_d,-i_q)}{2}.
+ \label{eq:parity-operators}
+\end{equation}
+Addition retains the unchanged part; subtraction retains the reversing part.
+These are complementary projections: $f=\evenq[f]+\oddq[f]$,
+$\evenq^2=\evenq$, $\oddq^2=\oddq$, and $\evenq\oddq=0$. Pairing therefore discards the
+allowed component in each diagnostic channel, not saturation as such.
+\input{figures/03_decomposition.tex}
+
+For a correctly aligned ideal map, $\oddq[\psid]=0$ and $\evenq[\psiq]=0$.
+Define measured residuals at the observed numerical labels by
+\begin{equation}
+ \boxed{r_d=\oddq[\hat\psid],\qquad r_q=\evenq[\hat\psiq].}
+ \label{eq:residuals}
+\end{equation}
+For the independent positive-q representative $a>0$, this means explicitly
+\begin{equation}
+ r_d=\frac{\hat\psi_d(i_d,+a)-\hat\psi_d(i_d,-a)}{2},\qquad
+ r_q=\frac{\hat\psi_q(i_d,+a)+\hat\psi_q(i_d,-a)}{2}.
+\end{equation}
+Using \cref{eq:R-error,eq:angle-sensitivity} gives
+\begin{equation}
+ \begin{bmatrix}r_d\\r_q\end{bmatrix}\approx
+ \vect s_R\resistanceerror+\vect s_\gamma\angleerror+\vect r_{\rm other},
+ \label{eq:fingerprint}
+\end{equation}
+where the ideal map and derivatives at the numerical argument define
+\begin{equation}
+ \vect s_R=\begin{bmatrix}-i_q/\omegae\\i_d/\omegae\end{bmatrix},\qquad
+ \vect s_\gamma=\begin{bmatrix}
+ -L_{dd}i_q+L_{dq}i_d+\psiq\\
+ -L_{qd}i_q+L_{qq}i_d-\psid\end{bmatrix}.
+ \label{eq:columns}
+\end{equation}
+Each term of $s_{\gamma,d}$ is odd: even times odd, odd times fixed $i_d$,
+and odd flux. Each term of $s_{\gamma,q}$ is even: odd times odd, even times
+fixed $i_d$, and even flux. Thus both errors enter precisely the forbidden
+channels, but with different functional fingerprints.
+
+For additive errors after coherent frame rotation, the other contribution
+can be computed by applying $(\oddq,\evenq)$ componentwise to
+\begin{equation}
+ -\frac{\rotationgenerator\vect\varepsilon_u}{\omegae}
+ +\left(\frac{\Rs}{\omegae}\rotationgenerator-\Ldiff\right)\vect\varepsilon_i
+ -\frac{\flux}{\omegae}\varepsilon_\omega.\label{eq:other-map}
+\end{equation}
+For instance, a scalar speed error equal on both members of a pair multiplies
+both ideal flux components by the same factor and preserves parity. Unequal
+pair errors need not. A constant dq d-voltage offset creates a q-even term
+$-\varepsilon_{u,d}/\omegae$, whereas a constant q-voltage offset shifts
+d-even flux and is invisible to $r_d$. The coordinate representation of a
+physical sensor offset must be determined before assigning these parities.
+
+\paragraph{What pairing hides.}
+An allowed-parity flux error can be large and yet yield zero residuals.
+A nonzero residual indicates incompatibility with the specified symmetry,
+not unique proof of resistance or angle error. Interpolation mismatch,
+temperature mismatch, or real machine asymmetry can enter the same channels.
+Use one independent representative per pair, conventionally $i_q>0$; keeping
+both representatives doubles the same information and their correlated noise.
+
+\subsection{A resistance-equivalent residual and its hypothesis}
+To ask whether one constant resistance mismatch can explain the d channel,
+remove its known current and speed factors. For ideal matched pairs,
+\begin{equation}
+ r_d=-\frac{\resistanceerror}{\omegae}a
+ \quad\Longrightarrow\quad
+ \boxed{\resistanceequivalent=-\omegae\frac{r_d}{a}.}
+ \label{eq:resistance-equivalent}
+\end{equation}
+We call this the \emph{resistance-equivalent symmetry residual}. The notation
+does not assert that the observed difference is a physical resistance error.
+The null model $H_0$ is: a single constant used-minus-true resistance mismatch
+is the sole source of the observed symmetry violation, with a correctly
+aligned symmetric magnetic law and adequately matched measurements.
+If that model holds, $\resistanceequivalent$ would be approximately constant
+over operating point and speed. Its q-channel prediction is additionally
+$r_q=\resistanceerror i_d/\omegae$; a flat d equivalent alone is insufficient.
+
+In measured data the denominator is
+\begin{equation}
+ a_q=\frac{|i_{q,+}|+|i_{q,-}|}{2},\qquad
+ \resistanceequivalent=-\omegae\frac{r_d}{a_q}.
+ \label{eq:measured-denominator}
+\end{equation}
+For opposite-sign measured currents, the resistance contribution to the
+half-difference is exactly $-\resistanceerror a_q/\omegae$.
+This choice accounts for their differing magnitudes, but cannot cancel the
+magnetic contribution caused by imperfectly mirrored measured current labels.
+That distinction matters whenever measured pairs are matched or interpolated.
+
+The equivalent transformation reveals departure from the constant-resistance
+model, while hiding the original flux units and amplifying errors near zero q
+current. A perturbation of $r_d$ contributes
+$\delta\Delta R_{\mathrm{eq}}=-\omegae\delta r_d/a_q$ at fixed denominator.
+The original $r_d$ is therefore retained and compared directly across speeds.

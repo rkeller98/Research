@@ -8,34 +8,43 @@ papers**. `shared/` is the canonical source actually loaded by every paper.
 There are no paper-vendored infrastructure bundles and no general `local.tex`.
 
 ```
-shared/              canonical commands, glossary, palette, styles, configuration
+shared/              canonical notation/styles plus dataset, model and numeric helpers
 paper_template/      content scaffold linked to shared/
 papers/              scientific content, local bibliography, figures, experiments
 scripts/             scaffold, architecture gate, builds, cleanup
 docs/                didactic contract, migration and paper-split reports
 build/               generated intermediates
 output/pdf/          exported PDFs
-legacy/              historical source archive; not part of the active framework
+datasets/            small canonical OP CSV/manifest fixtures and provenance
+concepts/            research ideas without a separately validated paper claim
+_archive/            current composite source provenance, excluded from normal builds
+legacy/              older historical source archive
 ```
 
-The active papers include PSM and EESM voltage geometry, the IEMDC digest,
-N-dimensional contour extraction, recursive simplex QP, the extended EESM
-optimization draft, and the two complementary flux-map drafts:
+The active flux portfolio has five independent research questions:
 
-- `physics_constrained_flux_maps`: admissible co-energy reconstruction and fitting.
-- `flux_map_error_diagnostics`: experimental symmetry residuals, resistance-equivalent interpretation, and limits of causal attribution.
-- `gradient_iso_reconstruction`: local simplex derivatives, recursive derivative
-  clouds, iso geometry, synthetic validation and an audited Python migration
-  using the existing VICE geometry implementation.
+- `flux_correction_symmetry`: reflection residuals and justified model projection.
+- `magnetic_coenergy_consistency`: reciprocity and path-integrability tests.
+- `flux_correction_coenergy`: gradient reconstruction through a common potential.
+- `torque_flux_consistency`: torque projection, radial ambiguity and a qualified six-phase data comparison.
+- `flux_error_identifiability`: geometric error transformations, rank and confounding.
 
-The former combined `dq_flux_symmetry_diagnostics` directory has been split;
-it is not an additional active paper. See [the split report](docs/flux_papers_split.md).
+The former composites are preserved under `_archive/composite_papers/`, outside
+normal builds. Independent-reference correction and further co-energy parameter
+derivation remain concepts. See [portfolio and migration](docs/paper_portfolio_migration.md)
+and [completion/QA report](docs/portfolio_completion_report.md).
 
-The [torque/flux consistency research note](docs/torque_flux_consistency.md)
-connects torque projections to the existing voltage, resistance-equivalent and
-co-energy diagnostics. It includes six geometric/observability figures and an
-isolated synthetic proof of concept; no measured maps or production correction
-are changed. Torque-channel provenance remains an experimental prerequisite.
+The existing PSM/EESM voltage geometry, simplex/iso reconstruction, IEMDC digest,
+N-dimensional contour extraction, recursive simplex QP and extended EESM
+optimization drafts remain active and are rebuilt by the same scripts.
+
+Eight small [canonical datasets](datasets/README.md) provide PSM/EESM/ASM evidence
+without raw MAT files or a local MeasEval installation. Raw `Test_Daten/` remains
+ignored. The Multi-RPM source is a two-system six-phase configuration: total
+amplitude-invariant torque uses kT=(6/2)p, resolving the leading factor-two
+mismatch without a fitted sensor gain. CAN calibration and mechanical losses
+remain open. [The research note](docs/torque_flux_consistency.md) retains the
+original observability development and synthetic proof of concept.
 
 ## Start and validate a paper
 

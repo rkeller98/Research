@@ -21,7 +21,7 @@
 \newglossaryentry{sym:mmax}{type=symbols,name={\ensuremath{M_{\max}}},description={Maximum available torque; unit N m},sort=Mmax}
 \newglossaryentry{sym:currentmap}{type=symbols,name={\ensuremath{\mathcal I}},description={Current-reference and feasibility map},sort=Icalligraphic}
 \newglossaryentry{sym:p}{type=symbols,name={\ensuremath{p}},description={Number of pole pairs; unit 1},sort=p}
-\newglossaryentry{sym:kt}{type=symbols,name={\ensuremath{k_{\mathrm T}}},description={Torque constant $3p/2$; unit 1},sort=kT}
+\newglossaryentry{sym:kt}{type=symbols,name={\ensuremath{k_{\mathrm T}}},description={Torque factor consistent with the dq and phase-system convention: $3p/2$ for one amplitude-invariant three-phase system, $3p$ for two equally represented systems; unit 1},sort=kT}
 \newglossaryentry{sym:dl}{type=symbols,name={\ensuremath{\Delta L}},description={Saliency difference $L_{\mathrm d}-L_{\mathrm q}$; unit H},sort=DeltaL}
 \newglossaryentry{sym:psipm}{type=symbols,name={\ensuremath{\psi_{\mathrm{pm}}}},description={Permanent-magnet flux linkage; unit Wb},sort=psipm}
 \newglossaryentry{sym:ich}{type=symbols,name={\ensuremath{I_{\mathrm{ch}}}},description={Characteristic flux-cancellation current $\psi_{\mathrm{pm}}/L_{\mathrm d}$; unit A},sort=Ich}
@@ -186,3 +186,8 @@
 \newglossaryentry{sym:torqueconsistencyresidual}{type=symbols,name={\ensuremath{e_M}},description={Map-predicted minus reference electromagnetic torque $M_{\mathrm{map}}-M_{\mathrm{em,ref}}$; unit N m},sort=eM}
 \newglossaryentry{sym:torquefluxresidual}{type=symbols,name={\ensuremath{e_{\psi_\tau}}},description={Torque-equivalent flux residual $e_M/(k_{\mathrm T}I_s)$ for $I_s>0$; unit Wb; map projection minus reference projection, without causal attribution},sort=epsitau}
 \newglossaryentry{sym:torqueresistanceequivalent}{type=symbols,name={\ensuremath{\Delta R_{\mathrm{eq,torque}}}},description={Conditional torque-derived resistance-equivalent residual $-\omega_e e_M/(k_{\mathrm T}I_s^2)$ for $I_s>0$ and $\omega_e\ne0$; unit ohm; equals used-minus-true resistance only under the sole resistance-mismatch hypothesis},sort=Reqtorque}
+\newglossaryentry{sym:cantorqueindicator}{type=symbols,name={\ensuremath{M_{\mathrm{CAN}}}},description={Recorded CAN torque comparison channel; sensor meaning and native unit require qualification; numerical comparisons in N m assume recorded sign and unity scaling explicitly, not electromagnetic ground truth},sort=MCAN}
+\newglossaryentry{sym:shafttorque}{type=symbols,name={\ensuremath{M_{\mathrm{shaft}}}},description={Signed torque transmitted from rotor to the modeled shaft load; unit N m; distinct from electromagnetic torque},sort=Mshaft}
+\newglossaryentry{sym:mechanicallosstorque}{type=symbols,name={\ensuremath{M_{\mathrm{loss}}}},description={Signed mechanical loss torque subtracted in rotor balance, typically opposing motion; unit N m},sort=Mloss}
+\newglossaryentry{sym:rotorinertia}{type=symbols,name={\ensuremath{J_{\mathrm m}}},description={Equivalent inertia in the declared rotor balance; unit kg square m; distinct from planar rotation generator},sort=Jm}
+\newglossaryentry{sym:mechanicalspeed}{type=symbols,name={\ensuremath{\omega_{\mathrm m}}},description={Signed mechanical rotor angular speed; unit rad per s},sort=omegam}

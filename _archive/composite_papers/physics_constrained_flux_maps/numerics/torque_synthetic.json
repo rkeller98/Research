@@ -1,0 +1,540 @@
+{
+  "status": "synthetic_only_no_experimental_validation",
+  "seed": 20261007,
+  "basis": {
+    "current_A": 100.0,
+    "flux_Wb": 0.1,
+    "pole_pairs": 3,
+    "k_T": 4.5
+  },
+  "versions": {
+    "python": "3.13.12",
+    "numpy": "2.5.3"
+  },
+  "samples": 1499,
+  "checks": {
+    "perfect_map_Nm": {
+      "max_abs_error": 0.0,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "power_invariant_scaling_Nm": {
+      "max_abs_error": 2.842170943040401e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "basis_orthonormal": {
+      "max_abs_error": 0.0,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "clockwise_normal": {
+      "max_abs_error": 0.0,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "observable_projection_Wb": {
+      "max_abs_error": 3.9898639947466563e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "observable_corrected_torque_Nm": {
+      "max_abs_error": 2.1316282072803006e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "observable_remaining_parallel_Wb": {
+      "max_abs_error": 4.163336342344337e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "observable_parallel_preserved_Wb": {
+      "max_abs_error": 1.3444106938820255e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "parallel_projection_Wb": {
+      "max_abs_error": 4.367947781167707e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "parallel_corrected_torque_Nm": {
+      "max_abs_error": 1.4210854715202004e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "parallel_remaining_parallel_Wb": {
+      "max_abs_error": 3.903127820947816e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "parallel_parallel_preserved_Wb": {
+      "max_abs_error": 1.2264177204165438e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "mixed_projection_Wb": {
+      "max_abs_error": 4.2500725161431774e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "mixed_corrected_torque_Nm": {
+      "max_abs_error": 2.1316282072803006e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "mixed_remaining_parallel_Wb": {
+      "max_abs_error": 3.8163916471489756e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "mixed_parallel_preserved_Wb": {
+      "max_abs_error": 1.3769367590565906e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "weighted_constraint_AWb": {
+      "max_abs_error": 2.7755575615628914e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "weighted_stationarity": {
+      "max_abs_error": 6.938893903907228e-18,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "zero_current_torque_Nm": {
+      "max_abs_error": 0.0,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "zero_and_threshold_mask": {
+      "passed": true,
+      "I_min_A": 1.0,
+      "currents_A": [
+        0.0,
+        0.1,
+        1.0,
+        10.0
+      ],
+      "valid": [
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "offset_pattern_Wb": {
+      "max_abs_error": 8.998878031629687e-18,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "gain_pattern_Wb": {
+      "max_abs_error": 1.3444106938820255e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "resistance_sign_-800_Nm": {
+      "max_abs_error": 2.4980018054066022e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "resistance_equivalent_-800_ohm": {
+      "max_abs_error": 4.716279450311944e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "resistance_sign_400_Nm": {
+      "max_abs_error": 2.3314683517128287e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "resistance_equivalent_400_ohm": {
+      "max_abs_error": 1.399054483375295e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "resistance_sign_1200_Nm": {
+      "max_abs_error": 2.503552920529728e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "resistance_equivalent_1200_ohm": {
+      "max_abs_error": 5.13694989323632e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "loss_pattern_1000_Wb": {
+      "max_abs_error": 9.324138683375338e-18,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "loss_pattern_3000_Wb": {
+      "max_abs_error": 1.3877787807814457e-17,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "PSM_linear_Nm": {
+      "max_abs_error": 3.197442310920451e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "EESM_linear_Nm": {
+      "max_abs_error": 2.842170943040401e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "coherent_rotation_Nm": {
+      "max_abs_error": 2.842170943040401e-14,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "composed_current_gradient_Nm_per_A": {
+      "max_abs_error": 1.8746698637883696e-11,
+      "tolerance": 2e-09,
+      "passed": true
+    },
+    "noise_inverse_current": {
+      "passed": true,
+      "trials_per_level": 100000,
+      "sigma_torque_Nm": 0.2,
+      "relative_tolerance": 0.015
+    },
+    "joint_determinant": {
+      "max_abs_error": 1.4551915228366852e-11,
+      "tolerance": 1e-07,
+      "passed": true
+    },
+    "joint_flux_R_recovery": {
+      "max_abs_error": 3.86843335142828e-16,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "global_radial_null_modes": {
+      "max_abs_error": 4.440892098500626e-16,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "global_joint_coefficients": {
+      "max_abs_error": 7.112366251504909e-16,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "global_rank_and_recovery": {
+      "passed": true
+    }
+  },
+  "noise": [
+    {
+      "I_A": 0.1,
+      "expected_sd_Wb": 0.4444444444444445,
+      "observed_sd_Wb": 0.4433554866205251,
+      "bias_Wb": 0.0005169612673267721
+    },
+    {
+      "I_A": 0.3,
+      "expected_sd_Wb": 0.14814814814814817,
+      "observed_sd_Wb": 0.14796320095288154,
+      "bias_Wb": -7.863235041875974e-05
+    },
+    {
+      "I_A": 1.0,
+      "expected_sd_Wb": 0.044444444444444446,
+      "observed_sd_Wb": 0.04448694493552289,
+      "bias_Wb": -0.00025666355766963114
+    },
+    {
+      "I_A": 3.0,
+      "expected_sd_Wb": 0.014814814814814815,
+      "observed_sd_Wb": 0.014776935584823212,
+      "bias_Wb": -2.45538467764713e-06
+    },
+    {
+      "I_A": 10.0,
+      "expected_sd_Wb": 0.0044444444444444444,
+      "observed_sd_Wb": 0.004453051131306153,
+      "bias_Wb": -7.208044088346754e-06
+    },
+    {
+      "I_A": 30.0,
+      "expected_sd_Wb": 0.0014814814814814816,
+      "observed_sd_Wb": 0.0014857558791995646,
+      "bias_Wb": 3.0508432606580026e-06
+    },
+    {
+      "I_A": 100.0,
+      "expected_sd_Wb": 0.00044444444444444447,
+      "observed_sd_Wb": 0.00044492379071096237,
+      "bias_Wb": 9.070285447541939e-08
+    }
+  ],
+  "current_noise": {
+    "assumed_sd_A": 0.2,
+    "bias_Wb": -7.040611697789543e-06,
+    "sd_Wb": 0.0004511190349155213,
+    "rmse_Wb": 0.0004510234928603004
+  },
+  "relative_angle_error": {
+    "estimated_minus_true_rad": 0.03,
+    "bias_Wb": -4.905281504120888e-05,
+    "sd_Wb": 0.0022437383866897795,
+    "rmse_Wb": 0.0022435261634942572
+  },
+  "losses": [
+    {
+      "rpm": 1000.0,
+      "assumed_loss_Nm": 0.31932454224643014,
+      "residual_rms_Wb": 0.0015740388590251787
+    },
+    {
+      "rpm": 3000.0,
+      "assumed_loss_Nm": 2.0739208802178717,
+      "residual_rms_Wb": 0.010222928789129511
+    }
+  ],
+  "operators": {
+    "torque": {
+      "shape": [
+        1499,
+        7
+      ],
+      "rank": 4,
+      "nullity": 3,
+      "singular_values": [
+        37.238659763775814,
+        27.145397721859137,
+        26.19023671931173,
+        22.91884383856957,
+        3.1042045225789435e-15,
+        3.5976498223113956e-18,
+        0.0
+      ],
+      "rank_tolerance": 1.2394696599282706e-11,
+      "full_condition": null,
+      "observable_condition": 1.6248053359963897
+    },
+    "torque_voltage": {
+      "shape": [
+        4497,
+        7
+      ],
+      "rank": 6,
+      "nullity": 1,
+      "singular_values": [
+        65.36727315001237,
+        53.16854200869243,
+        47.30658718811361,
+        46.6241040739262,
+        44.07874004354444,
+        12.132478493828595,
+        0.0
+      ],
+      "rank_tolerance": 6.52714831862701e-11,
+      "full_condition": null,
+      "observable_condition": 5.3877922127175095
+    },
+    "torque_voltage_gauge": {
+      "shape": [
+        4498,
+        7
+      ],
+      "rank": 7,
+      "nullity": 0,
+      "singular_values": [
+        65.36727315001235,
+        53.16854200869246,
+        47.30658718811427,
+        46.62410407392718,
+        44.07874004354446,
+        12.132478493828595,
+        1.0
+      ],
+      "rank_tolerance": 6.52859976366117e-11,
+      "full_condition": 65.36727315001235,
+      "observable_condition": 65.36727315001235
+    }
+  },
+  "operator_scaling": "dimensionless currents and potential coefficients; torque divided by k_T*I_BASE*PSI_BASE; voltage divided by omega_e*PSI_BASE; unit illustrative residual variances",
+  "potential_basis": [
+    "1",
+    "x",
+    "y",
+    "s",
+    "(x^2-y^2)/2",
+    "xy",
+    "s^2"
+  ],
+  "affine_flux_operator": {
+    "shape": [
+      1499,
+      6
+    ],
+    "rank": 5,
+    "nullity": 1,
+    "singular_values": [
+      31.215837706982473,
+      27.559309308779678,
+      26.501874259398107,
+      25.202546204155652,
+      16.227463542750115,
+      2.797034450892136e-15
+    ],
+    "rank_tolerance": 1.0390031218225176e-11,
+    "full_condition": null,
+    "observable_condition": 1.9236424487873005
+  },
+  "single_axis_operator": {
+    "shape": [
+      9,
+      7
+    ],
+    "rank": 2,
+    "nullity": 5,
+    "singular_values": [
+      1.9364916731037087,
+      1.663016836956259,
+      2.3168634638155413e-16,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rank_tolerance": 3.869887756454333e-15,
+    "full_condition": null,
+    "observable_condition": 1.164445019479164
+  },
+  "underdetermined_operator": {
+    "shape": [
+      2,
+      7
+    ],
+    "rank": 2,
+    "nullity": 5,
+    "singular_values": [
+      2.4396136207254235,
+      1.0310677223036906
+    ],
+    "rank_tolerance": 3.791921298085913e-15,
+    "full_condition": null,
+    "observable_condition": 2.366104153929532
+  },
+  "hashes": {
+    "docs/torque_flux_consistency/proof_of_concept.py": "5bf30f01c72e5c871d4dd35f25bda9bb8e167a640c097bf1e81242414e4568c4",
+    "papers/flux_map_error_diagnostics/numerics/magnetic_model.py": "f01891d9d688b759417f4b174373f185fa1d718aa7d69091796d63a81adf2893",
+    "shared/python/publication_plotting.py": "351efa577a1f05dfb5e9d6613bcf597c3d87089dded0feed16f75a5aba8638fb",
+    "shared/config/palette.tex": "63a257d2ec7bb09e828fed2af4288e54036a96dc09d8e3a99260551483562f3a"
+  },
+  "additional_checks": {
+    "axis_id_zero": {
+      "passed": true
+    },
+    "axis_iq_zero": {
+      "passed": true
+    },
+    "four_quadrants_normal_observable": {
+      "passed": true
+    },
+    "four_quadrants_radial_invisible": {
+      "passed": true
+    },
+    "four_quadrants_mixed_projection": {
+      "passed": true
+    },
+    "positive_negative_torque": {
+      "passed": true
+    },
+    "small_current_torque_continuous": {
+      "passed": true
+    },
+    "origin_torque_zero": {
+      "passed": true
+    },
+    "reciprocal_isotropic_radial_null": {
+      "passed": true
+    },
+    "radial_even_potential_and_positive_curvature": {
+      "passed": true
+    },
+    "pointwise_minimum_change_need_not_preserve_curl": {
+      "passed": true
+    },
+    "three_current_reciprocity_radial_excitation_family": {
+      "passed": true
+    },
+    "even_reciprocal_torque_rank_two_of_five": {
+      "passed": true
+    },
+    "even_reciprocal_joint_rank_four_gauge_five": {
+      "passed": true
+    },
+    "joint_local_rank_signed_speed_-100": {
+      "passed": true
+    },
+    "joint_local_rank_signed_speed_100": {
+      "passed": true
+    },
+    "excitation_slice_radial_null_0": {
+      "passed": true
+    },
+    "excitation_slice_radial_null_2": {
+      "passed": true
+    }
+  },
+  "even_potential_operators": {
+    "torque": {
+      "shape": [
+        169,
+        5
+      ],
+      "rank": 2,
+      "nullity": 3,
+      "singular_values": [
+        10.111111111111114,
+        8.106924338010206,
+        3.29591013621628e-16,
+        3.5441716263966338e-34,
+        0.0
+      ],
+      "rank_tolerance": 3.794248865713397e-13,
+      "full_condition": null,
+      "observable_condition": 1.2472191289246477
+    },
+    "torque_voltage": {
+      "shape": [
+        507,
+        5
+      ],
+      "rank": 4,
+      "nullity": 1,
+      "singular_values": [
+        17.348500419815263,
+        15.320646925708527,
+        15.286563130595406,
+        3.4399297754370544,
+        0.0
+      ],
+      "rank_tolerance": 1.9530354473321274e-12,
+      "full_condition": null,
+      "observable_condition": 5.043271680629317
+    },
+    "torque_voltage_gauge": {
+      "shape": [
+        508,
+        5
+      ],
+      "rank": 5,
+      "nullity": 0,
+      "singular_values": [
+        17.348500419815267,
+        15.320646925708528,
+        15.286563130595418,
+        3.439929775437056,
+        1.0
+      ],
+      "rank_tolerance": 1.9568875882538875e-12,
+      "full_condition": 17.348500419815267,
+      "observable_condition": 17.348500419815267
+    }
+  },
+  "total_passed": 58
+}

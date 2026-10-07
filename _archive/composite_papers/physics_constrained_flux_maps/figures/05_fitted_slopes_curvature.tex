@@ -1,0 +1,28 @@
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 2,horizontal sep=14mm,
+ vertical sep=28mm},diagnostic axis,legend style={compact text,
+ at={(.5,-.3)},anchor=north,legend columns=2}]
+\nextgroupplot[title={d flux: slope along d},ylabel={$\psi_d/\psi_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=dtrue]{figures/data/fit_slice.dat};
+ \addlegendentry{True}
+ \addplot[fitted curve] table[x=y,y=dfit]{figures/data/fit_slice.dat};
+ \addlegendentry{Potential fit}
+\nextgroupplot[title={q flux: slope along q},ylabel={$\psi_q/\psi_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=qtrue]{figures/data/fit_slice.dat};
+ \addplot[fitted curve] table[x=y,y=qfit]{figures/data/fit_slice.dat};
+\nextgroupplot[title={d curvature},ylabel={$L_{dd}/L_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=ddtrue]{figures/data/fit_slice.dat};
+ \addplot[fitted curve] table[x=y,y=ddfit]{figures/data/fit_slice.dat};
+\nextgroupplot[title={Mixed curvature},ylabel={$L_{dq}/L_*=L_{qd}/L_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=dqtrue]{figures/data/fit_slice.dat};
+ \addplot[fitted curve] table[x=y,y=dqfit]{figures/data/fit_slice.dat};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Baseline noisy-data potential fit at $x=-0.4$. Slopes and curvatures
+come from the same fitted scalar surface. The fitted derivatives can show
+visible error even when flux curves nearly coincide; parity and reciprocity
+still hold structurally.}
+\label{fig:fit-slice}
+\end{figure}

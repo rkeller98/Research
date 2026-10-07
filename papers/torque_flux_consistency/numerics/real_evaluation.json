@@ -1,0 +1,34 @@
+{
+  "source": {
+    "dataset": "psm_dual_system_multirpm",
+    "csv_sha256": "48b6669646fe326e4cda54a457585e1c50e92ff587729155cc9a112c786b26c0",
+    "temp": null,
+    "rpm": null
+  },
+  "slices": [
+    {
+      "rpm": 1000,
+      "points": 109,
+      "normalized_points": 108,
+      "torque_bias_Nm": 0.8764654181501452,
+      "torque_rms_Nm": 0.9576466429617672,
+      "normalized_flux_rms_mWb": 1.5418876343047503,
+      "median_torque_std_Nm": 0.4915272170775341
+    },
+    {
+      "rpm": 3000,
+      "points": 109,
+      "normalized_points": 108,
+      "torque_bias_Nm": 1.3308266416239682,
+      "torque_rms_Nm": 1.4271334380333394,
+      "normalized_flux_rms_mWb": 2.6695581656193923,
+      "median_torque_std_Nm": 0.26851452185436103
+    }
+  ],
+  "phase_selector": 1,
+  "systems": 2,
+  "kt": 12,
+  "nominal_pole_pairs": 4,
+  "evidence": "Recorded selector and MeasEval phase-system interpretation; unity CAN gain retained",
+  "limit": "CAN indication is not calibrated electromagnetic truth; equal represented system currents assumed"
+}

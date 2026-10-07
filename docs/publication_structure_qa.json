@@ -1,0 +1,86 @@
+[
+  {
+    "paper": "eesm_voltage_geometry",
+    "reachable_tex": 18,
+    "labels": 26,
+    "citations": 3,
+    "errors": []
+  },
+  {
+    "paper": "flux_correction_coenergy",
+    "reachable_tex": 13,
+    "labels": 11,
+    "citations": 6,
+    "errors": []
+  },
+  {
+    "paper": "flux_correction_symmetry",
+    "reachable_tex": 13,
+    "labels": 12,
+    "citations": 4,
+    "errors": []
+  },
+  {
+    "paper": "flux_error_identifiability",
+    "reachable_tex": 20,
+    "labels": 52,
+    "citations": 6,
+    "errors": []
+  },
+  {
+    "paper": "gradient_iso_reconstruction",
+    "reachable_tex": 14,
+    "labels": 24,
+    "citations": 4,
+    "errors": []
+  },
+  {
+    "paper": "iemdc_digest_2024",
+    "reachable_tex": 13,
+    "labels": 13,
+    "citations": 5,
+    "errors": []
+  },
+  {
+    "paper": "magnetic_coenergy_consistency",
+    "reachable_tex": 13,
+    "labels": 20,
+    "citations": 7,
+    "errors": []
+  },
+  {
+    "paper": "n_dim_rootri",
+    "reachable_tex": 9,
+    "labels": 3,
+    "citations": 1,
+    "errors": []
+  },
+  {
+    "paper": "psm_voltage_geometry",
+    "reachable_tex": 19,
+    "labels": 34,
+    "citations": 6,
+    "errors": []
+  },
+  {
+    "paper": "recursive_qp_within_simplex",
+    "reachable_tex": 3,
+    "labels": 0,
+    "citations": 0,
+    "errors": []
+  },
+  {
+    "paper": "temp_eesm_Mopt",
+    "reachable_tex": 97,
+    "labels": 225,
+    "citations": 40,
+    "errors": []
+  },
+  {
+    "paper": "torque_flux_consistency",
+    "reachable_tex": 10,
+    "labels": 24,
+    "citations": 4,
+    "errors": []
+  }
+]

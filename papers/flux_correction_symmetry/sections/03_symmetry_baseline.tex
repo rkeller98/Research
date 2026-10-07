@@ -1,0 +1,25 @@
+\section{The physical assumption behind the reflection}
+\label{sec:symmetry}
+Use a rotor-aligned fundamental dq frame at fixed magnetic and thermal state.
+The effective geometry, excitation and material response must be invariant
+under reversing q excitation while retaining d excitation. Harmonics require
+consistent averaging; history-dependent or irreversible state changes are
+excluded. A machine-type label alone does not establish this assumption.
+
+One sufficient storage description is an even normalized co-energy,
+\begin{equation}
+ \coenergy(i_d,i_q)=\coenergy(i_d,-i_q),\qquad
+ \flux=\nabla_{\current}\coenergy.\label{eq:energy-parity}
+\end{equation}
+For one amplitude-invariant three-phase system this potential is physical
+co-energy divided by $3/2$. Differentiation in d retains sign; differentiation
+in q contributes the sign of the reflected argument. Therefore
+\begin{equation}
+ \psid(i_d,i_q)=\psid(i_d,-i_q),\qquad
+ \psiq(i_d,i_q)=-\psiq(i_d,-i_q).\label{eq:flux-parity}
+\end{equation}
+A d-axis PM bias and nonlinear cross-saturation are compatible with these
+equalities. The projection below needs the equalities themselves, not a fitted
+potential. For example, $\psi_d=1+i_q^2$, $\psi_q=i_q$ has the required parity
+but unequal mixed derivatives. Reflection and integrability answer different
+questions; the latter is examined separately \cite{companion-coenergy}.

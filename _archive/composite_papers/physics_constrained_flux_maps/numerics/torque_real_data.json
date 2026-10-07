@@ -1,0 +1,3028 @@
+{
+  "interpretation": "conditional CAN comparison assuming Nm, recorded sign, unity gain; not qualified electromagnetic torque",
+  "inventory_unique_MAT": {
+    "086fe72012e19d5a04ea99fbda63b7f5f7b25d4a3c9806ea55507e1d6b8afc74": [
+      "papers/flux_map_error_diagnostics/python/WW_Dataset_Multi_RPM.mat",
+      "papers/physics_constrained_flux_maps/python/WW_Dataset_Multi_RPM.mat"
+    ],
+    "a44f89af86f059e2f6d93b557febea5f42bd0108816c8ee0a40bd03083be53cf": [
+      "papers/flux_map_error_diagnostics/python/WW_Dataset_Outlier.mat",
+      "papers/physics_constrained_flux_maps/python/WW_Dataset_Outlier.mat",
+      "sandbox/WW_Dataset_Outlier.mat"
+    ]
+  },
+  "sources": {
+    "Multi_RPM": {
+      "sha256": "086fe72012e19d5a04ea99fbda63b7f5f7b25d4a3c9806ea55507e1d6b8afc74",
+      "signal_names": [
+        "CAN_U_AC_meas_Vrms",
+        "CAN_I_AC_meas_Arms",
+        "CAN_I_DC_meas",
+        "CAN_P_AC_meas_W",
+        "CAN_P_DC_meas_W",
+        "CAN_P_mech_meas_W",
+        "CAN_RPM_meas",
+        "CAN_T_Rot_max",
+        "CAN_T_Rot_mean",
+        "CAN_T_Rot_min",
+        "CAN_T_Stat_max",
+        "CAN_T_Stat_mean",
+        "CAN_T_Stat_min",
+        "CAN_Torque_Req",
+        "CAN_Torque_meas",
+        "CAN_U_DC_meas",
+        "Const_Angle_Sensor_delay_param_sec",
+        "Const_Current_Sensor_delay_param_sec",
+        "Const_MACHINE_ID_param_none",
+        "Const_Machine_R_exc",
+        "Const_Machine_R_s",
+        "Const_Machine_pole_pairs",
+        "Const_optimization_method",
+        "Const_voltage_reserve",
+        "Const_winding_ratio",
+        "FW_Ctrl_active_bool",
+        "FW_Ctrl_adjustment_factor_param_none",
+        "GP_PWM_modulation_method_sel",
+        "GP_PWM_overmodulation_method_active_bool",
+        "I_VQS_meas",
+        "I_exc_meas",
+        "I_exc_req",
+        "Machine_type",
+        "MultiPhase_control_request_sel",
+        "PE_AddTempSource_meas_DegCel",
+        "PE_Char_AddSource_Temp_variation_active_bool",
+        "PE_Char_Coolant_1_Temp_variation_active_bool",
+        "PE_Char_Coolant_2_Temp_variation_active_bool",
+        "PE_Char_Coolant_3_Temp_variation_active_bool",
+        "PE_Char_Coolant_4_Temp_variation_active_bool",
+        "PE_Char_Stator_Temp_variation_active_bool",
+        "PE_Char_Temp_AddSource_max_param_lim_DegCel",
+        "PE_Char_Temp_AddSource_min_param_lim_DegCel",
+        "PE_Char_Temp_AddSource_ref_DegCel",
+        "PE_Char_Temp_Rotor_max_param_lim_DegCel",
+        "PE_Char_Temp_Rotor_min_param_lim_DegCel",
+        "PE_Char_Temp_Stator_max_param_lim_DegCel",
+        "PE_Char_Temp_Stator_min_param_lim_DegCel",
+        "PE_Char_Temp_Stator_ref_DegCel",
+        "PE_Chip_Temp_max_meas_DegCel",
+        "PE_I_AC_meas_Arms",
+        "PE_I_AC_meas_Arms_acc",
+        "PE_I_DC_external",
+        "PE_I_DC_external_meas_avg",
+        "PE_I_DC_internal",
+        "PE_I_DC_internal_meas_avg",
+        "PE_Id_acc_meas",
+        "PE_Id_acc_meas_avg",
+        "PE_Id_act_meas",
+        "PE_Id_angle_dependent_0_degree",
+        "PE_Id_angle_dependent_105_degree",
+        "PE_Id_angle_dependent_120_degree",
+        "PE_Id_angle_dependent_135_degree",
+        "PE_Id_angle_dependent_150_degree",
+        "PE_Id_angle_dependent_15_degree",
+        "PE_Id_angle_dependent_165_degree",
+        "PE_Id_angle_dependent_180_degree",
+        "PE_Id_angle_dependent_195_degree",
+        "PE_Id_angle_dependent_210_degree",
+        "PE_Id_angle_dependent_225_degree",
+        "PE_Id_angle_dependent_240_degree",
+        "PE_Id_angle_dependent_255_degree",
+        "PE_Id_angle_dependent_270_degree",
+        "PE_Id_angle_dependent_285_degree",
+        "PE_Id_angle_dependent_300_degree",
+        "PE_Id_angle_dependent_30_degree",
+        "PE_Id_angle_dependent_315_degree",
+        "PE_Id_angle_dependent_330_degree",
+        "PE_Id_angle_dependent_345_degree",
+        "PE_Id_angle_dependent_45_degree",
+        "PE_Id_angle_dependent_60_degree",
+        "PE_Id_angle_dependent_75_degree",
+        "PE_Id_angle_dependent_90_degree",
+        "PE_Id_meas_avg",
+        "PE_Id_req_meas",
+        "PE_Index_Char_TempVar_OP_param_none",
+        "PE_Index_Flx_Char_RotorCurrent_OP_param_none",
+        "PE_Index_Flx_Char_Speed_OP_param_none",
+        "PE_Index_Flx_Char_StatorCurrent_OP_param_none",
+        "PE_Index_Mn_Char_OP_param_none",
+        "PE_Index_meas",
+        "PE_Iq_acc_meas",
+        "PE_Iq_acc_meas_avg",
+        "PE_Iq_act_meas",
+        "PE_Iq_angle_dependent_0_degree",
+        "PE_Iq_angle_dependent_105_degree",
+        "PE_Iq_angle_dependent_120_degree",
+        "PE_Iq_angle_dependent_135_degree",
+        "PE_Iq_angle_dependent_150_degree",
+        "PE_Iq_angle_dependent_15_degree",
+        "PE_Iq_angle_dependent_165_degree",
+        "PE_Iq_angle_dependent_180_degree",
+        "PE_Iq_angle_dependent_195_degree",
+        "PE_Iq_angle_dependent_210_degree",
+        "PE_Iq_angle_dependent_225_degree",
+        "PE_Iq_angle_dependent_240_degree",
+        "PE_Iq_angle_dependent_255_degree",
+        "PE_Iq_angle_dependent_270_degree",
+        "PE_Iq_angle_dependent_285_degree",
+        "PE_Iq_angle_dependent_300_degree",
+        "PE_Iq_angle_dependent_30_degree",
+        "PE_Iq_angle_dependent_315_degree",
+        "PE_Iq_angle_dependent_330_degree",
+        "PE_Iq_angle_dependent_345_degree",
+        "PE_Iq_angle_dependent_45_degree",
+        "PE_Iq_angle_dependent_60_degree",
+        "PE_Iq_angle_dependent_75_degree",
+        "PE_Iq_angle_dependent_90_degree",
+        "PE_Iq_meas_avg",
+        "PE_Iq_req_meas",
+        "PE_Request_Modus",
+        "PE_Rpm_req",
+        "PE_Temp_Inverter_max_meas_T",
+        "PE_Temp_Inverter_mean_meas_T",
+        "PE_Temp_Inverter_min_meas_T",
+        "PE_Torque_req",
+        "PE_U_AC_meas_Vrms",
+        "PE_U_DC_link",
+        "PE_U_DC_meas_avg",
+        "PE_Ud_CL_ctrl_req_V",
+        "PE_Ud_OL_ctrl_req_V",
+        "PE_Ud_angle_dependent_0_degree",
+        "PE_Ud_angle_dependent_105_degree",
+        "PE_Ud_angle_dependent_120_degree",
+        "PE_Ud_angle_dependent_135_degree",
+        "PE_Ud_angle_dependent_150_degree",
+        "PE_Ud_angle_dependent_15_degree",
+        "PE_Ud_angle_dependent_165_degree",
+        "PE_Ud_angle_dependent_180_degree",
+        "PE_Ud_angle_dependent_195_degree",
+        "PE_Ud_angle_dependent_210_degree",
+        "PE_Ud_angle_dependent_225_degree",
+        "PE_Ud_angle_dependent_240_degree",
+        "PE_Ud_angle_dependent_255_degree",
+        "PE_Ud_angle_dependent_270_degree",
+        "PE_Ud_angle_dependent_285_degree",
+        "PE_Ud_angle_dependent_300_degree",
+        "PE_Ud_angle_dependent_30_degree",
+        "PE_Ud_angle_dependent_315_degree",
+        "PE_Ud_angle_dependent_330_degree",
+        "PE_Ud_angle_dependent_345_degree",
+        "PE_Ud_angle_dependent_45_degree",
+        "PE_Ud_angle_dependent_60_degree",
+        "PE_Ud_angle_dependent_75_degree",
+        "PE_Ud_angle_dependent_90_degree",
+        "PE_Ud_ctrl",
+        "PE_Ud_ctrl_avg",
+        "PE_Ud_meas",
+        "PE_Ud_meas_avg",
+        "PE_Udc_req",
+        "PE_Uq_CL_ctrl_req_V",
+        "PE_Uq_OL_ctrl_req_V",
+        "PE_Uq_angle_dependent_0_degree",
+        "PE_Uq_angle_dependent_105_degree",
+        "PE_Uq_angle_dependent_120_degree",
+        "PE_Uq_angle_dependent_135_degree",
+        "PE_Uq_angle_dependent_150_degree",
+        "PE_Uq_angle_dependent_15_degree",
+        "PE_Uq_angle_dependent_165_degree",
+        "PE_Uq_angle_dependent_180_degree",
+        "PE_Uq_angle_dependent_195_degree",
+        "PE_Uq_angle_dependent_210_degree",
+        "PE_Uq_angle_dependent_225_degree",
+        "PE_Uq_angle_dependent_240_degree",
+        "PE_Uq_angle_dependent_255_degree",
+        "PE_Uq_angle_dependent_270_degree",
+        "PE_Uq_angle_dependent_285_degree",
+        "PE_Uq_angle_dependent_300_degree",
+        "PE_Uq_angle_dependent_30_degree",
+        "PE_Uq_angle_dependent_315_degree",
+        "PE_Uq_angle_dependent_330_degree",
+        "PE_Uq_angle_dependent_345_degree",
+        "PE_Uq_angle_dependent_45_degree",
+        "PE_Uq_angle_dependent_60_degree",
+        "PE_Uq_angle_dependent_75_degree",
+        "PE_Uq_angle_dependent_90_degree",
+        "PE_Uq_ctrl",
+        "PE_Uq_ctrl_avg",
+        "PE_Uq_meas",
+        "PE_Uq_meas_avg",
+        "PE_el_angel_rad",
+        "PE_max_modulation_index",
+        "PE_speed_rpm",
+        "PE_w_el_rad",
+        "PE_w_el_rad_avg",
+        "PWM_freq_param_Hz",
+        "Rotor_temp_ref",
+        "Rotor_temp_var_active",
+        "TCD_Inlet_Temp_coolant_1_meas_DegCel",
+        "TCD_Inlet_Temp_coolant_2_meas_DegCel",
+        "TCD_Inlet_Temp_coolant_3_meas_DegCel",
+        "TCD_Inlet_Temp_coolant_4_meas_DegCel",
+        "TCD_coolant_1_inlet_Temp_req_DegCel",
+        "TCD_coolant_2_inlet_Temp_req_DegCel",
+        "TCD_coolant_3_inlet_Temp_req_DegCel",
+        "TCD_coolant_4_inlet_Temp_req_DegCel",
+        "U_DC_for_Mn_tables_ref_V",
+        "U_VQS_meas",
+        "U_exc_meas",
+        "Yok_ETA_1",
+        "Yok_ETA_2",
+        "Yok_ETA_3",
+        "Yok_ETA_4",
+        "Yok_Freq_Curr",
+        "Yok_Freq_Curr_X",
+        "Yok_Freq_Volt",
+        "Yok_Freq_Volt_X",
+        "Yok_IAC_U",
+        "Yok_IAC_V",
+        "Yok_IAC_W",
+        "Yok_IAC_X",
+        "Yok_IAC_Y",
+        "Yok_IAC_Z",
+        "Yok_I_DC",
+        "Yok_Iexc",
+        "Yok_M",
+        "Yok_PAC_U",
+        "Yok_PAC_V",
+        "Yok_PAC_W",
+        "Yok_PAC_X",
+        "Yok_PAC_Y",
+        "Yok_PAC_Z",
+        "Yok_PM",
+        "Yok_P_DC",
+        "Yok_P_Sum",
+        "Yok_P_XYZ_Sum",
+        "Yok_Pexc",
+        "Yok_QAC_U",
+        "Yok_QAC_V",
+        "Yok_QAC_W",
+        "Yok_QAC_X",
+        "Yok_QAC_Y",
+        "Yok_QAC_Z",
+        "Yok_Q_Sum",
+        "Yok_Q_XYZ_Sum",
+        "Yok_SAC_U",
+        "Yok_SAC_V",
+        "Yok_SAC_W",
+        "Yok_SAC_X",
+        "Yok_SAC_Y",
+        "Yok_SAC_Z",
+        "Yok_S_Sum",
+        "Yok_S_XYZ_Sum",
+        "Yok_Slip",
+        "Yok_UAC_U_SP",
+        "Yok_UAC_V_SP",
+        "Yok_UAC_W_SP",
+        "Yok_UAC_X_SP",
+        "Yok_UAC_Y_SP",
+        "Yok_UAC_Z_SP",
+        "Yok_U_DC",
+        "Yok_Uexc",
+        "Yok_n",
+        "build_number_param_none",
+        "main_version_param_none",
+        "resolver_offset_param_deg",
+        "revision_version_param_none",
+        "sub_version_param_none"
+      ],
+      "selected": {
+        "CAN_RPM_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "CAN_Torque_Req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "CAN_Torque_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": -71.80000305175781,
+          "maximum": 68.9800033569336,
+          "unique": 637
+        },
+        "Const_Machine_R_exc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "I_exc_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": -0.07097179398817174,
+          "maximum": -0.04434241091503816,
+          "unique": 498
+        },
+        "I_exc_req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_AddTempSource_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_AddSource_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_1_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_2_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_3_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_4_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Stator_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_AddSource_max_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 80.0,
+          "maximum": 80.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_AddSource_min_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 60.0,
+          "maximum": 60.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_AddSource_ref_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 70.0,
+          "maximum": 70.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_Rotor_max_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 80.0,
+          "maximum": 80.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_Rotor_min_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 60.0,
+          "maximum": 60.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_Stator_max_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 80.0,
+          "maximum": 80.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_Stator_min_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 60.0,
+          "maximum": 60.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_Stator_ref_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 70.0,
+          "maximum": 70.0,
+          "unique": 1
+        },
+        "PE_Chip_Temp_max_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 24.264899999999994,
+          "maximum": 24.264899999999994,
+          "unique": 1
+        },
+        "PE_Index_Char_TempVar_OP_param_none": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "unique": 1
+        },
+        "PE_Index_Flx_Char_Speed_OP_param_none": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 1.0,
+          "maximum": 2.0,
+          "unique": 2
+        },
+        "PE_Rpm_req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 1000.0,
+          "maximum": 3000.0,
+          "unique": 2
+        },
+        "PE_Temp_Inverter_max_meas_T": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 21.752320718535852,
+          "maximum": 21.82562416680396,
+          "unique": 107
+        },
+        "PE_Temp_Inverter_mean_meas_T": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 21.524516549562424,
+          "maximum": 21.587960118775673,
+          "unique": 146
+        },
+        "PE_Temp_Inverter_min_meas_T": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 21.112687921481147,
+          "maximum": 21.195645777617955,
+          "unique": 108
+        },
+        "PE_Torque_req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_speed_rpm": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 984.3619866370318,
+          "maximum": 3013.3790165127134,
+          "unique": 654
+        },
+        "Rotor_temp_ref": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 70.0,
+          "maximum": 70.0,
+          "unique": 1
+        },
+        "Rotor_temp_var_active": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_1_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_2_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_3_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_4_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_coolant_1_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "TCD_coolant_2_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "TCD_coolant_3_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "TCD_coolant_4_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "U_exc_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.04577860236167908,
+          "maximum": 0.1831144094467163,
+          "unique": 24
+        },
+        "Yok_Iexc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "Yok_Pexc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "Yok_Uexc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 654,
+          "finite": 654,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        }
+      },
+      "recording_description": {
+        "General/DateTime": "27.05.2025 14:33:20",
+        "General/Description": "",
+        "General/Origin": "Software revision: software_standard_002_005_001_030.sdf, software_standard_002_005_001_030.rta\r\nVariable description: software_standard_002_005_001_030.sdf\r\n    Platform / Device: Platform [DS1202 MicroLabBox, assigned to 'ds1202']\r\nControlDesk version: 6.4",
+        "General/User": "WegWeiser",
+        "MDF/Department": "",
+        "MDF/MeasurementObject": "",
+        "MDF/Project": "",
+        "Measurement/Length": "[657.4020305374024]",
+        "Measurement/StartTimestamp": "[84.49675218623047]",
+        "Measurement/StopTimestamp": "[741.8987827236328]",
+        "Measurement/XAxisOffset": "[0.0]",
+        "Recording/StartCondition": "None",
+        "Recording/StopCondition": "None"
+      },
+      "clock": {
+        "unit": "",
+        "n": 654,
+        "increasing": true,
+        "minimum_step": 0.10900281816407187,
+        "maximum_step": 5.374003751562611
+      }
+    },
+    "Outlier": {
+      "sha256": "a44f89af86f059e2f6d93b557febea5f42bd0108816c8ee0a40bd03083be53cf",
+      "signal_names": [
+        "CAN_U_AC_meas_Vrms",
+        "CAN_I_AC_meas_Arms",
+        "CAN_I_DC_meas",
+        "CAN_P_AC_meas_W",
+        "CAN_P_DC_meas_W",
+        "CAN_P_mech_meas_W",
+        "CAN_RPM_meas",
+        "CAN_T_Rot_max",
+        "CAN_T_Rot_mean",
+        "CAN_T_Rot_min",
+        "CAN_T_Stat_max",
+        "CAN_T_Stat_mean",
+        "CAN_T_Stat_min",
+        "CAN_Torque_Req",
+        "CAN_Torque_meas",
+        "CAN_U_DC_meas",
+        "Const_Angle_Sensor_delay_param_sec",
+        "Const_Current_Sensor_delay_param_sec",
+        "Const_MACHINE_ID_param_none",
+        "Const_Machine_R_exc",
+        "Const_Machine_R_s",
+        "Const_Machine_pole_pairs",
+        "Const_optimization_method",
+        "Const_voltage_reserve",
+        "Const_winding_ratio",
+        "FW_Ctrl_active_bool",
+        "FW_Ctrl_adjustment_factor_param_none",
+        "GP_PWM_modulation_method_sel",
+        "GP_PWM_overmodulation_method_active_bool",
+        "I_VQS_meas",
+        "I_exc_meas",
+        "I_exc_req",
+        "Machine_type",
+        "MultiPhase_control_request_sel",
+        "PE_AddTempSource_meas_DegCel",
+        "PE_Char_AddSource_Temp_variation_active_bool",
+        "PE_Char_Coolant_1_Temp_variation_active_bool",
+        "PE_Char_Coolant_2_Temp_variation_active_bool",
+        "PE_Char_Coolant_3_Temp_variation_active_bool",
+        "PE_Char_Coolant_4_Temp_variation_active_bool",
+        "PE_Char_Stator_Temp_variation_active_bool",
+        "PE_Char_Temp_AddSource_max_param_lim_DegCel",
+        "PE_Char_Temp_AddSource_min_param_lim_DegCel",
+        "PE_Char_Temp_AddSource_ref_DegCel",
+        "PE_Char_Temp_Rotor_max_param_lim_DegCel",
+        "PE_Char_Temp_Rotor_min_param_lim_DegCel",
+        "PE_Char_Temp_Stator_max_param_lim_DegCel",
+        "PE_Char_Temp_Stator_min_param_lim_DegCel",
+        "PE_Char_Temp_Stator_ref_DegCel",
+        "PE_Chip_Temp_max_meas_DegCel",
+        "PE_I_AC_meas_Arms",
+        "PE_I_AC_meas_Arms_acc",
+        "PE_I_DC_external",
+        "PE_I_DC_external_meas_avg",
+        "PE_I_DC_internal",
+        "PE_I_DC_internal_meas_avg",
+        "PE_Id_acc_meas",
+        "PE_Id_acc_meas_avg",
+        "PE_Id_act_meas",
+        "PE_Id_angle_dependent_0_degree",
+        "PE_Id_angle_dependent_105_degree",
+        "PE_Id_angle_dependent_120_degree",
+        "PE_Id_angle_dependent_135_degree",
+        "PE_Id_angle_dependent_150_degree",
+        "PE_Id_angle_dependent_15_degree",
+        "PE_Id_angle_dependent_165_degree",
+        "PE_Id_angle_dependent_180_degree",
+        "PE_Id_angle_dependent_195_degree",
+        "PE_Id_angle_dependent_210_degree",
+        "PE_Id_angle_dependent_225_degree",
+        "PE_Id_angle_dependent_240_degree",
+        "PE_Id_angle_dependent_255_degree",
+        "PE_Id_angle_dependent_270_degree",
+        "PE_Id_angle_dependent_285_degree",
+        "PE_Id_angle_dependent_300_degree",
+        "PE_Id_angle_dependent_30_degree",
+        "PE_Id_angle_dependent_315_degree",
+        "PE_Id_angle_dependent_330_degree",
+        "PE_Id_angle_dependent_345_degree",
+        "PE_Id_angle_dependent_45_degree",
+        "PE_Id_angle_dependent_60_degree",
+        "PE_Id_angle_dependent_75_degree",
+        "PE_Id_angle_dependent_90_degree",
+        "PE_Id_meas_avg",
+        "PE_Id_req_meas",
+        "PE_Index_Char_TempVar_OP_param_none",
+        "PE_Index_Flx_Char_RotorCurrent_OP_param_none",
+        "PE_Index_Flx_Char_Speed_OP_param_none",
+        "PE_Index_Flx_Char_StatorCurrent_OP_param_none",
+        "PE_Index_Mn_Char_OP_param_none",
+        "PE_Index_meas",
+        "PE_Iq_acc_meas",
+        "PE_Iq_acc_meas_avg",
+        "PE_Iq_act_meas",
+        "PE_Iq_angle_dependent_0_degree",
+        "PE_Iq_angle_dependent_105_degree",
+        "PE_Iq_angle_dependent_120_degree",
+        "PE_Iq_angle_dependent_135_degree",
+        "PE_Iq_angle_dependent_150_degree",
+        "PE_Iq_angle_dependent_15_degree",
+        "PE_Iq_angle_dependent_165_degree",
+        "PE_Iq_angle_dependent_180_degree",
+        "PE_Iq_angle_dependent_195_degree",
+        "PE_Iq_angle_dependent_210_degree",
+        "PE_Iq_angle_dependent_225_degree",
+        "PE_Iq_angle_dependent_240_degree",
+        "PE_Iq_angle_dependent_255_degree",
+        "PE_Iq_angle_dependent_270_degree",
+        "PE_Iq_angle_dependent_285_degree",
+        "PE_Iq_angle_dependent_300_degree",
+        "PE_Iq_angle_dependent_30_degree",
+        "PE_Iq_angle_dependent_315_degree",
+        "PE_Iq_angle_dependent_330_degree",
+        "PE_Iq_angle_dependent_345_degree",
+        "PE_Iq_angle_dependent_45_degree",
+        "PE_Iq_angle_dependent_60_degree",
+        "PE_Iq_angle_dependent_75_degree",
+        "PE_Iq_angle_dependent_90_degree",
+        "PE_Iq_meas_avg",
+        "PE_Iq_req_meas",
+        "PE_Request_Modus",
+        "PE_Rpm_req",
+        "PE_Temp_Inverter_max_meas_T",
+        "PE_Temp_Inverter_mean_meas_T",
+        "PE_Temp_Inverter_min_meas_T",
+        "PE_Torque_req",
+        "PE_U_AC_meas_Vrms",
+        "PE_U_DC_link",
+        "PE_U_DC_meas_avg",
+        "PE_Ud_CL_ctrl_req_V",
+        "PE_Ud_OL_ctrl_req_V",
+        "PE_Ud_angle_dependent_0_degree",
+        "PE_Ud_angle_dependent_105_degree",
+        "PE_Ud_angle_dependent_120_degree",
+        "PE_Ud_angle_dependent_135_degree",
+        "PE_Ud_angle_dependent_150_degree",
+        "PE_Ud_angle_dependent_15_degree",
+        "PE_Ud_angle_dependent_165_degree",
+        "PE_Ud_angle_dependent_180_degree",
+        "PE_Ud_angle_dependent_195_degree",
+        "PE_Ud_angle_dependent_210_degree",
+        "PE_Ud_angle_dependent_225_degree",
+        "PE_Ud_angle_dependent_240_degree",
+        "PE_Ud_angle_dependent_255_degree",
+        "PE_Ud_angle_dependent_270_degree",
+        "PE_Ud_angle_dependent_285_degree",
+        "PE_Ud_angle_dependent_300_degree",
+        "PE_Ud_angle_dependent_30_degree",
+        "PE_Ud_angle_dependent_315_degree",
+        "PE_Ud_angle_dependent_330_degree",
+        "PE_Ud_angle_dependent_345_degree",
+        "PE_Ud_angle_dependent_45_degree",
+        "PE_Ud_angle_dependent_60_degree",
+        "PE_Ud_angle_dependent_75_degree",
+        "PE_Ud_angle_dependent_90_degree",
+        "PE_Ud_ctrl",
+        "PE_Ud_ctrl_avg",
+        "PE_Ud_meas",
+        "PE_Ud_meas_avg",
+        "PE_Udc_req",
+        "PE_Uq_CL_ctrl_req_V",
+        "PE_Uq_OL_ctrl_req_V",
+        "PE_Uq_angle_dependent_0_degree",
+        "PE_Uq_angle_dependent_105_degree",
+        "PE_Uq_angle_dependent_120_degree",
+        "PE_Uq_angle_dependent_135_degree",
+        "PE_Uq_angle_dependent_150_degree",
+        "PE_Uq_angle_dependent_15_degree",
+        "PE_Uq_angle_dependent_165_degree",
+        "PE_Uq_angle_dependent_180_degree",
+        "PE_Uq_angle_dependent_195_degree",
+        "PE_Uq_angle_dependent_210_degree",
+        "PE_Uq_angle_dependent_225_degree",
+        "PE_Uq_angle_dependent_240_degree",
+        "PE_Uq_angle_dependent_255_degree",
+        "PE_Uq_angle_dependent_270_degree",
+        "PE_Uq_angle_dependent_285_degree",
+        "PE_Uq_angle_dependent_300_degree",
+        "PE_Uq_angle_dependent_30_degree",
+        "PE_Uq_angle_dependent_315_degree",
+        "PE_Uq_angle_dependent_330_degree",
+        "PE_Uq_angle_dependent_345_degree",
+        "PE_Uq_angle_dependent_45_degree",
+        "PE_Uq_angle_dependent_60_degree",
+        "PE_Uq_angle_dependent_75_degree",
+        "PE_Uq_angle_dependent_90_degree",
+        "PE_Uq_ctrl",
+        "PE_Uq_ctrl_avg",
+        "PE_Uq_meas",
+        "PE_Uq_meas_avg",
+        "PE_el_angel_rad",
+        "PE_max_modulation_index",
+        "PE_speed_rpm",
+        "PE_w_el_rad",
+        "PE_w_el_rad_avg",
+        "PWM_freq_param_Hz",
+        "Rotor_temp_ref",
+        "Rotor_temp_var_active",
+        "TCD_Inlet_Temp_coolant_1_meas_DegCel",
+        "TCD_Inlet_Temp_coolant_2_meas_DegCel",
+        "TCD_Inlet_Temp_coolant_3_meas_DegCel",
+        "TCD_Inlet_Temp_coolant_4_meas_DegCel",
+        "TCD_coolant_1_inlet_Temp_req_DegCel",
+        "TCD_coolant_2_inlet_Temp_req_DegCel",
+        "TCD_coolant_3_inlet_Temp_req_DegCel",
+        "TCD_coolant_4_inlet_Temp_req_DegCel",
+        "U_DC_for_Mn_tables_ref_V",
+        "U_VQS_meas",
+        "U_exc_meas",
+        "Yok_ETA_1",
+        "Yok_ETA_2",
+        "Yok_ETA_3",
+        "Yok_ETA_4",
+        "Yok_Freq_Curr",
+        "Yok_Freq_Curr_X",
+        "Yok_Freq_Volt",
+        "Yok_Freq_Volt_X",
+        "Yok_IAC_U",
+        "Yok_IAC_V",
+        "Yok_IAC_W",
+        "Yok_IAC_X",
+        "Yok_IAC_Y",
+        "Yok_IAC_Z",
+        "Yok_I_DC",
+        "Yok_Iexc",
+        "Yok_M",
+        "Yok_PAC_U",
+        "Yok_PAC_V",
+        "Yok_PAC_W",
+        "Yok_PAC_X",
+        "Yok_PAC_Y",
+        "Yok_PAC_Z",
+        "Yok_PM",
+        "Yok_P_DC",
+        "Yok_P_Sum",
+        "Yok_P_XYZ_Sum",
+        "Yok_Pexc",
+        "Yok_QAC_U",
+        "Yok_QAC_V",
+        "Yok_QAC_W",
+        "Yok_QAC_X",
+        "Yok_QAC_Y",
+        "Yok_QAC_Z",
+        "Yok_Q_Sum",
+        "Yok_Q_XYZ_Sum",
+        "Yok_SAC_U",
+        "Yok_SAC_V",
+        "Yok_SAC_W",
+        "Yok_SAC_X",
+        "Yok_SAC_Y",
+        "Yok_SAC_Z",
+        "Yok_S_Sum",
+        "Yok_S_XYZ_Sum",
+        "Yok_Slip",
+        "Yok_UAC_U_SP",
+        "Yok_UAC_V_SP",
+        "Yok_UAC_W_SP",
+        "Yok_UAC_X_SP",
+        "Yok_UAC_Y_SP",
+        "Yok_UAC_Z_SP",
+        "Yok_U_DC",
+        "Yok_Uexc",
+        "Yok_n",
+        "build_number_param_none",
+        "main_version_param_none",
+        "resolver_offset_param_deg",
+        "revision_version_param_none",
+        "sub_version_param_none"
+      ],
+      "selected": {
+        "CAN_RPM_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1821.1322021484375,
+          "maximum": 2148.350341796875,
+          "unique": 35603
+        },
+        "CAN_Torque_Req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "CAN_Torque_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": -868.9771118164062,
+          "maximum": 776.0204467773438,
+          "unique": 38782
+        },
+        "Const_Machine_R_exc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "I_exc_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.03559550731488974,
+          "maximum": 0.06055466609426064,
+          "unique": 1408
+        },
+        "I_exc_req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_AddTempSource_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 28.799999237060547,
+          "maximum": 60.599998474121094,
+          "unique": 60
+        },
+        "PE_Char_AddSource_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_1_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_2_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_3_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Coolant_4_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_Char_Stator_Temp_variation_active_bool": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "unique": 1
+        },
+        "PE_Char_Temp_AddSource_max_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 33.0,
+          "maximum": 63.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_AddSource_min_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 27.0,
+          "maximum": 57.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_AddSource_ref_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 30.0,
+          "maximum": 60.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_Rotor_max_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 42.0,
+          "maximum": 82.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_Rotor_min_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 38.0,
+          "maximum": 78.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_Stator_max_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 45.0,
+          "maximum": 85.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_Stator_min_param_lim_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 35.0,
+          "maximum": 75.0,
+          "unique": 3
+        },
+        "PE_Char_Temp_Stator_ref_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 40.0,
+          "maximum": 80.0,
+          "unique": 3
+        },
+        "PE_Chip_Temp_max_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 23.409,
+          "maximum": 25.7087214348421,
+          "unique": 683
+        },
+        "PE_Index_Char_TempVar_OP_param_none": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1.0,
+          "maximum": 3.0,
+          "unique": 3
+        },
+        "PE_Index_Flx_Char_Speed_OP_param_none": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "unique": 1
+        },
+        "PE_Rpm_req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 2000.0,
+          "maximum": 2000.0,
+          "unique": 1
+        },
+        "PE_Temp_Inverter_max_meas_T": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 20.84405964176955,
+          "maximum": 21.703489468738137,
+          "unique": 12032
+        },
+        "PE_Temp_Inverter_mean_meas_T": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 20.78221652757347,
+          "maximum": 21.55005689784151,
+          "unique": 14343
+        },
+        "PE_Temp_Inverter_min_meas_T": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 20.74148391024202,
+          "maximum": 21.47827363776469,
+          "unique": 12233
+        },
+        "PE_Torque_req": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "PE_speed_rpm": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1975.1544546523621,
+          "maximum": 2019.591951345018,
+          "unique": 38798
+        },
+        "Rotor_temp_ref": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 40.0,
+          "maximum": 80.0,
+          "unique": 3
+        },
+        "Rotor_temp_var_active": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 1.0,
+          "maximum": 1.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_1_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_2_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_3_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_Inlet_Temp_coolant_4_meas_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "TCD_coolant_1_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "TCD_coolant_2_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "TCD_coolant_3_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "TCD_coolant_4_inlet_Temp_req_DegCel": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 25.0,
+          "maximum": 25.0,
+          "unique": 1
+        },
+        "U_exc_meas": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": -1.0071292519569397,
+          "maximum": -0.6409004330635071,
+          "unique": 360
+        },
+        "Yok_Iexc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "Yok_Pexc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        },
+        "Yok_Uexc": {
+          "fields": {
+            "Unit": "",
+            "Description": "",
+            "Device": "Platform",
+            "Path": "Model Root/AUXILIARY_SYSTEM/Recorder/Data_Recorder/Recorder Values",
+            "Raster": "Measurement_Raster",
+            "XIndex": [
+              1
+            ]
+          },
+          "n": 38798,
+          "finite": 38798,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "unique": 1
+        }
+      },
+      "recording_description": {
+        "General/DateTime": "25.07.2025 14:01:52",
+        "General/Description": "",
+        "General/Origin": "Software revision: software_standard_003_000_000_002.sdf, software_standard_003_000_000_002.rta\r\nVariable description: software_standard_003_000_000_002.sdf\r\n    Platform / Device: Platform [DS1202 MicroLabBox, assigned to 'ds1202']\r\nControlDesk version: 6.4",
+        "General/User": "EMT09",
+        "MDF/Department": "",
+        "MDF/MeasurementObject": "",
+        "MDF/Project": "",
+        "Measurement/Length": "[233953.50000758673]",
+        "Measurement/StartTimestamp": "[1288.0963532371093]",
+        "Measurement/StopTimestamp": "[235241.59636082384]",
+        "Measurement/XAxisOffset": "[0.0]",
+        "Recording/StartCondition": "None",
+        "Recording/StopCondition": "None"
+      },
+      "clock": {
+        "unit": "",
+        "n": 38798,
+        "increasing": true,
+        "minimum_step": 0.11796442812192254,
+        "maximum_step": 30120.10853018007
+      }
+    }
+  },
+  "slices": [
+    {
+      "rpm": 1000,
+      "rotor_reference_C": 70.0,
+      "raw_samples": 327,
+      "operating_points": 109,
+      "unique_requested_keys": 104,
+      "p": 4,
+      "used_resistance_ohm": 0.01,
+      "Imax_A": 100.23909116822054,
+      "Imin_A": 10.023909116822054,
+      "normalized_retained": 108,
+      "eM_conditional_Nm": {
+        "n": 109,
+        "bias": 0.9981923727899429,
+        "mae": 16.48925148790793,
+        "rmse": 19.665248971413497,
+        "median": 1.2619559589097828,
+        "q05": -29.34009571461733,
+        "q25": -15.87082196290583,
+        "q75": 18.14512255220035,
+        "q95": 31.685706947007702
+      },
+      "epsi_conditional_mWb": {
+        "n": 108,
+        "bias": 2.7754919168712044,
+        "mae": 37.82783931592463,
+        "rmse": 41.95965432059057,
+        "median": 2.7943932762919954,
+        "q05": -52.82979615647205,
+        "q25": -44.257448781397954,
+        "q75": 49.90418874594841,
+        "q95": 56.9661700176028
+      },
+      "recorded_speed_rpm": {
+        "n": 327,
+        "bias": 999.4403901644822,
+        "mae": 999.4403901644822,
+        "rmse": 999.4536453862236,
+        "median": 999.6200981438952,
+        "q05": 990.9300885476962,
+        "q25": 995.8655880658703,
+        "q75": 1002.6511460502938,
+        "q95": 1007.8501939288706
+      },
+      "speed_deviation_rpm": {
+        "n": 327,
+        "bias": -0.5596098355178805,
+        "mae": 4.1311358177770225,
+        "rmse": 5.177735687225158,
+        "median": -0.379901856104766,
+        "q05": -9.069911452303847,
+        "q25": -4.134411934129787,
+        "q75": 2.6511460502937894,
+        "q95": 7.850193928870601
+      },
+      "within_OP_CAN_sd_conditional_Nm": {
+        "n": 109,
+        "bias": 0.5328758502380609,
+        "mae": 0.5328758502380609,
+        "rmse": 0.6219802040755958,
+        "median": 0.4915272170775335,
+        "q05": 0.12929082108297052,
+        "q25": 0.2956914258009701,
+        "q75": 0.7078844224386379,
+        "q95": 1.2091292980896764
+      },
+      "within_OP_speed_sd_rpm": {
+        "n": 109,
+        "bias": 4.36178747771237,
+        "mae": 4.36178747771237,
+        "rmse": 4.982833904615545,
+        "median": 4.083703186674466,
+        "q05": 1.2084420293661688,
+        "q25": 2.568335073774153,
+        "q75": 5.623514116593165,
+        "q95": 8.710091955295779
+      },
+      "excitation_numeric_range": [
+        -0.07056008577346802,
+        -0.045880332589149475
+      ],
+      "mean_product_difference_conditional_Nm": {
+        "n": 109,
+        "bias": -3.893427408794638e-05,
+        "mae": 4.886875977305566e-05,
+        "rmse": 7.919696363050825e-05,
+        "median": -2.6175491775859427e-05,
+        "q05": -0.00012543894153846936,
+        "q25": -5.906450401838015e-05,
+        "q75": -4.4467432596673184e-06,
+        "q95": 3.2329048598001005e-05
+      },
+      "actual_speed_change_conditional_Nm": {
+        "n": 109,
+        "bias": -0.0027884437083529287,
+        "mae": 0.03716055362874785,
+        "rmse": 0.055635076442624526,
+        "median": 0.0012416281830196496,
+        "q05": -0.10158256157174535,
+        "q25": -0.01966260044060064,
+        "q75": 0.022521522821168816,
+        "q95": 0.07424546631867626
+      },
+      "sensitivity_thresholds": {
+        "0.05": {
+          "n": 108,
+          "bias": 2.7754919168712044,
+          "mae": 37.82783931592463,
+          "rmse": 41.95965432059057,
+          "median": 2.7943932762919954,
+          "q05": -52.82979615647205,
+          "q25": -44.257448781397954,
+          "q75": 49.90418874594841,
+          "q95": 56.9661700176028
+        },
+        "0.1": {
+          "n": 108,
+          "bias": 2.7754919168712044,
+          "mae": 37.82783931592463,
+          "rmse": 41.95965432059057,
+          "median": 2.7943932762919954,
+          "q05": -52.82979615647205,
+          "q25": -44.257448781397954,
+          "q75": 49.90418874594841,
+          "q95": 56.9661700176028
+        },
+        "0.15": {
+          "n": 104,
+          "bias": 3.1487228784855725,
+          "mae": 38.137405045322616,
+          "rmse": 42.283852347139586,
+          "median": 2.991618416546607,
+          "q05": -52.87878831557749,
+          "q25": -44.88269131368715,
+          "q75": 49.922436947214784,
+          "q95": 57.09621145126044
+        },
+        "0.2": {
+          "n": 102,
+          "bias": 2.7049931397203784,
+          "mae": 38.37972789806403,
+          "rmse": 42.40902476450196,
+          "median": 2.991618416546607,
+          "q05": -52.90328439513021,
+          "q25": -45.436040759738816,
+          "q75": 49.92601183607054,
+          "q95": 57.16123216808925
+        }
+      },
+      "signs": {
+        "map_positive": 52,
+        "map_negative": 57,
+        "CAN_positive": 51,
+        "CAN_negative": 58
+      },
+      "descriptive_CAN_over_map": {
+        "min_abs_map_Nm": 10.0,
+        "n": 72,
+        "bias": 2.005538436458787,
+        "mae": 2.005538436458787,
+        "rmse": 2.0060828029044666,
+        "median": 2.0046425114744353,
+        "q05": 1.9418911299330601,
+        "q25": 1.9661457657551302,
+        "q75": 2.0464141721074554,
+        "q95": 2.0683547707227383
+      },
+      "speed_range_rpm": [
+        984.3619866370318,
+        1015.2400285958676
+      ]
+    },
+    {
+      "rpm": 3000,
+      "rotor_reference_C": 70.0,
+      "raw_samples": 327,
+      "operating_points": 109,
+      "unique_requested_keys": 104,
+      "p": 4,
+      "used_resistance_ohm": 0.01,
+      "Imax_A": 100.39210055133583,
+      "Imin_A": 10.039210055133584,
+      "normalized_retained": 108,
+      "eM_conditional_Nm": {
+        "n": 109,
+        "bias": 1.4151351215899037,
+        "mae": 16.430014644912205,
+        "rmse": 19.57182258870028,
+        "median": 1.589652975431866,
+        "q05": -29.00135283251508,
+        "q25": -15.160941884976456,
+        "q75": 18.42690637674954,
+        "q95": 31.87777057248792
+      },
+      "epsi_conditional_mWb": {
+        "n": 108,
+        "bias": 4.208885812431988,
+        "mae": 37.91834486379125,
+        "rmse": 41.94344144913453,
+        "median": 4.218507052347315,
+        "q05": -51.74191808967833,
+        "q25": -41.51504195461936,
+        "q75": 51.141476660903635,
+        "q95": 58.20939848917493
+      },
+      "recorded_speed_rpm": {
+        "n": 327,
+        "bias": 2999.8140615304483,
+        "mae": 2999.8140615304483,
+        "rmse": 2999.8179853139495,
+        "median": 2999.781089665082,
+        "q05": 2991.7938762798303,
+        "q25": 2996.764676982237,
+        "q75": 3002.934269413058,
+        "q95": 3008.6136609839837
+      },
+      "speed_deviation_rpm": {
+        "n": 327,
+        "bias": -0.18593846955151644,
+        "mae": 3.763797264998176,
+        "rmse": 4.855494861694811,
+        "median": -0.21891033491783674,
+        "q05": -8.20612372016958,
+        "q25": -3.2353230177632213,
+        "q75": 2.934269413057791,
+        "q95": 8.613660983983795
+      },
+      "within_OP_CAN_sd_conditional_Nm": {
+        "n": 109,
+        "bias": 0.5343405069520263,
+        "mae": 0.5343405069520263,
+        "rmse": 0.8349351867626077,
+        "median": 0.26851452185436114,
+        "q05": 0.03677666564803098,
+        "q25": 0.10408171178818741,
+        "q75": 0.681346885208018,
+        "q95": 2.145868396278784
+      },
+      "within_OP_speed_sd_rpm": {
+        "n": 109,
+        "bias": 2.994826816928253,
+        "mae": 2.994826816928253,
+        "rmse": 3.4990854738043438,
+        "median": 2.6008619002074465,
+        "q05": 0.6725382089938156,
+        "q25": 1.5080820873573395,
+        "q75": 4.143774727530266,
+        "q95": 6.039966031887955
+      },
+      "excitation_numeric_range": [
+        -0.07097179398817174,
+        -0.04434241091503816
+      ],
+      "mean_product_difference_conditional_Nm": {
+        "n": 109,
+        "bias": -0.00013377180704700838,
+        "mae": 0.00014842844497961396,
+        "rmse": 0.00027685225755892586,
+        "median": -6.372476924632053e-05,
+        "q05": -0.0006022945072270858,
+        "q25": -0.0001448967930146594,
+        "q75": -1.2444048088866566e-05,
+        "q95": 6.119066030834109e-05
+      },
+      "actual_speed_change_conditional_Nm": {
+        "n": 109,
+        "bias": 0.0016500999769467387,
+        "mae": 0.016185199849542184,
+        "rmse": 0.024592822996367877,
+        "median": -0.0003389042549294674,
+        "q05": -0.03213753288355008,
+        "q25": -0.009757754562610188,
+        "q75": 0.006143921799516505,
+        "q95": 0.051629800676367604
+      },
+      "sensitivity_thresholds": {
+        "0.05": {
+          "n": 108,
+          "bias": 4.208885812431988,
+          "mae": 37.91834486379125,
+          "rmse": 41.94344144913453,
+          "median": 4.218507052347315,
+          "q05": -51.74191808967833,
+          "q25": -41.51504195461936,
+          "q75": 51.141476660903635,
+          "q95": 58.20939848917493
+        },
+        "0.1": {
+          "n": 108,
+          "bias": 4.208885812431988,
+          "mae": 37.91834486379125,
+          "rmse": 41.94344144913453,
+          "median": 4.218507052347315,
+          "q05": -51.74191808967833,
+          "q25": -41.51504195461936,
+          "q75": 51.141476660903635,
+          "q95": 58.20939848917493
+        },
+        "0.15": {
+          "n": 104,
+          "bias": 4.664896347129263,
+          "mae": 38.44929500704886,
+          "rmse": 42.4509763287958,
+          "median": 4.218507052347315,
+          "q05": -51.75581977241794,
+          "q25": -42.48034610748909,
+          "q75": 51.24455795820647,
+          "q95": 58.32735370766644
+        },
+        "0.2": {
+          "n": 102,
+          "bias": 3.8276810403891557,
+          "mae": 38.27451888971895,
+          "rmse": 42.320678364135894,
+          "median": 3.5685077259407194,
+          "q05": -51.762770613787744,
+          "q25": -43.140713683920396,
+          "q75": 51.204190421944695,
+          "q95": 57.76910161066901
+        }
+      },
+      "signs": {
+        "map_positive": 52,
+        "map_negative": 57,
+        "CAN_positive": 50,
+        "CAN_negative": 59
+      },
+      "descriptive_CAN_over_map": {
+        "min_abs_map_Nm": 10.0,
+        "n": 72,
+        "bias": 1.9988653581306248,
+        "mae": 1.9988653581306248,
+        "rmse": 2.0002450064804607,
+        "median": 1.98911739210907,
+        "q05": 1.9117834002773537,
+        "q25": 1.9386435862869988,
+        "q75": 2.059818172099511,
+        "q95": 2.1044117682364423
+      },
+      "speed_range_rpm": [
+        2984.97265892329,
+        3013.3790165127134
+      ]
+    }
+  ],
+  "bins": [
+    {
+      "rpm": 1000,
+      "variable": "I",
+      "bin": "(-0.001, 25.085]",
+      "eM": {
+        "n": 7,
+        "bias": 0.518333055811836,
+        "mae": 2.395157391860598,
+        "rmse": 2.8351180378919203,
+        "median": 0.14819284656638748,
+        "q05": -2.8591987757052606,
+        "q25": -1.8390087981309082,
+        "q75": 2.7635403622998864,
+        "q95": 4.397419759290956
+      },
+      "epsi": {
+        "n": 6,
+        "bias": 3.9739711284352217,
+        "mae": 28.445733419554756,
+        "rmse": 33.40801023059904,
+        "median": -4.154584848128547,
+        "q05": -31.97438731924621,
+        "q25": -25.925459767624634,
+        "q75": 34.6858211859431,
+        "q95": 48.86403210780904
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "I",
+      "bin": "(25.085, 50.17]",
+      "eM": {
+        "n": 21,
+        "bias": 0.7505090059349248,
+        "mae": 7.89208144012394,
+        "rmse": 9.114087130386771,
+        "median": 0.5725065839056375,
+        "q05": -12.366129642342827,
+        "q25": -7.410673615866967,
+        "q75": 9.438378496360148,
+        "q95": 13.987346586872334
+      },
+      "epsi": {
+        "n": 21,
+        "bias": 3.7437240209670533,
+        "mae": 33.9327206625913,
+        "rmse": 38.49616176846766,
+        "median": 3.1782461858118762,
+        "q05": -46.773969793553746,
+        "q25": -37.21892815598554,
+        "q75": 44.644436694084845,
+        "q95": 53.52423550678385
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "I",
+      "bin": "(50.17, 75.254]",
+      "eM": {
+        "n": 32,
+        "bias": 2.4334876028339822,
+        "mae": 15.641510134168374,
+        "rmse": 17.29466985714266,
+        "median": 2.9108217032955483,
+        "q05": -22.08036041782186,
+        "q25": -16.127409924003498,
+        "q75": 18.538415962763487,
+        "q95": 24.808639107373434
+      },
+      "epsi": {
+        "n": 32,
+        "bias": 6.016641047634766,
+        "mae": 38.50471197979538,
+        "rmse": 42.19684270991133,
+        "median": 8.021534515643369,
+        "q05": -50.52931115114099,
+        "q25": -44.53412350442379,
+        "q75": 50.07450692979461,
+        "q95": 55.39245743759145
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "I",
+      "bin": "(75.254, 100.339]",
+      "eM": {
+        "n": 49,
+        "bias": 0.23555805771632796,
+        "mae": 22.740821957203043,
+        "rmse": 25.063452928040025,
+        "median": -1.9629092745770986,
+        "q05": -32.46010138294056,
+        "q25": -26.204967707665283,
+        "q75": 27.614484762020393,
+        "q95": 34.58684156303809
+      },
+      "epsi": {
+        "n": 49,
+        "bias": 0.09711392422159272,
+        "mae": 40.203965884380864,
+        "rmse": 44.11260912609301,
+        "median": -3.284130717864607,
+        "q05": -55.00133719087141,
+        "q25": -47.955633097859526,
+        "q75": 50.19188908750719,
+        "q95": 58.71475891918158
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "angle_deg",
+      "bin": "(-180.001, -135.0]",
+      "eM": {
+        "n": 28,
+        "bias": 10.73450417718249,
+        "mae": 10.73450417718249,
+        "rmse": 13.981995093294897,
+        "median": 9.065696279949577,
+        "q05": 0.6911057478204714,
+        "q25": 3.4023896060735974,
+        "q75": 18.35925853874307,
+        "q95": 26.721316398270783
+      },
+      "epsi": {
+        "n": 28,
+        "bias": 24.318697688165688,
+        "mae": 24.318697688165688,
+        "rmse": 29.62079687149051,
+        "median": 22.65158530271428,
+        "q05": 2.6141899682829886,
+        "q25": 7.65188781045857,
+        "q75": 40.9659125734006,
+        "q95": 49.87673826789256
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "angle_deg",
+      "bin": "(-135.0, -90.0]",
+      "eM": {
+        "n": 23,
+        "bias": 24.42517381670359,
+        "mae": 24.42517381670359,
+        "rmse": 26.108657558199393,
+        "median": 25.699776244177855,
+        "q05": 8.198804557130623,
+        "q25": 18.83973825720615,
+        "q75": 31.653645971834635,
+        "q95": 35.35805184690293
+      },
+      "epsi": {
+        "n": 23,
+        "bias": 54.38103575707792,
+        "mae": 54.38103575707792,
+        "rmse": 54.51117394962268,
+        "median": 55.36460170161041,
+        "q05": 49.625729561221846,
+        "q25": 51.06189967261767,
+        "q75": 56.86863894235958,
+        "q95": 58.89482671947993
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "angle_deg",
+      "bin": "(-90.0, -45.0]",
+      "eM": {
+        "n": 5,
+        "bias": 17.48109304922843,
+        "mae": 17.48109304922843,
+        "rmse": 18.485714936963117,
+        "median": 17.954854113681677,
+        "q05": 10.348172114462585,
+        "q25": 13.987346586872334,
+        "q75": 18.4104012872076,
+        "q95": 25.773668067057834
+      },
+      "epsi": {
+        "n": 5,
+        "bias": 51.33685561347755,
+        "mae": 51.33685561347755,
+        "rmse": 51.34326376827116,
+        "median": 51.23792377049787,
+        "q05": 50.19502364915808,
+        "q25": 51.23570268350215,
+        "q75": 52.03547408368433,
+        "q95": 52.199353728041935
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "angle_deg",
+      "bin": "(45.0, 90.0]",
+      "eM": {
+        "n": 5,
+        "bias": -17.503390392198913,
+        "mae": 18.07147646562575,
+        "rmse": 20.685358385243582,
+        "median": -21.34824296704961,
+        "q05": -28.4552550035362,
+        "q25": -26.204967707665283,
+        "q75": -12.366129642342827,
+        "q95": -1.337053781614893
+      },
+      "epsi": {
+        "n": 4,
+        "bias": -47.58518940802648,
+        "mae": 47.58518940802648,
+        "rmse": 47.59757825765979,
+        "median": -47.946350246012514,
+        "q05": -48.57294999302925,
+        "q25": -48.43079343637929,
+        "q75": -47.100746217659704,
+        "q95": -46.09180364984327
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "angle_deg",
+      "bin": "(90.0, 135.0]",
+      "eM": {
+        "n": 25,
+        "bias": -21.26598643912446,
+        "mae": 21.26598643912446,
+        "rmse": 23.227177080314593,
+        "median": -22.833078859018908,
+        "q05": -33.341833765095245,
+        "q25": -29.008269376772148,
+        "q75": -15.919379461862444,
+        "q95": -3.794828787100487
+      },
+      "epsi": {
+        "n": 25,
+        "bias": -48.444242820363364,
+        "mae": 48.444242820363364,
+        "rmse": 48.84030729723793,
+        "median": -50.056708046307364,
+        "q05": -55.650139657386816,
+        "q25": -52.67057163937938,
+        "q75": -46.43132495211955,
+        "q95": -33.95735897654516
+      }
+    },
+    {
+      "rpm": 1000,
+      "variable": "angle_deg",
+      "bin": "(135.0, 180.0]",
+      "eM": {
+        "n": 23,
+        "bias": -9.642652105140199,
+        "mae": 9.80742560366474,
+        "rmse": 12.623319047899464,
+        "median": -8.749334386985282,
+        "q05": -24.389769176801952,
+        "q25": -15.553829662058925,
+        "q75": -2.1030999068766616,
+        "q95": -0.2428208599446475
+      },
+      "epsi": {
+        "n": 23,
+        "bias": -21.181377416762576,
+        "mae": 21.5473122708631,
+        "rmse": 25.840873344721405,
+        "median": -22.263034542907427,
+        "q05": -43.99084141301086,
+        "q25": -34.827399677528746,
+        "q75": -8.078509952424008,
+        "q95": -1.1694235432418663
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "I",
+      "bin": "(-0.001, 25.123]",
+      "eM": {
+        "n": 7,
+        "bias": 1.0605494232785555,
+        "mae": 2.6880299902640075,
+        "rmse": 2.9778147537044983,
+        "median": 1.589652975431866,
+        "q05": -2.884776402249945,
+        "q25": -0.7801688732138037,
+        "q75": 2.5268841699104128,
+        "q95": 4.688713482023952
+      },
+      "epsi": {
+        "n": 6,
+        "bias": 10.689366937160115,
+        "mae": 31.863386423020412,
+        "rmse": 34.912235080766294,
+        "median": 16.466253049396098,
+        "q05": -32.246625175080624,
+        "q25": -19.77967750214292,
+        "q75": 32.15287641984414,
+        "q95": 52.88934855620488
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "I",
+      "bin": "(25.123, 50.246]",
+      "eM": {
+        "n": 21,
+        "bias": 1.3534125479219103,
+        "mae": 7.897265191189953,
+        "rmse": 9.113468026024487,
+        "median": 1.229567094785187,
+        "q05": -12.042016391587659,
+        "q25": -7.000938174416985,
+        "q75": 9.858920057052181,
+        "q95": 14.146281375624206
+      },
+      "epsi": {
+        "n": 21,
+        "bias": 6.511912194785465,
+        "mae": 34.254357793991865,
+        "rmse": 38.792792636349596,
+        "median": 4.574030761908495,
+        "q05": -44.47636680138212,
+        "q25": -34.24279424376163,
+        "q75": 49.73071119158971,
+        "q95": 55.55133845690385
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "I",
+      "bin": "(50.246, 75.369]",
+      "eM": {
+        "n": 35,
+        "bias": 1.250693483430524,
+        "mae": 15.517589278650474,
+        "rmse": 17.216927940155113,
+        "median": 1.4377352095501883,
+        "q05": -22.40653980911927,
+        "q25": -15.968113380056476,
+        "q75": 18.579002552934575,
+        "q95": 25.10884547358599
+      },
+      "epsi": {
+        "n": 35,
+        "bias": 3.3826131211358814,
+        "mae": 37.876283207375195,
+        "rmse": 41.73396343460616,
+        "median": 3.185667117644255,
+        "q05": -49.77372297710078,
+        "q25": -43.27378726601887,
+        "q75": 51.25356861394772,
+        "q95": 55.837653998553456
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "I",
+      "bin": "(75.369, 100.492]",
+      "eM": {
+        "n": 46,
+        "bias": 1.622390149215677,
+        "mae": 23.11080853469188,
+        "rmse": 25.354918001775165,
+        "median": 2.0193710250939083,
+        "q05": -31.86119104008176,
+        "q25": -25.957591202160923,
+        "q75": 27.936047184730583,
+        "q95": 34.898495183058124
+      },
+      "epsi": {
+        "n": 46,
+        "bias": 2.9409097997705094,
+        "mae": 40.41281523520372,
+        "rmse": 44.262860018983424,
+        "median": 3.5685077259407194,
+        "q05": -53.767350558192014,
+        "q25": -45.71012218545653,
+        "q75": 51.18552107670853,
+        "q95": 59.05713477507635
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "angle_deg",
+      "bin": "(-180.001, -135.0]",
+      "eM": {
+        "n": 26,
+        "bias": 10.987259554400936,
+        "mae": 10.987259554400936,
+        "rmse": 14.145122737414644,
+        "median": 9.580458881460007,
+        "q05": 1.260917654667451,
+        "q25": 2.796496494863264,
+        "q75": 17.471373837898447,
+        "q95": 27.151177736140347
+      },
+      "epsi": {
+        "n": 26,
+        "bias": 25.326700444550266,
+        "mae": 25.326700444550266,
+        "rmse": 29.693767411594575,
+        "median": 26.54573349445252,
+        "q05": 3.5990317722986025,
+        "q25": 10.049106155025605,
+        "q75": 39.32193131890059,
+        "q95": 49.01707371667517
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "angle_deg",
+      "bin": "(-135.0, -90.0]",
+      "eM": {
+        "n": 24,
+        "bias": 23.583568807166287,
+        "mae": 23.583568807166287,
+        "rmse": 25.348392717257127,
+        "median": 25.141378715089118,
+        "q05": 9.074571325838097,
+        "q25": 17.564162987042835,
+        "q75": 31.752344186640677,
+        "q95": 35.46694141313768
+      },
+      "epsi": {
+        "n": 24,
+        "bias": 55.52736513074283,
+        "mae": 55.52736513074283,
+        "rmse": 55.60602193523302,
+        "median": 55.915166735677076,
+        "q05": 51.12893390869542,
+        "q25": 53.89376787336255,
+        "q75": 57.97348805219192,
+        "q95": 59.27049533455198
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "angle_deg",
+      "bin": "(-90.0, -45.0]",
+      "eM": {
+        "n": 5,
+        "bias": 22.805135919733495,
+        "mae": 22.805135919733495,
+        "rmse": 23.554293612730323,
+        "median": 23.237425126193962,
+        "q05": 15.024799734251927,
+        "q25": 18.53887316876281,
+        "q75": 27.990040254793293,
+        "q95": 29.68845578959322
+      },
+      "epsi": {
+        "n": 5,
+        "bias": 51.39782545215108,
+        "mae": 51.39782545215108,
+        "rmse": 51.40354997088537,
+        "median": 51.55201935728367,
+        "q05": 50.27248021255676,
+        "q25": 51.39275200395976,
+        "q75": 51.74819622673927,
+        "q95": 52.192637171801266
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "angle_deg",
+      "bin": "(45.0, 90.0]",
+      "eM": {
+        "n": 1,
+        "bias": -2.756377467161034,
+        "mae": 2.756377467161034,
+        "rmse": 2.756377467161034,
+        "median": -2.756377467161034,
+        "q05": -2.756377467161034,
+        "q25": -2.756377467161034,
+        "q75": -2.756377467161034,
+        "q95": -2.756377467161034
+      },
+      "epsi": {
+        "n": 1,
+        "bias": -30.789837336210066,
+        "mae": 30.789837336210066,
+        "rmse": 30.789837336210066,
+        "median": -30.789837336210066,
+        "q05": -30.789837336210066,
+        "q25": -30.789837336210066,
+        "q75": -30.789837336210066,
+        "q95": -30.789837336210066
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "angle_deg",
+      "bin": "(90.0, 135.0]",
+      "eM": {
+        "n": 28,
+        "bias": -21.518241305107118,
+        "mae": 21.518241305107118,
+        "rmse": 23.0633945780769,
+        "median": -22.530429778106306,
+        "q05": -32.284316771509616,
+        "q25": -28.14665249807802,
+        "q75": -16.044340824473167,
+        "q95": -7.14865102019483
+      },
+      "epsi": {
+        "n": 28,
+        "bias": -47.64776007793589,
+        "mae": 47.64776007793589,
+        "rmse": 47.90746411904583,
+        "median": -47.9175309450292,
+        "q05": -53.87427522175866,
+        "q25": -51.17112811665648,
+        "q75": -45.12804724220213,
+        "q95": -39.75846401304279
+      }
+    },
+    {
+      "rpm": 3000,
+      "variable": "angle_deg",
+      "bin": "(135.0, 180.0]",
+      "eM": {
+        "n": 25,
+        "bias": -8.247328684864916,
+        "mae": 8.796175316007487,
+        "rmse": 11.75510570026536,
+        "median": -7.125381453576422,
+        "q05": -23.7770396753459,
+        "q25": -14.320836807375468,
+        "q75": -1.38470126399561,
+        "q95": 1.714767549516485
+      },
+      "epsi": {
+        "n": 24,
+        "bias": -17.86055477899254,
+        "mae": 20.088084325589545,
+        "rmse": 24.531167716484127,
+        "median": -18.123517110250106,
+        "q05": -42.45372755703178,
+        "q25": -33.399550335995826,
+        "q75": -2.738218132671721,
+        "q95": 3.7613859090148507
+      }
+    }
+  ],
+  "matched_speed": {
+    "n": 104,
+    "delta_eM_conditional_Nm": {
+      "n": 104,
+      "bias": 0.4137926000788105,
+      "mae": 0.537364631227909,
+      "rmse": 0.7165657887625696,
+      "median": 0.41124306883876294,
+      "q05": -0.2088962194864834,
+      "q25": 0.12481273354718514,
+      "q75": 0.6463192513704232,
+      "q95": 1.1693083769079777
+    }
+  },
+  "selection": "Multi_RPM, requested 1000/3000 rpm and Rotor_temp_ref=70; all finite OP groups, no residual filters",
+  "normalization": "amp-invariant assumed; kT=3p/2; requested speed in existing voltage inversion",
+  "grouping": "raw signals averaged on same OP indices, flux of mean voltage/current; equal OP weight",
+  "threshold": "I_s > 0.10*maximum measured OP I_s, sensitivity fractions .05/.15/.20; no epsilon denominator",
+  "qualification_gate": "FAILED: CAN Unit/Description empty, Device Platform, generic recorder Path; sensor, gain, offset, loss, synchronization absent",
+  "script_sha256": "4750f9efa5802e80f974b28a278ef986d7032d935b2d8205536ded06c4599af6",
+  "dependency_hashes": {
+    "papers/physics_constrained_flux_maps/python/raw_ww_data_importer.py": "eb40d0f4fef91d4241898c20744449a5770bdd553e63dc3b6693ac96df5ad2dd",
+    "papers/physics_constrained_flux_maps/python/flux_correction.py": "1750bb8c86fa462e356cd7343b763882dbb9233f4761cf44a44be2a9433cb7da",
+    "docs/torque_flux_consistency/proof_of_concept.py": "5bf30f01c72e5c871d4dd35f25bda9bb8e167a640c097bf1e81242414e4568c4",
+    "papers/flux_map_error_diagnostics/numerics/magnetic_model.py": "f01891d9d688b759417f4b174373f185fa1d718aa7d69091796d63a81adf2893",
+    "shared/python/publication_plotting.py": "351efa577a1f05dfb5e9d6613bcf597c3d87089dded0feed16f75a5aba8638fb",
+    "shared/config/palette.tex": "63a257d2ec7bb09e828fed2af4288e54036a96dc09d8e3a99260551483562f3a"
+  },
+  "versions": {
+    "python": "3.13.12",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "h5py": "3.16.0"
+  }
+}

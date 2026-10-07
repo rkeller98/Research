@@ -1,0 +1,61 @@
+{
+  "dataset_checks": [
+    {
+      "dataset": "asm_500rpm_set1",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "asm_500rpm_set2",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "eesm_excitation_reduced",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "psm_dual_system_multirpm",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "psm_merge_4000_part1",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "psm_merge_4000_part2",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "psm_outlier_stress_60c",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    },
+    {
+      "dataset": "psm_temperature_2500",
+      "exact_roundtrip": true,
+      "flux_and_torque_identities": true,
+      "corruption_rejected": true,
+      "private_absolute_path_rejected": true
+    }
+  ],
+  "portable_evaluation_byte_identical_files": 16
+}

@@ -1,0 +1,52 @@
+\section{Steady-state flux reconstruction}
+Begin with the two voltage balances
+\begin{align}
+ \ud&=\Rs\id-\omegae\psiq, &
+ \uq&=\Rs\iq+\omegae\psid.\label{eq:voltage}
+\end{align}
+They apply when the rotor-frame flux derivative vanishes, the represented
+voltage is the terminal fundamental voltage, and the lumped resistive model
+is adequate. Set
+\begin{equation}
+ \voltage=\begin{bmatrix}\ud\\\uq\end{bmatrix},\quad
+ \current=\begin{bmatrix}\id\\\iq\end{bmatrix},\quad
+ \flux=\begin{bmatrix}\psid\\\psiq\end{bmatrix},\quad
+ \rotationgenerator=\begin{bmatrix}0&-1\\1&0\end{bmatrix}.
+\end{equation}
+Then $\rotationgenerator\flux=[-\psiq,\psid]\trans$ rotates a vector counterclockwise
+through $90^\circ$, and \cref{eq:voltage} becomes
+\begin{equation}
+ \voltage=\Rs\current+\omegae\rotationgenerator\flux.\label{eq:vector-voltage}
+\end{equation}
+Subtracting the resistive drop isolates rotational EMF. Rotating it back
+undoes its quadrature orientation. Since $\rotationgenerator^2=-\matr I$, for
+$\omegae\ne0$ this gives
+\begin{equation}
+ \boxed{\flux^{\rm rec}=-\frac{1}{\omegae}\rotationgenerator
+ (\voltage-\Rs\current).}\label{eq:reconstruction}
+\end{equation}
+Equivalently,
+\begin{equation}
+ \psid^{\rm rec}=\frac{\uq-\Rs\iq}{\omegae},\qquad
+ \psiq^{\rm rec}=\frac{\Rs\id-\ud}{\omegae}.
+\end{equation}
+This operation reveals flux from the voltage balance but hides the origin of
+the subtracted voltage. Any error in voltage or resistive drop is divided by
+speed. At zero speed the stationary equation contains no flux information;
+near zero speed the inversion amplifies noise.
+
+The independent coordinates here are measured terminal stator currents.
+Solving the voltage equation does not establish that the recovered vector
+is their energy-conjugate gradient. In a loss-aware model, terminal current
+can include a dissipative branch as well as magnetizing current. A potential
+relation therefore needs its own subsystem, state, and coordinate assumptions;
+\cref{eq:current-pullback} later gives the complete coordinate transformation.
+Flux reconstruction and magnetic-potential inference are separate steps.
+
+No reflection symmetry follows from this inversion. Indeed, any chosen
+flux-current function, symmetric or otherwise, can be inserted in
+\cref{eq:vector-voltage} to produce corresponding voltages. Structural
+symmetry must come from the machine, not from solving its voltage equation.
+The alternative componentwise derivation gives the same signs: $u_q-R_si_q$
+contains $+\omega_e\psi_d$, whereas $u_d-R_si_d$ contains
+$-\omega_e\psi_q$.

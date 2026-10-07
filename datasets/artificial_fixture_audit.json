@@ -1,0 +1,20 @@
+{
+  "source": "Trq/Matlab_MnChar_PM2315_200521_028_FakeForTesting_rpm_500_900_1300_1700_2100_2500_2900_3300_3700_4100_4500_4900_RotTemp_30_70.mat",
+  "same_workspace_alias": true,
+  "records": 604,
+  "parent_records": 302,
+  "exactly_repeated_parent_signals": [
+    "CAN_Torque_Req",
+    "Const_Machine_pole_pairs",
+    "PE_Id_req_meas",
+    "PE_Iq_req_meas",
+    "PE_Request_Modus",
+    "PE_Rpm_req",
+    "PE_Torque_req",
+    "PE_Udc_req",
+    "Yok_Freq_Curr",
+    "Yok_Freq_Volt"
+  ],
+  "classification": "unknown: Machine_type missing",
+  "policy": "synthetically edited workspace fixture; excluded from independent experimental evidence"
+}

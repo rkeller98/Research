@@ -1,0 +1,58 @@
+\section{A configuration-qualified real torque comparison}
+\label{sec:real-torque}
+The portable fixture \texttt{psm\_dual\_system\_multirpm} contains 218 OPs,
+109 each at requested 1000 and 3000 rpm, a 70-$^\circ$C rotor reference,
+$p=4$ and a recorded nominal stator resistance of 10 m$\Omega$.
+The stored phase selector is 1. Its import/test interpretation identifies
+two three-phase systems with a 180-degree displacement.
+For equally represented per-system amplitude-invariant dq currents and flux,
+the total torque is the sum of their oriented-area contributions:
+\begin{equation}
+ M_{\rm total}=2\left[\frac32p(\psi_di_q-\psi_qi_d)\right],
+ \qquad k_{\rm T}=\frac62p=3p=12.
+ \label{eq:dual-system-torque}
+\end{equation}
+This factor follows from configuration, not a regression on CAN torque.
+The old single-system value 6 omitted half the represented total torque.
+With a shared $I_s\ge0.1I_{s,\max}$ support, the combined RMS discrepancy
+falls from 19.71 to 1.21 Nm when that configuration is applied.
+Those figures are recomputed from the portable export using measured mean
+electrical speed; they do not reuse the previous requested-speed audit.
+
+The raw-to-OP route retains measured current/voltage means, electrical-speed
+means, requested labels, medians, deviations and counts. No torque outlier
+deletion or fitted gain is applied. A median phase-RMS to dq-magnitude ratio
+near 0.706 agrees with the importer's amplitude-invariant interpretation;
+zero power-analyzer voltage channels supply no independent voltage check.
+Changing configured pole pairs alone cannot fix the previous factor: in a
+requested-speed voltage inversion $k_T/\omega_e$ contains cancelling $p$.
+The two-system factor, by contrast, survives that ratio.
+
+\begin{table}[htbp]\centering
+\input{figures/data/real_metrics.tex}
+\caption{Recomputed CAN comparison. Torque RMS is in Nm and normalized flux
+RMS in mWb; each slice has 108 current-threshold-qualified OPs.}
+\end{table}
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{figures/real_torque.pdf}
+\caption{Total torque with the recorded six-phase configuration compared
+against the unchanged CAN indicator. The normalized residual excludes small
+current; it remains conditional on torque source meaning and calibration.}
+\label{fig:real-torque}\end{figure}
+
+\subsection{Why this candidate and what remains unqualified}
+The raw catalog and candidate audit compare quiet PSM, merge, EESM, ASM,
+torque-characterization and Outlier cases. Some candidates have smaller
+within-group scatter but held or repeated CAN values do not prove independent
+sensor precision. Multi-RPM supplies both current directions, both torque
+signs, complete voltage/current channels, explicit phase configuration and
+two actual speed slices with a narrow repeat-scatter scale. It is the primary
+configuration diagnostic. The noisy Outlier lineage is retained only as a
+reduced stress fixture; edited PSM speed variants are excluded.
+
+MeasEval transports CAN values unchanged and labels them torque; raw unit
+metadata does not certify a calibrated transducer. Gain, gear ratio, shaft
+location, magnetic versus terminal currents and mechanical losses are not
+established. Hence the residual is a qualified signal comparison, not a
+validated electromagnetic flux-error measurement. No real flux correction
+is performed.

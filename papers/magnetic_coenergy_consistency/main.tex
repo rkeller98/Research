@@ -1,0 +1,33 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{import}
+\subimport{../../shared/}{preamble.tex}
+\addbibresource{bibliography/references.bib}
+\input{metadata.tex}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\PaperAbstract
+\end{abstract}
+\tableofcontents
+
+\input{sections/01_introduction.tex}
+\input{sections/02_measurement_to_flux.tex}
+\input{sections/03_magnetic_coenergy.tex}
+\input{sections/04_symmetry_and_reciprocity.tex}
+\input{sections/05_differential_inductance.tex}
+\input{sections/06_real_data_admissibility.tex}
+\input{sections/07_discussion.tex}
+\input{sections/08_conclusion.tex}
+
+\ifshowglossary
+  \glsadd{pmsm}\glsadd{dq}
+  \glsadd{sym:id}\glsadd{sym:iq}\glsadd{sym:rs}\glsadd{sym:omega}
+  \glsadd{sym:ldiff}\glsadd{sym:coenergy}
+  \printnoidxglossary[type=\acronymtype,title={Acronyms}]
+  \printnoidxglossary[type=symbols,title={Symbols}]
+\fi
+\ifshowbibliography
+  \printbibliography
+\fi
+\end{document}

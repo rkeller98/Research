@@ -1,0 +1,473 @@
+{
+  "portable_datasets": {
+    "asm_500rpm_set1": {
+      "groups": 152,
+      "normalized_groups": 149,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 2.7880820157669035,
+      "p95_torque_std": 8.16346724662113,
+      "torque_range": [
+        -269.4720052083333,
+        257.576665242513
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        500.0
+      ],
+      "temperature_references": [
+        39.5
+      ],
+      "kt_values": [
+        3.0
+      ],
+      "mean_vs_median_torque_rms": 1.3931567485910112,
+      "residual_bias": 4.798973347837973,
+      "residual_rms": 5.799768729908488,
+      "can_over_map_median": 1.0073987099498591,
+      "rms_over_dq_current_median": 0.7061108465597844,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "asm_500rpm_set2": {
+      "groups": 88,
+      "normalized_groups": 85,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 1.4592826361970872,
+      "p95_torque_std": 4.184075304424789,
+      "torque_range": [
+        -273.7419942220052,
+        261.1403401692708
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        500.0
+      ],
+      "temperature_references": [
+        39.5
+      ],
+      "kt_values": [
+        3.0
+      ],
+      "mean_vs_median_torque_rms": 0.7231851002851506,
+      "residual_bias": 4.1301340161082445,
+      "residual_rms": 5.279611141587943,
+      "can_over_map_median": 1.0067448017228284,
+      "rms_over_dq_current_median": 0.7050550461181879,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "eesm_excitation_reduced": {
+      "groups": 1856,
+      "normalized_groups": 0,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.8855166391713545,
+      "p95_torque_std": 2.101929568817514,
+      "torque_range": [
+        -144.1034138997396,
+        143.53824869791666
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        2250.0
+      ],
+      "temperature_references": [],
+      "kt_values": [],
+      "mean_vs_median_torque_rms": 0.38531125765196306,
+      "residual_bias": null,
+      "residual_rms": null,
+      "can_over_map_median": null,
+      "rms_over_dq_current_median": null,
+      "rms_over_dq_voltage_median": null,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "psm_dual_system_multirpm": {
+      "groups": 218,
+      "normalized_groups": 216,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.3911966457337037,
+      "p95_torque_std": 1.6610746412728141,
+      "torque_range": [
+        -71.11000061035156,
+        68.42000071207683
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        1000.0,
+        3000.0
+      ],
+      "temperature_references": [
+        70.0
+      ],
+      "kt_values": [
+        12.0
+      ],
+      "mean_vs_median_torque_rms": 0.25871858408193454,
+      "residual_bias": 1.0998539884801088,
+      "residual_rms": 1.2121504734430502,
+      "can_over_map_median": 1.010674488733412,
+      "rms_over_dq_current_median": 0.7059209067297019,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "psm_merge_4000_part1": {
+      "groups": 328,
+      "normalized_groups": 318,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.029455903460241288,
+      "p95_torque_std": 0.1438829885332126,
+      "torque_range": [
+        -429.7698262532552,
+        831.8744913736979
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        4000.0
+      ],
+      "temperature_references": [
+        40.0
+      ],
+      "kt_values": [
+        9.0
+      ],
+      "mean_vs_median_torque_rms": 0.434299024389428,
+      "residual_bias": -44.2007447731816,
+      "residual_rms": 55.23179098356825,
+      "can_over_map_median": 1.1284192309909908,
+      "rms_over_dq_current_median": 0.7081442309047415,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "psm_merge_4000_part2": {
+      "groups": 208,
+      "normalized_groups": 208,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.0531738678736213,
+      "p95_torque_std": 0.405369599996447,
+      "torque_range": [
+        -864.4059041341146,
+        860.3755493164062
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        4000.0
+      ],
+      "temperature_references": [
+        40.0
+      ],
+      "kt_values": [
+        9.0
+      ],
+      "mean_vs_median_torque_rms": 2.677109207426049,
+      "residual_bias": -48.88114310468803,
+      "residual_rms": 54.883846914946005,
+      "can_over_map_median": 0.9384645484936512,
+      "rms_over_dq_current_median": 0.7060634002309174,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "psm_outlier_stress_60c": {
+      "groups": 320,
+      "normalized_groups": 310,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.3336656745975385,
+      "p95_torque_std": 3.8082128598507743,
+      "torque_range": [
+        -783.476806640625,
+        759.4062906901041
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        2000.0
+      ],
+      "temperature_references": [
+        60.0
+      ],
+      "kt_values": [
+        4.5
+      ],
+      "mean_vs_median_torque_rms": 2.6394786111976365,
+      "residual_bias": 1.9146940481298922,
+      "residual_rms": 11.375948921063717,
+      "can_over_map_median": 1.0115537945443254,
+      "rms_over_dq_current_median": 0.7093643325021719,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "psm_temperature_2500": {
+      "groups": 680,
+      "normalized_groups": 666,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.0,
+      "p95_torque_std": 0.0877533029961333,
+      "torque_range": [
+        -171.43233235677084,
+        167.4073282877604
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        2500.0
+      ],
+      "temperature_references": [
+        30.0,
+        70.0
+      ],
+      "kt_values": [
+        4.5
+      ],
+      "mean_vs_median_torque_rms": 0.021401405613144155,
+      "residual_bias": -2.8000394830253583,
+      "residual_rms": 4.057019793353915,
+      "can_over_map_median": 1.0202157343279008,
+      "rms_over_dq_current_median": null,
+      "rms_over_dq_voltage_median": null,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    }
+  },
+  "additional_raw_candidates": {
+    "Flux/Matlab_008.mat": {
+      "groups": 109,
+      "normalized_groups": 108,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.46177202025670067,
+      "p95_torque_std": 0.9139317866517526,
+      "torque_range": [
+        -72.09666697184245,
+        69.86333465576172
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        1000.0
+      ],
+      "temperature_references": [
+        70.0
+      ],
+      "kt_values": [
+        12.0
+      ],
+      "mean_vs_median_torque_rms": 0.20033406111473293,
+      "residual_bias": 0.6832875605216396,
+      "residual_rms": 0.8422402977189651,
+      "can_over_map_median": 1.0042312367101955,
+      "rms_over_dq_current_median": 0.7055186805377514,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "Flux/Matlab_034 Toufic.mat": {
+      "groups": 332,
+      "normalized_groups": 327,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 1.1733072973985745,
+      "p95_torque_std": 2.7416179011732202,
+      "torque_range": [
+        -1276.183349609375,
+        1180.7166748046875
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        1000.0
+      ],
+      "temperature_references": [
+        70.0
+      ],
+      "kt_values": [
+        4.5
+      ],
+      "mean_vs_median_torque_rms": 6.17856076186685,
+      "residual_bias": 29.119834514911357,
+      "residual_rms": 594.3947275085624,
+      "can_over_map_median": 4.563121677573628,
+      "rms_over_dq_current_median": 0.7069525106621638,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "Flux/Matlab_038 Toufic.mat": {
+      "groups": 296,
+      "normalized_groups": 291,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 1.6451652926014106,
+      "p95_torque_std": 4.154731617824911,
+      "torque_range": [
+        -2159.4833170572915,
+        1994.3500162760417
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        1000.0
+      ],
+      "temperature_references": [
+        70.0
+      ],
+      "kt_values": [
+        4.5
+      ],
+      "mean_vs_median_torque_rms": 2.9285658237633747,
+      "residual_bias": 30.624821016862704,
+      "residual_rms": 1079.2441082164253,
+      "can_over_map_median": 4.639944874077807,
+      "rms_over_dq_current_median": 0.7085736857419307,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "Flux/Matlab_200_Mahle.mat": {
+      "groups": 351,
+      "normalized_groups": 344,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.0,
+      "p95_torque_std": 0.6149083410471503,
+      "torque_range": [
+        -399.58197021484375,
+        417.2926432291667
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        2000.0
+      ],
+      "temperature_references": [
+        70.0
+      ],
+      "kt_values": [
+        6.0
+      ],
+      "mean_vs_median_torque_rms": 0.16335800427817918,
+      "residual_bias": -10.098481530100894,
+      "residual_rms": 14.186090104127045,
+      "can_over_map_median": 1.022656014516906,
+      "rms_over_dq_current_median": 0.7036064927419741,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "Flux/PSM_Measdata_1500rpm.mat": {
+      "groups": 680,
+      "normalized_groups": 666,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.0,
+      "p95_torque_std": 0.0877533029961333,
+      "torque_range": [
+        -171.43233235677084,
+        167.4073282877604
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        1500.0
+      ],
+      "temperature_references": [
+        30.0,
+        70.0
+      ],
+      "kt_values": [
+        4.5
+      ],
+      "mean_vs_median_torque_rms": 0.021401405613144155,
+      "residual_bias": -5.4323681002691755,
+      "residual_rms": 65.11123916315991,
+      "can_over_map_median": 0.6121294405967405,
+      "rms_over_dq_current_median": null,
+      "rms_over_dq_voltage_median": null,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "Trq/Matlab_014_Mn_complete_active_fieldweakeningctrl.mat": {
+      "groups": 192,
+      "normalized_groups": 169,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.45512141698914826,
+      "p95_torque_std": 2.4087855159929967,
+      "torque_range": [
+        -72.6800028483073,
+        69.58666483561198
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        500.0,
+        750.0,
+        1000.0,
+        1250.0,
+        1500.0,
+        1750.0,
+        2000.0,
+        2250.0,
+        2500.0,
+        2750.0,
+        3000.0,
+        3250.0,
+        3500.0,
+        3750.0,
+        4000.0,
+        4250.0,
+        4500.0,
+        4750.0,
+        5000.0,
+        5250.0,
+        5500.0,
+        5750.0,
+        6000.0
+      ],
+      "temperature_references": [
+        70.0
+      ],
+      "kt_values": [
+        12.0
+      ],
+      "mean_vs_median_torque_rms": 0.3741266610471352,
+      "residual_bias": 1.1750769710430025,
+      "residual_rms": 1.3231321291713187,
+      "can_over_map_median": 1.0137152288339535,
+      "rms_over_dq_current_median": 0.70611624760753,
+      "rms_over_dq_voltage_median": 0.0,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    },
+    "Flux/2025-07-09_UPI1000-ZF02_STLA_Gen2_800V_350kW_DS30a_FC09_080degC_00000-03121.mat": {
+      "groups": 2998,
+      "normalized_groups": 2910,
+      "missing_torque_groups": 0,
+      "median_logger_count": 3.0,
+      "median_torque_std": 0.2710525991531847,
+      "p95_torque_std": 1.1637909693325894,
+      "torque_range": [
+        -772.3352457682291,
+        763.6468302408854
+      ],
+      "current_direction_rank": 2,
+      "rpm_references": [
+        5000.0
+      ],
+      "temperature_references": [
+        80.0
+      ],
+      "kt_values": [
+        4.5
+      ],
+      "mean_vs_median_torque_rms": 0.18135258843995605,
+      "residual_bias": 8.060897518318978,
+      "residual_rms": 21.130557330108203,
+      "can_over_map_median": 1.0535279979425316,
+      "rms_over_dq_current_median": null,
+      "rms_over_dq_voltage_median": null,
+      "status": "configuration-consistent comparison; CAN calibration and loss mapping unverified"
+    }
+  },
+  "factor_two": {
+    "phase_selector": 1,
+    "configured_systems": 2,
+    "pole_pairs": 4,
+    "old_kt": 6,
+    "configured_total_kt": 12,
+    "old_residual_rms": 19.712653168441253,
+    "configured_residual_rms": 1.2121504734430502,
+    "interpretation": "Missing second three-phase-system contribution explains the leading factor; no CAN gain fitted",
+    "open": "Equal per-system currents/fluxes assumed; independent sensor calibration and losses not established"
+  }
+}

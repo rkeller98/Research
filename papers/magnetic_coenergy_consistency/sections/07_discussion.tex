@@ -1,0 +1,47 @@
+\section{Discussion: what failure of admissibility means}
+\subsection{Storage coordinates need not be terminal-current coordinates}
+The real-data study makes a distinction necessary: a conservative magnetic
+subsystem does not automatically imply a potential whose gradient against
+measured terminal current is the reconstructed flux. A schematic loss branch
+has $\statorcurrent=\magnetizingcurrent+\vect i_{\rm Fe}$.
+The storage relation can be conservative in $\magnetizingcurrent$ while its
+stationary reduction against $\statorcurrent$ is not. Richter et al.
+\cite{richter2014} distinguish magnetic-state matching from equality of
+terminal currents in motoring/generating measurements.
+
+For an algebraic illustration, take
+$\flux=\matr L\magnetizingcurrent$ with
+$\matr L=\operatorname{diag}(L_d,L_q)$ and
+$\vect i_{\rm Fe}=c\rotationgenerator\flux$, $c=\omega_e/R_{\rm Fe}$.
+Its dissipation in the same dq normalization is
+$\|\omega_e\rotationgenerator\flux\|^2/R_{\rm Fe}>0$ for nonzero branch voltage;
+physical three-phase power adds the $3/2$ factor under amplitude-invariant
+coordinates. The storage law itself remains conservative. Eliminating its branch
+current yields
+\begin{equation}
+ \frac{\partial\flux}{\partial\vect i_s}
+ =\matr L(\matr I+c\rotationgenerator\matr L)^{-1}
+ =\frac{1}{1+c^2L_dL_q}
+ \begin{bmatrix}L_d&cL_dL_q\\-cL_dL_q&L_q\end{bmatrix}.
+\end{equation}
+Its terminal-current curl is $-2cL_dL_q/(1+c^2L_dL_q)$, despite conservative
+storage magnetics. This illustrative constant branch is not identified for
+the supplied machine. Indeed, its antisymmetric affine cross terms give
+equal symmetry and curl equivalents; it does not automatically explain their
+observed difference. Iron loss remains one open model component, not a
+demonstrated cause.
+
+Nor does simply relabeling currents transform a differential form correctly.
+If $\magnetizingcurrent=f(\statorcurrent)$, then
+\begin{equation}
+ \nabla_{\vect i_s}\bigl[W'_{\rm mag}(f(\vect i_s))\bigr]
+ =Df(\vect i_s)\trans\flux_{\rm mag}(f(\vect i_s)).
+ \label{eq:current-pullback}
+\end{equation}
+The Jacobian transpose is required. This gradient is generally not the
+unchanged flux vector plotted against new current labels. Magnetic coordinates,
+their conjugate quantities, fixed state, and the subsystem being fitted must
+therefore be specified together. Loss-aware synchronous-machine context is
+distinct from induction-machine results; the Kullick--Hackl journal study
+\cite{kullick2023} concerns induction machines and supplies no PMSM
+co-energy validation for these terminal coordinates.

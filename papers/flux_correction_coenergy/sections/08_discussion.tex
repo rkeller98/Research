@@ -1,0 +1,21 @@
+\section{What the reconstruction guarantees and what it does not}
+A smooth common potential couples derivatives everywhere in its model domain.
+Its reciprocal mixed slopes and optional reflection do not depend on sample
+fit error. Gauge removes a constant, while measured support and regularization
+control additional weak directions. A full-rank design does not ensure good
+conditioning, boundary accuracy, positive Hessian, or identifiable sensor bias.
+
+Synthetic truth is representable in this basis and uses one seed, simple noise
+and prescribed outliers. Its accuracy results do not establish a universal
+winner. RBF alternatives are conceptual, not a numerical benchmark.
+The real experiment has unknown magnetic truth and uses terminal currents,
+nominal resistance and recorded electrical-speed/voltage channels. Its
+spatial holdout reduces local leakage but selects the penalty on the reported
+score. Additional independent campaigns and calibrated derivative references
+would be needed for a physical accuracy claim.
+
+The model predicts consistent slopes. The residual carries incompatible
+measurements, excluded physical state, interpolation/basis error and penalty
+bias together. Storage-coordinate qualifications are developed in the
+companion consistency study \cite{companion-consistency}; here they are a
+gate on interpretation rather than another fitting parameter.

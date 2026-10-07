@@ -1,0 +1,63 @@
+\section{Even and odd channels as diagnostic residuals}
+We want to remove the legitimate symmetric magnetic structure while retaining
+components that the model forbids. Compare points at equal $i_d$, temperature,
+and signed speed, with opposite equal-magnitude $i_q$. Define
+\begin{equation}
+ \evenq[f](i_d,i_q)=\frac{f(i_d,i_q)+f(i_d,-i_q)}{2},\qquad
+ \oddq[f](i_d,i_q)=\frac{f(i_d,i_q)-f(i_d,-i_q)}{2}.
+ \label{eq:parity-operators}
+\end{equation}
+Addition retains the unchanged part; subtraction retains the reversing part.
+These are complementary projections: $f=\evenq[f]+\oddq[f]$,
+$\evenq^2=\evenq$, $\oddq^2=\oddq$, and $\evenq\oddq=0$. Pairing therefore discards the
+allowed component in each diagnostic channel, not saturation as such.
+\input{figures/03_decomposition.tex}
+
+For a correctly aligned ideal map, $\oddq[\psid]=0$ and $\evenq[\psiq]=0$.
+Define measured residuals at the observed numerical labels by
+\begin{equation}
+ \boxed{r_d=\oddq[\hat\psid],\qquad r_q=\evenq[\hat\psiq].}
+ \label{eq:residuals}
+\end{equation}
+For the independent positive-q representative $a>0$, this means explicitly
+\begin{equation}
+ r_d=\frac{\hat\psi_d(i_d,+a)-\hat\psi_d(i_d,-a)}{2},\qquad
+ r_q=\frac{\hat\psi_q(i_d,+a)+\hat\psi_q(i_d,-a)}{2}.
+\end{equation}
+
+\subsection{Symmetry projection as a correction operator}
+The same even/odd decomposition defines the closest parity-admissible pairwise map under equal weighting:
+\begin{equation}
+ \boxed{\psi_d^{\rm sym}=\evenq[\hat\psi_d],\qquad
+        \psi_q^{\rm sym}=\oddq[\hat\psi_q].}
+ \label{eq:symmetry-projection}
+\end{equation}
+The removed component is exactly
+\begin{equation}
+ \hat\flux-\flux^{\rm sym}=\begin{bmatrix}r_d\\r_q\end{bmatrix}
+\end{equation}
+on mirrored support. Algebraically this is an idempotent projection onto the declared parity subspace. Geometrically it folds the two measured branches onto the reflection-compatible component. Physically it is a correction only if the forbidden component is known to be nonmagnetic or otherwise inadmissible for the intended model.
+
+A smaller symmetry residual after projection is therefore guaranteed by construction and cannot by itself validate a sensor correction, winding resistance, or rotor-angle estimate. The raw field, projected field, and removed residual must remain available separately.
+
+\paragraph{What pairing hides.}
+An allowed-parity flux error can be large and yet yield zero residuals.
+A nonzero residual indicates incompatibility with the specified symmetry,
+not unique proof of resistance or angle error. Interpolation mismatch,
+temperature mismatch, or real machine asymmetry can enter the same channels.
+Use one independent representative per pair, conventionally $i_q>0$; keeping
+both representatives doubles the same information and their correlated noise.
+
+
+\subsection{Why the closest pair is an average}
+For two observed d values $d_+$ and $d_-$, the admissible pair is $(d,d)$.
+Minimizing $(d-d_+)^2+(d-d_-)^2$ gives $d=(d_++d_-)/2$.
+For q values the admissible pair is $(q,-q)$ and minimizing
+$(q-q_+)^2+(-q-q_-)^2$ gives $q=(q_+-q_-)/2$.
+These two one-dimensional minimizations prove the minimum-distance claim.
+With unequal independent precisions $w_+,w_-$, replace the averages by
+$(w_+d_++w_-d_-)/(w_++w_-)$ and
+$(w_+q_+-w_-q_-)/(w_++w_-)$. Correlated uncertainty requires its full metric.
+Equal weighting is a declared mathematical choice, not an inferred sensor
+covariance. A normalized thought experiment $(d_+,d_-)=(3,1)$ projects to
+$(2,2)$ and removes $(1,-1)$; the operator cannot tell why the difference arose.

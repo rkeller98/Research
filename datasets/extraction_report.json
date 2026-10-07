@@ -1,0 +1,66 @@
+[
+  {
+    "dataset_id": "psm_dual_system_multirpm",
+    "rows": 218,
+    "csv_bytes": 116834,
+    "manifest_bytes": 7451,
+    "csv_sha256": "48b6669646fe326e4cda54a457585e1c50e92ff587729155cc9a112c786b26c0",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "psm_temperature_2500",
+    "rows": 680,
+    "csv_bytes": 368810,
+    "manifest_bytes": 7435,
+    "csv_sha256": "311fc6e9439540d9ae46c25acf17a169a46555437f2b35c4fc0fa39c08dfda45",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "eesm_excitation_reduced",
+    "rows": 1856,
+    "csv_bytes": 988464,
+    "manifest_bytes": 7454,
+    "csv_sha256": "ed9adabe52a9643de235b4210135d63fa89833dead81cf943c8c14435ad256c5",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "asm_500rpm_set1",
+    "rows": 152,
+    "csv_bytes": 84742,
+    "manifest_bytes": 7434,
+    "csv_sha256": "d1bc3ce235c0f57a89942398424825c9348fe69e631aa607109b3f9551be634c",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "asm_500rpm_set2",
+    "rows": 88,
+    "csv_bytes": 49382,
+    "manifest_bytes": 7431,
+    "csv_sha256": "60caeef2ac293f23bfaf63ac1fd9bb575b7231b322c685dbaef38d00d6963f85",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "psm_merge_4000_part1",
+    "rows": 328,
+    "csv_bytes": 186411,
+    "manifest_bytes": 7441,
+    "csv_sha256": "c4ba9bf4e5d282d645a4822cd4f7c937c049ca0f30b3bafb6ad9ac29e72feaf3",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "psm_merge_4000_part2",
+    "rows": 208,
+    "csv_bytes": 119061,
+    "manifest_bytes": 7441,
+    "csv_sha256": "eef67ad56ac2301b001dfecd97627bf84800ba941d6827760bf2e5a127d2caed",
+    "roundtrip": "exact double values and byte-identical re-export"
+  },
+  {
+    "dataset_id": "psm_outlier_stress_60c",
+    "rows": 320,
+    "csv_bytes": 184881,
+    "manifest_bytes": 7505,
+    "csv_sha256": "42cf85464427dd2cae868ca631d90f157e7c239a0103bfcc899d27722cc2c3c0",
+    "roundtrip": "exact double values and byte-identical re-export"
+  }
+]

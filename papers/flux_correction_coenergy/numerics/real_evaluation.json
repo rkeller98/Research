@@ -1,0 +1,52 @@
+{
+  "source": {
+    "dataset": "psm_temperature_2500",
+    "csv_sha256": "311fc6e9439540d9ae46c25acf17a169a46555437f2b35c4fc0fa39c08dfda45",
+    "temp": 30,
+    "rpm": null
+  },
+  "points": 340,
+  "train_count": 267,
+  "holdout_count": 73,
+  "supported_holdout_count": 61,
+  "current_base_A": 400.5865842923734,
+  "current_axis_scales_A": [
+    198.67042884640443,
+    400.5865842923734
+  ],
+  "current_center_A": [
+    -197.5924800458907,
+    0.0
+  ],
+  "flux_base_Wb": 0.1,
+  "rank": 31,
+  "gauge_fixed_columns": 31,
+  "results": [
+    {
+      "mode": "Independent",
+      "penalty": 1e-06,
+      "spatial_holdout_rms_mWb": 0.5729695384593,
+      "raw_sample_fit_rms_mWb": 0.43662251314278977,
+      "parity_rms_mWb": 2.5432940808212354,
+      "curl_rms_mH": 0.036849807253528793
+    },
+    {
+      "mode": "Parity",
+      "penalty": 0.001,
+      "spatial_holdout_rms_mWb": 2.6461915178786635,
+      "raw_sample_fit_rms_mWb": 2.582807548959118,
+      "parity_rms_mWb": 0.0,
+      "curl_rms_mH": 0.009752605872363101
+    },
+    {
+      "mode": "Potential",
+      "penalty": 0.001,
+      "spatial_holdout_rms_mWb": 2.712956486160305,
+      "raw_sample_fit_rms_mWb": 2.6471037389815257,
+      "parity_rms_mWb": 0.0,
+      "curl_rms_mH": 0.0
+    }
+  ],
+  "selection": "spatial holdout selects lambda; score is tuning error, not an independent final test",
+  "limit": "No true flux reference; discarded residual is not identified measurement error"
+}

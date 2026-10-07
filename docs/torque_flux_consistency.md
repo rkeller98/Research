@@ -1,7 +1,20 @@
+> Portfolio update (7 October 2026): the current five-paper split and
+> six-phase configuration diagnosis are documented in
+> [paper_portfolio_migration.md](paper_portfolio_migration.md). Earlier
+> composite paths and conditional real results below are historical provenance.
+
 # Torque consistency zur Bewertung und Korrektur von Flusskennfeldern
 
 **Status: Forschungskonzept mit synthetischer Validierung; keine experimentell
 freigegebene Kennfeldkorrektur. Stand: 7. Oktober 2026.**
+
+Die Vorarbeit ist inzwischen in das Manuskript
+[physics_constrained_flux_maps](../papers/physics_constrained_flux_maps/main.tex)
+integriert, einschließlich einer bedingten realen Multi-RPM-Auswertung.
+Diese Seite bleibt die ausführliche technische Herleitung.
+[Integrations- und Evidenzaudit](../papers/physics_constrained_flux_maps/docs/torque_consistency_integration.md)
+dokumentiert die Manuskriptänderungen und die weiterhin fehlende
+CAN-Momentqualifikation.
 
 Drehmoment beobachtet bei bekanntem, von null verschiedenem Statorstrom genau
 eine Projektion des dq-Flussvektors. Die vorgeschlagene Umrechnung eines
@@ -19,9 +32,10 @@ oder eine eindeutige regularisierte Lösung ersetzen keine Beobachtbarkeit.
 
 ## Einordnung in den vorhandenen Bestand
 
-Der geprüfte Git-Stand ist `23ab6ef`; bestehende lokale Änderungen bleiben
-erhalten. Die Research-Seite ergänzt die beiden Flussarbeiten, ohne ihre
-experimentellen Schlussfolgerungen zu ändern.
+Die ursprüngliche Vorarbeit basierte auf `23ab6ef`; die Manuskriptintegration
+setzt inkrementell auf dem aktualisierten Stand `0e53431` auf.
+Die Research-Seite ergänzt die beiden Flussarbeiten. Stärkere experimentelle
+Claims folgen daraus weiterhin nicht.
 
 | Vorhandener Baustein | Quelle im Repository | Anschluss der Torque-Idee |
 |---|---|---|

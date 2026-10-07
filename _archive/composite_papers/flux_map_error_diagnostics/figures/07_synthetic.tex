@@ -1,0 +1,40 @@
+\begin{figure}[tbp]
+\centering
+\begin{tikzpicture}
+\begin{groupplot}[group style={group size=2 by 2,horizontal sep=14mm,
+ vertical sep=24mm},diagnostic axis,xmin=-1,xmax=1,
+ legend style={compact text,at={(.5,-.32)},anchor=north,legend columns=4}]
+\nextgroupplot[title={Reconstructed d flux},ylabel={$\hat\psi_d/\psi_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=d0]{figures/data/synthetic.dat};
+ \addlegendentry{Ideal}
+ \addplot[estimated quantity,standard line,alternative pattern] table[x=y,y=dR]{figures/data/synthetic.dat};
+ \addlegendentry{$R$}
+ \addplot[derived quantity,standard line,sampled pattern] table[x=y,y=dg]{figures/data/synthetic.dat};
+ \addlegendentry{Angle}
+ \addplot[torque quantity,standard line,combined pattern] table[x=y,y=db]{figures/data/synthetic.dat};
+ \addlegendentry{Both}
+\nextgroupplot[title={Reconstructed q flux},ylabel={$\hat\psi_q/\psi_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=q0]{figures/data/synthetic.dat};
+ \addplot[estimated quantity,standard line,alternative pattern] table[x=y,y=qR]{figures/data/synthetic.dat};
+ \addplot[derived quantity,standard line,sampled pattern] table[x=y,y=qg]{figures/data/synthetic.dat};
+ \addplot[torque quantity,standard line,combined pattern] table[x=y,y=qb]{figures/data/synthetic.dat};
+\nextgroupplot[title={Forbidden d-odd channel},ylabel={$r_d/\psi_*$}]
+ \addplot[reference quantity,strong line] table[x=y,y=rd0]{figures/data/synthetic.dat};
+ \addplot[estimated quantity,standard line,alternative pattern] table[x=y,y=rdR]{figures/data/synthetic.dat};
+ \addplot[derived quantity,standard line,sampled pattern] table[x=y,y=rdg]{figures/data/synthetic.dat};
+ \addplot[torque quantity,standard line,combined pattern] table[x=y,y=rdb]{figures/data/synthetic.dat};
+\nextgroupplot[title={Forbidden q-even channel},ylabel={$r_q/\psi_*$},
+ ymin=-.024,ymax=.003]
+ \addplot[reference quantity,strong line] table[x=y,y=rq0]{figures/data/synthetic.dat};
+ \addplot[estimated quantity,standard line,alternative pattern] table[x=y,y=rqR]{figures/data/synthetic.dat};
+ \addplot[derived quantity,standard line,sampled pattern] table[x=y,y=rqg]{figures/data/synthetic.dat};
+ \addplot[torque quantity,standard line,combined pattern] table[x=y,y=rqb]{figures/data/synthetic.dat};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Exact voltage-generated synthetic comparison at $x=0$, $\normalizedspeed=1$.
+Injections are $\resistanceerror/R_*=0.025$ and $\angleerror=0.02$ rad. Parity channels
+expose small errors that full flux curves partly hide. Resistance-only q flux
+coincides with ideal q flux; the combined q-even residual coincides with
+angle-only residual because resistance contributes zero q error at this label.}
+\label{fig:synthetic}
+\end{figure}

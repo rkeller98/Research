@@ -1,0 +1,34 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{import}
+\subimport{../../shared/}{preamble.tex}
+\addbibresource{bibliography/references.bib}
+\input{metadata.tex}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\PaperAbstract
+\end{abstract}
+\tableofcontents
+
+\input{sections/01_introduction.tex}
+\input{sections/02_flux_reconstruction.tex}
+\input{sections/03_symmetry_baseline.tex}
+\input{sections/04_symmetry_projection.tex}
+\input{sections/05_experimental_method.tex}
+\input{sections/06_experimental_results.tex}
+\input{sections/07_correction_boundary.tex}
+\input{sections/08_limitations.tex}
+\input{sections/09_conclusion.tex}
+
+\ifshowglossary
+  \glsadd{pmsm}\glsadd{dq}
+  \glsadd{sym:id}\glsadd{sym:iq}\glsadd{sym:rs}\glsadd{sym:omega}
+  \glsadd{sym:er}\glsadd{sym:rpm}
+  \printnoidxglossary[type=\acronymtype,title={Acronyms}]
+  \printnoidxglossary[type=symbols,title={Symbols}]
+\fi
+\ifshowbibliography
+  \printbibliography
+\fi
+\end{document}

@@ -1,0 +1,23 @@
+\section{A portable measured-coordinate experiment}
+The fixture \texttt{psm\_temperature\_2500} contains 680 operating points,
+340 each at rotor-temperature references 30 and 70 $^\circ$C, at a requested
+2500 rpm. The stored machine code is PSM and the phase selector is three-phase.
+The nominal 1500-rpm variant changes six speed-related signals while retaining
+all current and torque values; it is excluded as an independent experiment.
+
+Each operating point groups logger records by requested speed, excitation,
+temperature reference and measurement counter. Measured mean currents and
+voltages, medians, sample deviations and counts are retained. Flux is the
+stationary inversion of group means using recorded mean electrical speed and
+the recorded resistance. No residual-based deletion or extra settling window
+is introduced. The acquisition timing does not justify treating three stored
+records as three independent calibrated repetitions.
+
+Within each temperature slice, construct a vector-valued linear Delaunay
+interpolant on measured currents. For positive q representatives above
+10\% of the slice maximum $|i_q|$, evaluate its mirror at $(i_d,-i_q)$.
+Keep only mirrors inside the convex hull. This addresses numerical current
+matching explicitly, but introduces correlated interpolation error.
+Projection is applied to the two evaluated values; we do not claim that a new
+interpolant through projected vertices would automatically retain exact parity.
+The raw field and removed component stay available.

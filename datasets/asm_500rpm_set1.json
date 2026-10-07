@@ -1,0 +1,277 @@
+{
+  "aggregation": {
+    "group_by": [
+      "PE_Rpm_req",
+      "I_exc_req",
+      "Rotor_temp_ref",
+      "PE_Index_meas"
+    ],
+    "estimator": "arithmetic mean; median and sample standard deviation ddof=1 retained for selected channels",
+    "flux": "invert group means; no averaging of products; stored voltage/current average channels",
+    "settling": "no additional exclusion; acquisition-window/settling timing is unavailable",
+    "outliers": "no residual-based deletion",
+    "temperature_filter": null,
+    "reduction": "none",
+    "source_groups": 152,
+    "retained_groups": 152,
+    "invalid_records_rejected": 0
+  },
+  "columns": {
+    "op_index": {
+      "unit": "1",
+      "source": "PE_Index_meas"
+    },
+    "sample_count": {
+      "unit": "1",
+      "source": "retained logger records"
+    },
+    "id": {
+      "unit": "A",
+      "source": "PE_Id_meas_avg",
+      "raw_unit": ""
+    },
+    "id_median": {
+      "unit": "A",
+      "source": "PE_Id_meas_avg: median"
+    },
+    "id_std": {
+      "unit": "A",
+      "source": "PE_Id_meas_avg: std"
+    },
+    "id_count": {
+      "unit": "1",
+      "source": "PE_Id_meas_avg: count"
+    },
+    "iq": {
+      "unit": "A",
+      "source": "PE_Iq_meas_avg",
+      "raw_unit": ""
+    },
+    "iq_median": {
+      "unit": "A",
+      "source": "PE_Iq_meas_avg: median"
+    },
+    "iq_std": {
+      "unit": "A",
+      "source": "PE_Iq_meas_avg: std"
+    },
+    "iq_count": {
+      "unit": "1",
+      "source": "PE_Iq_meas_avg: count"
+    },
+    "ud": {
+      "unit": "V",
+      "source": "PE_Ud_meas_avg",
+      "raw_unit": ""
+    },
+    "ud_median": {
+      "unit": "V",
+      "source": "PE_Ud_meas_avg: median"
+    },
+    "ud_std": {
+      "unit": "V",
+      "source": "PE_Ud_meas_avg: std"
+    },
+    "ud_count": {
+      "unit": "1",
+      "source": "PE_Ud_meas_avg: count"
+    },
+    "uq": {
+      "unit": "V",
+      "source": "PE_Uq_meas_avg",
+      "raw_unit": ""
+    },
+    "uq_median": {
+      "unit": "V",
+      "source": "PE_Uq_meas_avg: median"
+    },
+    "uq_std": {
+      "unit": "V",
+      "source": "PE_Uq_meas_avg: std"
+    },
+    "uq_count": {
+      "unit": "1",
+      "source": "PE_Uq_meas_avg: count"
+    },
+    "iexc": {
+      "unit": "A",
+      "source": "I_exc_meas_avg",
+      "raw_unit": ""
+    },
+    "iexc_median": {
+      "unit": "A",
+      "source": "I_exc_meas_avg: median"
+    },
+    "iexc_std": {
+      "unit": "A",
+      "source": "I_exc_meas_avg: std"
+    },
+    "iexc_count": {
+      "unit": "1",
+      "source": "I_exc_meas_avg: count"
+    },
+    "id_req": {
+      "unit": "A",
+      "source": "PE_Id_req_meas",
+      "raw_unit": ""
+    },
+    "iq_req": {
+      "unit": "A",
+      "source": "PE_Iq_req_meas",
+      "raw_unit": ""
+    },
+    "iexc_req": {
+      "unit": "A",
+      "source": "I_exc_req",
+      "raw_unit": ""
+    },
+    "rpm_req": {
+      "unit": "rpm",
+      "source": "PE_Rpm_req",
+      "raw_unit": ""
+    },
+    "rpm_meas": {
+      "unit": "rpm",
+      "source": "PE_speed_rpm",
+      "raw_unit": ""
+    },
+    "rpm_meas_median": {
+      "unit": "rpm",
+      "source": "PE_speed_rpm: median"
+    },
+    "rpm_meas_std": {
+      "unit": "rpm",
+      "source": "PE_speed_rpm: std"
+    },
+    "rpm_meas_count": {
+      "unit": "1",
+      "source": "PE_speed_rpm: count"
+    },
+    "omega_e": {
+      "unit": "rad/s",
+      "source": "PE_w_el_rad_avg",
+      "raw_unit": ""
+    },
+    "rotor_temp_ref": {
+      "unit": "degC",
+      "source": "Rotor_temp_ref",
+      "raw_unit": ""
+    },
+    "rotor_temp_meas": {
+      "unit": "degC",
+      "source": "CAN_T_Rot_max",
+      "raw_unit": ""
+    },
+    "stator_temp_ref": {
+      "unit": "degC",
+      "source": "PE_Char_Temp_Stator_ref_DegCel",
+      "raw_unit": ""
+    },
+    "rs_used": {
+      "unit": "ohm",
+      "source": "Const_Machine_R_s",
+      "raw_unit": ""
+    },
+    "pole_pairs": {
+      "unit": "1",
+      "source": "Const_Machine_pole_pairs",
+      "raw_unit": ""
+    },
+    "phase_selector": {
+      "unit": "1",
+      "source": "MultiPhase_control_request_sel",
+      "raw_unit": ""
+    },
+    "torque": {
+      "unit": "Nm",
+      "source": "CAN_Torque_meas",
+      "raw_unit": ""
+    },
+    "torque_median": {
+      "unit": "Nm",
+      "source": "CAN_Torque_meas: median"
+    },
+    "torque_std": {
+      "unit": "Nm",
+      "source": "CAN_Torque_meas: std"
+    },
+    "torque_count": {
+      "unit": "1",
+      "source": "CAN_Torque_meas: count"
+    },
+    "phase_current_rms": {
+      "unit": "A",
+      "source": "PE_I_AC_meas_Arms",
+      "raw_unit": ""
+    },
+    "phase_voltage_rms": {
+      "unit": "V",
+      "source": "PE_U_AC_meas_Vrms",
+      "raw_unit": ""
+    },
+    "psi_d": {
+      "unit": "Wb",
+      "source": "(uq-rs_used*iq)/omega_e"
+    },
+    "psi_q": {
+      "unit": "Wb",
+      "source": "(rs_used*id-ud)/omega_e"
+    },
+    "kt": {
+      "unit": "1",
+      "source": "phase-system configuration; no sensor gain fit"
+    },
+    "torque_map": {
+      "unit": "Nm",
+      "source": "kt*(psi_d*iq-psi_q*id)"
+    }
+  },
+  "csv_file": "asm_500rpm_set1.csv",
+  "csv_sha256": "d1bc3ce235c0f57a89942398424825c9348fe69e631aa607109b3f9551be634c",
+  "data_rights": {
+    "derived_data_publication": "authorized by repository owner on 2026-10-07",
+    "raw_data": "local, excluded from Git",
+    "license": "not specified; authorization is not an invented third-party license"
+  },
+  "dataset_id": "asm_500rpm_set1",
+  "dq_convention": {
+    "name": "amplitude-invariant per three-phase system",
+    "evidence": "MeasEval grid.calculate RMS=norm(dq)/sqrt(2); phase selector is retained",
+    "status": "implementation-declared, not a transducer calibration",
+    "axes": "d rotor-reference axis; q positive CCW; J=[[0,-1],[1,0]]",
+    "electrical_speed": "mean PE_w_el_rad_avg, not requested rpm*p; ASM includes slip"
+  },
+  "known_limitations": [
+    "No true flux or Rs ground truth",
+    "Record count is not independent sensor replicate count",
+    "Requested temperatures differ from measured state; zero-only rotor temperature means missing",
+    "No excitation flux for EESM: full three-current reciprocity cannot be tested",
+    "ASM stator field depends on rotor/slip state; PSM current-only coenergy inference is not transferable",
+    "Missing phase selector is not silently assigned 3-phase torque",
+    "CAN calibration, gear ratio and mechanical losses unavailable"
+  ],
+  "machine_type": "ASM",
+  "provenance": {
+    "sources": [
+      {
+        "path": "Flux/ASM/Set_01/Matlab_005.mat",
+        "sha256": "bc7f63a8e299773334b52c15c003e6609baf10b9f94a24a0c572bd964c58776f"
+      }
+    ],
+    "exporter": "scripts/extract_research_datasets.py",
+    "exporter_version": "1.0",
+    "machine_type_evidence": "Machine_type channel; MeasEval eMachineType: 1=PSM, 2=IM/ASM, 6=EESM"
+  },
+  "row_count": 152,
+  "schema_version": "research-operating-points-v1",
+  "torque": {
+    "source_field": "CAN_Torque_meas",
+    "status": "CAN indicator, calibration and shaft-loss relation unverified",
+    "unit": "Nm",
+    "unit_evidence": "MeasEval typed torque semantics; raw Unit may be empty",
+    "gain_applied": 1,
+    "sign": "stored signed signal, compared against positive electromagnetic motor convention",
+    "kt": "selector 0: 3p/2; selector 1: 3p (two three-phase systems); selector 3: 5p/2; other/missing: absent",
+    "warning": "No arbitrary factor-2 calibration. Equal system currents assumed for selector 1 total torque."
+  }
+}

@@ -1,0 +1,24 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}
+\begin{axis}[diagnostic axis,title={Subtracting too much resistive voltage},
+ ylabel={$\hat\psi_d/\psi_*$},xmin=-1,xmax=1,ymin=.975,ymax=1.055]
+ \addplot[reference quantity,strong line,domain=-1:1]{1+.02*x^2};
+ \addlegendentry{Ideal}
+ \addplot[estimated quantity,standard line,domain=-1:1]{1+.02*x^2-.025*x};
+ \addlegendentry{$\varepsilon_R>0$}
+\end{axis}
+\begin{axis}[diagnostic axis,at={(.5\textwidth,0)},anchor=south west,
+ title={Forbidden channels at $i_d=0$},ylabel={$r/\psi_*$},
+ xmin=-1,xmax=1,ymin=-.03,ymax=.03]
+ \addplot[estimated quantity,strong line,domain=-1:1]{-.025*x};
+ \addlegendentry{$r_d$}
+ \addplot[derived quantity,alternative pattern,standard line,domain=-1:1]{0};
+ \addlegendentry{$r_q=0$}
+\end{axis}
+\end{tikzpicture}
+\caption{Resistance-only reconstruction error at $\normalizedspeed=1$, $x=0$,
+and $\varepsilon_R/R_*=0.025$. The ideal nonlinear d flux remains even;
+incorrect resistive subtraction adds a linear odd contribution.}
+\label{fig:resistance}
+\end{figure}

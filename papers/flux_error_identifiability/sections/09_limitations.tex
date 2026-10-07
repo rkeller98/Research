@@ -1,0 +1,23 @@
+\section{A support test and the boundary of identifiability}
+The portable six-phase Multi-RPM fixture supplies 218 measured current/speed
+locations. Evaluate the resistance sensitivity $\rotationgenerator\current/
+\omegae$ at those points. A nuisance voltage error $-a\current$ produces
+the identical column, so the stacked two-column design has rank one.
+Adding two constant dq voltage-offset columns gives rank three of four;
+the exact confounder remains. This result is generated from the fixture,
+not inferred from the appearance of its measured flux residuals.
+Two speed slices cannot separate two identically scaled columns.
+
+The synthetic tests use a known magnetic reference. On real data, angle
+columns depend on flux and differential inductance that require independent
+qualification. Current errors change both coordinates and values; an apparent
+local correction can reflect an erroneous reference derivative. Rank after
+whitening and parameter scaling matters more than visual separation.
+
+Inverter dead time, nonlinear device drops, timing, losses, thermal state and
+genuine asymmetry can add nuisance directions \cite{liu2018,richter2014}.
+They are not all identified by this model. Hysteresis and dynamic magnetic
+states invalidate a static current-only reference. Full rank in a restricted
+model gives local conditional identifiability, not global or causal truth.
+The measured support test validates an operator property while preserving
+that distinction.

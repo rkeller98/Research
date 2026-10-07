@@ -1,0 +1,138 @@
+\section{Rotor-angle error as an exact coordinate transformation}
+\label{sec:angle}
+\subsection{Discover the transformation from the axes}
+Define the active counterclockwise rotation
+\begin{equation}
+ \rotationmatrix(\alpha)=\begin{bmatrix}\cos\alpha&-\sin\alpha\\
+                  \sin\alpha&\cos\alpha\end{bmatrix},\qquad
+ \hat\gamma=\gamma+\angleerror.\label{eq:rotation-definition}
+\end{equation}
+A positive $\angleerror$ places the estimated d axis counterclockwise from the
+true d axis. Coordinates of a fixed physical vector therefore rotate by the
+\emph{negative} angle: $\hat\current=\rotationmatrix(-\angleerror)\current$ and
+$\hat\voltage=\rotationmatrix(-\angleerror)\voltage$. A constant offset has zero time
+derivative, so it leaves electrical speed unchanged.
+\input{figures/01_frames.tex}
+
+The constitutive law accepts true current coordinates. Recover them from the
+observed ones, evaluate the true map, and project its output back onto the
+estimated axes. This gives the exact observed magnetic map
+\begin{equation}
+ \boxed{\hat\flux_\gamma(\hat\current)=\rotationmatrix(-\angleerror)
+       \flux\bigl(\rotationmatrix(\angleerror)\hat\current\bigr).}
+ \label{eq:pullback}
+\end{equation}
+The subscript here excludes reconstruction errors. It is legitimate even
+when every stored sample was already transformed using the unknown wrong
+angle: the independent variable on the left is the \emph{observed} current.
+The true angle is a latent relation between its coordinates and those in the
+magnetic model, not a missing measured independent variable.
+
+There are two operations. The inner rotation changes where the magnetics is
+evaluated. The outer rotation changes how that flux is resolved into d and q.
+Keeping only the first operation models a current-argument error but omits
+flux projection. The two can cancel, so omission can even predict a spurious
+effect in an isotropic machine.
+\input{figures/05_angle_pullback.tex}
+
+An independent check uses reconstruction: $\rotationgenerator$ commutes with every planar
+rotation, so rotating both sides of \cref{eq:vector-voltage} gives the same
+voltage balance in the estimated frame. With perfect signals and correct
+resistance, its reconstructed flux is exactly \cref{eq:pullback}. With a
+resistance mismatch, the complete relation is
+\begin{equation}
+ \hat\flux(\hat\current)=\hat\flux_\gamma(\hat\current)
+                +\frac{\resistanceerror}{\omegae}\rotationgenerator\hat\current.
+ \label{eq:combined-exact}
+\end{equation}
+Under these assumptions the resistance term remains exactly additive even
+for finite constant angle offsets. No mixed resistance--angle term is needed
+when the map is indexed by observed current.
+
+\subsection{Rotation preserves integrability while rotating the symmetry axis}
+The chain rule gives
+\begin{equation}
+ \hat\flux_\gamma(\hat\current)=
+ \nabla_{\hat\current}\coenergy(\rotationmatrix(\angleerror)\hat\current),\qquad
+ \hat\Ldiff_\gamma=\rotationmatrix(-\angleerror)\Ldiff(\rotationmatrix(\angleerror)\hat\current)
+                         \rotationmatrix(\angleerror).
+ \label{eq:rotated-potential}
+\end{equation}
+This is an orthogonal congruence of a symmetric Hessian and therefore remains
+symmetric. A pure constant coherent angle offset has zero curl, even for
+finite offset and saturated magnetics. It can violate parity in the chosen
+axes because its natural reflection is now
+$\rotationmatrix(-\angleerror)\diag(1,-1)\rotationmatrix(\angleerror)$ instead of $\diag(1,-1)$.
+Energy consistency alone can fit the rotated magnetic map and does not
+identify angle; knowledge of the correct magnetic symmetry axis is essential.
+
+\subsection{The observed zero-d-current sweep}
+Before linearizing, inspect the geometry in \cref{fig:angle-pullback}:
+\begin{equation}
+ \hat i_d=0,\quad\hat i_q=a
+ \quad\Longrightarrow\quad
+ i_d=-a\sin\angleerror,\quad i_q=a\cos\angleerror.\label{eq:zero-d-sweep}
+\end{equation}
+For positive offset and positive q current the true d current is negative;
+the reflected negative-q point has positive true d current. One half of the
+sweep thus enters field weakening and the other additional magnetization.
+Even with an even true d-flux map, they are no longer compared at the same
+true d current. The subsequent flux projection adds a second contribution.
+
+\subsection{Linearization at a fixed observed current label}
+To calculate the local change, expand the inner rotation first:
+\begin{align}
+ \rotationmatrix(\angleerror)\current&=\current+\angleerror\rotationgenerator\current+\bigO{\angleerror^2},\\
+ \flux(\rotationmatrix(\angleerror)\current)&=
+ \flux(\current)+\angleerror\Ldiff\rotationgenerator\current+o(|\angleerror|).
+\end{align}
+Apply $\rotationmatrix(-\angleerror)=\matr I-\angleerror\rotationgenerator+\bigO{\angleerror^2}$ next.
+With the numerical observed argument denoted by $\current$ for readability,
+\begin{equation}
+ \boxed{\delta\flux_\gamma=
+ \angleerror\bigl(\Ldiff\rotationgenerator\current-\rotationgenerator\flux\bigr).}
+ \label{eq:angle-sensitivity}
+\end{equation}
+The remainder is $o(|\angleerror|)$ under $C^2$ co-energy and is
+$\bigO{\angleerror^2}$ if the flux Jacobian is locally Lipschitz, as it is for
+the polynomial example. The two components are
+\begin{align}
+ \boxed{\delta\psi_{d,\gamma}=
+ \angleerror(-L_{dd}i_q+L_{dq}i_d+\psiq),}\label{eq:angle-d}\\
+ \boxed{\delta\psi_{q,\gamma}=
+ \angleerror(-L_{qd}i_q+L_{qq}i_d-\psid).}\label{eq:angle-q}
+\end{align}
+The first term in \cref{eq:angle-sensitivity} is motion along the magnetic
+surface, the second rotation of its vector output. Both have flux units;
+angles are dimensionless. Their difference makes saliency, PM bias, and
+local saturation visible. Only first derivatives of flux are required for
+this first-order result. Higher derivatives can bound a remainder or generate
+higher-order approximations; they are not inputs to this sensitivity.
+
+\subsection{A linear model as a sign and intuition check}
+Only now specialize to
+\begin{equation}
+ \psid=\psi_{\rm pm}+\Ld i_d,\qquad\psiq=\Lq i_q.
+\end{equation}
+For arbitrary current the sensitivity is
+$[(L_q-L_d)i_q,\ (L_q-L_d)i_d-\psi_{\rm pm}]\trans$.
+At $i_d=0$ it becomes
+\begin{equation}
+ \delta\psi_{d,\gamma}=\angleerror(\Lq-\Ld)i_q,\qquad
+ \delta\psi_{q,\gamma}=-\angleerror\psi_{\rm pm}.\label{eq:linear-check}
+\end{equation}
+With $L_d=L_q=L$, isotropic current-generated flux is $L\current$.
+Rotating its argument and then rotating its output back cancels exactly.
+Only the PM vector rotates: its d change is $\psi_{\rm pm}(\cos\angleerror-1)$,
+second order, while its q projection is $-\psi_{\rm pm}\sin\angleerror$.
+Thus the q-even channel can be highly sensitive despite having no direct PM
+term in the correctly aligned q-flux law.
+
+\paragraph{Saturation changes sensitivity, not the ideal parity.}
+At correct alignment saturation alone cannot violate \cref{eq:flux-parity}.
+At wrong alignment, operating-point-dependent differential gains change
+\cref{eq:angle-sensitivity}. Cross-saturation can reduce a cancellation or
+reinforce it, making an offset more visible at some points and less visible
+at others. There is no universal monotonic increase with saturation.
+For larger offsets evaluate \cref{eq:pullback} directly instead of building
+an unnecessary high-order Taylor model.

@@ -1,0 +1,81 @@
+{
+  "symbolic_checks": "passed",
+  "parity_max": 0.0,
+  "minimum_hessian_eigenvalue": 0.33999999999999997,
+  "angle_derivative_max_error": 3.9426644962353044e-10,
+  "nuisance_confounding_max": 1.1102230246251565e-16,
+  "pair_count": 90,
+  "rank": 2,
+  "scaled_condition_number": 1.247976770675845,
+  "estimates": [
+    {
+      "case": "No error",
+      "er": 0.0,
+      "angle": 0.0,
+      "estimated_er": 4.167013807747768e-18,
+      "estimated_angle": -2.0375356122965093e-18,
+      "residual_rms": 2.51030015785324e-17
+    },
+    {
+      "case": "Resistance only",
+      "er": 0.025,
+      "angle": 0.0,
+      "estimated_er": 0.024999999999999988,
+      "estimated_angle": -3.6147672417946976e-18,
+      "residual_rms": 4.886211728532991e-17
+    },
+    {
+      "case": "Angle only",
+      "er": 0.0,
+      "angle": 0.02,
+      "estimated_er": 2.1158960313935393e-07,
+      "estimated_angle": 0.019998296075614107,
+      "residual_rms": 8.031389810142875e-07
+    },
+    {
+      "case": "Both errors",
+      "er": 0.025,
+      "angle": 0.02,
+      "estimated_er": 0.025000211589603125,
+      "estimated_angle": 0.019998296075614097,
+      "residual_rms": 8.031389810123336e-07
+    }
+  ],
+  "linearization_errors": [
+    {
+      "angle": 0.001,
+      "full_map_max": 8.97401431414772e-07,
+      "parity_residual_max": 3.915922237389123e-10
+    },
+    {
+      "angle": 0.005,
+      "full_map_max": 2.243663147769427e-05,
+      "parity_residual_max": 4.8948878901193694e-08
+    },
+    {
+      "angle": 0.01,
+      "full_map_max": 8.975415743573498e-05,
+      "parity_residual_max": 3.9158755050905344e-07
+    },
+    {
+      "angle": 0.02,
+      "full_map_max": 0.00035907303138355326,
+      "parity_residual_max": 3.1325890235373822e-06
+    },
+    {
+      "angle": 0.05,
+      "full_map_max": 0.002245028549383297,
+      "parity_residual_max": 4.8934523355369116e-05
+    },
+    {
+      "angle": 0.1,
+      "full_map_max": 0.008982380559253779,
+      "parity_residual_max": 0.00039112842388840054
+    }
+  ],
+  "correction": {
+    "before_max_residual": 0.07022942254315875,
+    "after_max_residual": 2.154016797491903e-06,
+    "proposed_resistance": 0.07999978841039687
+  }
+}

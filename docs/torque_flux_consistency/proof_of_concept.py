@@ -14,7 +14,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-MODEL_PATH = ROOT / "papers/flux_map_error_diagnostics/numerics/magnetic_model.py"
+MODEL_PATH = ROOT / "shared/python/magnetic_model.py"
 spec = importlib.util.spec_from_file_location("existing_magnetic_model", MODEL_PATH)
 model = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(model)

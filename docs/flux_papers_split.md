@@ -1,3 +1,8 @@
+> Portfolio update (7 October 2026): the current five-paper split and
+> six-phase configuration diagnosis are documented in
+> [paper_portfolio_migration.md](paper_portfolio_migration.md). Earlier
+> composite paths and conditional real results below are historical provenance.
+
 # Two flux-map papers: current scope, evidence, and reproducibility
 
 Updated 6 October 2026 after integration of the completed co-energy audit.

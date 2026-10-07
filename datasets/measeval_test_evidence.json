@@ -1,0 +1,49 @@
+{
+  "commit": "2294be6ddbc3f85c5b7bfbb30cd76e2529adc9ce",
+  "fixtures": [
+    {
+      "test": "Test1",
+      "file": "EESM_Measdata_Reduced.mat",
+      "sha256": "f8165397835d7467c896277e47a7763087e6c9f5d7fc00fe87394625cceaba04",
+      "external_copy_verified": true
+    },
+    {
+      "test": "Test2",
+      "file": "WW_Dataset_Merge_1.mat",
+      "sha256": "874e1f35399e222ef262f3e961ec8c1fe028dc7145c3a28847001103098fdca4",
+      "external_copy_verified": true
+    },
+    {
+      "test": "Test2",
+      "file": "WW_Dataset_Merge_2.mat",
+      "sha256": "fcecec9c263324c9b566f7cb723d79d1e00073e0483e2d4ad67dad07b4b3354b",
+      "external_copy_verified": true
+    },
+    {
+      "test": "Test3",
+      "file": "PSM_Measdata.mat",
+      "sha256": "d1648590710e77b6587d13afc5f6212cb8c0127abf28b5eaf15f0e2955a8148f",
+      "external_copy_verified": true
+    },
+    {
+      "test": "Test4",
+      "file": "Matlab_005.mat",
+      "sha256": "bc7f63a8e299773334b52c15c003e6609baf10b9f94a24a0c572bd964c58776f",
+      "external_copy_verified": true
+    },
+    {
+      "test": "Test4",
+      "file": "Matlab_006.mat",
+      "sha256": "56ff547246f2b9e91aeb0bead2d1a3b58d26cba694b6504550b159df16657377",
+      "external_copy_verified": true
+    }
+  ],
+  "classification": "Test1 EESM; Test2 PSM two-system merge; Test3 PSM; Test4 ASM",
+  "enum_source": "SourceCode/+backend/+enums/eMachineType.m",
+  "loader_source": "SourceCode/+adapter/+matfile/inspect_measurement_files.m",
+  "assertions": [
+    "SourceCode/tests/test_data_check_test1_characterization.m",
+    "SourceCode/tests/test_data_check_test2_characterization.m"
+  ],
+  "grouping_source": "SourceCode/+backend/+product/+motor/+calculation/+input/DataConversion.m"
+}

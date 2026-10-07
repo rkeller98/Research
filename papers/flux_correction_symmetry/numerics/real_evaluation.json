@@ -1,0 +1,39 @@
+{
+  "slices": [
+    {
+      "source": {
+        "dataset": "psm_temperature_2500",
+        "csv_sha256": "311fc6e9439540d9ae46c25acf17a169a46555437f2b35c4fc0fa39c08dfda45",
+        "temp": 30,
+        "rpm": null
+      },
+      "points": 340,
+      "candidate_pairs": 158,
+      "supported_pairs": 142,
+      "forbidden_rms_mWb": [
+        2.873203525108655,
+        2.184473279284725
+      ],
+      "method": "P1 mirror interpolation on measured-current hull; positive q representatives",
+      "pointwise_output": "papers/flux_correction_symmetry/figures/data/real_projection_30.csv"
+    },
+    {
+      "source": {
+        "dataset": "psm_temperature_2500",
+        "csv_sha256": "311fc6e9439540d9ae46c25acf17a169a46555437f2b35c4fc0fa39c08dfda45",
+        "temp": 70,
+        "rpm": null
+      },
+      "points": 340,
+      "candidate_pairs": 158,
+      "supported_pairs": 144,
+      "forbidden_rms_mWb": [
+        2.4766940579832455,
+        2.1272238653910196
+      ],
+      "method": "P1 mirror interpolation on measured-current hull; positive q representatives",
+      "pointwise_output": "papers/flux_correction_symmetry/figures/data/real_projection_70.csv"
+    }
+  ],
+  "limitation": "Interpolation errors are correlated; zero projected residual is structural"
+}

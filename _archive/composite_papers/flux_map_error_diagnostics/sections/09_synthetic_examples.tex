@@ -1,0 +1,105 @@
+\section{Retained synthetic checks of signs and conditional identification}
+\label{sec:synthetic}
+\subsection{A local co-energy with physically admissible differential gains}
+Use $x=i_d/I_*$, $y=i_q/I_*$, $\normalizedspeed=\omegae/\omega_*$, and
+$\coenergy=\psi_*I_*\normalizedcoenergy$. Choose $I_*=\SI{100}{\ampere}$,
+$\psi_*=\SI{0.1}{\weber}$, $\omega_*=\SI{1000}{\per\second}$, so
+$L_*=\psi_*/I_*=\SI{1}{\milli\henry}$ and
+$R_*=\omega_*\psi_*/I_*=\SI{1}{\ohm}$. The local polynomial is
+\begin{equation}
+ \normalizedcoenergy=x+\frac{0.6}{2}x^2+\frac12y^2
+       -\frac{0.04}{4}x^4-\frac{0.08}{4}y^4
+       -\frac{0.06}{2}x^2y^2+\frac{0.04}{2}xy^2.
+ \label{eq:synthetic-energy}
+\end{equation}
+The linear term supplies PM flux. Negative fourth-order terms reduce d/q
+differential gains; the two mixed terms introduce reciprocal cross-saturation
+and an asymmetric d-bias dependence while retaining exact q reflection.
+The resulting fluxes are
+\begin{align}
+ \psid/\psi_*&=1+0.6x-0.04x^3-0.06xy^2+0.02y^2,\\
+ \psiq/\psi_*&=y-0.08y^3-0.06x^2y+0.04xy,
+ \label{eq:synthetic-flux}
+\end{align}
+and the dimensionless Hessian is
+\begin{equation}
+ \Ldiff/L_*=
+ \begin{bmatrix}
+ 0.6-0.12x^2-0.06y^2&-0.12xy+0.04y\\
+ -0.12xy+0.04y&1-0.24y^2-0.06x^2+0.04x
+ \end{bmatrix}.\label{eq:synthetic-hessian}
+\end{equation}
+Restrict this example to $|x|,|y|\leq1.1$. There the diagonal entries are
+at least $0.3822$ and $0.5930$, while the off-diagonal magnitude is at most
+$0.1892$. Strict diagonal dominance with positive diagonal proves positive
+definiteness throughout that domain; the smaller Gershgorin bound is $0.1930$.
+The polynomial is not a global high-current constitutive law: its negative
+quartic terms would eventually destroy positive differential gains.
+
+\subsection{Inject errors into voltage measurements, not into guessed curves}
+For every observed current label, rotate to true current, compute true flux
+and voltage with $R_s=\SI{0.08}{\ohm}$, rotate voltage back, and reconstruct
+using the used resistance. Inject no error, $\resistanceerror=\SI{0.025}{\ohm}$ only,
+$\angleerror=0.02$ rad only, or both. These steps reproduce
+\cref{eq:combined-exact} by the measurement route independently of its map
+derivation. The comparison in \cref{fig:synthetic} is at $x=0$, $\normalizedspeed=1$.
+\input{figures/07_synthetic.tex}
+
+At $x=0$, the angle sensitivity in these normalized units is especially
+instructive:
+\begin{equation}
+ \vect s_\gamma/\psi_*=
+ \begin{bmatrix}0.4y-0.02y^3\\-1-0.06y^2\end{bmatrix}.
+\end{equation}
+The ideal d flux is $1+0.02y^2$, yet its odd residual remains zero.
+The resistance tilt is $-0.025y/\normalizedspeed$. The angle changes both forbidden
+channels: its d signal is slightly curved and its q signal grows with
+$y^2$. Saturation here strengthens the q sensitivity and weakens the d
+sensitivity relative to their small-current limits. It is not a universal
+amplifier. The combined curves are additive in the resistance contribution
+but nonlinear in angle.
+
+For joint estimation use $x\in\{-0.6,0,0.6\}$, ten positive $y$ values
+from $0.1$ to $1$, and $\normalizedspeed\in\{0.5,1,2\}$: 90 independent pairs and 180
+residual entries. Fit the first-order columns using the known ideal synthetic
+map. The noiseless estimates are shown below; they demonstrate sign recovery
+and the small linearization bias, not uncertainty performance on real data.
+\begin{table}[tb]
+\centering\small\input{figures/data/estimates.tex}
+\caption{First-order estimation from exact synthetic voltage reconstruction.
+The nonzero injected values are $0.025$ ohm and $0.02$ rad. RMS is the
+post-fit residual per scalar entry, normalized by $\psi_*$.}
+\label{tab:estimates}
+\end{table}
+
+\subsection{Validation and the useful range of linearization}
+The accompanying \texttt{numerics/validate.py} differentiates the co-energy
+symbolically, checks reflection and reciprocity, differentiates the exact
+rotation at zero angle, and checks all six reconstruction-input sensitivities.
+It verifies zero-error recovery, resistance correction sign, isotropic and
+zero-d-current limits, no-saturation and no-cross-saturation limits, and the
+current-proportional voltage confounder. Numerical central differences check
+the angle sensitivity independently over a $41\times81$ grid on $[-1,1]^2$.
+All generated tables and plot data come from this script.
+
+\begin{table}[tb]
+\centering\small\input{figures/data/linearization.tex}
+\caption{Maximum Euclidean discrepancy from first-order angle prediction
+over the $41\times81$ grid. Exact rotated arguments stay in the stated
+polynomial domain. These are absolute normalized errors, not relative errors
+at a possibly vanishing signal.}
+\label{tab:linearization}
+\end{table}
+The full map discrepancy in \cref{tab:linearization} scales quadratically
+near zero. Its forbidden parity residual discrepancy scales cubically in this
+smooth symmetric example: reflecting current relates the $+\angleerror$ and
+$-\angleerror$ maps, so the forbidden channels are odd in angle and eliminate
+even angle powers. This improvement is specific to exact symmetric pairing;
+it does not excuse using a finite-angle linear model without checking it.
+The script records numerical metrics in \texttt{numerics/validation.json}.
+
+As an exact non-identifiability test, repeat the resistance-only case with
+correct resistance and voltage error $\vect\varepsilon_u=-0.025R_*\current$.
+It produces the same residuals to floating-point precision at every tested
+speed. The least-squares result would look convincing but estimate an
+effective voltage-drop mismatch rather than uniquely identify winding resistance.

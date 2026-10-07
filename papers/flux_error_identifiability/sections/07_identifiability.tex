@@ -1,0 +1,112 @@
+\section{Separate parameters only when the experiment separates directions}
+\label{sec:identification}
+The following is conditional on the magnetic reference and nuisance
+model. Neither a real resistance nor rotor-angle error is estimated here.
+At one pair, changing resistance moves the residual vector along
+$\vect s_R$; changing angle moves it along $\vect s_\gamma$. If these
+directions are parallel, the observation cannot tell which error caused the
+motion. Collecting many pairs can remove this ambiguity because the two
+directions change differently with current and speed.
+
+\subsection{Stacking, rank, and conditioning}
+Let $\vect\theta=[\resistanceerror,\angleerror]\trans$ and
+$\matr S_k=[\vect s_{R,k}\ \vect s_{\gamma,k}]$. Then
+\begin{equation}
+ \vect r_k\approx\matr S_k\vect\theta+\vect\eta_k,\qquad
+ \vect r=\begin{bmatrix}\vect r_1\\\vdots\\\vect r_N\end{bmatrix},\quad
+ \matr S=\begin{bmatrix}\matr S_1\\\vdots\\\matr S_N\end{bmatrix},
+ \quad\vect r\approx\matr S\vect\theta+\vect\eta.
+ \label{eq:stacked}
+\end{equation}
+Here $\vect\eta$ includes noise, interpolation error, neglected sources, and
+linearization discrepancy. Distinct small parameter changes are distinguishable
+in this conditional two-parameter model exactly when
+\begin{equation}
+ \boxed{\rank(\matr S)=2.}\label{eq:rank-condition}
+\end{equation}
+This is local identifiability given the magnetic map and nuisance assumptions;
+it is not a guarantee of globally unique calibration. In particular, angle
+sensitivities contain unknown ideal flux and derivatives. They must come from
+a calibrated magnetic reference or a sufficiently constrained joint fit.
+Computing derivatives from an unconstrained erroneous map can bias the columns.
+Symmetric projections provide an initialization for small offsets, but do not
+solve the full calibration problem by themselves.
+
+Near-parallel columns make the separation sensitive to noise even with rank
+two. Before interpreting a singular-value condition number, whiten residuals
+by their covariance and scale parameters by meaningful error magnitudes:
+\begin{equation}
+ \matr A=\matr C^{-1/2}\matr S\matr D,\qquad
+ \matr D=\diag(R_{\rm scale},\gamma_{\rm scale}).
+\end{equation}
+Singular values of $\matr A$ measure distinguishability of scaled parameter
+changes in noise units \cite{horn2013}. A condition number of unscaled columns
+mixing ohms and radians has no invariant engineering meaning. Pair covariance
+must reflect common samples and any shared interpolation.
+
+Only after this check, weighted least squares is appropriate:
+\begin{equation}
+ \hat{\vect\theta}=\arg\min_{\vect\theta}
+ (\vect r-\matr S\vect\theta)\trans\matr C^{-1}
+ (\vect r-\matr S\vect\theta).\label{eq:least-squares}
+\end{equation}
+Use QR or SVD numerically. If the linear model and covariance are valid,
+$(\matr S\trans\matr C^{-1}\matr S)^{-1}$ describes parameter covariance;
+model bias is not covered by that expression. Robust loss functions can limit
+outlier influence but cannot restore absent rank.
+
+\subsection{An isotropic thought experiment and its nearby cases}
+At $i_d=0$ in a linear isotropic PM machine,
+\begin{equation}
+ r_d=-\frac{i_q}{\omegae}\resistanceerror,\qquad
+ r_q=-\psi_{\rm pm}\angleerror.\label{eq:isotropic}
+\end{equation}
+The channels decouple. A pair with $i_q\ne0$, $\omegae\ne0$, and
+$\psi_{\rm pm}\ne0$ has rank two. Set all three quantities to one in
+consistent normalized units: $[r_d,r_q]=[-\resistanceerror,-\angleerror]$. This is the
+cleanest picture of what each channel measures.
+
+Add saliency: $r_d$ now also contains $(L_q-L_d)i_q\angleerror$, while $r_q$
+retains its PM angle signal at $i_d=0$. If only d flux is retained at one speed,
+resistance and angle are indistinguishable in this linear sweep. Add d/q
+saturation: local gains and q flux change the angle column. Add cross-saturation:
+the mixed gains further couple its dependence on both currents. The isotropic
+separation becomes less simple, but \cref{eq:columns} still applies.
+
+If PM flux vanishes in an isotropic linear machine, a rotation leaves its
+entire map unchanged and $\vect s_\gamma=0$. No experiment based on this map
+can identify its orientation. At $i_q=i_d=0$ the resistance column is zero.
+Collecting many such uninformative points cannot repair these degeneracies.
+
+\subsection{Speed provides an additional experimental direction}
+At repeated current labels, constant thermal state, and quasi-static
+magnetics, the resistance column scales with $1/\omegae$, whereas a constant
+geometric angle column does not. Thus $\omegae r_d$ is speed-independent for
+a pure constant resistance error. If one scalar current-pair channel has
+nonzero resistance and angle sensitivities, two distinct speeds can separate
+them because the two rows have different resistance scaling.
+\input{figures/06_speed_comparison.tex}
+
+This inference requires the same magnetic and error parameters across those
+speeds. Inverter voltage errors also enter through $1/\omegae$; a delay can
+produce $\angleerror=\gamma_0+\omegae\timingdelay$ under a convention in which positive
+$\timingdelay$ is a phase advance. A physical sensing lag has the opposite sign.
+If both are unknown, include a third column $\omegae\vect s_\gamma$ and
+test rank three. Frequency-dependent effective resistance, magnetic losses,
+or changing temperatures invalidate the simple two-column comparison.
+
+An unknown current-proportional voltage error is an exact counterexample to
+unique resistance identification:
+\begin{equation}
+ \vect\varepsilon_u=-a\current
+ \quad\Longrightarrow\quad
+ \delta\flux_u=\frac{a}{\omegae}\rotationgenerator\current.
+ \label{eq:confounding}
+\end{equation}
+It has precisely the fingerprint of $\resistanceerror=a$, at every speed and current.
+If nuisance columns form $\matr B$, separate identification requires
+$\rank([\matr B\ \matr S])-\rank(\matr B)=2$. Extra speeds alone cannot
+remove a nuisance that occupies the same column space. Position-offset
+injection is a related experimental parameter-identification technique
+\cite{liu2017}; the present method analyzes symmetry residuals rather than
+claiming to reproduce that estimator.

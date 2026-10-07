@@ -6,6 +6,12 @@ and [the didactic contract](docs/didactic_contract.md).
 
 ## One notation, one glossary, one visual language, many papers
 
+An active paper owns one concrete research question, central contribution,
+derivation, evidence chain and stated limit. Keep unvalidated independent
+ideas in `concepts/`; preserve superseded composites in `_archive/` outside
+normal builds. The current ownership map is
+[the portfolio migration](docs/paper_portfolio_migration.md).
+
 Papers own content. The repository owns the common mathematical and visual
 language. `shared/` is the canonical, actually loaded infrastructure, not a
 reference bundle to vendor into papers. Paper directories must not contain
@@ -110,6 +116,13 @@ drafts from published evidence. Mark open source work transparently. A low fit
 residual is not proof of physical correctness; synthetic checks are not
 experimental validation. Preserve original data and parameters when proposing
 corrections.
+
+Active measurement experiments should use the portable, provenance-bearing
+operating-point fixtures in `datasets/` where appropriate. Raw MATs remain
+local and ignored. Specify actual machine/phase configuration and dq scaling
+before assigning torque factors; two equally represented amplitude-invariant
+three-phase systems have total $k_T=(6/2)p$, rather than a fitted correction
+multiplier. Distinguish signal comparison from calibrated electromagnetic truth.
 
 ## Creating and building
 

@@ -1,0 +1,29 @@
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[scale=1.05]
+ \coordinate (O) at (0,0); \coordinate (P) at (2.5,1.8);
+ \draw[coordinate vector] (-.4,0)--(3.5,0) node[right]{$d$};
+ \draw[coordinate vector] (0,-.4)--(0,3) node[above]{$q$};
+ \draw[estimated axis] (0,0)--(20:3.6) node[right]{$\hat d$};
+ \draw[estimated axis] (0,0)--(110:2.9) node[above]{$\hat q$};
+ \draw[direction arrow,estimated quantity] (.8,0) arc (0:20:.8);
+ \node[estimated quantity] at (1.25,.2) {$\angleerror>0$};
+ \draw[projection line] (P)--(2.5,0) node[below]{$i_d$};
+ \draw[projection line] (P)--(0,1.8) node[left]{$i_q$};
+ \coordinate (Dh) at ($(O)!(P)!(20:3.6)$);
+ \coordinate (Qh) at ($(O)!(P)!(110:2.9)$);
+ \draw[guide pattern,estimated quantity] (P)--(Dh);
+ \draw[guide pattern,estimated quantity] (P)--(Qh);
+ \node[below right,estimated quantity] at (Dh) {$\hat i_d$};
+ \node[above left,estimated quantity] at (Qh) {$\hat i_q$};
+ \draw[direction arrow,strong line,neutral quantity] (O)--(P) node[above right]{$\vect i$};
+ \node[annotation,text width=55mm] at (5.6,1.5)
+ {Same physical vector; different components.\\[3pt]
+  $\hat\current=\rotationmatrix(-\angleerror)\current$\\
+  $\current=\rotationmatrix(\angleerror)\hat\current$};
+\end{tikzpicture}
+\caption{True and estimated rotor frames. Positive angle error advances the
+estimated axes counterclockwise. Dashed lines show orthogonal component
+projections; the angle is exaggerated for visibility.}
+\label{fig:frames}
+\end{figure}

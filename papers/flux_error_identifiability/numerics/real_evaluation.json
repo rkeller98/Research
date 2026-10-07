@@ -1,0 +1,18 @@
+{
+  "source": {
+    "dataset": "psm_dual_system_multirpm",
+    "csv_sha256": "48b6669646fe326e4cda54a457585e1c50e92ff587729155cc9a112c786b26c0",
+    "temp": null,
+    "rpm": null
+  },
+  "points": 218,
+  "resistance_voltage_nuisance_rank": 1,
+  "columns": 2,
+  "offset_augmented_rank": 3,
+  "augmented_columns": 4,
+  "singular_values": [
+    2.792515098800141,
+    1.2133888789657869e-16
+  ],
+  "interpretation": "Real support checks a mathematical exact confounder; no sensor error is estimated"
+}

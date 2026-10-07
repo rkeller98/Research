@@ -1,0 +1,64 @@
+\section{Saturation and the differential-inductance matrix}
+An analytic local illustration makes the nonlinear content of the symmetry
+visible:
+\begin{equation}
+ \coenergy=W_0(\id)+a_2(\id)\iq^2+a_4(\id)\iq^4+\cdots.
+ \label{eq:local-energy}
+\end{equation}
+This expansion illustrates parity; $C^2$ regularity alone does not guarantee
+an analytic series, and the series is not our general machine model. Its
+derivatives are
+\begin{align}
+ \psid&=W_0'(\id)+a_2'(\id)\iq^2+a_4'(\id)\iq^4+\cdots,\\
+ \psiq&=2a_2(\id)\iq+4a_4(\id)\iq^3+\cdots.
+\end{align}
+PM bias and d saturation enter $W_0$; q saturation changes the dependence on
+$i_q$; cross-saturation appears when the q coefficients depend on $i_d$.
+All can coexist without producing a forbidden parity component. Energy-based
+nonlinear models have also been used to estimate saturation experimentally
+\cite{jebai2011}. Our argument here is a structural differentiation of
+\cref{eq:energy-parity}, not a fitted constant-inductance approximation.
+
+For reciprocity we need to know how flux changes when its current
+argument moves. A single secant inductance cannot describe that displacement.
+The appropriate local linear map is the Jacobian
+\begin{equation}
+ \Ldiff=\nabla^2\coenergy=\frac{\partial\flux}{\partial\current}
+ =\begin{bmatrix}L_{dd}&L_{dq}\\L_{qd}&L_{qq}\end{bmatrix},
+ \label{eq:jacobian}
+\end{equation}
+where
+\begin{align}
+ L_{dd}&=\partial_{i_d}\psid,&L_{dq}&=\partial_{i_q}\psid,\\
+ L_{qd}&=\partial_{i_d}\psiq,&L_{qq}&=\partial_{i_q}\psiq.
+\end{align}
+It maps an infinitesimal current displacement to a flux displacement. Since
+it is the Hessian of a $C^2$ co-energy, equality of mixed derivatives gives
+\begin{equation}
+ \boxed{L_{dq}=L_{qd}.}\label{eq:reciprocity}
+\end{equation}
+This reciprocity is about differential cross-inductances, not equality of
+$L_{dd}$ and $L_{qq}$. Another view is an infinitesimal closed loop in current
+space: a conservative flux gradient has zero circulation, so the two mixed
+changes must cancel. Independently fitted flux surfaces may violate this
+condition even if each surface looks smooth.
+
+Geometrically, the gradient of co-energy gives flux and its Hessian gives
+curvature. A quadratic linear-machine surface has constant curvature.
+Saturation changes that curvature with current; cross-saturation changes
+the mixed curvature, coupling the two directions. Differential inductance
+is therefore a matrix of local curvatures rather than two globally fixed
+scalar inductances.
+
+Differentiating an even function with respect to $i_d$ retains its parity;
+differentiating it with respect to $i_q$ reverses it. For an odd function the
+roles reverse. Hence
+\begin{equation}
+ L_{dd},L_{qq}\ \text{are even in }i_q,\qquad
+ L_{dq},L_{qd}\ \text{are odd in }i_q.\label{eq:inductance-parities}
+\end{equation}
+In particular the cross terms vanish on $i_q=0$ for a smooth symmetric map.
+Nonlinear differential gains remain permitted everywhere else. Reciprocity
+requires conservative magnetics and sufficient smoothness; parity requires
+the additional reflection assumption. Neither should be imposed on a
+dynamic loss model merely because it is convenient.

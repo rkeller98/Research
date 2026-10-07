@@ -1,0 +1,165 @@
+\section{Discussion: admissibility, support, and residual interpretation}
+\subsection{Storage coordinates need not be terminal-current coordinates}
+The real-data study makes a distinction necessary: a conservative magnetic
+subsystem does not automatically imply a potential whose gradient against
+measured terminal current is the reconstructed flux. A schematic loss branch
+has $\statorcurrent=\magnetizingcurrent+\vect i_{\rm Fe}$.
+The storage relation can be conservative in $\magnetizingcurrent$ while its
+stationary reduction against $\statorcurrent$ is not. Richter et al.
+\cite{richter2014} distinguish magnetic-state matching from equality of
+terminal currents in motoring/generating measurements.
+
+For an algebraic illustration, take
+$\flux=\matr L\magnetizingcurrent$ with
+$\matr L=\operatorname{diag}(L_d,L_q)$ and
+$\vect i_{\rm Fe}=c\rotationgenerator\flux$, $c=\omega_e/R_{\rm Fe}$.
+Its dissipation in the same dq normalization is
+$\|\omega_e\rotationgenerator\flux\|^2/R_{\rm Fe}>0$ for nonzero branch voltage;
+physical three-phase power adds the $3/2$ factor under amplitude-invariant
+coordinates. The storage law itself remains conservative. Eliminating its branch
+current yields
+\begin{equation}
+ \frac{\partial\flux}{\partial\vect i_s}
+ =\matr L(\matr I+c\rotationgenerator\matr L)^{-1}
+ =\frac{1}{1+c^2L_dL_q}
+ \begin{bmatrix}L_d&cL_dL_q\\-cL_dL_q&L_q\end{bmatrix}.
+\end{equation}
+Its terminal-current curl is $-2cL_dL_q/(1+c^2L_dL_q)$, despite conservative
+storage magnetics. This illustrative constant branch is not identified for
+the supplied machine. Indeed, its antisymmetric affine cross terms give
+equal symmetry and curl equivalents; it does not automatically explain their
+observed difference. Iron loss remains one open model component, not a
+demonstrated cause.
+
+Nor does simply relabeling currents transform a differential form correctly.
+If $\magnetizingcurrent=f(\statorcurrent)$, then
+\begin{equation}
+ \nabla_{\vect i_s}\bigl[W'_{\rm mag}(f(\vect i_s))\bigr]
+ =Df(\vect i_s)\trans\flux_{\rm mag}(f(\vect i_s)).
+ \label{eq:current-pullback}
+\end{equation}
+The Jacobian transpose is required. This gradient is generally not the
+unchanged flux vector plotted against new current labels. Magnetic coordinates,
+their conjugate quantities, fixed state, and the subsystem being fitted must
+therefore be specified together. Loss-aware synchronous-machine context is
+distinct from induction-machine results; the Kullick--Hackl journal study
+\cite{kullick2023} concerns induction machines and supplies no PMSM
+co-energy validation for these terminal coordinates.
+
+\subsection{Fitting inconsistent data is a model projection}
+Symmetry and integrability are distinct tests. Parity can hold for a field
+with nonzero circulation, while a conservative field can have a symmetry
+axis different from the chosen coordinates. A small independent interpolation
+error therefore says little about whether the field belongs to the expected
+magnetic class. Conversely, a model constructed within that class can have
+significant residuals if measurements are biased or the model is inappropriate.
+
+For a fitted model write $\flux^{\rm rec}=\nabla\hat\coenergy+\vect r$.
+This is a prediction--residual decomposition, not an assertion that the fitted
+potential is the unknown true magnetic storage law in terminal coordinates.
+For exactly mirrored current arguments at fixed state, the forbidden parity
+channels of $\vect r$ equal those of the reconstructed field, because the
+symmetric model has no contribution there. Requested-key pairing in the real
+study does not ensure such exact measured-current geometry. The residual to the closest admissible map carries useful information,
+but also includes basis limitations, regularization bias, and excluded
+magnetics. The companion develops error hypotheses and identifiability rather
+than automatically deleting this residual \cite{companion-diagnostics}.
+
+The scalar potential presumes approximately quasi-static conservative
+magnetics with fixed thermal and magnet state. Hysteresis, irreversible
+demagnetization, dynamic iron-loss states, and strong frequency-dependent
+effects require additional treatment. Real asymmetry can break reflection
+without invalidating integrability. Inconsistency with this model is not proof
+of a faulty measurement. The fitted field is the best representation in an
+assumed class and chosen basis, not guaranteed ground truth.
+For the real slices, a least-squares potential would project inconsistent
+input onto the conservative class under its chosen support, weights, basis,
+and regularization. A symmetry-constrained potential adds a second restriction.
+Its zero curl and parity residuals are structural properties, not independent
+evidence that discarded contributions were measurement errors or unphysical.
+Raw reconstructed flux, model predictions, and their spatial residual must be
+reported together, with high-current, global, and derivative metrics separated.
+Winding resistance and inverter uncertainty are established identification
+issues \cite{liu2018}, but that literature does not identify a cause in these
+files. No real-data fitting success follows from the present admissibility test.
+
+Scattered data require coverage in both current directions; boundary sparsity
+can amplify derivative error. Symmetry reduces model freedom but does not
+create independent observations on the unmeasured side. Extrapolation outside
+the data support requires an explicit physical policy. Dimensionless scaling,
+rank inspection, and region-based validation help expose fragile estimates.
+Derivative quality should be assessed against independent references where
+possible, not merely judged from a smooth plot.
+
+The present synthetic study has a known representable polynomial, one random
+seed, limited knot and weight choices, and a deliberately simple noise model.
+RBFs are discussed conceptually but not numerically compared. Future evaluation
+should vary seeds, nonrepresentable magnetic maps, noise correlations, outlier
+patterns, gridded versus scattered data, boundary holes, and extrapolation.
+Compare flux prediction, parity, reciprocity/curl, differential-inductance
+smoothness and accuracy, robustness to bias, computational cost, and tuning
+effort. No universal benchmark winner follows from a structural advantage.
+
+\subsection{Torque agreement needs a qualified mechanical observation}
+\label{sec:torque-ambiguity-discussion}
+Torque observes one local projection, not the full map. A zero torque residual
+can coexist with an arbitrarily wrong radial slope, including a smooth
+reciprocal, reflection-preserving slope. Conversely a nonzero residual can
+come from observations outside the chosen electromagnetic model.
+If a transducer is subsequently established to measure transmitted shaft
+torque, the signed rotor balance is
+\begin{equation}
+ \rotorinertia\,\dot{\mechanicalspeed}
+   =M_{\rm em}-\shafttorque-\mechanicallosstorque .
+ \label{eq:shaft-torque-balance}
+\end{equation}
+Here inertia is in kg m$^2$, mechanical speed in rad/s, and each torque
+in Nm; loss torque is signed as subtracted in the balance. At steady
+speed shaft and electromagnetic torque still differ by mechanical losses.
+Whether the electromagnetic law includes the appropriate magnetizing or
+terminal currents under iron loss is an additional model question.
+The supplied CAN channel has not passed even the shaft-sensor qualification,
+so neither that balance nor a fitted loss correction is applied to it.
+
+Sensor offset gives an inverse-current normalized residual, while gain
+changes its torque-proportional part. Current bias affects both the map
+argument and the torque lever arm; ripple and unequal averaging windows
+can also change mean products. A coherent proper rotation of both current
+and flux preserves their oriented area, so a common angle rotation is
+invisible to torque. Inconsistent current/map coordinates need not be.
+Park/Clarke scaling, voltage reconstruction error, thermal state,
+acceleration, and magnetic map error are competing explanations.
+The observed scale-like CAN disagreement does not choose among them.
+Normalizing torque into Wb changes units and conditioning, not causality.
+
+Independent torque unit/sign/gain/offset calibration, transducer location,
+matched averaging windows, winding temperature and voltage scaling, and
+loss or acceleration evidence are needed before a mechanical channel
+can restrict a magnetic reconstruction. An independent radial magnetic
+or electrical reference is needed even after torque qualification.
+The covariance and nuisance-parameter rank of \cref{eq:joint-observation-fit}
+must then be assessed on the actual support. This is why a useful
+consistency residual can precede a justified correction.
+
+\subsection{Preserve apparent tilt for joint model identification}
+A visibly tilted reconstructed map can resemble the affine resistance
+fingerprint without identifying a winding-resistance error. Automatic
+untilting from symmetry alone is therefore unjustified. In a loss-aware
+procedure, the same asymmetry may contain information about dissipative
+currents, including iron loss, once magnetic states and conjugate coordinates
+are matched. Erasing it before that analysis can remove an observable needed
+to distinguish storage and loss. Neither the present residuals nor the
+illustrative loss branch establish such a decomposition for these files.
+
+For a sole constant resistance mismatch the reconstructed flux contribution
+is proportional to $1/\omegae$. Multiple speeds test that hypothesis, but a
+current-proportional voltage error has exactly the same scaling and remains
+confounded. A promising next study would jointly model the storage potential,
+loss states, and electrical measurement terms over speeds, independently
+measured winding temperatures, and additional observables such as calibrated
+terminal power, voltage, or magnetic-state references. The storage law must
+use its declared conjugate coordinates and thermal state; loss and measurement
+terms require their own observation relations. Common support, parameter-rank
+checks, and held-out states are needed before interpreting a lower residual
+as causal identification. This is a research direction, not an identified
+multi-speed loss model or a real-data fitting result.
