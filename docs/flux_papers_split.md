@@ -2,6 +2,8 @@
 > six-phase configuration diagnosis are documented in
 > [paper_portfolio_migration.md](paper_portfolio_migration.md). Earlier
 > composite paths and conditional real results below are historical provenance.
+> Current locations and the scratch-output boundary for archived commands are
+> recorded in [the cleanup audit](final_cleanup.md).
 
 # Two flux-map papers: current scope, evidence, and reproducibility
 
@@ -36,7 +38,7 @@ explicitly unpublished working drafts, not published evidence.
 ## Paper 1
 
 **Physics-Constrained Reconstruction of Saturated dq Flux-Linkage Maps from
-Magnetic Co-Energy**, in `papers/physics_constrained_flux_maps/`.
+Magnetic Co-Energy**, in `_archive/composite_papers/physics_constrained_flux_maps/`.
 
 Eleven sections cover introduction; measurements to flux; latent co-energy;
 reflection/reciprocity; saturation/differential inductance; gradient fitting;
@@ -80,7 +82,7 @@ chosen model class; raw-to-model residuals must remain visible.
 ## Paper 2
 
 **On the Interpretation of Symmetry Residuals in Experimental dq Flux-Linkage
-Maps**, in `papers/flux_map_error_diagnostics/`.
+Maps**, in `_archive/composite_papers/flux_map_error_diagnostics/`.
 
 Its research question concerns information in forbidden components and the
 extent to which a sole constant-resistance mismatch explains their spatial,
@@ -106,7 +108,7 @@ measured machine. No automatic correction follows from smaller selected parity.
 
 ## Evidence, reuse and reproduction
 
-The detailed [co-energy audit](../papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md)
+The detailed [co-energy audit](../_archive/composite_papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md)
 remains the evidence report. Its JSON/CSV and three scripts retain full measured
 and synthetic results, source/input hashes, oriented-path/Green checks,
 quadrature, geometry sensitivity and observable checks. It is not replaced by
@@ -115,7 +117,7 @@ retains the original pairing and direct-speed evidence and records integration.
 
 `magnetic_model.py`, importers, reconstruction modules and the two MAT inputs
 remain unchanged. Each numerical experiment has its own local helper. The
-standard-library `papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`
+standard-library `_archive/composite_papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`
 reads existing audit JSON and exports identical concrete TeX tables plus
 provenance hashes into each paper's `figures/data/audit/`. Neither build depends
 on the other paper at LaTeX time. This intentional content reuse does not create
@@ -125,10 +127,10 @@ From the repository root, with the scientific Python dependencies installed:
 
 ```powershell
 $env:MPLBACKEND='Agg'
-python papers/physics_constrained_flux_maps/python/audit_coenergy.py
-python papers/physics_constrained_flux_maps/python/audit_observables.py
-python papers/physics_constrained_flux_maps/python/audit_symbolic.py
-python papers/physics_constrained_flux_maps/numerics/export_audit_tables.py
+python _archive/composite_papers/physics_constrained_flux_maps/python/audit_coenergy.py
+python _archive/composite_papers/physics_constrained_flux_maps/python/audit_observables.py
+python _archive/composite_papers/physics_constrained_flux_maps/python/audit_symbolic.py
+python _archive/composite_papers/physics_constrained_flux_maps/numerics/export_audit_tables.py
 python scripts/check_architecture.py
 git diff --check
 ./scripts/build.ps1 physics_constrained_flux_maps

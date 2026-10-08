@@ -36,6 +36,9 @@ and companion entries identify unpublished drafts rather than invented publicati
 Necessary definitions remain locally readable; the polynomial model, spline
 solver, exact mesh integration, plotting and dataset transport are shared.
 
+The subsequent [structural cleanup](final_cleanup.md) records current historical
+paths and fresh validation separately; the scientific evidence below is retained.
+
 ## Raw data, lineage and tests
 
 The inventory contains 51 MAT files, 290,715,194 bytes, and 36 distinct raw

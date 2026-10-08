@@ -17,8 +17,8 @@ build/               generated intermediates
 output/pdf/          exported PDFs
 datasets/            small canonical OP CSV/manifest fixtures and provenance
 concepts/            research ideas without a separately validated paper claim
-_archive/            current composite source provenance, excluded from normal builds
-legacy/              older historical source archive
+_archive/            required historical sources and experiments, excluded from normal builds
+sandbox/             free personal experiments; no maintained tools or canonical datasets
 ```
 
 The active flux portfolio has five independent research questions:
@@ -33,6 +33,14 @@ The former composites are preserved under `_archive/composite_papers/`, outside
 normal builds. Independent-reference correction and further co-energy parameter
 derivation remain concepts. See [portfolio and migration](docs/paper_portfolio_migration.md)
 and [completion/QA report](docs/portfolio_completion_report.md).
+
+The older geometry baseline and original Gradient-Iso sources live once under
+`_archive/`. The owner's unchanged `RawDataImporter` is available in
+`shared/python/raw_ww_data_importer.py`; its signal-only v7.3 API remains distinct
+from the metadata-preserving v5/v7.3 `measurement_io` reader. Historical DAT
+exports are retained separately from the canonical fixtures in
+`datasets/historical_exports/`. See the [cleanup audit](docs/final_cleanup.md)
+for the path map, preservation evidence and validation.
 
 The existing PSM/EESM voltage geometry, simplex/iso reconstruction, IEMDC digest,
 N-dimensional contour extraction, recursive simplex QP and extended EESM

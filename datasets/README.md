@@ -1,5 +1,9 @@
 # Portable research measurements
 
+The separate [historical DAT exports](historical_exports/README.md) preserve
+former sandbox data whose source/fit recipes are incomplete. They are outside
+the canonical v1 fixture contract and are not independent validation evidence.
+
 The eight versionable fixtures contain operating-point means, not raw time
 series. Derived-data publication was explicitly authorized by the repository
 owner on 7 October 2026. This does not invent a third-party license. Full raw

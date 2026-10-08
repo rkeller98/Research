@@ -30,8 +30,11 @@ the preserved combined baseline is carried forward.
 | Loss whitening | EESM section 6 | Ellipsoid-to-sphere transformation shown explicitly |
 | Counterfactual learning checks | PSM section 7; EESM sections 2, 4, 7, and 8 | Structural assumptions separated from parameter effects |
 
-The files under `legacy/original_combined_paper/` and its ZIP archive remain
-unchanged as the read-only technical baseline.
+The files under `_archive/original_combined_paper/` remain unchanged as the
+read-only technical baseline, including the original PDF and five figures.
+The local ignored ZIP is retained at `_archive/original_combined_paper.zip`;
+its scientific payload duplicates this baseline exactly. See
+[the final cleanup audit](final_cleanup.md) for preservation hashes.
 
 The pedagogical expansion is governed by
 `docs/didactic_contract.md`; new papers inherit its checklist from

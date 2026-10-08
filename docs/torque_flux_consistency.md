@@ -9,10 +9,10 @@
 freigegebene Kennfeldkorrektur. Stand: 7. Oktober 2026.**
 
 Die Vorarbeit ist inzwischen in das Manuskript
-[physics_constrained_flux_maps](../papers/physics_constrained_flux_maps/main.tex)
+[physics_constrained_flux_maps](../_archive/composite_papers/physics_constrained_flux_maps/main.tex)
 integriert, einschließlich einer bedingten realen Multi-RPM-Auswertung.
 Diese Seite bleibt die ausführliche technische Herleitung.
-[Integrations- und Evidenzaudit](../papers/physics_constrained_flux_maps/docs/torque_consistency_integration.md)
+[Integrations- und Evidenzaudit](../_archive/composite_papers/physics_constrained_flux_maps/docs/torque_consistency_integration.md)
 dokumentiert die Manuskriptänderungen und die weiterhin fehlende
 CAN-Momentqualifikation.
 
@@ -39,15 +39,16 @@ Claims folgen daraus weiterhin nicht.
 
 | Vorhandener Baustein | Quelle im Repository | Anschluss der Torque-Idee |
 |---|---|---|
-| Stationäre Rekonstruktion und Drehsinn | [Spannungsmodell](../papers/flux_map_error_diagnostics/sections/02_steady_state_flux_reconstruction.tex) | Dasselbe $J$, dieselbe elektrische Drehzahl und dieselben dq-Flüsse |
-| Symmetrie und Widerstandsäquivalent | [flux_correction.py](../papers/flux_map_error_diagnostics/python/flux_correction.py), [Widerstandsdiagnose](../papers/flux_map_error_diagnostics/sections/05_reconstruction_error_sensitivity.tex) | Torque-Residual ist ein weiterer Beobachtungskanal; kein neuer Widerstandsbeweis |
-| Messdaten und Plotexport | [Diagnose-README](../papers/flux_map_error_diagnostics/README.md), `python/analyze_*_dataset.py`, `python/export_experiments.py` | Bestehende Rohdaten-, Paarungs- und Exportlogik bleibt erhalten |
-| Koenergie und Reziprozität | [Potentialherleitung](../papers/physics_constrained_flux_maps/sections/03_magnetic_coenergy.tex), [Audit](../papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md) | Eine Potentialbasis koppelt Flüsse, lässt aber radiale Moden unbeobachtet |
-| Terminalstrom versus Magnetisierungsstrom | [Diskussion](../papers/physics_constrained_flux_maps/sections/09_discussion.tex) | Vor Torque-Fusion muss dieselbe physikalische Strom-/Flussdefinition gelten |
+| Stationäre Rekonstruktion und Drehsinn | [Spannungsmodell](../_archive/composite_papers/flux_map_error_diagnostics/sections/02_steady_state_flux_reconstruction.tex) | Dasselbe $J$, dieselbe elektrische Drehzahl und dieselben dq-Flüsse |
+| Symmetrie und Widerstandsäquivalent | [flux_correction.py](../_archive/composite_papers/flux_map_error_diagnostics/python/flux_correction.py), [Widerstandsdiagnose](../_archive/composite_papers/flux_map_error_diagnostics/sections/05_reconstruction_error_sensitivity.tex) | Torque-Residual ist ein weiterer Beobachtungskanal; kein neuer Widerstandsbeweis |
+| Messdaten und Plotexport | [Diagnose-README](../_archive/composite_papers/flux_map_error_diagnostics/README.md), `python/analyze_*_dataset.py`, `python/export_experiments.py` | Bestehende Rohdaten-, Paarungs- und Exportlogik bleibt erhalten |
+| Koenergie und Reziprozität | [Potentialherleitung](../_archive/composite_papers/physics_constrained_flux_maps/sections/03_magnetic_coenergy.tex), [Audit](../_archive/composite_papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md) | Eine Potentialbasis koppelt Flüsse, lässt aber radiale Moden unbeobachtet |
+| Terminalstrom versus Magnetisierungsstrom | [Diskussion](../_archive/composite_papers/physics_constrained_flux_maps/sections/09_discussion.tex) | Vor Torque-Fusion muss dieselbe physikalische Strom-/Flussdefinition gelten |
 | PSM und EESM | [PSM-Modell](../papers/psm_voltage_geometry/sections/02_machine_model.tex), [EESM-Modell](../papers/temp_eesm_Mopt/sections/02_model_and_quadrics.tex) | $k_{\mathrm T}=3p/2$, EESM-Erregerstrom heißt kanonisch $i_{\mathrm e}$ |
-| Synthetische Magnetik und Darstellung | [magnetic_model.py](../papers/flux_map_error_diagnostics/numerics/magnetic_model.py), [publication_plotting.py](../shared/python/publication_plotting.py) | Bestehende dimensionslose Magnetik mit deklarierten Basisgrößen; gemeinsame Palette |
+| Synthetische Magnetik und Darstellung | [magnetic_model.py](../_archive/composite_papers/flux_map_error_diagnostics/numerics/magnetic_model.py), [publication_plotting.py](../shared/python/publication_plotting.py) | Bestehende dimensionslose Magnetik mit deklarierten Basisgrößen; gemeinsame Palette |
 
-`sandbox/flux_correction.py` und die gleichnamigen paper-eigenen Dateien sind
+`_archive/sandbox_experiments/flux_correction.py` und die gleichnamigen Dateien
+unter `_archive/composite_papers/*/python/` sind
 bereits vorhanden; diese Untersuchung führt keine weitere produktive
 Korrekturbibliothek ein. [WRITING_GUIDE.md](../WRITING_GUIDE.md) und der
 [didaktische Vertrag](didactic_contract.md) bestimmen die Reihenfolge:

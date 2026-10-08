@@ -19,8 +19,11 @@ Old infrastructure copies were preserved under ignored `tmp/architecture_before/
 and `tmp/retired_infrastructure/` as local recovery material, then removed from
 the active framework. The unused shared bibliography was also retired; common
 bibliography *configuration* stays shared, while each actual database belongs
-to its paper. The historical `legacy/` archive remains unchanged and outside
-the active-paper gate.
+to its paper. The historical sources now live unchanged under `_archive/`,
+outside the active-paper gate; `legacy/` was consolidated in the
+[final cleanup](final_cleanup.md). The eight-paper table below records the
+earlier infrastructure migration; the current twelve-paper portfolio is listed
+in [the completion report](portfolio_completion_report.md).
 
 | Active document | Shared source | Local bibliography | Formatting exception |
 |---|---|---|---|

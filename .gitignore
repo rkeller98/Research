@@ -23,7 +23,8 @@ __pycache__/
 *.synctex.gz
 *.zip
 *.pdf
-!legacy/**/*.pdf
+!_archive/original_combined_paper/**/*.pdf
+!_archive/gradient_iso_original/**/*.pdf
 Test_Daten/
 *.mat
 !papers/*/figures/*.pdf

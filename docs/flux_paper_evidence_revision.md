@@ -1,5 +1,10 @@
 # Flux-paper evidence revision: manuscript integration
 
+Historical revision report. Source links now resolve to archived composites;
+the original status transcript below remains verbatim. See
+[the cleanup audit](final_cleanup.md) before rerunning commands: archival
+outputs must be redirected to scratch.
+
 Revision date: 2026-10-06. This report covers the latest incremental request.
 The two existing papers and prior derivations, sources, experiments and figures
 are retained. This is a repository report, not a third publication.
@@ -24,7 +29,7 @@ dq Flux-Linkage Maps from Magnetic Co-Energy*. The diagnostics companion is
 | Section 11, `10_conclusion.tex` | The contribution and real-data evidence boundary are restated consistently; neither winding resistance, iron-loss causality nor a successful real-data co-energy reconstruction is identified. |
 
 The evidence source remains
-[papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md](../papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md),
+[_archive/composite_papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md](../_archive/composite_papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md),
 together with its scripts and original JSON/CSV outputs. Its pre-existing user
 edit is preserved byte-for-byte. The manuscript explains the findings itself;
 reading the audit report is not required to understand the scientific argument.
@@ -32,7 +37,7 @@ reading the audit report is not required to understand the scientific argument.
 ## Reproducible tables and retained figures
 
 Three audit table inputs are generated locally for both papers by
-`papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`, using
+`_archive/composite_papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`, using
 unchanged audit JSON and input/exporter SHA-256 manifests:
 
 - `support.tex`: all five slices, operating-index groups and unique keys,
@@ -103,11 +108,11 @@ All five required runs passed their assertions:
 
 | Command | Result |
 |---|---|
-| `python papers/physics_constrained_flux_maps/python/audit_coenergy.py` | All five real slices, conservative synthetic references, injected resistance and quadrature/Green checks passed. |
-| `python papers/physics_constrained_flux_maps/python/audit_observables.py` | Quadrants, orientation, arbitrary resistance shifts, support/normalization and raw-adjusted observables passed. |
-| `python papers/physics_constrained_flux_maps/python/audit_symbolic.py` | Independent exact symbolic identities passed, using bundled Python with SymPy 1.14.0. |
-| `python papers/physics_constrained_flux_maps/numerics/evaluate.py` | Gauge/rank, B-spline analytic derivatives, noiseless recovery and seeded noisy/sparse/outlier/saturation checks passed. Existing generated results reproduced byte-for-byte. |
-| `python papers/flux_map_error_diagnostics/numerics/validate.py` | Rotation sensitivity/reciprocity, correction signs, parameter rank, confounding and synthetic numerical checks passed. Existing generated results reproduced byte-for-byte. |
+| `python _archive/composite_papers/physics_constrained_flux_maps/python/audit_coenergy.py` | All five real slices, conservative synthetic references, injected resistance and quadrature/Green checks passed. |
+| `python _archive/composite_papers/physics_constrained_flux_maps/python/audit_observables.py` | Quadrants, orientation, arbitrary resistance shifts, support/normalization and raw-adjusted observables passed. |
+| `python _archive/composite_papers/physics_constrained_flux_maps/python/audit_symbolic.py` | Independent exact symbolic identities passed, using bundled Python with SymPy 1.14.0. |
+| `python _archive/composite_papers/physics_constrained_flux_maps/numerics/evaluate.py` | Gauge/rank, B-spline analytic derivatives, noiseless recovery and seeded noisy/sparse/outlier/saturation checks passed. Existing generated results reproduced byte-for-byte. |
+| `python _archive/composite_papers/flux_map_error_diagnostics/numerics/validate.py` | Rotation sensitivity/reciprocity, correction signs, parameter rank, confounding and synthetic numerical checks passed. Existing generated results reproduced byte-for-byte. |
 
 The numeric audit used Python 3.13.12, NumPy 2.4.4 and SciPy 1.17.1 with
 headless Matplotlib from the existing ignored dependencies. The original audit

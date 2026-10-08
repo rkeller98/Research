@@ -1,5 +1,9 @@
 # Experimental flux-map diagnostics: completion report
 
+Historical composite report. Current ownership and the preservation/execution
+boundary are recorded in [the cleanup audit](final_cleanup.md); archived audit
+outputs must be redirected to scratch rather than overwriting the snapshots.
+
 ## 1. Final title
 
 **On the Interpretation of Symmetry Residuals in Experimental dq Flux-Linkage Maps**.
@@ -165,7 +169,7 @@ Jacobian-transpose pullback. This is a model-class stress test, not demonstrated
 real-data co-energy reconstruction. Paper 2 adds a compact independent
 conservation cross-check after the measured symmetry results.
 
-The standard-library `papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`
+The standard-library `_archive/composite_papers/physics_constrained_flux_maps/numerics/export_audit_tables.py`
 reads existing audit JSON and produces local TeX tables and input-hash manifests
 in both papers' `figures/data/audit/`. Tables expose all-slice symmetry/path
 median/MAD/exact-P1 values and support, plus raw versus adjusted 60-C results.
@@ -198,7 +202,7 @@ potential fit would project onto a chosen class: its constructed zero curl
 would not establish that discarded residuals were measurement errors.
 Raw-to-model residuals must remain scientifically visible.
 
-The detailed [scientific audit](../papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md)
+The detailed [scientific audit](../_archive/composite_papers/physics_constrained_flux_maps/docs/coenergy_analysis_audit.md)
 remains the evidence report, including the user's pre-existing edit. Original
 measurements, scripts and checked-in audit artifacts are preserved. The shared
 glossary now defines reused curl/path/current quantities with units and signs;

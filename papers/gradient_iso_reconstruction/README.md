@@ -121,7 +121,7 @@ synthetischen Test meist, ohne damit eine geschlossene Suchstrategie zu beweisen
 | `data/` | CSV/NPZ, generierte Tabellen, Zusammenfassung und Provenienz |
 | `figures/generated/` | Aus Daten erzeugte Bilder; PNG im Git, PDF regenerierbar |
 | `docs/migration.md` | Datei-Zuordnung und begründete Änderungen |
-| `../../legacy/gradient_iso_original/` | Unveränderte Ursprungsdateien mit Manifest |
+| `../../_archive/gradient_iso_original/` | Unveränderte Ursprungsdateien mit Manifest |
 
 Das Ursprungsverzeichnis wurde erhalten. Der gemeinsame Schreib-, Notations-
 und Bildvertrag liegt in `../../WRITING_GUIDE.md`.

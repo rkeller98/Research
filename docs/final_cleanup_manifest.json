@@ -1,0 +1,909 @@
+{
+  "date": "2026-10-08",
+  "baseline": {
+    "branch": "main",
+    "head": "7b04968f347751479c2b6d4704eadb39d91632a8",
+    "status": ""
+  },
+  "moves": [
+    {
+      "old_path": "legacy/gradient_iso_original/DOKU_GRADIENT_ISO.md",
+      "new_path": "_archive/gradient_iso_original/DOKU_GRADIENT_ISO.md",
+      "sha256_before": "4ebd7506392e43d55b4dc8bc6fa3d7ec9765ebf133dfc98185b9a72783a23d92",
+      "sha256_after": "4ebd7506392e43d55b4dc8bc6fa3d7ec9765ebf133dfc98185b9a72783a23d92",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/README.md",
+      "new_path": "_archive/gradient_iso_original/README.md",
+      "sha256_before": "bcc1aecddae342bff17c0b77d341d57702f7d3ad39364a2b209b8c599ea810a3",
+      "sha256_after": "bcc1aecddae342bff17c0b77d341d57702f7d3ad39364a2b209b8c599ea810a3",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/delaunay_search.m",
+      "new_path": "_archive/gradient_iso_original/delaunay_search.m",
+      "sha256_before": "726833db89422efb02753f9e531f0af5308ae6d5604bb9e1d31c1837aa25025a",
+      "sha256_after": "726833db89422efb02753f9e531f0af5308ae6d5604bb9e1d31c1837aa25025a",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/delaunay_search_3D.m",
+      "new_path": "_archive/gradient_iso_original/delaunay_search_3D.m",
+      "sha256_before": "a94772e1447424cff8c64dff88f376f56a02de6357754b6e4cf0d21e1ef64206",
+      "sha256_after": "a94772e1447424cff8c64dff88f376f56a02de6357754b6e4cf0d21e1ef64206",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/delaunay_search_N.m",
+      "new_path": "_archive/gradient_iso_original/delaunay_search_N.m",
+      "sha256_before": "093c9c084496ed3c5ebe0db3adb9b5c3a22b7a1c971f267a42dd9a5b9091c099",
+      "sha256_after": "093c9c084496ed3c5ebe0db3adb9b5c3a22b7a1c971f267a42dd9a5b9091c099",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/demo_gradient_iso_nd_lab.m",
+      "new_path": "_archive/gradient_iso_original/demo_gradient_iso_nd_lab.m",
+      "sha256_before": "84692b4f5e484cbbaf96fce9de029410c13fa51f2be65dcca6159c1273aab5e9",
+      "sha256_after": "84692b4f5e484cbbaf96fce9de029410c13fa51f2be65dcca6159c1273aab5e9",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/demo_gradient_iso_outlier_validation.m",
+      "new_path": "_archive/gradient_iso_original/demo_gradient_iso_outlier_validation.m",
+      "sha256_before": "baf407172b311749d9f58add0c70f0e34651d7a598199bdc421db26e31107f4f",
+      "sha256_after": "baf407172b311749d9f58add0c70f0e34651d7a598199bdc421db26e31107f4f",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/demo_gradient_iso_search_guidance_nd.m",
+      "new_path": "_archive/gradient_iso_original/demo_gradient_iso_search_guidance_nd.m",
+      "sha256_before": "a511bb1b3fa54732d10f383c02a146f53dc4f7bc36d6cb8f020a5f09078fa357",
+      "sha256_after": "a511bb1b3fa54732d10f383c02a146f53dc4f7bc36d6cb8f020a5f09078fa357",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/demo_himmelblau_gradient_iso.m",
+      "new_path": "_archive/gradient_iso_original/demo_himmelblau_gradient_iso.m",
+      "sha256_before": "99ef10ff90874ac277b12c4aed546d1270bdf947e62fccd436d195812d9a3f35",
+      "sha256_after": "99ef10ff90874ac277b12c4aed546d1270bdf947e62fccd436d195812d9a3f35",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/demo_himmelblau_gradient_iso_nd.m",
+      "new_path": "_archive/gradient_iso_original/demo_himmelblau_gradient_iso_nd.m",
+      "sha256_before": "1f90cb2328e268247e34340719149f1eaa201c220b731ab9c860be9ac8e0fe45",
+      "sha256_after": "1f90cb2328e268247e34340719149f1eaa201c220b731ab9c860be9ac8e0fe45",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/docs/GRADIENT_ISO_METHOD_EN.md",
+      "new_path": "_archive/gradient_iso_original/docs/GRADIENT_ISO_METHOD_EN.md",
+      "sha256_before": "96b71033bd822c5f14025f06cba336508e1448d4e0be730b0a6d0b91916fe257",
+      "sha256_after": "96b71033bd822c5f14025f06cba336508e1448d4e0be730b0a6d0b91916fe257",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/get_unique_edges_from_delaunayn.m",
+      "new_path": "_archive/gradient_iso_original/get_unique_edges_from_delaunayn.m",
+      "sha256_before": "2030e8781b2d8242fb5cc420f04ad9d35009fcdc2c012e1ecd15bef3918da5aa",
+      "sha256_after": "2030e8781b2d8242fb5cc420f04ad9d35009fcdc2c012e1ecd15bef3918da5aa",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/get_valid_triangulation_vectors.m",
+      "new_path": "_archive/gradient_iso_original/get_valid_triangulation_vectors.m",
+      "sha256_before": "a2cb515d212539dec492248b5db6641959ef892ff9650a5c043e5f0834b026ab",
+      "sha256_after": "a2cb515d212539dec492248b5db6641959ef892ff9650a5c043e5f0834b026ab",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/gradient_iso_pipeline_2d.m",
+      "new_path": "_archive/gradient_iso_original/gradient_iso_pipeline_2d.m",
+      "sha256_before": "d9533e4af5339d8cc2947fc20839cd9a74c2bbd65c7feaea96dfd66dd3160d50",
+      "sha256_after": "d9533e4af5339d8cc2947fc20839cd9a74c2bbd65c7feaea96dfd66dd3160d50",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/gradient_iso_pipeline_nd.m",
+      "new_path": "_archive/gradient_iso_original/gradient_iso_pipeline_nd.m",
+      "sha256_before": "7f8ec72f3ab4fa877e8c5d449d8d9d1cf4af24c3c4f32a08e9c50bb13243dd9f",
+      "sha256_after": "7f8ec72f3ab4fa877e8c5d449d8d9d1cf4af24c3c4f32a08e9c50bb13243dd9f",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/manifest.json",
+      "new_path": "_archive/gradient_iso_original/manifest.json",
+      "sha256_before": "e8bd10351029ab96c09a51b0ed737f10602d83e23e7e336f18906d3b837e186e",
+      "sha256_after": "e8bd10351029ab96c09a51b0ed737f10602d83e23e7e336f18906d3b837e186e",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/data/benchmark_metrics.csv",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/data/benchmark_metrics.csv",
+      "sha256_before": "eab2b680912c6f660e4584ff827ef25a6a7509a4eee76baaa2a99538230c882e",
+      "sha256_after": "eab2b680912c6f660e4584ff827ef25a6a7509a4eee76baaa2a99538230c882e",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/data/benchmark_table_rows.tex",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/data/benchmark_table_rows.tex",
+      "sha256_before": "5609c02a365f93d3918099744c8c7d2aed2c86137f22ba7d4c5cf83f73b1923c",
+      "sha256_after": "5609c02a365f93d3918099744c8c7d2aed2c86137f22ba7d4c5cf83f73b1923c",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/data/ground_truth_himmelblau.csv",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/data/ground_truth_himmelblau.csv",
+      "sha256_before": "2d6798ae768ae74ff62b3eaa4da1c5a137af1c910149a7df1564302558c9cba8",
+      "sha256_after": "2d6798ae768ae74ff62b3eaa4da1c5a137af1c910149a7df1564302558c9cba8",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/data/pr_himmelblau.csv",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/data/pr_himmelblau.csv",
+      "sha256_before": "d619a64a7ee427163d8191066ea93cf7099270460ea4c59ffc4b34fdb8c43524",
+      "sha256_after": "d619a64a7ee427163d8191066ea93cf7099270460ea4c59ffc4b34fdb8c43524",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/data/roc_himmelblau.csv",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/data/roc_himmelblau.csv",
+      "sha256_before": "4b51e67f806d460c9996eb8cd7799f99dfd65da0fb14256599de723f59079d8b",
+      "sha256_after": "4b51e67f806d460c9996eb8cd7799f99dfd65da0fb14256599de723f59079d8b",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/data/score_scatter_himmelblau.csv",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/data/score_scatter_himmelblau.csv",
+      "sha256_before": "d1a07d095cb9f60bdba5886a9ece86b6a01a8a7ac3ca415161991aa6f92d67b7",
+      "sha256_after": "d1a07d095cb9f60bdba5886a9ece86b6a01a8a7ac3ca415161991aa6f92d67b7",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/generate_results.py",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/generate_results.py",
+      "sha256_before": "8c0ad10bb2dfbaf082d81595e29b155e8a36588779b0fc99d4312387cfb55cbe",
+      "sha256_after": "8c0ad10bb2dfbaf082d81595e29b155e8a36588779b0fc99d4312387cfb55cbe",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/main.pdf",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/main.pdf",
+      "sha256_before": "37ef18ff8039a89db0463991c8866b13123b7dcc9ce8af06b0115c588a9221c2",
+      "sha256_after": "37ef18ff8039a89db0463991c8866b13123b7dcc9ce8af06b0115c588a9221c2",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/main.tex",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/main.tex",
+      "sha256_before": "ef36a2d2351eeb645156c9332625d26013ddeaf192df3f11c7e416c5dd1ac6f6",
+      "sha256_after": "ef36a2d2351eeb645156c9332625d26013ddeaf192df3f11c7e416c5dd1ac6f6",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/gradient_iso_original/paper_ieee/references.bib",
+      "new_path": "_archive/gradient_iso_original/paper_ieee/references.bib",
+      "sha256_before": "c60a8ffbcad07b54bb6d6bdf2e0fc9a19222e68f878e2fea424c41292b0540b4",
+      "sha256_after": "c60a8ffbcad07b54bb6d6bdf2e0fc9a19222e68f878e2fea424c41292b0540b4",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/figures/eesm_loss_ellipsoid_voltage_cylinder.pdf",
+      "new_path": "_archive/original_combined_paper/figures/eesm_loss_ellipsoid_voltage_cylinder.pdf",
+      "sha256_before": "329be796b493cdb90f37cb2af2a74674fb751551612b0d33dc8a4255d962d9af",
+      "sha256_after": "329be796b493cdb90f37cb2af2a74674fb751551612b0d33dc8a4255d962d9af",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/figures/eesm_voltage_cylinder_slices.pdf",
+      "new_path": "_archive/original_combined_paper/figures/eesm_voltage_cylinder_slices.pdf",
+      "sha256_before": "ef694ceb3f27d5dd9b48d9e983b0a925ceae2afa7f5906efbef6b9c48bc2fe5c",
+      "sha256_after": "ef694ceb3f27d5dd9b48d9e983b0a925ceae2afa7f5906efbef6b9c48bc2fe5c",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/figures/psm_geometry.pdf",
+      "new_path": "_archive/original_combined_paper/figures/psm_geometry.pdf",
+      "sha256_before": "ef2fe9910221902c3fd326b601390d3f7750f258a7d68fd0c88c56e5d5bb8d5d",
+      "sha256_after": "ef2fe9910221902c3fd326b601390d3f7750f258a7d68fd0c88c56e5d5bb8d5d",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/figures/quadratic_form_axes.pdf",
+      "new_path": "_archive/original_combined_paper/figures/quadratic_form_axes.pdf",
+      "sha256_before": "3a83711d6fd9c550f1dc7993448dd9deca36066f33ab06b9a0d4b009b5300165",
+      "sha256_after": "3a83711d6fd9c550f1dc7993448dd9deca36066f33ab06b9a0d4b009b5300165",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/figures/tangency_gradients.pdf",
+      "new_path": "_archive/original_combined_paper/figures/tangency_gradients.pdf",
+      "sha256_before": "44a91b5d5ad3f0bd9930f9728e96abd8ecd65231a992c4e7e2d21bfb4b028f03",
+      "sha256_after": "44a91b5d5ad3f0bd9930f9728e96abd8ecd65231a992c4e7e2d21bfb4b028f03",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/psm_eesm_geometry.pdf",
+      "new_path": "_archive/original_combined_paper/psm_eesm_geometry.pdf",
+      "sha256_before": "917448a0eece45f4a24061b70e43b58cdd91ffe7fe193cf302532fe9180107d5",
+      "sha256_after": "917448a0eece45f4a24061b70e43b58cdd91ffe7fe193cf302532fe9180107d5",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "legacy/original_combined_paper/psm_eesm_geometry.tex",
+      "new_path": "_archive/original_combined_paper/psm_eesm_geometry.tex",
+      "sha256_before": "a229ac6abee2d3aaebcbbfeec2384cb3e3a036779bdbf96065d7aa2b3553a9b1",
+      "sha256_after": "a229ac6abee2d3aaebcbbfeec2384cb3e3a036779bdbf96065d7aa2b3553a9b1",
+      "byte_identical": true,
+      "treatment": "historical source retained unchanged"
+    },
+    {
+      "old_path": "sandbox/Dataset_Raw_vs_Fitted_Flux.dat",
+      "new_path": "datasets/historical_exports/Dataset_Raw_vs_Fitted_Flux.dat",
+      "sha256_before": "556bbc774797ff094c71b287bd5bc3f2d6d2ce32af59079c5ba0077966253be1",
+      "sha256_after": "556bbc774797ff094c71b287bd5bc3f2d6d2ce32af59079c5ba0077966253be1",
+      "byte_identical": true,
+      "treatment": "non-reproducible historical export retained unchanged"
+    },
+    {
+      "old_path": "sandbox/Dataset_for_ASM_torque_fitting.dat",
+      "new_path": "datasets/historical_exports/Dataset_for_ASM_torque_fitting.dat",
+      "sha256_before": "778e094b1a31a0d4c774070cb87400d8b15256dea8e846ccc645bac215f16c7e",
+      "sha256_after": "778e094b1a31a0d4c774070cb87400d8b15256dea8e846ccc645bac215f16c7e",
+      "byte_identical": true,
+      "treatment": "non-reproducible historical export retained unchanged"
+    },
+    {
+      "old_path": "sandbox/Dataset_for_EESM_Fitting.dat",
+      "new_path": "datasets/historical_exports/Dataset_for_EESM_Fitting.dat",
+      "sha256_before": "d94112c494abacba29e8dfc66ede9d4c57efa6dcd0eec6053f6ec0c6ce209edb",
+      "sha256_after": "d94112c494abacba29e8dfc66ede9d4c57efa6dcd0eec6053f6ec0c6ce209edb",
+      "byte_identical": true,
+      "treatment": "non-reproducible historical export retained unchanged"
+    },
+    {
+      "old_path": "sandbox/Dataset_for_Inductance_Calculation.dat",
+      "new_path": "datasets/historical_exports/Dataset_for_Inductance_Calculation.dat",
+      "sha256_before": "01b9cc2e8be47101a8204ac0482e2324f5d5325ca9df06dd2bd37a4b047cae37",
+      "sha256_after": "01b9cc2e8be47101a8204ac0482e2324f5d5325ca9df06dd2bd37a4b047cae37",
+      "byte_identical": true,
+      "treatment": "non-reproducible historical export retained unchanged"
+    },
+    {
+      "old_path": "sandbox/Dataset_for_Outlier_Detection.dat",
+      "new_path": "datasets/historical_exports/Dataset_for_Outlier_Detection.dat",
+      "sha256_before": "6acdaf49bfdbf1f47a180aa4ed970fe286fd3a8d72a8609bb86c4a6a162c23f2",
+      "sha256_after": "6acdaf49bfdbf1f47a180aa4ed970fe286fd3a8d72a8609bb86c4a6a162c23f2",
+      "byte_identical": true,
+      "treatment": "non-reproducible historical export retained unchanged"
+    },
+    {
+      "old_path": "sandbox/PY_RBF.py",
+      "new_path": "_archive/sandbox_experiments/PY_RBF.py",
+      "sha256_before": "064f29ff313973b40046d144c79a00f41dbe00e5ee67e9bab85651867e6f4e1c",
+      "sha256_after": "1b2587ceebe1fb8e07706b9f0ec603e51a25401cc613fafa374c061ef8de907e",
+      "byte_identical": false,
+      "treatment": "historical experiment; import/input paths adjusted only"
+    },
+    {
+      "old_path": "sandbox/flux_correction.py",
+      "new_path": "_archive/sandbox_experiments/flux_correction.py",
+      "sha256_before": "4638d95a84b3037c7848032e7d9b45cfb6b8566c84573e03d8ad12d1b7866ed1",
+      "sha256_after": "10f4b563fedfb8b2d19cb7be7c46072d9f8f49840a5ce1e059e4b64737bbb818",
+      "byte_identical": false,
+      "treatment": "historical experiment; import/input paths adjusted only"
+    },
+    {
+      "old_path": "sandbox/raw_ww_data_importer.py",
+      "new_path": "shared/python/raw_ww_data_importer.py",
+      "sha256_before": "ffb62861e7f83075f8909e7a7eb2a3b5352d3607c98c716ae8c7c58087112e98",
+      "sha256_after": "ffb62861e7f83075f8909e7a7eb2a3b5352d3607c98c716ae8c7c58087112e98",
+      "byte_identical": true,
+      "treatment": "owner-developed signal API retained unchanged"
+    }
+  ],
+  "deleted_scientific_files": [],
+  "dataset_comparison": [
+    {
+      "file": "Dataset_for_ASM_torque_fitting.dat",
+      "columns": [
+        "id",
+        "iq",
+        "torque"
+      ],
+      "rows": 2368,
+      "comparisons": [
+        {
+          "fixture": "asm_500rpm_set1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 152,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 84.83466884452551
+        },
+        {
+          "fixture": "asm_500rpm_set2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 88,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 117.4438005970358
+        },
+        {
+          "fixture": "eesm_excitation_reduced",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 1856,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 43.76379958570898
+        },
+        {
+          "fixture": "psm_dual_system_multirpm",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 218,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 154.8190740684379
+        },
+        {
+          "fixture": "psm_merge_4000_part1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 328,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 155.59862839513508
+        },
+        {
+          "fixture": "psm_merge_4000_part2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 208,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 564.1324120167193
+        },
+        {
+          "fixture": "psm_outlier_stress_60c",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 320,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 161.40499026842886
+        },
+        {
+          "fixture": "psm_temperature_2500",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 2368,
+          "fixture_rows": 680,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 154.88073309912193
+        }
+      ]
+    },
+    {
+      "file": "Dataset_for_EESM_Fitting.dat",
+      "columns": [
+        "id",
+        "iq",
+        "iexc",
+        "torque"
+      ],
+      "rows": 28875,
+      "comparisons": [
+        {
+          "fixture": "asm_500rpm_set1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 152,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "asm_500rpm_set2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 88,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "eesm_excitation_reduced",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 1856,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "psm_dual_system_multirpm",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 218,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "psm_merge_4000_part1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 328,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "psm_merge_4000_part2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 208,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "psm_outlier_stress_60c",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 320,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        },
+        {
+          "fixture": "psm_temperature_2500",
+          "shared_columns": [
+            "id",
+            "iq",
+            "iexc",
+            "torque"
+          ],
+          "export_rows": 28875,
+          "fixture_rows": 680,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": null
+        }
+      ]
+    },
+    {
+      "file": "Dataset_for_Inductance_Calculation.dat",
+      "columns": [
+        "id",
+        "iq",
+        "psi_d",
+        "psi_q",
+        "L_dd",
+        "L_dq",
+        "L_qd",
+        "L_qq"
+      ],
+      "rows": 10201,
+      "comparisons": [
+        {
+          "fixture": "asm_500rpm_set1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 152,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1729.6038021187157
+        },
+        {
+          "fixture": "asm_500rpm_set2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 88,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1708.0854373393515
+        },
+        {
+          "fixture": "eesm_excitation_reduced",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 1856,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1227.2627406334186
+        },
+        {
+          "fixture": "psm_dual_system_multirpm",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 218,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1697.106779707984
+        },
+        {
+          "fixture": "psm_merge_4000_part1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 328,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1117.45523733154
+        },
+        {
+          "fixture": "psm_merge_4000_part2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 208,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1097.8477736773546
+        },
+        {
+          "fixture": "psm_outlier_stress_60c",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 320,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 538.7005397341596
+        },
+        {
+          "fixture": "psm_temperature_2500",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d",
+            "psi_q"
+          ],
+          "export_rows": 10201,
+          "fixture_rows": 680,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1397.1647716353154
+        }
+      ]
+    },
+    {
+      "file": "Dataset_for_Outlier_Detection.dat",
+      "columns": [
+        "id",
+        "iq",
+        "torque"
+      ],
+      "rows": 12882,
+      "comparisons": [
+        {
+          "fixture": "asm_500rpm_set1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 152,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1395.1316884806013
+        },
+        {
+          "fixture": "asm_500rpm_set2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 88,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1393.8184130682698
+        },
+        {
+          "fixture": "eesm_excitation_reduced",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 1856,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1084.5627808278796
+        },
+        {
+          "fixture": "psm_dual_system_multirpm",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 218,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1415.3255202940834
+        },
+        {
+          "fixture": "psm_merge_4000_part1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 328,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1046.8780014380961
+        },
+        {
+          "fixture": "psm_merge_4000_part2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 208,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 664.4272376020665
+        },
+        {
+          "fixture": "psm_outlier_stress_60c",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 320,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 319.29932858468425
+        },
+        {
+          "fixture": "psm_temperature_2500",
+          "shared_columns": [
+            "id",
+            "iq",
+            "torque"
+          ],
+          "export_rows": 12882,
+          "fixture_rows": 680,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1111.3779144957887
+        }
+      ]
+    },
+    {
+      "file": "Dataset_Raw_vs_Fitted_Flux.dat",
+      "columns": [
+        "id",
+        "iq",
+        "psi_d_raw",
+        "psi_d_fit",
+        "psi_q_raw",
+        "psi_q_fit"
+      ],
+      "rows": 8012,
+      "comparisons": [
+        {
+          "fixture": "asm_500rpm_set1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 152,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1278.8664593110502
+        },
+        {
+          "fixture": "asm_500rpm_set2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 88,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1273.348077066476
+        },
+        {
+          "fixture": "eesm_excitation_reduced",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 1856,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 711.3943081312358
+        },
+        {
+          "fixture": "psm_dual_system_multirpm",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 218,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 1181.2421400988653
+        },
+        {
+          "fixture": "psm_merge_4000_part1",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 328,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 921.5039790798204
+        },
+        {
+          "fixture": "psm_merge_4000_part2",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 208,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 611.2366945611649
+        },
+        {
+          "fixture": "psm_outlier_stress_60c",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 320,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 211.22780304912973
+        },
+        {
+          "fixture": "psm_temperature_2500",
+          "shared_columns": [
+            "id",
+            "iq",
+            "psi_d_raw",
+            "psi_q_raw"
+          ],
+          "export_rows": 8012,
+          "fixture_rows": 680,
+          "matching_rows_at_absolute_1e_9": 0,
+          "max_nearest_distance": 881.7226675565137
+        }
+      ]
+    }
+  ]
+}

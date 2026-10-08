@@ -1,7 +1,7 @@
 # Migration and scientific audit
 
 Source: `C:/Git/Gradienten_Iso_Verfahren`, integrated on 7 October 2026.
-The original tree is retained under `legacy/gradient_iso_original` with a
+The original tree is retained under `_archive/gradient_iso_original` with a
 SHA-256 manifest. Generated TeX intermediates and the old virtual environment
 are excluded. The original directory has not been modified.
 

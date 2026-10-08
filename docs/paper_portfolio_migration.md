@@ -1,5 +1,9 @@
 # Research portfolio migration, 7 October 2026
 
+Historical source locations were consolidated on 8 October in
+[the final cleanup audit](final_cleanup.md). Both composite snapshots remain
+unchanged; original geometry and Gradient-Iso sources now live under `_archive/`.
+
 ## Scientific ownership
 
 | Active flux paper | Research question | Contribution | Origin | Main evidence |
