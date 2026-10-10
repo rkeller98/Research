@@ -93,7 +93,7 @@ Diese Forschung ist bewusst **ein persönliches Lern- und Entwicklungsprojekt**.
 
 **Stand der Fachnotiz:** 10.10.2026  
 **Projektstatus:** laufende theoretische und numerische Untersuchung; **keine** physikalisch eindeutig identifizierte oder experimentell validierte Flusskorrektur  
-**Primäres Arbeitsverzeichnis:** \`sandbox/fluxcorrection/\` im Repository \`rkeller98/Research\`, Arbeitsbranch \`topic/fluxcorrection\`  
+**Primäres Arbeitsverzeichnis:** `sandbox/fluxcorrection/` im Repository `rkeller98/Research`, Arbeitsbranch `topic/fluxcorrection`  
 **Lesart:** Mathematisch hergeleitet / modellabhängig / experimentell beobachtet / offen wird ausdrücklich unterschieden.
 
 ## 1. Forschungsauftrag und aktuelle Leitfrage
@@ -127,7 +127,7 @@ Eine höhere mathematische Konsistenz ist nicht automatisch eine höhere physika
 
 Der derzeit verwendete Analyseweg lautet:
 
-\`\`\`text
+```text
 Unveränderte Rohmessungen + Provenienz
     → vorbereitete / gruppierte stationäre Betriebspunkte
     → rekonstruierte effektive Flussverkettungen aus u, i, Rs, ωe
@@ -135,7 +135,7 @@ Unveränderte Rohmessungen + Provenienz
     → Ableitungen, Jacobi-Matrix und Integrabilitäts-/Symmetriediagnose
     → Abgleich mit Messunsicherheit, Drehmoment, Drehzahl und Fehlermodellen
     → gegebenenfalls gesonderte konservative Projektion + erhaltenes Residuum
-\`\`\`
+```
 
 **Wichtig:** Die physikalisch wahren magnetischen Flüsse werden mit dem derzeitigen PSM-Datensatz **nicht direkt gemessen**. Das Ergebnis der stationären Spannungsgleichungen ist ein durch ihre Annahmen bestimmtes, *effektiv rekonstruiertes* Flussfeld. Ein Fit hierauf kann einen Rekonstruktionsfehler nicht von sich aus korrigieren.
 
@@ -655,7 +655,7 @@ Der theoretische Betrag von \(r_{\rm int}\) steigt im Modell bei kleinen \(|\ome
 
 ### 9.4 Numerische Kontrolle des synthetischen Modells
 
-Im eigenständigen Python-Experiment \`flux_loss_experiment.py\` wurden verwendet:
+Im eigenständigen Python-Experiment `flux_loss_experiment.py` wurden verwendet:
 
 | Modellgröße | Wert |
 | --- | ---: |
@@ -676,15 +676,15 @@ Diese Größen prüfen die **eigene algebraische/numerische Umsetzung dieses gew
 
 ### 10.1 Vorhandene Datensätze und wiederverwendete Software
 
-Arbeitsbranch: [\`topic/fluxcorrection\`](https://github.com/rkeller98/Research/tree/topic/fluxcorrection). Getrennte Experimente: [synthetisches Modell](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [Analyse realer Daten](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py). Der aktuell im Gespräch weiterentwickelte lokale Python-Stand kann dem letzten gepushten Skript voraus sein; genaue Reproduktionsstände sind vor Veröffentlichung als Commit und Umgebung einzufrieren.
+Arbeitsbranch: [`topic/fluxcorrection`](https://github.com/rkeller98/Research/tree/topic/fluxcorrection). Getrennte Experimente: [synthetisches Modell](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [Analyse realer Daten](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py). Der aktuell im Gespräch weiterentwickelte lokale Python-Stand kann dem letzten gepushten Skript voraus sein; genaue Reproduktionsstände sind vor Veröffentlichung als Commit und Umgebung einzufrieren.
 
 Die vorhandenen Import- und Aufbereitungsfunktionen werden **wiederverwendet**, statt erneute unabhängige Parser zu bauen:
 
 - [RawDataImporter](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/raw_ww_data_importer.py) liest einzelne Signale aus MATLAB-v7.3-Rohmessungen.
-- [\`operating_points()\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py) gruppiert anhand der Messkontexte, berechnet Mittelwerte und ausgewählte Streuungsgrößen.
-- [\`load_dataset()\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) liest den bereits exportierten, checksumgeprüften CSV-/JSON-Verbund.
+- [`operating_points()`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py) gruppiert anhand der Messkontexte, berechnet Mittelwerte und ausgewählte Streuungsgrößen.
+- [`load_dataset()`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) liest den bereits exportierten, checksumgeprüften CSV-/JSON-Verbund.
 
-Der in der Lernübung ausgewählte Datensatz \`psm_temperature_2500\` stammt aus \`Flux/PSM_Measdata.mat\`; seine Spalten, Konventionen, Quellen und Einschränkungen sind im [Datensatz-Manifest](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) dokumentiert.
+Der in der Lernübung ausgewählte Datensatz `psm_temperature_2500` stammt aus `Flux/PSM_Measdata.mat`; seine Spalten, Konventionen, Quellen und Einschränkungen sind im [Datensatz-Manifest](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) dokumentiert.
 
 | Merkmal | Stand der Datenerhebung/-aufbereitung |
 | --- | --- |
@@ -709,7 +709,7 @@ Für die 70-°C-Referenzpunkte wurden separat
 
 berechnet und ohne vorausgehende Flächenglättung als farbkodierte Punkte über der \((i_d,i_q)\)-Ebene betrachtet. **Beobachtet:** \(\psi_d\) verändert sich hauptsächlich entlang \(i_d\), \(\psi_q\) hauptsächlich entlang \(i_q\); Kreuzabhängigkeiten sind erkennbar. Dieser Befund ist **noch keine eindeutige physikalische Kreuzsättigungsdiagnose**, da das Feld rekonstruiert ist.
 
-Das nicht rechteckige Punktgebiet ist entscheidend: \`np.gradient(psi_d)\` auf einer einfachen 1D-Liste von Messpunkten würde Nachbarn **in der Array-Reihenfolge**, nicht in physikalischer d- oder q-Richtung vergleichen. Ein strukturiertes Gitter aus \`np.meshgrid\` hatte im synthetischen Experiment diese Ausrichtung; die realen Punkte besitzen sie nicht.
+Das nicht rechteckige Punktgebiet ist entscheidend: `np.gradient(psi_d)` auf einer einfachen 1D-Liste von Messpunkten würde Nachbarn **in der Array-Reihenfolge**, nicht in physikalischer d- oder q-Richtung vergleichen. Ein strukturiertes Gitter aus `np.meshgrid` hatte im synthetischen Experiment diese Ausrichtung; die realen Punkte besitzen sie nicht.
 
 ## 11. Kontinuierliche Approximation der gemessenen Flussfelder
 
@@ -738,7 +738,7 @@ X_{\rm train}=
 \in\mathbb R^{N\times2}.
 \]
 
-Die beiden zunächst eindimensionalen Stromarrays werden mit \`np.column_stack\` als **gepaarte Zeilen** angeordnet. \`np.meshgrid\` ist erst für das spätere regelmäßige Auswertegitter erforderlich.
+Die beiden zunächst eindimensionalen Stromarrays werden mit `np.column_stack` als **gepaarte Zeilen** angeordnet. `np.meshgrid` ist erst für das spätere regelmäßige Auswertegitter erforderlich.
 
 Bei nichtnormierten Strömen in Ampere hängt die räumliche Wirkung des RBF-Formparameters von der Größenordnung der Stromkoordinaten ab. Deshalb verwenden wir einen **gemeinsamen** nur aus Trainingsdaten bestimmten Referenzstrom:
 
@@ -770,7 +770,7 @@ Bei zweifacher Ableitung kommt bei gleicher Skalierung \(1/I_{\rm ref}^2\) hinzu
 
 ### 11.3 Verwendete RBF als **vorläufiges Werkzeug**
 
-In \`scipy.interpolate.RBFInterpolator\` wurde der inverse-multiquadric-Kernel verwendet:
+In `scipy.interpolate.RBFInterpolator` wurde der inverse-multiquadric-Kernel verwendet:
 
 \[
 \phi(r)=\frac{1}{\sqrt{1+(\varepsilon r)^2}},\qquad
@@ -787,7 +787,7 @@ Für normierte Ströme sind \(r\) und \(\varepsilon\) dimensionslos. Ohne diese 
 }
 \]
 
-Der Formparameter \(\varepsilon\) legt die räumliche Skala der radialen Basisfunktionen fest; \`smoothing\` reguliert die Datenanpassung. Die verwendete Klasse kann zudem einen polynomialen Anteil besitzen; da \`degree\` **nicht ausdrücklich gesetzt wurde**, ist dessen effektiver Wert anhand der eingesetzten SciPy-Version und der Bibliotheksdokumentation zu verifizieren. Für den gewählten Kernel ist in der konsultierten SciPy-Dokumentation der Standardwert **Grad 0** angegeben [S1]. Einen linearen Term mit Grad 1 haben wir bisher **nicht** eigens getestet.
+Der Formparameter \(\varepsilon\) legt die räumliche Skala der radialen Basisfunktionen fest; `smoothing` reguliert die Datenanpassung. Die verwendete Klasse kann zudem einen polynomialen Anteil besitzen; da `degree` **nicht ausdrücklich gesetzt wurde**, ist dessen effektiver Wert anhand der eingesetzten SciPy-Version und der Bibliotheksdokumentation zu verifizieren. Für den gewählten Kernel ist in der konsultierten SciPy-Dokumentation der Standardwert **Grad 0** angegeben [S1]. Einen linearen Term mit Grad 1 haben wir bisher **nicht** eigens getestet.
 
 Die Bibliotheksimplementierung und die Basisfunktion werden **bewusst vorläufig benutzt**. Ihre Herleitung und die Bedeutung von Kernelmatrix, Koeffizienten, Regularisierung und Kondition sind **offene Lernaufgaben**, keine bereits persönlich nachvollzogenen Resultate (siehe OI-MATH-002). Die tatsächlich konsultierte API-Dokumentation und ihr Quellenstatus sind unter [S1] festgehalten.
 
@@ -802,7 +802,7 @@ N_{\rm train}=272\;(80\,\%),\qquad
 N_{\rm test}=68\;(20\,\%).
 \]
 
-Die protokollierte Auswertung verwendete \`np.random.default_rng(42)\`. Zwischenzeitlich wurde der feste Seed versuchsweise weggelassen; ein fixer Seed gewährleistet **Wiederholbarkeit**, nicht automatisch einen besseren Split. Alle Strom- und Flussarrays desselben Betriebspunkts müssen identisch partitioniert werden. \(I_{\rm ref}\) stammt ausschließlich aus den Trainingspunkten.
+Die protokollierte Auswertung verwendete `np.random.default_rng(42)`. Zwischenzeitlich wurde der feste Seed versuchsweise weggelassen; ein fixer Seed gewährleistet **Wiederholbarkeit**, nicht automatisch einen besseren Split. Alle Strom- und Flussarrays desselben Betriebspunkts müssen identisch partitioniert werden. \(I_{\rm ref}\) stammt ausschließlich aus den Trainingspunkten.
 
 Für Residuen \(e_k=\hat\psi_k-\psi_k\) gilt
 
@@ -812,7 +812,7 @@ Für Residuen \(e_k=\hat\psi_k-\psi_k\) gilt
 =\sqrt{\operatorname{Var}(e)+\bar e^{\,2}}.
 \]
 
-Die Standardabweichung \(\sqrt{\operatorname{Var}(e)}\) entfernt den mittleren Fehler; sie ist **nicht allgemein** identisch mit RMSE. Ein konstanter Bias kann deshalb bei \`np.std(e)\` unsichtbar bleiben.
+Die Standardabweichung \(\sqrt{\operatorname{Var}(e)}\) entfernt den mittleren Fehler; sie ist **nicht allgemein** identisch mit RMSE. Ein konstanter Bias kann deshalb bei `np.std(e)` unsichtbar bleiben.
 
 Zusätzlich wurde der Bereich des **jeweiligen Trainingsflusses** als Normierung verwendet:
 
@@ -828,7 +828,7 @@ Derselbe aus Training berechnete Nenner gilt für dessen Testauswertung. Diese P
 
 ### 12.2 Beobachtete Zahlen (explorativer Versuch, Seed 42)
 
-Konfiguration: 70 °C Temperatur**referenz**, RBF \`inverse_multiquadric\`, \(\varepsilon=1\), \(\mathrm{smoothing}=0.01\), normierte Stromkoordinaten.
+Konfiguration: 70 °C Temperatur**referenz**, RBF `inverse_multiquadric`, \(\varepsilon=1\), \(\mathrm{smoothing}=0.01\), normierte Stromkoordinaten.
 
 | Fluss und Teilmenge | RMSE [Vs] | RMSE [mVs] | NRMSE (Train-Range) |
 | --- | ---: | ---: | ---: |
@@ -852,7 +852,7 @@ Ein LHS-informierter diskreter Holdout aus **tatsächlich gemessenen** Betriebsp
 
 ### 13.1 Vom kontinuierlichen RBF-Modell zum Gitter
 
-Die nächste selbst zu implementierende Übung besteht darin, Stromachsen mit \`np.linspace\` zu definieren und per \`np.meshgrid\` ein reguläres zweidimensionales Auswertegitter zu erzeugen. Die Gitterarrays mit \`ravel()\` oder \`reshape(-1)\` zu Punktspalten \((i_d,i_q)\) zusammenführen, **durch den bestehenden Trainingswert** \(I_{\rm ref}\) normieren und die zwei vorhandenen RBF-Funktionen getrennt auswerten. Anschließend die Flusswerte zur Gitterform zurückordnen.
+Die nächste selbst zu implementierende Übung besteht darin, Stromachsen mit `np.linspace` zu definieren und per `np.meshgrid` ein reguläres zweidimensionales Auswertegitter zu erzeugen. Die Gitterarrays mit `ravel()` oder `reshape(-1)` zu Punktspalten \((i_d,i_q)\) zusammenführen, **durch den bestehenden Trainingswert** \(I_{\rm ref}\) normieren und die zwei vorhandenen RBF-Funktionen getrennt auswerten. Anschließend die Flusswerte zur Gitterform zurückordnen.
 
 **Geometrische Grenze:** Das umschließende Rechteck enthält viele Orte außerhalb der halbkreisförmigen Messpunktwolke. Wir müssen das tatsächlich unterstützte Gebiet und die Randnähe gesondert kennzeichnen bzw. maskieren. Die Tatsache, dass ein globaler Approximator dort Funktionswerte liefert, **erzeugt keine fehlenden Messinformationen**.
 
@@ -925,8 +925,8 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 ### OI-MATH-002 – RBF, Kernelmatrix, Parameter und Polynomanteil
 
 - **Status:** Offen; SciPy wird gegenwärtig **vorläufig als Werkzeug** genutzt.
-- **Einsatz:** \`RBFInterpolator\` auf den normierten dq-Trainingsdaten mit inverse-multiquadric-Kernel, \(\varepsilon=1\), \`smoothing=0.01\`.
-- **Fragen:** Woher kommt die radiale Darstellungsform? Wie entstehen RBF-Koeffizienten und Gleichungssystem samt optionalem Polynom, Nebenbedingungen und Regularisierung? Warum hängen Verhalten und Kondition von \(\varepsilon\), Punktabständen, Skalierung und \`smoothing\` ab? Was ist der tatsächliche Default von \`degree\` der installierten Version?
+- **Einsatz:** `RBFInterpolator` auf den normierten dq-Trainingsdaten mit inverse-multiquadric-Kernel, \(\varepsilon=1\), `smoothing=0.01`.
+- **Fragen:** Woher kommt die radiale Darstellungsform? Wie entstehen RBF-Koeffizienten und Gleichungssystem samt optionalem Polynom, Nebenbedingungen und Regularisierung? Warum hängen Verhalten und Kondition von \(\varepsilon\), Punktabständen, Skalierung und `smoothing` ab? Was ist der tatsächliche Default von `degree` der installierten Version?
 - **Lernnachweis:** Kleine RBF mit wenigen Zentren selbst aufstellen, Koeffizienten ohne Bibliothek herleiten, mit SciPy vergleichen und die Formparameter geometrisch erklären.
 - **Quellen:** SciPy-API-Beschreibung [S1] als **bereits konsultierte Funktionsreferenz**; ihre mathematische Erklärung ist **noch nicht** als eigene Herleitung abgeschlossen. Geeignete weitere Literatur erst nach tatsächlicher Lektüre eintragen.
 
@@ -934,7 +934,7 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 
 - **Status:** Offen.
 - **Einsatz:** Geplante \(\mathbf J_{\hat\psi}\) und \(r_{\rm int}\)-Felder.
-- **Fragen:** Wie unterscheidet sich die Ableitung einer glatten RBF von \`np.gradient()\` auf einer ausgewerteten Matrix? Wie werden Strom-Normierung und Gitterabstand rücktransformiert? Wie verstärken Fitfehler, Schrittweiten und unzureichender Daten-Support die Ableitungsfehler?
+- **Fragen:** Wie unterscheidet sich die Ableitung einer glatten RBF von `np.gradient()` auf einer ausgewerteten Matrix? Wie werden Strom-Normierung und Gitterabstand rücktransformiert? Wie verstärken Fitfehler, Schrittweiten und unzureichender Daten-Support die Ableitungsfehler?
 - **Lernnachweis:** Bekannte synthetische Flussflächen mit analytischen Gradienten vergleichen; Gitterschritte und Glättungen systematisch variieren; Rand- und Innenfehler getrennt betrachten.
 - **Quellen:** Noch keine externe Herleitungsquelle eigenständig ausgewertet; nachtragen.
 
@@ -964,14 +964,14 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 
 ### 16.1 Tatsächlich konsultierte externe Quelle
 
-**[S1] SciPy Developers:** *scipy.interpolate.RBFInterpolator*, SciPy-API-Referenz, online, https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html (eingesehen am **10.10.2026**; beim späteren Reproduktionslauf lokale SciPy-Version per \`scipy.__version__\` dokumentieren). **Hier verwendeter Beitrag:** verfügbare Kernel, inverse-multiquadric-Definition, Parameter \`epsilon\`, \`smoothing\`, \`neighbors\`, \`degree\`, Defaultverhalten und mathematische **Beschreibung** des RBF-Ansatzes. Die offizielle Dokumentation zu kennen bedeutet **nicht**, dass die Herleitung schon selbst erarbeitet wurde: Lernstatus OI-MATH-002 bleibt offen.
+**[S1] SciPy Developers:** *scipy.interpolate.RBFInterpolator*, SciPy-API-Referenz, online, https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html (eingesehen am **10.10.2026**; beim späteren Reproduktionslauf lokale SciPy-Version per `scipy.__version__` dokumentieren). **Hier verwendeter Beitrag:** verfügbare Kernel, inverse-multiquadric-Definition, Parameter `epsilon`, `smoothing`, `neighbors`, `degree`, Defaultverhalten und mathematische **Beschreibung** des RBF-Ansatzes. Die offizielle Dokumentation zu kennen bedeutet **nicht**, dass die Herleitung schon selbst erarbeitet wurde: Lernstatus OI-MATH-002 bleibt offen.
 
 ### 16.2 Eigene Quellcodes und Datensatz-Provenienz
 
-- **[P1]** [\`datasets/psm_temperature_2500.json\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) und dazugehörige CSV: Datensatzidentität, Spalten, Erfassungs- und Aggregationskonventionen, SHA-256 der zugrunde liegenden MAT-Quelle, Einschränkungen, Flussformeln.
-- **[P2]** [\`datasets/README.md\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/README.md): Inventar, Duplikat-/Provenienzprüfung, Grenzen bei CAN und Temperatur, Abgrenzung künstlicher Geschwindigkeitsvarianten.
-- **[P3]** [\`shared/python/raw_ww_data_importer.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/raw_ww_data_importer.py), [\`shared/python/canonical_dataset.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) und [\`scripts/extract_research_datasets.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py): tatsächlich verwendete Import-/Aggregations-/Ladewege.
-- **[P4]** [\`sandbox/fluxcorrection/flux_loss_experiment.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [\`sandbox/fluxcorrection/real_flux_analysis.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py): synthetischer und realer Arbeitscode; **vor der Reproduktion** prüfen, ob die weiterentwickelte lokale Sitzung versioniert/pusht ist.
+- **[P1]** [`datasets/psm_temperature_2500.json`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) und dazugehörige CSV: Datensatzidentität, Spalten, Erfassungs- und Aggregationskonventionen, SHA-256 der zugrunde liegenden MAT-Quelle, Einschränkungen, Flussformeln.
+- **[P2]** [`datasets/README.md`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/README.md): Inventar, Duplikat-/Provenienzprüfung, Grenzen bei CAN und Temperatur, Abgrenzung künstlicher Geschwindigkeitsvarianten.
+- **[P3]** [`shared/python/raw_ww_data_importer.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/raw_ww_data_importer.py), [`shared/python/canonical_dataset.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) und [`scripts/extract_research_datasets.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py): tatsächlich verwendete Import-/Aggregations-/Ladewege.
+- **[P4]** [`sandbox/fluxcorrection/flux_loss_experiment.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [`sandbox/fluxcorrection/real_flux_analysis.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py): synthetischer und realer Arbeitscode; **vor der Reproduktion** prüfen, ob die weiterentwickelte lokale Sitzung versioniert/pusht ist.
 - **[P5]** [MeasEval Issue #293](https://github.com/Weg-Weiser/GUI_VICE-MeasurementEvalKit/issues/293): LHS-informierte Teilmengenauswahl **real vorhandener** Stützpunkte als optionales späteres Produktkonzept.
 - **[H1]** [Vorgängerfassung der Forschungsnotiz](https://github.com/rkeller98/Research/blob/29068b91a801e1be09e91fbbe877840a16d2c5d4/sandbox/fluxcorrection/flusskorrektur_doku.md): vollständiger älterer chronologischer Notizstand und Zwischenfragen; **historischer Nachweis**, keine zusätzliche unabhängige Quelle.
 
@@ -979,7 +979,7 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 
 ### 16.3 Reproduktionshinweise für den jetzigen Befund
 
-Dokumentierte Eingaben: Daten-ID \`psm_temperature_2500\`, Filter \`rotor_temp_ref ≈ 70 °C\`, Training/Test mit 80/20-Indexpermutation Seed 42, \(I_{\rm ref}=\max\sqrt{i_d^2+i_q^2}\) **nur aus Trainingspunkten**, SciPy-RBF-Kernel \`inverse_multiquadric\`, \`epsilon=1\`, \`smoothing=0.01\`, unabhängige d-/q-Zielmodelle. Bewertungsgrößen: RMSE in Vs, NRMSE in Prozent der **Trainingsspanne**. Offene Reproduktionsdetails: exakter Commit des lokal genutzten Skripts, Python-/SciPy-/NumPy-Version und endgültige Cross-Validation-/Testpolitik; vor formaler Publikation ergänzen.
+Dokumentierte Eingaben: Daten-ID `psm_temperature_2500`, Filter `rotor_temp_ref ≈ 70 °C`, Training/Test mit 80/20-Indexpermutation Seed 42, \(I_{\rm ref}=\max\sqrt{i_d^2+i_q^2}\) **nur aus Trainingspunkten**, SciPy-RBF-Kernel `inverse_multiquadric`, `epsilon=1`, `smoothing=0.01`, unabhängige d-/q-Zielmodelle. Bewertungsgrößen: RMSE in Vs, NRMSE in Prozent der **Trainingsspanne**. Offene Reproduktionsdetails: exakter Commit des lokal genutzten Skripts, Python-/SciPy-/NumPy-Version und endgültige Cross-Validation-/Testpolitik; vor formaler Publikation ergänzen.
 
 ## 17. Arbeitsauftrag für die nächste Sitzung
 
