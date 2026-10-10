@@ -89,1209 +89,904 @@ Diese Forschung ist bewusst **ein persönliches Lern- und Entwicklungsprojekt**.
 **Vorrang:** Der Writing Guide bleibt unverändert, bis sein Inhalt vom Nutzer ausdrücklich zur Änderung freigegeben wird. Überarbeitungen des Forschungsinhalts müssen sich an ihm orientieren.
 
 <!-- END WRITING GUIDE: GESCHUETZT -->
-
 ---
 
-**Stand:** 09.10.2026 – theoretische Herleitungen und erste reproduzierbare Experimente mit realen PSM-Messdaten
-**Status:** Laufende, hypothesengeleitete Untersuchung; weder ein eindeutiges physikalisches Fehlermodell noch eine validierte Korrekturmethode liegt vor
-**Arbeitsweise:** Geometrische Intuition und eigene Herleitungen vor selbst implementierten Python-Experimenten. Numerische Konsistenz, Modellhypothesen und experimentelle Evidenz werden ausdrücklich getrennt.
+**Stand der Fachnotiz:** 10.10.2026  
+**Projektstatus:** laufende theoretische und numerische Untersuchung; **keine** physikalisch eindeutig identifizierte oder experimentell validierte Flusskorrektur  
+**Primäres Arbeitsverzeichnis:** \`sandbox/fluxcorrection/\` im Repository \`rkeller98/Research\`, Arbeitsbranch \`topic/fluxcorrection\`  
+**Lesart:** Mathematisch hergeleitet / modellabhängig / experimentell beobachtet / offen wird ausdrücklich unterschieden.
 
-## 1. Forschungsziel
+## 1. Forschungsauftrag und aktuelle Leitfrage
 
-**Aktuelle übergeordnete Leitfrage (präzisiert am 09.10.2026):** Wie lassen sich aus den verfügbaren Rohmessdaten elektrischer Maschinen physikalisch plausible Flusskennfelder rekonstruieren, systematische Mess-, Parameter- und Modellabweichungen diagnostizieren und gegebenenfalls korrigieren, ohne reale Verlust- und Nichtlinearitätseffekte zu unterdrücken?
+**Leitfrage:** *Wie können wir aus verfügbaren elektrischen Rohmessdaten rekonstruierte Flusskennfelder elektrischer Maschinen auf physikalische Plausibilität und innere Konsistenz untersuchen, systematische Mess- und Modellfehler von realen magnetischen und dissipativen Effekten unterscheiden und – soweit die verfügbaren Informationen ausreichen – begründete Korrekturen ableiten, ohne physikalisch relevante Abweichungen zu unterdrücken?*
 
-Die ursprünglich folgende Drehmomentfrage ist ein wichtiger **Teilansatz**, nicht das alleinige Forschungsziel.
+Die zentrale zusätzliche Frage ist **Identifizierbarkeit**: Welche Fehlerkomponenten sind aufgrund der beobachteten Größen überhaupt bestimmbar? Wo existieren nicht beobachtbare Freiheitsgrade, und welche unabhängigen Messungen oder begründeten Modellannahmen wären nötig, um sie festzulegen?
 
-**Leitfrage:** Können wir aus der Abweichung zwischen berechnetem und unabhängig gemessenem Drehmoment Rückschlüsse auf Fehler der rekonstruierten Flusskennfelder $\psi_d(i_d,i_q)$ und $\psi_q(i_d,i_q)$ ziehen – und unter welchen Zusatzannahmen wäre eine Korrektur möglich?
+**Motivation.** Bei elektrischen Maschinen fallen unter anderem verkippte Flusskennflächen, Asymmetrien und Abweichungen zwischen rekonstruierten Flüssen, Drehmoment, Induktivitäten und Verlustbetrachtungen auf. Nicht jede Auffälligkeit ist ein Messfehler. Echte Sättigung und Kreuzsättigung gehören ebenso zum Maschinenverhalten wie mögliche dissipative Effekte. Die Diagnose soll unterscheiden zwischen:
 
-Wir beginnen bewusst mit einer **dreiphasigen PSM**, stationären Betriebspunkten und dem rotorfesten $dq$-Koordinatensystem. Eine Erweiterung auf weitere Maschinenkonfigurationen, Verluste und Messunsicherheiten kommt erst später.
+1. **Physikalischen Effekten:** Sättigung, Kreuzsättigung, Hysterese und Eisenverlusten.
+2. **Messketteneffekten:** Strom-/Spannungserfassung, Winkeloffsets, Synchronisierung, PWM-/Umrichtereffekten, Kanal- und Signalkonventionen.
+3. **Parameter- und Modellfehlern:** z. B. Statorwiderstand, Temperaturannahmen, stationäres Ersatzmodell und Phasenkonfiguration.
+4. **Numerischen Artefakten:** Gruppierung, Interpolation, Glättung, Fit, Ableitung, unzureichender Stützbereich und Extrapolation.
 
-Der aktuelle Lernfortschritt soll **nicht** durch die Übernahme einer fertigen Korrekturlösung übersprungen werden.
+Der ursprüngliche **Drehmomentvergleich** war der Einstieg in die Fragestellung. Er bleibt ein wichtiges Diagnoseinstrument, ist aber **nicht mehr das übergeordnete Forschungsziel**. Die historische Entwicklung einschließlich gescheiterter Eindeutigkeitsannahmen ist in Abschnitt 14 dokumentiert.
 
-## 2. Konventionen und Ausgangsgleichungen
+### 1.1 Was gilt als Erfolg?
 
-Wir setzen
+Ein Erfolg wäre zunächst **kein perfekt geglättetes Kennfeld**, sondern ein nachvollziehbarer, reproduzierbarer Befund darüber,
 
-$$
-\omega_e=p\omega_m,\qquad k=\frac32p,
-$$
+- welche Daten und Modellannahmen einer Flussrekonstruktion zugrunde liegen;
+- welche Eigenschaften ein konservatives magnetisches Modell erfüllen muss;
+- welche Abweichungen im real rekonstruierten Feld vorkommen und robust nachweisbar sind;
+- welche physikalischen Erklärungen mit den Messungen **vereinbar**, **nicht unterscheidbar** oder **widerlegt** sind;
+- ob für eine Korrektur genügend unabhängige Information vorliegt.
 
-wobei $p$ die Polpaarzahl ist. Für das dreiphasige Modell gilt
+Eine höhere mathematische Konsistenz ist nicht automatisch eine höhere physikalische Aussagekraft. **Messfeld, Approximation, Modellprojektion und Residuum dürfen einander nicht überschreiben.**
 
-$$
+## 2. Datenfluss, Beobachtbarkeit und Evidenzstufen
+
+Der derzeit verwendete Analyseweg lautet:
+
+\`\`\`text
+Unveränderte Rohmessungen + Provenienz
+    → vorbereitete / gruppierte stationäre Betriebspunkte
+    → rekonstruierte effektive Flussverkettungen aus u, i, Rs, ωe
+    → zwei voneinander unabhängige glatte Flussapproximationen
+    → Ableitungen, Jacobi-Matrix und Integrabilitäts-/Symmetriediagnose
+    → Abgleich mit Messunsicherheit, Drehmoment, Drehzahl und Fehlermodellen
+    → gegebenenfalls gesonderte konservative Projektion + erhaltenes Residuum
+\`\`\`
+
+**Wichtig:** Die physikalisch wahren magnetischen Flüsse werden mit dem derzeitigen PSM-Datensatz **nicht direkt gemessen**. Das Ergebnis der stationären Spannungsgleichungen ist ein durch ihre Annahmen bestimmtes, *effektiv rekonstruiertes* Flussfeld. Ein Fit hierauf kann einen Rekonstruktionsfehler nicht von sich aus korrigieren.
+
+Wir halten deshalb drei fachliche Ebenen auseinander:
+
+| Ebene | Was liegt vor? | Was ist damit noch nicht bewiesen? |
+| --- | --- | --- |
+| Messung | Spannungen, Ströme, Drehzahl, Temperaturreferenzen und ggf. Drehmoment | Korrekte Sensorkalibrierung, stationärer magnetischer Zustand |
+| Rekonstruktion | \(\boldsymbol\psi_{\mathrm{rec}}(\boldsymbol i)\) aus gewähltem dq-Ersatzmodell | Identität mit dem konservativen Magnetisierungsfluss |
+| Diagnose | Approximationen, \(\mathbf J_\psi\), Residuen, Symmetrie- und Torque-Vergleiche | Eindeutige Zuordnung eines Residuums zu Eisenverlusten oder einem Sensorfehler |
+
+Die mathematischen Formeln der nächsten Kapitel sind innerhalb ihrer definierten Modelle hergeleitet. Reale Messdaten und synthetische Modellnachweise werden in Abschnitt 10 getrennt berichtet.
+
+## 3. Mathematische Grundlagen: dq-Gleichungen und Flussrekonstruktion
+
+### 3.1 Konventionen
+
+Wir betrachten zunächst eine **dreiphasige PSM** mit amplitudeninvarianter dq-Transformation, rotorfesten Achsen und einer konsistenten positiven Motor-/Drehzahlkonvention. Es seien
+
+\[
+\boldsymbol i=(i_d,i_q)^\mathsf T,\qquad
+\boldsymbol\psi=(\psi_d,\psi_q)^\mathsf T,\qquad
+\omega_e=p\,\omega_m,\qquad
+k_T=\frac32p,
+\]
+
+mit Polpaarzahl \(p\), elektrischer Winkelgeschwindigkeit \(\omega_e\) in rad/s und mechanischer Winkelgeschwindigkeit \(\omega_m\) in rad/s. Der einfache elektromagnetische Drehmomentausdruck lautet
+
+\[
+M_{\mathrm{em}}=k_T(\psi_di_q-\psi_qi_d).
+\]
+
+Bei **anderen Phasensystemen** muss insbesondere der Drehmomentfaktor gesondert qualifiziert werden; er darf nicht stillschweigend von einer dreiphasigen PSM übernommen werden.
+
+### 3.2 Zeitliche Ableitung versus Stromableitung
+
+Die allgemeinen dq-Spannungsgleichungen lauten unter diesen Vorzeichenkonventionen
+
+\[
 \begin{aligned}
-u_d&=R_s i_d+\frac{d\psi_d}{dt}-\omega_e\psi_q,\\
-u_q&=R_s i_q+\frac{d\psi_q}{dt}+\omega_e\psi_d,\\
-M_{\mathrm{em}}&=k(\psi_d i_q-\psi_q i_d).
+u_d&=R_si_d+\frac{d\psi_d}{dt}-\omega_e\psi_q,\\
+u_q&=R_si_q+\frac{d\psi_q}{dt}+\omega_e\psi_d.
 \end{aligned}
-$$
+\]
 
-**Wichtige Unterscheidung:** $d\psi/dt$ ist die *zeitliche* Flussänderung in der Spannungsgleichung. Dagegen ist z. B. $\partial\psi_d/\partial i_d$ eine differentielle Induktivität. Bei einem stationären Betriebspunkt mit konstantem $i_d$, $i_q$ und konstantem magnetischem Zustand verschwinden die zeitlichen Ableitungen der $dq$-Flussverkettungen.
+Die Terme \(d\psi_d/dt\) und \(d\psi_q/dt\) beschreiben **zeitliche** Änderungen. Davon zu unterscheiden sind die partiellen **Stromableitungen** der Kennfelder, z. B. \(\partial\psi_d/\partial i_q\), welche die differentiellen Induktivitäten definieren.
 
-Damit vereinfacht sich das System zu
+Für einen stationären dq-Zustand mit zeitlich konstanten Flussverkettungen verschwinden die Zeitableitungen. Daher
 
-$$
-\begin{aligned}
-u_d&=R_s i_d-\omega_e\psi_q,\\
-u_q&=R_s i_q+\omega_e\psi_d.
-\end{aligned}
-$$
+\[
+u_d=R_si_d-\omega_e\psi_q,\qquad
+u_q=R_si_q+\omega_e\psi_d.
+\]
 
-Für $\omega_e\neq0$ folgt die stationäre Rekonstruktion:
+Bei \(\omega_e\neq0\) erhalten wir durch Umstellen
 
-$$
-\boxed{\psi_d=\frac{u_q-R_s i_q}{\omega_e}},\qquad
-\boxed{\psi_q=\frac{R_s i_d-u_d}{\omega_e}}.
-$$
-
-Das sind aus Spannungs- und Strommessung **rekonstruierte** Flüsse, nicht automatisch die wahren magnetischen Flüsse.
-
-## 3. Widerstandsfehler als erste konkrete Fehlerhypothese
-
-Definitionen:
-
-$$
-\Delta R=R_{\mathrm{verwendet}}-R_{\mathrm{wahr}},\qquad
-\Delta\boldsymbol\psi=\boldsymbol\psi_{\mathrm{berechnet}}-\boldsymbol\psi_{\mathrm{wahr}}.
-$$
-
-Bei ansonsten identischen stationären Messgrößen ergibt sich:
-
-$$
-\begin{aligned}
-\Delta\psi_d&=-\frac{\Delta R}{\omega_e}i_q,\\
-\Delta\psi_q&=+\frac{\Delta R}{\omega_e}i_d.
-\end{aligned}
-$$
-
-**Geometrische Interpretation:** Ein konstanter Widerstandsfehler addiert zu den Flusskennflächen jeweils eine stromabhängig geneigte Ebene. Es handelt sich nicht um eine starre Rotation der gesamten Kennfläche. Bei positivem $i_q$, positiver elektrischer Drehzahl und überschätztem Widerstand wird der rekonstruierte $d$-Fluss kleiner.
-
-Der resultierende elektromagnetische Drehmomentfehler ist – mit der Definition $\Delta M_R=M_{\mathrm{em,berechnet}}-M_{\mathrm{em,wahr}}$ –
-
-$$
+\[
 \boxed{
-\Delta M_R=-\frac{k\Delta R}{\omega_e}\left(i_d^2+i_q^2\right)
+\psi_{d,\mathrm{rec}}=\frac{u_q-R_si_q}{\omega_e},\qquad
+\psi_{q,\mathrm{rec}}=\frac{R_si_d-u_d}{\omega_e}.
 }
-$$
+\]
 
-mit $I_{\mathrm{amp}}^2=i_d^2+i_q^2$.
+**Gültigkeitsgrenze:** Diese Formeln verwenden genau die eingesetzten Spannungs-, Strom-, Widerstands- und Drehzahlwerte; sie isolieren **keinen** Eisenverlustanteil, Winkelmessfehler oder Spannungsrekonstruktionsfehler. Bei stillstehender Maschine ist diese stationäre Division durch \(\omega_e\) nicht möglich.
 
-**Bereits selbst erkannt:**
+## 4. Konservative Magnetisierung, Coenergy und differentielle Induktivitäten
 
-- Bei festem Betriebspunkt und konstantem $\Delta R$ skaliert der Fehler wie $1/\omega_e$. Bei doppelter positiver Drehzahl halbiert sich der Betrag des Fehlers.
-- Bei festem $\omega_e$ ist $\Delta M_R$ über $I_{\mathrm{amp}}^2$ eine Gerade durch den Ursprung; über $I_{\mathrm{amp}}$ ist der Verlauf quadratisch.
-- Die Niveaulinien desselben Widerstands-Drehmomentfehlers bilden im $(i_d,i_q)$-Raum Kreise um den Ursprung (sofern das Fehlerniveau für das gegebene Vorzeichen überhaupt erreichbar ist).
-- Bei gleichem Strombetrag ist der modellierte Widerstandsfehler unabhängig vom Stromwinkel.
-- Der Quotient $\Delta M_R/I_{\mathrm{amp}}^2$ sollte bei fester Drehzahl konstant sein, wird aber für sehr kleine Strombeträge numerisch empfindlich und ist bei $I_{\mathrm{amp}}=0$ undefiniert.
+### 4.1 Geometrische Bedeutung einer gemeinsamen Coenergy
 
-**Datenidee für später:** Zuerst $\Delta M$ über $I_{\mathrm{amp}}^2$ ansehen. Eine nur durch konstanten $\Delta R$ verursachte Abweichung wäre linear. Die Steigung wäre $-k\Delta R/\omega_e$; das ist zunächst ein *äquivalenter* Fehlerparameter und noch kein Nachweis eines physikalisch falsch angenommenen Statorwiderstands.
+Für ein idealisiert konservatives magnetisches System kann eine skalare *normierte* Koenergie \(W'(i_d,i_q)\) existieren mit
 
-## 4. Wellenmoment, elektromagnetisches Moment und Verluste
+\[
+\boldsymbol\psi_{\mathrm{mag}}=\nabla_iW'
+=\begin{bmatrix}
+\partial W'/\partial i_d\\
+\partial W'/\partial i_q
+\end{bmatrix}.
+\]
 
-Das gemessene Wellenmoment muss nicht mit dem elektromagnetischen Moment identisch sein. Relevante Anteile sind insbesondere:
+Anschaulich sind \(\psi_d\) und \(\psi_q\) die beiden lokalen Steigungen **einer einzigen Potentiallandschaft** in zwei Stromrichtungen. Im amplitudeninvarianten dreiphasigen dq-System ist die hier gebrauchte Coenergy hinsichtlich des \(3/2\)-Faktors normiert; die entsprechend bilanzierte dreiphasige magnetische Koenergie trägt diesen Faktor zusätzlich. Die genaue Energie-/Leistungskonvention bleibt bei Verallgemeinerungen explizit anzugeben.
 
-- mechanische Verluste (z. B. Lagerreibung, Luftreibung),
-- Eisenverluste (u. a. Hysterese und Wirbelströme),
-- weitere Messketten-, Betriebszustands- und Modellfehler.
+Die Jacobi-Matrix des Flusses ist
 
-Für **positive Drehzahl**, stationären Betrieb und unsere gewählte Bilanzgrenze verwenden wir zunächst das *vereinfachte* Modell
-
-$$
-M_{\mathrm{Welle}}\approx M_{\mathrm{em}}-M_V.
-$$
-
-Damit ist der beobachtete Vergleichsfehler
-
-$$
-\Delta M_{\mathrm{obs}}
-:=M_{\mathrm{em,berechnet}}-M_{\mathrm{Welle,mess}}
-\approx \Delta M_R+M_V.
-$$
-
-Setzt man **versuchsweise** bei festem $\omega_e$ und festem Temperaturzustand $M_V\approx M_0$ (konstant), entsteht
-
-$$
-\boxed{\Delta M_{\mathrm{obs}}\approx
--\frac{k\Delta R}{\omega_e}I_{\mathrm{amp}}^2+M_0}.
-$$
-
-Dann ließen sich *unter dieser Annahme* Steigung und Achsenabschnitt einer Geraden als Widerstands-Äquivalent und Verlustmoment-Offset interpretieren. $M_0$ wäre zunächst ein **extrapolierter** Offset bei verschwindendem Statorstrom, nicht automatisch ein direkt gemessener Verlustwert.
-
-**Wichtige Einschränkungen:**
-
-- Mechanische Verluste lassen sich bei konstanter Drehzahl oft näherungsweise konstant setzen.
-- Eisenverluste hängen auch von der magnetischen Feldverteilung ab; deshalb müssen sie bei konstantem $\omega_e$ **nicht** konstant sein.
-- Auch bei $i_d=i_q=0$ kann eine rotierende PSM aufgrund ihres Permanentmagnetfeldes Eisenverluste besitzen.
-- Eine systematische Abweichung von der Geraden zeigt zunächst eine Verletzung unseres einfachen Modells – **nicht eindeutig Sättigung oder Eisenverluste**.
-- Für negative Drehzahl muss die Vorzeichenkonvention der Verlustmomente und die Bilanzgrenze neu geprüft werden; die positive-Drehzahl-Form darf nicht blind übertragen werden.
-- Ein CAN-Moment ist nicht notwendigerweise ein unabhängiges Wellenmoment. Dessen Ursprung und Kalibrierung wären vor empirischen Schlussfolgerungen zu prüfen.
-
-## 5. Stromrichtung, Flussbetrag und Symmetrie
-
-Für eine idealisierte lineare PSM setzen wir
-
-$$
-\psi_d=\psi_{\mathrm{PM}}+L_d i_d,\qquad
-\psi_q=L_q i_q.
-$$
-
-Damit folgt
-
-$$
-\|\boldsymbol\psi\|^2
-=(\psi_{\mathrm{PM}}+L_d i_d)^2+(L_q i_q)^2.
-$$
-
-Geometrisch und physikalisch haben wir diskutiert:
-
-- Negative $i_d$-Ströme können dem PM-Fluss entgegenwirken (Feldschwächung). Mehr Strombetrag bedeutet deshalb **nicht automatisch** größeren Flussbetrag oder höhere Eisenverluste.
-- Die Darstellung allein über $i_d^2$ und $i_q^2$ erhält zwar unterschiedliche d-/q-Gewichtungen, **verliert aber die Vorzeicheninformation**. $i_d=+100\,\mathrm A$ und $i_d=-100\,\mathrm A$ würden gleich dargestellt, obwohl die Magnetisierung unterschiedlich sein kann.
-- Daher zunächst den Vergleichsfehler als Fläche $\Delta M(i_d,i_q)$ betrachten, bevor man ihn auf quadratische Größen reduziert.
-- Ein stromwinkelabhängiger Verlustanteil kann bei gleichem $I_{\mathrm{amp}}^2$ zu einer **systematischen Aufspaltung/Streuung** statt lediglich zu einer Krümmung einer einzelnen Linie führen.
-
-Beim Wechsel $(i_d,+i_q)\leftrightarrow(i_d,-i_q)$ gilt **im idealisierten Modell**:
-
-$$
-\|\boldsymbol\psi(i_d,+i_q)\|^2
-=\|\boldsymbol\psi(i_d,-i_q)\|^2
-$$
-
-und
-
-$$
-M_{\mathrm{em}}(i_d,+i_q)=-M_{\mathrm{em}}(i_d,-i_q).
-$$
-
-**Arbeitshypothese:** Wenn die Eisenverluste näherungsweise durch eine für $\pm i_q$ symmetrische Größe beschrieben werden können, sind auch die Verlustmomente an diesen Betriebspunkten ähnlich. Das ist **keine allgemein bewiesene Symmetrie realer Eisenverluste**.
-
-Für denselben **positiven** Drehzahlsinn, betragsmäßig gleiche elektromagnetische Momente und denselben Verlustmomentwert $M_V$ folgt als idealisierter Vergleich
-
-$$
-\begin{aligned}
-M_{\mathrm{mess},+}&=+M_{\mathrm{em}}-M_V,\\
-M_{\mathrm{mess},-}&=-M_{\mathrm{em}}-M_V.
-\end{aligned}
-$$
-
-Daraus:
-
-$$
-\boxed{M_{V}=-\frac{M_{\mathrm{mess},+}+M_{\mathrm{mess},-}}{2}},\qquad
-\boxed{M_{\mathrm{em}}=\frac{M_{\mathrm{mess},+}-M_{\mathrm{mess},-}}{2}}.
-$$
-
-**Beobachtung:** Der Drehmomentfehler eines konstanten Widerstandsmismatchs ist bezüglich $i_q$ *gerade* (wegen $i_q^2$). Bei der Differenz zweier gespiegelter, aus den Flüssen berechneter Momente hebt sich daher dieser identische Fehleranteil auf; die Addition bewahrt ihn, mischt ihn aber mit gemeinsamen Verlustanteilen. Eine eindeutige experimentelle Trennung verlangt weitere Annahmen oder Messinformationen.
-
-## 6. Allgemeiner Flussfehler: zentrale neue Herleitung
-
-Wir lassen jetzt offen, **warum** das Flusskennfeld fehlerhaft ist. Für einen festen Strombetriebspunkt schreiben wir
-
-$$
-\psi_{d,\mathrm{calc}}=\psi_{d,\mathrm{true}}+\Delta\psi_d,\qquad
-\psi_{q,\mathrm{calc}}=\psi_{q,\mathrm{true}}+\Delta\psi_q.
-$$
-
-Da das Drehmoment bei **festgehaltenem** $i_d,i_q$ linear in $\psi_d,\psi_q$ ist, können wir das Differential direkt als exakte endliche Fehlerbeziehung verwenden:
-
-$$
-\begin{aligned}
-\frac{\partial M}{\partial\psi_d}&=ki_q,\\
-\frac{\partial M}{\partial\psi_q}&=-ki_d.
-\end{aligned}
-$$
-
-Daraus:
-
-$$
-\boxed{\Delta M=k(i_q\Delta\psi_d-i_d\Delta\psi_q)}
-$$
-
-mit $\Delta M=M_{\mathrm{em,calc}}-M_{\mathrm{em,true}}$ (**hier** kein Wellenmoment und kein Verlustmoment in $\Delta M$).
-
-Als Skalarprodukt:
-
-$$
-\frac{\Delta M}{k}=
-\underbrace{\begin{bmatrix}i_q\\-i_d\end{bmatrix}}_{\mathbf a}^{\!T}
-\underbrace{\begin{bmatrix}\Delta\psi_d\\\Delta\psi_q\end{bmatrix}}_{\Delta\boldsymbol\psi}.
-$$
-
-Wir haben erkannt, dass für den Stromvektor $\mathbf i=[i_d,i_q]^T$ gilt:
-
-$$
-\boxed{\mathbf a^T\mathbf i=i_qi_d-i_di_q=0.}
-$$
-
-**Geometrische Schlussfolgerung:** Der Drehmoment-Beobachtungsvektor $\mathbf a$ steht senkrecht auf dem Stromvektor $\mathbf i$. Ein Flussfehler **parallel zu $\mathbf i$** erzeugt deshalb bei diesem festen Betriebspunkt **keinen Drehmomentfehler**. Ein Drehmomentvergleich beobachtet nur eine bestimmte Projektion des Flussfehlervektors.
-
-Dies ist die bisher wichtigste Erkenntnis: **Aus einem einzigen Drehmomentwert können die zwei Flussfehlerkomponenten an einem Betriebspunkt nicht eindeutig rekonstruiert werden.** Die drehmomentunsichtbare Stromrichtung gehört zum **Nullraum** der Abbildung. Für $\mathbf i=\mathbf0$ ist die gesamte Abbildung null – dann enthält das elektromagnetische Drehmoment überhaupt keine Information über den Fluss.
-
-**Nicht verwechseln:** Die zunächst geäußerte Vermutung „orthogonaler Flussfehler = Winkelfehler“ wurde **nicht** als allgemeine Fehlerursache bestätigt. Die Orthogonalität kennzeichnet hier die geometrische Nichtbeobachtbarkeit einer Flussänderung; sie beweist keinen Sensorwinkelfehler.
-
-## 7. Gesicherter Stand, Modellannahmen und offene Punkte
-
-### Mathematisch hergeleitet (innerhalb des festgelegten Modells)
-
-1. Stationäre Flussrekonstruktion aus $u_d,u_q,i_d,i_q,R_s,\omega_e$ bei $\omega_e\neq0$.
-2. Widerstandsinduzierter Flussfehler und $\Delta M_R\propto-I_{\mathrm{amp}}^2/\omega_e$.
-3. Konstanter Widerstandsfehler erzeugt winkelunabhängige Drehmomentfehler bei gleichem Strombetrag und gleicher Drehzahl.
-4. Exakte lineare Drehmoment-Fehlerbeziehung $\Delta M=k(i_q\Delta\psi_d-i_d\Delta\psi_q)$ bei festen Strömen.
-5. Nullraumrichtung parallel zum Stromvektor: Diese Flusskorrekturkomponente ist punktweise durch Drehmoment nicht beobachtbar.
-
-### Noch unbestätigte physikalische Vereinfachungen
-
-- Magnetisches Verhalten als ideale PSM, teils mit konstanten $L_d,L_q$.
-- Eisenverluste näherungsweise von symmetrischen Flussbetragsgrößen abhängig.
-- Verlustmoment $M_V$ bei fester Drehzahl und Temperatur näherungsweise konstant oder wenigstens symmetrisch bei $\pm i_q$.
-- Verwendetes Drehmomentsignal stellt tatsächlich ein geeignetes, unabhängig gemessenes Moment dar.
-- Strom-, Fluss-, Drehmoment- und Drehzahlkonventionen sind konsistent; Messwerte repräsentieren dieselben stationären Betriebspunkte.
-
-### Frühere offene Forschungsfrage – inzwischen bearbeitet
-
-> **Frage beim ersten Zwischenstand:** Reichen die Drehmomente vieler Betriebspunkte aus, um die beiden Flussfehlerkomponenten eindeutig zu bestimmen, oder bleibt die Mehrdeutigkeit erhalten?
-
-**Zwischenzeitliches Ergebnis:** Die Mehrdeutigkeit bleibt auch für das gesamte Kennfeld bestehen. Die anschließende Untersuchung von Coenergy, Leistungsbilanz und Mehrdrehzahlmessungen ist ab Abschnitt 9 dokumentiert.
-
-## 8. Geplanter weiterer Arbeitsmodus
-
-1. **Geometrische Intuition**: Richtung, Projektion, Niveaumengen und Nullraum skizzieren.
-2. **Eigene Herleitung**: Jede zusätzliche Annahme bewusst formulieren und ihre Folgen selbst mathematisch entwickeln.
-3. **Minimaler Python-Versuch**: Erst nach Verständnis; Code wird selbst geschrieben und gemeinsam überprüft.
-4. **Synthetische Daten**: An bekanntem Flussfehler prüfen, welche Anteile rekonstruierbar sind.
-5. **Reale Messungen später**: Ein eigener qualifizierter Datensatz kann dann gezielt geplant/aufgenommen werden. Reale Verlust- und Messketteneffekte getrennt untersuchen.
-
-**Arbeitsregel für die Betreuung:** Keine fertigen Optimierungsansätze oder vollständigen Implementierungen ohne ausdrückliche Nachfrage. Die bisherige Analyse ist ein **Forschungsstand**, kein Beweis, dass eine eindeutig physikalisch richtige Flusskorrektur bereits möglich wäre.
-
----
-
-> **Fortsetzung nach dem ersten Zwischenstand:** Die Abschnitte 9–18 sind eine chronologische, fachlich geordnete Erweiterung. Sie unterscheiden weiterhin nachgewiesene Aussagen, bewusst vereinfachte Modelle und noch nicht beantwortete Fragen.
-## 9. Warum ein gesamtes Drehmomentkennfeld den Fluss nicht eindeutig festlegt
-
-Bei jedem von null verschiedenen Stromvektor gilt für eine additive Flusskorrektur
-
-$$
-\delta M=k(i_q\,\delta\psi_d-i_d\,\delta\psi_q).
-$$
-
-Um **zwei verschiedene Fehlerkonventionen** nicht zu vermischen, verwenden wir ab hier die Schreibweise
-
-$$
-\boxed{\delta\boldsymbol\psi
-:=\boldsymbol\psi_{\mathrm{ziel}}-\boldsymbol\psi_{\mathrm{rec}}.}
-$$
-
-In den Abschnitten 3 und 6 bedeutete dagegen $\Delta\boldsymbol\psi=\boldsymbol\psi_{\mathrm{calc}}-\boldsymbol\psi_{\mathrm{true}}$. Beide Vorzeichenkonventionen sind zulässig, führen aber bei der Drehmomentdifferenz zu unterschiedlichen Vorzeichen. Hier wird fortan $\delta M=M_{\mathrm{ziel}}-M_{\mathrm{rec}}$ passend zur additiven Korrektur verwendet.
-
-Für $N$ diskrete Betriebspunkte entstehen aus dem Drehmomentvergleich zunächst $N$ skalare Gleichungen für $2N$ Flusskorrekturkomponenten. An jedem Punkt beschreibt die Gleichung für einen vorgegebenen Drehmomentunterschied eine **Gerade** im $(\delta\psi_d,\delta\psi_q)$-Raum. Das gesamte Kennfeld ist dadurch allein nicht eindeutig festgelegt.
-
-**Geometrischer Kern:** Der Vektor $(i_q,-i_d)^\mathsf T$ beobachtet nur den Anteil des Flussfehlers, der **senkrecht zum Stromvektor** liegt. Ein Zusatz $c\boldsymbol i$ ist drehmomentneutral, denn
-
-$$
-\delta M_{\mathrm{zusatz}}=k(i_q c i_d-i_d c i_q)=0.
-$$
-
-Bei $\boldsymbol i=\boldsymbol0$ verschwindet die Drehmomentinformation vollständig. Glattheit des Kennfeldes allein behebt die Mehrdeutigkeit nicht.
-
-## 10. Was die Integrabilitätsbedingung bedeutet
-
-### 10.1 Intuition: ein Flussfeld aus einer gemeinsamen Landschaft
-
-Für ein idealisiertes, konservatives magnetisches System kann es eine skalare magnetische Coenergy $W'(i_d,i_q)$ geben, deren Steigungen in den beiden Stromrichtungen die Flussverkettungen liefern:
-
-$$
-\psi_d=\frac{\partial W'}{\partial i_d},\qquad
-\psi_q=\frac{\partial W'}{\partial i_q}.
-$$
-
-Anschaulich sind $\psi_d$ und $\psi_q$ die beiden Komponenten des Gradienten einer einzigen „Potentiallandschaft“. Wenn diese Landschaft genügend glatt ist, dürfen wir die Reihenfolge der gemischten Ableitungen vertauschen:
-
-$$
-\boxed{\frac{\partial\psi_d}{\partial i_q}
-=\frac{\partial\psi_q}{\partial i_d}.}
-$$
-
-Das ist die **Integrabilitäts- oder Reziprozitätsbedingung**. Sie ist lokal notwendig; auf einem einfach zusammenhängenden Gebiet und bei geeigneter Glattheit ist sie auch hinreichend für ein skalares Potential. Ein konservatives Feld liefert unabhängig vom gewählten Integrationsweg zwischen zwei Strompunkten dieselbe Coenergy-Differenz.
-
-### 10.2 Die Bedingung betrifft das korrigierte Gesamtfeld
-
-Wir suchen
-
-$$
-\boldsymbol\psi_{\mathrm{ziel}}
-=\boldsymbol\psi_{\mathrm{rec}}+\delta\boldsymbol\psi.
-$$
-
-Wenn das **Zielfeld** integrabel sein soll, muss gelten:
-
-$$
-\frac{\partial(\psi_{d,\mathrm{rec}}+\delta\psi_d)}{\partial i_q}
+\[
+\mathbf L_{\mathrm{diff}}
+:=\mathbf J_{\psi}
 =
-\frac{\partial(\psi_{q,\mathrm{rec}}+\delta\psi_q)}{\partial i_d}.
-$$
-
-Umstellen ergibt die für eine möglicherweise **nichtintegrable Rekonstruktion** gültige Korrekturbedingung:
-
-$$
-\boxed{
-\frac{\partial\delta\psi_d}{\partial i_q}
--\frac{\partial\delta\psi_q}{\partial i_d}
+\begin{bmatrix}
+L_{dd}&L_{dq}\\
+L_{qd}&L_{qq}
+\end{bmatrix}
 =
--\left(
-\frac{\partial\psi_{d,\mathrm{rec}}}{\partial i_q}
--\frac{\partial\psi_{q,\mathrm{rec}}}{\partial i_d}
-\right).}
-$$
+\begin{bmatrix}
+\partial\psi_d/\partial i_d & \partial\psi_d/\partial i_q\\
+\partial\psi_q/\partial i_d & \partial\psi_q/\partial i_q
+\end{bmatrix}.
+\]
 
-**Wichtige gemeinsame Präzisierung:** Wir dürfen die ursprünglichen Terme nur dann wegkürzen, wenn **auch das rekonstruierte Ausgangsfeld** bereits integrabel ist. Die physikalische Korrektheit des **gesuchten Zielfeldes** darf eine Modellanforderung sein; sie beweist aber nicht, dass die ursprüngliche Rekonstruktion diese Anforderung erfüllt.
+Wenn \(W'\) mindestens zweimal stetig differenzierbar ist, gilt die Gleichheit gemischter zweiter Ableitungen:
 
-Ein Feld kann zudem **integrabel und trotzdem physikalisch falsch** sein. Die Integrabilität allein liefert keine absolute Flusskalibrierung.
+\[
+\boxed{L_{dq}=L_{qd}.}
+\]
 
-## 11. Mehrdeutigkeit trotz Drehmoment **und** Coenergy
+Die **Integrabilitäts- bzw. Reziprozitätsbedingung** für ein zunächst unabhängig gegebenes Flussfeld lautet damit
 
-### 11.1 Gegenbeispiel mit konstantem Faktor
-
-Angenommen, wir haben bereits irgendein Zielfeld gefunden, das sowohl die Drehmomentgleichung als auch die Integrabilitätsbedingung erfüllt. Wir addieren einen weiteren Anteil
-
-$$
-\boldsymbol h=c\boldsymbol i,
-\qquad h_d=c i_d,\quad h_q=c i_q,
-$$
-
-wobei $c$ eine Konstante mit der Einheit einer Induktivität ist.
-
-- **Drehmoment:** $k(i_qh_d-i_dh_q)=0$.
-- **Integrabilität:** $\partial h_d/\partial i_q=0$ und $\partial h_q/\partial i_d=0$; beide Seiten sind gleich.
-- **Trotzdem anderes Flussfeld:** Für $c\neq0$ und $I>0$ ist $\boldsymbol h\neq0$.
-
-Somit existieren unendlich viele Flussfelder, die beide Bedingungen erfüllen, **falls überhaupt eine passende Ausgangslösung existiert**. Dieses Gegenbeispiel **repariert** ein nichtintegrables Ausgangsfeld nicht; es zeigt, dass sich eine bereits gefundene gültige Lösung drehmoment- und integrabilitätserhaltend verändern lässt.
-
-### 11.2 Ortsabhängiger radialer Faktor
-
-Die Erweiterung lautete
-
-$$
-\boldsymbol h=c(i_d,i_q)\boldsymbol i.
-$$
-
-Der Drehmomentbeitrag bleibt **für jede** Funktion $c$ null. Aus der Integrabilitätsbedingung und der Produktregel folgt jedoch
-
-$$
-\frac{\partial(c i_d)}{\partial i_q}
-=\frac{\partial(c i_q)}{\partial i_d}
-\quad\Longleftrightarrow\quad
-\boxed{i_d\frac{\partial c}{\partial i_q}
-=i_q\frac{\partial c}{\partial i_d}.}
-$$
-
-Setzen wir $s=I^2=i_d^2+i_q^2$ und $c=f(s)$, so ergibt die Kettenregel
-
-$$
-\frac{\partial c}{\partial i_d}=2i_d f'(s),\qquad
-\frac{\partial c}{\partial i_q}=2i_q f'(s).
-$$
-
-Beide Seiten der Bedingung werden dann zu $2i_di_qf'(s)$: Die Gleichheit gilt also für jede ausreichend glatte Funktion $f$. Die zunächst im Kopf vermuteten Singularitäten auf den Winkelhalbierenden waren ein Rechenversehen, keine physikalische oder mathematische Singularität.
-
-### 11.3 Geometrische Interpretation und allgemeine Form
-
-Umgestellt können wir schreiben
-
-$$
-\begin{bmatrix}-i_q&i_d\end{bmatrix}
-\nabla_i c=0.
-$$
-
-Der erste Vektor ist die **Tangentialrichtung** an einen Kreis $i_d^2+i_q^2=I^2$. Die Gleichung besagt: Die Richtungsableitung von $c$ **entlang dieses Kreises ist null**. Der Faktor darf zwischen Kreisen variieren, nicht aber entlang eines zusammenhängenden Kreises.
-
-In Polarkoordinaten ist das $\partial c/\partial\theta=0$. Auf einem vollen, rotationszusammenhängenden Stromgebiet gilt deshalb (für $I>0$)
-
-$$
-\boxed{\boldsymbol h=f(I^2)\boldsymbol i.}
-$$
-
-Die Form $f(I^2)$ ist eine **radiale Lösungsfamilie**; für die Darstellung und Glattheit direkt am Ursprung sind passende Regularitätsannahmen nötig. Der entscheidende Befund bleibt: Die Mehrdeutigkeit umfasst **eine ganze unbekannte radiale Funktion**, nicht nur eine Zahl $c$.
-
-### 11.4 Bezug zu differentiellen Induktivitäten
-
-Für konstantes $c$ verändert $\boldsymbol h=c\boldsymbol i$ zum Beispiel
-
-$$
-\delta L_{dd}
-=\frac{\partial(c i_d)}{\partial i_d}=c.
-$$
-
-Daher können zwei torque- und coenergy-konsistente Felder **unterschiedliche differentielle Induktivitäten** besitzen. Eine bereits bekannte, richtige $L_{dd}$-Kennfläche als Hilfsbedingung anzunehmen, wäre hier zirkulär: Die differentiellen Induktivitäten sollen **aus dem korrigierten Flusskennfeld** berechnet werden.
-
-## 12. Warum ein einzelner Fluss-Referenzpunkt die Radialfunktion nicht bestimmt
-
-Für die ideale PSM gilt am Ursprung
-
-$$
-\psi_d(0,0)=\psi_{\mathrm{PM}},\qquad\psi_q(0,0)=0.
-$$
-
-Bei $\boldsymbol i=\boldsymbol0$ verschwindet aber der radiale Zusatz $f(I^2)\boldsymbol i$ für jeden **endlichen, regulären** Wert von $f(0)$. Diese physikalisch sinnvolle Referenzbedingung schränkt die drehmomentunsichtbare radiale Korrektur **am Ursprung nicht ein**.
-
-An einem anderen Strompunkt, etwa bei $i_q=0$, $i_d=-100\,\mathrm A$, wäre
-
-$$
- h_q=0,\qquad h_d=f(100^2)i_d.
-$$
-
-Eine unabhängige d-Flussreferenz könnte dort **einen** Wert $f(100^2)$ festlegen – aber nicht den Wert bei $I=200\,\mathrm A$ oder bei allen übrigen Radien. Nur unter einer zusätzlichen Annahme wie „$f$ ist überall konstant“ könnte eine einzelne geeignete Referenzmessung die ganze verbleibende **konstante** Zusatzmode bestimmen. Der d-Fluss am Punkt $i_q=0$ ist aus dem Drehmoment allein gerade **nicht** beobachtbar.
-
-## 13. Messgrößen festhalten: Spannung, Widerstand und Flussänderungen
-
-### 13.1 Forschungsentscheidung zu den Eingangsgrößen
-
-Die gemessenen Strom-, Spannungs-, Drehzahl- und Drehmomentwerte sollen zunächst **feste Beobachtungen** sein; wir passen sie nicht beliebig an, um das Kennfeld „schön“ zu machen. Das bedeutet **nicht**, dass jede Beobachtung exakt die physikalische Wahrheit ist: Die Messkette ist später gesondert zu qualifizieren.
-
-Der Statorwiderstand ist besonders unsicher, unter anderem durch Messverfahren und Temperatur. Eine Abweichung um einige mΩ kann bei kleinen Maschinenwiderständen bereits bedeutsam sein. Die Spannung verdient ebenfalls Aufmerksamkeit:
-
-- Die tatsächlichen Maschinenklemmen-Spannungsgrundschwingungen sind nicht automatisch identisch mit vom Controller berechneten oder kommandierten $dq$-Spannungen.
-- PWM-Abtastphase, Synchronisierung, Mittelung, Totzeit, Halbleiterspannungsabfälle und Modulation können Unterschiede verursachen.
-- Eine Controller-Spannung ist **nicht generell größer** als die echte Klemmenspannung; Richtung und Betrag des Fehlers hängen von den Randbedingungen ab.
-- Als erste Theorie betrachten wir eine ausgewählte Spannung als fest, bevor wir elektrische Fehlerquellen gemeinsam identifizieren.
-
-### 13.2 Flussänderung bei unveränderter gemessener Spannung
-
-Ändern wir den angenommenen Widerstand um $\delta R$, den berechneten Fluss um $\delta\boldsymbol\psi$ und halten $u_d,u_q,i_d,i_q,\omega_e$ fest, so folgt aus den stationären Spannungsgleichungen
-
-$$
-\begin{aligned}
-0&=\delta R\,i_d-\omega_e\,\delta\psi_q,\\
-0&=\delta R\,i_q+\omega_e\,\delta\psi_d.
-\end{aligned}
-$$
-
-Für $\omega_e\neq0$ folgt
-
-$$
-\boxed{\delta\boldsymbol\psi
-=\frac{\delta R}{\omega_e}
-\begin{bmatrix}-i_q\\i_d\end{bmatrix}.}
-$$
-
-Der widerstandsbedingte Flussunterschied ist **orthogonal zum Stromvektor**. Er liegt somit in der Richtung, die das Drehmoment beobachtet; sein Drehmomentbeitrag ist
-
-$$
-\delta M=-\frac{k\,\delta R}{\omega_e}I^2.
-$$
-
-Die bereits besprochene **radiale** Zusatzkorrektur $\boldsymbol h=c\boldsymbol i$ ist davon zu unterscheiden: Sie ist drehmomentneutral, würde aber bei festem $R_s$ eine Spannung verändern.
-
-### 13.3 Spannungsrichtungen vergleichen
-
-Bei unverändertem Fluss verursacht eine Widerstandsänderung
-
-$$
-\delta\boldsymbol u_R=\delta R\begin{bmatrix}i_d\\i_q\end{bmatrix}.
-$$
-
-Bei festem Widerstand verursacht ein radialer Flusszusatz $c\boldsymbol i$
-
-$$
-\delta\boldsymbol u_{\mathrm{radial}}
-=\omega_e c\begin{bmatrix}-i_q\\i_d\end{bmatrix}.
-$$
-
-Die beiden **speziell so definierten** Spannungsänderungsvektoren sind orthogonal. Bei $I>0$ und $\omega_e\neq0$ können sie sich nicht beide ungleich null zu null addieren. **Das widerspricht Abschnitt 13.2 nicht:** Dort war eine *orthogonale Flussänderung* erlaubt, die den Widerstandsbeitrag an den festen Spannungsmesswerten tatsächlich kompensieren kann. Orthogonalität der Spannungskomponenten gilt **nicht für beliebige Flussänderungen**.
-
-**Wissenschaftliche Grenze:** Bei bekanntem $R_s$, idealer stationärer Spannungsgleichung und $\omega_e\neq0$ sind beide Flusskomponenten aus den Messwerten festgelegt. Ist $R_s$ unsicher, können unterschiedliche Kombinationen aus $R_s$ und dem senkrechten Flussanteil **dieselben gemessenen Spannungen** erklären.
-
-## 14. Elektrische Leistungsbilanz und was der Torque-Ansatz wirklich hinzufügt
-
-Multiplizieren wir $u_d=R_si_d-\omega_e\psi_q$ mit $i_d$, $u_q=R_si_q+\omega_e\psi_d$ mit $i_q$ und addieren, folgt
-
-$$
- u_di_d+u_qi_q=R_s(i_d^2+i_q^2)+\omega_e(\psi_di_q-\psi_qi_d).
-$$
-
-Für die zunächst betrachtete **dreiphasige, amplitudeninvariante $dq$-Transformation** multiplizieren wir mit $3/2$. Wegen $\omega_e=p\omega_m$ und $M_{\mathrm{em}}=(3/2)p(\psi_di_q-\psi_qi_d)$ erhalten wir im **idealen stationären Modell ohne getrennte Eisenverlustbranche**
-
-$$
-\boxed{P_{\mathrm{el}}=P_{\mathrm{Cu}}+\omega_m M_{\mathrm{em}},}
-$$
-
-wobei
-
-$$
-P_{\mathrm{el}}=\frac32(u_di_d+u_qi_q),\qquad
-P_{\mathrm{Cu}}=\frac32R_sI^2.
-$$
-
-Setzen wir die *aus genau denselben Spannungsdaten* rekonstruierten Flüsse in die Drehmomentgleichung ein, folgt bei $\omega_m\neq0$ lediglich
-
-$$
+\[
 \boxed{
-M_{\mathrm{em,calc}}
-=\frac{3}{2\omega_m}
-\left[u_di_d+u_qi_q-R_sI^2\right].}
-$$
+r_{\mathrm{int}}:=
+\frac{\partial\psi_d}{\partial i_q}
+-\frac{\partial\psi_q}{\partial i_d}=0.
+}
+\]
 
-**Erkenntnis:** Das aus $u,i,R_s,\omega$ berechnete „Drehmoment aus Fluss“ ist **keine zusätzliche unabhängige Messinformation**; es ist dieselbe elektrische Leistungsbilanz in anderer Form. Zusätzliche Information liefert erst ein **hinreichend unabhängiger** Drehmoment- oder Leistungsreferenzkanal.
+Unsere Residualkonvention ist damit **das Negative** des üblichen skalaren 2D-Curls \(\partial_{i_d}\psi_q-\partial_{i_q}\psi_d\); Vorzeichen dürfen beim Vergleich nicht unbemerkt wechseln. Auf einem einfach zusammenhängenden Gebiet ist das verschwindende Residuum unter geeigneten Glattheitsannahmen hinreichend für ein skalares Potential. Die zugehörigen Wegintegrale
 
-### 14.1 Wellenmoment und weitere Verluste
+\[
+\Delta W'=\int_\Gamma \boldsymbol\psi\cdot d\boldsymbol i
+\]
 
-Für eine vereinfachte stationäre **Gesamtleistungsbilanz** betrachten wir bei positiver Drehzahl
+sind dann unabhängig vom gewählten Weg zwischen zwei festgehaltenen Strompunkten. Die Bezeichnung *Wegintegral* ist hier präziser als „partielle Integration“.
 
-$$
-\boxed{
-P_{\mathrm{el}}
-\approx\frac32R_sI^2+P_{\mathrm{Fe}}+P_{\mathrm{mech}}
-+\omega_mM_{\mathrm{Welle}}.}
-$$
+### 4.2 Konservativ bedeutet nicht linear oder entkoppelt
 
-Daraus dürfen wir **nicht ohne weitere Modellklärung** folgern, dass der aus den idealen $dq$-Gleichungen berechnete Momentwert bereits das wahre, eisenverlustbereinigte elektromagnetische Moment ist. Es kommt darauf an, ob das rekonstruierte Flussfeld die tatsächliche Magnetisierung oder eine effektive Klemmenfluss-Größe repräsentiert und wo die Eisenverluste im Ersatzmodell bilanziert werden. Die beiden Bilanzen sind Modellgleichungen mit **unterschiedlichen expliziten Verlustannahmen**, keine voneinander unabhängigen physikalischen Beweise.
+Als einfaches Referenzmodell diente
 
-Wellen- und elektromagnetisches Drehmoment sind wegen Eisen- und mechanischen Verlusten im Allgemeinen verschieden. Das gemessene Moment darf also nicht kommentarlos als $M_{\mathrm{em}}$ eingesetzt werden; bei umgekehrter Drehrichtung müssen Leistungs- und Verlustvorzeichen konsistent behandelt werden. Ebenso ist die Herkunft eines CAN-Moments auf eine tatsächlich unabhängige Drehmomentmessung zu prüfen.
-
-## 15. Trennung von Kupferverlusten und übrigen Verlusten: Strombetrag und Richtung
-
-Definieren wir für die obige angenäherte Gesamtbilanz
-
-$$
-Y:=P_{\mathrm{el}}-\omega_m M_{\mathrm{Welle}},\qquad I^2=i_d^2+i_q^2.
-$$
-
-Dann gilt unter den vereinfachten Modellannahmen
-
-$$
-Y\approx\frac32R_sI^2+P_{\mathrm{Fe}}+P_{\mathrm{mech}}.
-$$
-
-Wenn wir bei **konstanter Drehzahl, Temperatur und näherungsweise stromunabhängigen Verlusten** $P_{\mathrm{Fe}}+P_{\mathrm{mech}}=P_0$ setzen, entsteht die Gerade
-
-$$
-\boxed{Y\approx\underbrace{\frac32R_s}_{\text{Steigung}}I^2
-+\underbrace{P_0}_{\text{Achsenabschnitt}}.}
-$$
-
-In diesem vereinfachten Fall wären Widerstand und Verlustoffset aus mehreren Strombeträgen identifizierbar. **Eine gemessene Gerade beweist jedoch nicht, dass ihre Steigung nur Kupferverluste enthält:** Falls der Eisenverlustanteil ebenfalls proportional zu $I^2$ ist, kann er die Steigung verfälschen.
-
-### 15.1 Vergleich zweier Stromrichtungen bei gleichem Strombetrag
-
-Für die Betriebspunkte $A=(-100\,\mathrm A,0)$ und $B=(0,100\,\mathrm A)$ gilt $I_A^2=I_B^2$. Ihre modellierten Kupferverluste sind gleich. Bei gleicher Drehzahl und gleichem Temperaturzustand dürfen wir die mechanischen Verluste **näherungsweise** ebenfalls gleich setzen.
-
-Eine Differenz von $Y_A$ und $Y_B$ wäre dann im Modell auf unterschiedliche Eisenverluste beziehungsweise auf verletzte Modellannahmen/Messfehler zurückzuführen. **Den Widerstand isoliert dieser Vergleich nicht**, denn der Kupferterm fällt gerade heraus.
-
-### 15.2 Unterschiedliche Strombeträge bei hypothetisch gleichem Verlustniveau
-
-Für zwei Betriebspunkte mit gleichen Eisen- und mechanischen Verlusten, aber $I_A^2\neq I_B^2$, gilt dagegen
-
-$$
-\boxed{Y_A-Y_B=\frac32R_s(I_A^2-I_B^2).}
-$$
-
-Damit könnte man **unter der Gleichheitsannahme** $R_s$ berechnen. Das Hauptproblem ist nun, solche Betriebspunkte ohne zusätzliche unbekannte Größen zu finden.
-
-## 16. Konstanter Flussbetrag als hypothetische Verlust-Niveaulinie – und der Zirkelschluss
-
-Als grobe Arbeitshypothese verwendeten wir
-
-$$
-P_{\mathrm{Fe}}\approx F(\omega_e,\lVert\boldsymbol\psi\rVert).
-$$
-
-Das ist **kein allgemeines Eisenverlustgesetz**: Lokal verteilte Flussdichten, Oberwellen, Sättigung und Hysterese können selbst bei gleichem Betrag der $dq$-Flussverkettung zu unterschiedlichen Eisenverlusten führen.
-
-Für die idealisierte lineare PSM mit konstanten Induktivitäten
-
-$$
+\[
 \psi_d=\psi_{\mathrm{PM}}+L_di_d,\qquad
-\psi_q=L_qi_q
-$$
+\psi_q=L_qi_q,\qquad
+W'_0=\psi_{\mathrm{PM}}i_d+\frac12L_di_d^2+\frac12L_qi_q^2.
+\]
 
-liefert die Vorgabe eines konstanten Flussbetrags
+Dies ist **ein spezielles lineares Modell**, nicht die Definition physikalisch idealer Magnetisierung. Um Kreuzsättigung *didaktisch* zu modellieren, kann eine bewusst konstruierte gemeinsame Coenergy beispielsweise enthalten
 
-$$
-\boxed{(\psi_{\mathrm{PM}}+L_di_d)^2+L_q^2i_q^2
-=\psi_{\mathrm{ref}}^2.}
-$$
+\[
+W'=W'_0+\frac{\gamma}{2}i_di_q^2+\frac{\beta}{2}i_d^2i_q^2.
+\]
 
-Das ist bei von null verschiedenen $L_d,L_q$ eine **Ellipse** im Stromraum, mit Mittelpunkt
+Aus dem Gradienten folgen
 
-$$
-\boxed{(i_{d,M},i_{q,M})=
-\left(-\frac{\psi_{\mathrm{PM}}}{L_d},0\right)}
-$$
-
-und Halbachsen $\psi_{\mathrm{ref}}/|L_d|$ und $\psi_{\mathrm{ref}}/|L_q|$. Auf derselben Flussellipse können verschiedene Strombeträge liegen. Wenn wir bei $i_q=0$, $\psi_d>0$ beginnen und $|i_q|$ erhöhen, muss $i_d$ zunächst weiter ins Negative gehen, um den Betrag konstant zu halten; die Änderung ist am Startpunkt erster Ordnung null und beginnt quadratisch.
-
-**Geometrische Existenz ist nicht gleich praktische Messbarkeit:** Strom-, Spannungs-, Temperatur- und Entmagnetisierungsgrenzen müssen eingehalten werden. Ein Vorzeichenwechsel von $\psi_d$ ist für die Existenz unterschiedlicher Strombeträge auf einer zulässigen Teilkurve nicht erforderlich; er bedeutet auch nicht automatisch Prüfstandsinstabilität.
-
-**Gemeinsam erkannter Zirkelschluss:** Um die Flussellipse und damit vermeintlich gleiche Eisenverluste auszuwählen, bräuchten wir $\boldsymbol\psi$. Den Fluss berechnen wir bisher aber aus $u,i,\omega_e$ und dem **gesuchten $R_s$**. Die Auswahl der Vergleichspunkte hängt somit bereits von der Unbekannten ab, die wir anhand dieser Punkte bestimmen wollen. Ein iteratives Verfahren wäre denkbar, aber **ohne unabhängige Zusatzinformation noch kein eindeutiger physikalischer Nachweis**.
-
-## 17. Mehrdrehzahlansatz: den Widerstandsanteil durch Differenzen eliminieren
-
-Um den Zirkelschluss zu umgehen, haben wir zwei **stationäre Messungen derselben Maschine am gleichen Strombetriebspunkt** bei verschiedenen elektrischen Winkelgeschwindigkeiten betrachtet:
-
-$$
+\[
 \begin{aligned}
-u_{q,1}&=R_si_q+\omega_{e,1}\psi_d,\\
-u_{q,2}&=R_si_q+\omega_{e,2}\psi_d.
+\psi_d&=\psi_{\mathrm{PM}}+L_di_d+\frac{\gamma}{2}i_q^2+\beta i_di_q^2,\\
+\psi_q&=L_qi_q+\gamma i_di_q+\beta i_d^2i_q.
 \end{aligned}
-$$
+\]
 
-**Hier und nur hier nehmen wir zusätzlich an**, dass sich bei festem $(i_d,i_q)$ und gleicher Temperatur sowohl $R_s$ als auch der zugrunde liegende magnetische Fluss **zwischen den Drehzahlmessungen nicht ändern**. Drehzahlabhängige Verlust-, Dynamik-, Umrichter- und Erfassungseffekte bleiben zunächst außerhalb des Modells.
+Erneutes Differenzieren liefert
 
-Subtraktion liefert für $\omega_{e,1}\neq\omega_{e,2}$:
-
-$$
+\[
 \boxed{
-\psi_d=
-\frac{u_{q,2}-u_{q,1}}{\omega_{e,2}-\omega_{e,1}}.}
-$$
-
-Der entsprechende d-Spannungsvergleich lautet
-
-$$
 \begin{aligned}
-u_{d,1}&=R_si_d-\omega_{e,1}\psi_q,\\
-u_{d,2}&=R_si_d-\omega_{e,2}\psi_q,
-\end{aligned}
-$$
-
-also
-
-$$
-\boxed{
-\psi_q=-\frac{u_{d,2}-u_{d,1}}{\omega_{e,2}-\omega_{e,1}}.}
-$$
-
-Im Grenzfall einer variierenden Drehzahl bei weiterhin festem Strom- und Temperaturzustand gilt unter denselben Annahmen
-
-$$
-\boxed{\left.\frac{\partial u_q}{\partial\omega_e}\right|_{i_d,i_q,T}=\psi_d,\qquad
-\left.\frac{\partial u_d}{\partial\omega_e}\right|_{i_d,i_q,T}=-\psi_q.}
-$$
-
-**Geometrische Interpretation:** $u_q(\omega_e)$ ist eine Gerade mit Steigung $\psi_d$ und Achsenabschnitt $R_si_q$; $u_d(\omega_e)$ hat Steigung $-\psi_q$ und Achsenabschnitt $R_si_d$. Ein auf mehrere Drehzahlen verteilter Vergleich könnte die Flusskomponenten damit **ohne vorherige Kenntnis des Statorwiderstands** bestimmen und den Widerstand im vereinfachten Modell über die Achsenabschnitte zugänglich machen.
-
-Anders als eine zusätzliche Drehmomentberechnung aus derselben Einzelmessung nutzt dieser Vergleich **zusätzliche Messzustände**. Seine Unabhängigkeit ist allerdings bedingt: Die für die Spannungsrekonstruktion tatsächlich verwendeten Grundschwingungen müssen zur Modellannahme passen. Bei gleichem Strom und gleicher Temperatur darf $\psi$ nicht unbemerkt drehzahlabhängig sein. Tatsächliche Messdaten müssen dieselbe Maschine und möglichst identische Strompunkte enthalten. Eine künstlich nur in Drehzahlkanälen modifizierte Datei wäre keine unabhängige Drehzahlmessung.
-
-### 17.1 Physikalische und experimentelle Vorbehalte
-
-- Für eine gültige Steigung braucht es unterschiedliche $\omega_e$ und identische, stationäre magnetische Zustände.
-- Bei Geschwindigkeitsabhängigkeit von Fluss, Widerstand oder Spannungserfassung wäre die gemessene Steigung **nicht einfach** der gesuchte magnetische Fluss.
-- Messrauschen, zeitliche Synchronisierung und PWM-Spannungsbestimmung beeinflussen besonders die numerische Steigung; größere Drehzahlabstände können helfen, ändern aber möglicherweise den Zustand.
-- Der am Anfang der Untersuchung vorausgesetzte Faktor $k=3p/2$ gilt für unsere dreiphasige Konvention; andere Maschinen- oder Phasenkonfigurationen müssen entsprechend qualifiziert werden.
-
-## 18. Aktueller Erkenntnisstand und konkrete Stelle zum Weiterarbeiten
-
-### Mathematisch gezeigt (jeweils unter den erklärten Modellbedingungen)
-
-1. Ein einzelner Drehmomentwert bestimmt nur **eine Projektion** des zweidimensionalen Flussvektors.
-2. Auch ein gesamtes Drehmomentkennfeld zusammen mit einer Integrabilitätsforderung bestimmt den Fluss **nicht eindeutig**: Mindestens der radiale Zusatz $f(I^2)\boldsymbol i$ bleibt frei.
-3. Der radial drehmomentneutrale Zusatz kann **differentielle Induktivitäten verändern**.
-4. Ändern wir $R_s$ bei **fixierten Spannungs- und Stromwerten**, ist der dafür nötige Flussunterschied **senkrecht zum Strom** und beeinflusst das Drehmoment.
-5. Ein aus denselben stationären Spannungsgrößen rekonstruierter Fluss mit anschließender Momentberechnung liefert keine neue unabhängige Gleichung; es ist die umgestellte **ideale elektrische Leistungsbilanz**.
-6. Unter der expliziten Mehrdrehzahlannahme, dass Fluss und Widerstand beim Variieren von $\omega_e$ konstant bleiben, erscheinen $\psi_d$ und $-\psi_q$ als **Spannungssteigungen**.
-
-### Hypothesen, die später gezielt geprüft werden müssten
-
-- Gültigkeit der verwendeten stationären $dq$-Gleichungen mit den real verfügbaren Spannungs- und Stromkanälen.
-- Unabhängigkeit und Bilanzgrenze des gemessenen Wellenmoments; Trennung von Eisen-, mechanischen und weiteren Verlusten.
-- Stabiler thermischer Zustand; möglichst dieselben Strombetriebspunkte über mehrere **echte** Drehzahlen.
-- In welchem Bereich eine einfache Beschreibung der Eisenverluste über den Betrag der Flussverkettung akzeptabel ist.
-- Ob Spannung, Strom, Winkelreferenz und Abtastzeitpunkte übereinstimmen; Controller-Spannungen sind allenfalls ein gesondert zu qualifizierender Vergleichskanal.
-- Keiner der bislang diskutierten Ansätze ist bereits als eindeutige Korrektur **realer** Flusskennfelder validiert.
-
-### Historischer Einstiegspunkt vom 08.10.2026 (heute durch Abschnitt 26 überholt)
-
-Wir standen zuletzt bei der Geradendarstellung
-
-$$
-u_q(\omega_e)=\underbrace{\psi_d}_{m_q}\,\omega_e
-+\underbrace{R_si_q}_{b_q},
-\qquad
-u_d(\omega_e)=\underbrace{-\psi_q}_{m_d}\,\omega_e
-+\underbrace{R_si_d}_{b_d}.
-$$
-
-**Offene Übungsfrage:** Wie lässt sich $R_s$ aus einem oder beiden Achsenabschnitten bestimmen? Welche Stromkomponente muss dafür ungleich null sein, und was passiert beispielsweise bei $i_q=0$? Die Antwort soll wieder **selbst hergeleitet** werden.
-
-Danach erst entscheiden, ob eine formale Identifizierbarkeitsanalyse oder ein minimales **selbst programmiertes** Experiment mit synthetischen Messdaten sinnvoll ist.
-
----
-
-*Dokumentationshistorie: Abschnitte 1–8 erfassen den ersten Zwischenstand vom 08.10.2026, Abschnitte 9–18 die daran anschließende Theorieentwicklung. Die Abschnitte 19–26 ersetzen die früheren unstrukturierten Quick Notes durch eine fachlich geordnete Erweiterung bis zum 09.10.2026. Alte Lernfragen sind als historische Zwischenstände zu lesen, nicht als aktueller Arbeitsauftrag.*
-
----
-
-## 19. Präzisiertes Forschungsziel und Trennung der Informationsebenen
-
-### 19.1 Was untersuchen wir tatsächlich?
-
-Das übergeordnete Problem ist **nicht die Bestimmung eines einzelnen Statorwiderstands**, sondern die Frage, wie zuverlässig die üblichen Mess- und Rekonstruktionsverfahren das magnetische Verhalten einer elektrischen Maschine wiedergeben. Ausgangspunkt sind unter anderem auffällig verkippte Flusskennflächen, Symmetrieverletzungen und Abweichungen zwischen Fluss-, Drehmoment- und Verlustbetrachtungen.
-
-Mindestens vier Ursachenklassen sind ausdrücklich auseinanderzuhalten:
-
-1. **Reale Physik:** magnetische Sättigung und Kreuzsättigung, Hysterese, Eisenverluste, gegebenenfalls Zustands- und Frequenzabhängigkeiten.
-2. **Messkette:** Spannungs- und Stromsensorik, Rotorlage beziehungsweise Winkeloffset, Synchronisierung, Abtastung, PWM-/Umrichtereffekte.
-3. **Modell- und Parameterfehler:** etwa ein unzutreffender oder temperaturabhängiger Statorwiderstand, ungeeignete stationäre Gleichungen oder unvollständige Verlustzweige.
-4. **Numerische Artefakte:** Interpolation, Glättung, Funktionsansatz, schlecht konditionierte Ableitungen, Randeffekte und Extrapolation.
-
-**Leitprinzip:** Nicht jede Abweichung ist ein Fehler. Eine mathematische Korrektur ist nur dann wünschenswert, wenn wir wissen, welche Information sie erhält beziehungsweise entfernt. Die mögliche Ursache muss aus voneinander unterscheidbaren Beobachtungen und begründeten Zusatzannahmen abgeleitet werden.
-
-### 19.2 Drei fachliche Ebenen
-
-**Ebene A – Beobachtungen:** gemessene beziehungsweise bereitgestellte Spannungen, Ströme, Drehzahlen, Temperaturinformationen und Drehmomentkanäle, jeweils mit Herkunft und Messkonvention.
-
-**Ebene B – Rekonstruiertes effektives Flussfeld:** `ψd_rec(id,iq)`, `ψq_rec(id,iq)` aus den gewählten stationären Spannungsgleichungen und dem eingesetzten `Rs`. Dieses Feld enthält im Allgemeinen bereits Einflüsse des Ersatzmodells und möglicher Fehler.
-
-**Ebene C – Physikalisches Modell und Diagnose:** ein möglicher konservativer magnetischer Anteil aus einer Koenergie sowie verbleibende, separat auszuwertende Abweichungen. Die konzeptionelle Zerlegung
-
-\[
-\boldsymbol\psi_{\mathrm{rec}}=\nabla_{\boldsymbol i}W' + \boldsymbol r
+L_{dd}&=L_d+\beta i_q^2,\\
+L_{qq}&=L_q+\gamma i_d+\beta i_d^2,\\
+L_{dq}&=L_{qd}=\gamma i_q+2\beta i_di_q.
+\end{aligned}}
 \]
 
-ist **keine experimentell bewiesene oder eindeutige Zerlegung in Magnetisierung und Eisenverluste**. Im Residuum können ebenso Sensor-, Widerstands-, Winkel-, Spannungs- und Approximationsfehler enthalten sein.
+Somit können die **Hauptinduktivitäten stromabhängig** und die **Kreuzinduktivitäten symmetrisch** sein. Die Koeffizienten \(\gamma,\beta\) sind **nicht aus unseren realen Messungen identifiziert**, sondern dienen zur nachvollziehbaren Modellkonstruktion. Die Herleitung einer zusätzlichen Coenergy-Funktion ist stets auf ihre Voraussetzungen und Auswirkungen auf **alle** Flusskomponenten zu prüfen.
 
-Daher bleiben Rohbeobachtungen, rekonstruierte Flussfelder, unabhängige glatte Fits, mögliche Koenergieprojektionen und deren Residuen als getrennte Datensichten verfügbar. Weder Symmetrisierung noch Coenergy-Projektion darf die Ausgangsinformation stillschweigend überschreiben.
+### 4.3 Symmetrie ist eine eigene Hypothese
 
-### 19.3 Was unsere Prüfungen aussagen dürfen
-
-- **Integrabilität/Reziprozität** prüft, ob ein hinreichend glattes Feld lokal als Gradient eines gemeinsamen Skalarpotentials darstellbar ist; sie bestimmt weder Flussoffsets noch eine eindeutige Ursache eines Residuums.
-- **Maschinensymmetrie** prüft zusätzliche, **explizit angenommene** Rotor-/dq-Symmetrien; sie ist nicht für jede Maschine und jeden Verlustmechanismus automatisch gültig.
-- **Drehmoment und Leistungsbilanz** liefern je nach Herkunft der Referenz mehr oder weniger unabhängige Information. Aus denselben `u`-, `i`- und `Rs`-Werten zurückgerechnetes Moment ist keine unabhängige Messung (vgl. Abschnitt 14).
-- **Mehrdrehzahlvergleiche** können zusätzliche Beobachtungen liefern, benötigen aber echte unterschiedliche Messzustände und überprüfte Annahmen gleicher Magnetisierung und Temperatur (vgl. Abschnitt 17).
-
-Die Identifizierbarkeitsgrenze aus Abschnitten 9–12 bleibt bestehen: Ein drehmomentneutraler, integrabler radialer Zusatz \(\boldsymbol h=f(i_d^2+i_q^2)\boldsymbol i\) kann trotz Drehmoment- und Coenergy-Konsistenz unsichtbar bleiben.
-
-## 20. Konservative Magnetisierung, Kreuzsättigung und Symmetrie
-
-### 20.1 Konservative Referenz ist nicht gleich lineare Maschine
-
-Für eine idealisierte konservative PSM führen wir ein ausreichend glattes, auf die amplitudeninvarianten dq-Größen normiertes Potential ein:
+Eine idealisiert zur d-Achse spiegelsymmetrische PSM im korrekt orientierten dq-System kann die Beziehungen
 
 \[
-\boldsymbol\psi_{\mathrm{mag}}=\nabla_{\boldsymbol i}W'(i_d,i_q),
-\qquad
-\mathbf L_{\mathrm{diff}}=\frac{\partial\boldsymbol\psi}{\partial\boldsymbol i}
-=\nabla_{\boldsymbol i}^{2}W'.
+\psi_d(i_d,-i_q)=\psi_d(i_d,i_q),\qquad
+\psi_q(i_d,-i_q)=-\psi_q(i_d,i_q)
 \]
 
-Hierbei gilt die Reziprozität:
+erfüllen. Diese Forderung ist **nicht** bereits aus der Existenz einer Coenergy ableitbar. Konstant nichtverschwindende Kreuzinduktivitäten könnten diese Symmetrie verletzen, während nichtlineare Kreuzsättigung mit beiden Bedingungen vereinbar ist.
+
+Konstante Flussoffsets \((c_d,c_q)\) besitzen verschwindende Kreuzableitungen und sind selbst integrabel:
 
 \[
-L_{dq}:=\frac{\partial\psi_d}{\partial i_q}
-=\frac{\partial\psi_q}{\partial i_d}=:L_{qd}.
+\Delta W'=c_di_d+c_qi_q.
 \]
 
-Die **gesamte dreiphasige** magnetische Koenergie benötigt bei amplitudeninvarianter dq-Transformation zusätzlich den Faktor \(3/2\); das hier verwendete `W'` ist ein entsprechend **normiertes mathematisches Potential**.
-
-Eine lineare entkoppelte PSM ist nur das einfachste Rechenbeispiel:
+Die Integrabilitätsprüfung übersieht solche Offsets, obwohl sie z. B. die Symmetrie und das berechnete Moment verändern können:
 
 \[
-W'_0=\psi_{\mathrm{PM}}i_d+\tfrac12 L_di_d^2+\tfrac12 L_qi_q^2,
-\quad
-\psi_d=\psi_{\mathrm{PM}}+L_di_d,\quad \psi_q=L_qi_q.
+\Delta M=k_T(c_di_q-c_qi_d).
 \]
 
-Kreuzkopplung ist nicht per se ein Fehler und nicht auf nichtintegrable Modelle beschränkt. Auch lineare Modelle mit konstanten Kreuzkoeffizienten sind möglich, **sofern** die für die Koenergie nötige Symmetrie `Ldq=Lqd` gilt.
+**Konsequenz:** Integrabilität, vorausgesetzte Maschinensymmetrie und unabhängige Fluss-/Drehmomentreferenzen prüfen **verschiedene** Eigenschaften. Eine konservative Kennfläche kann dennoch einen physikalisch falschen Offset oder eine falsche Skalierung aufweisen.
 
-### 20.2 Zusätzliche Rotorsymmetrie ist eine eigene Annahme
+## 5. Was sich aus einem Drehmomentvergleich bestimmen lässt – und was nicht
 
-Für eine bezüglich der d-Achse spiegelsymmetrische PSM bei korrekt ausgerichtetem dq-System ist beispielsweise zu erwarten:
+### 5.1 Die beobachtete Flussrichtung
+
+Für festgehaltene \(i_d,i_q\) sei ein additiver Flussunterschied \(\delta\boldsymbol\psi\) definiert, so dass \(\delta M=M_{\mathrm{ziel}}-M_{\mathrm{rec}}\) gilt. Dann folgt **exakt** (nicht nur infinitesimal), weil das Drehmoment bei fixen Strömen linear in den Flüssen ist:
 
 \[
-\psi_d(i_d,-i_q)=\psi_d(i_d,i_q),
-\qquad
-\psi_q(i_d,-i_q)=-\psi_q(i_d,i_q).
+\delta M=k_T(i_q\delta\psi_d-i_d\delta\psi_q)
+=k_T\,\underbrace{\begin{bmatrix}i_q&-i_d\end{bmatrix}}_{\boldsymbol a^\mathsf T}
+\delta\boldsymbol\psi.
 \]
 
-Eine **konstante** von null verschiedene Kreuzinduktivität würde diese konkrete Symmetrie verletzen; **nichtlineare Kreuzsättigung** muss sie nicht verletzen.
-
-Ein bewusst konstruiertes, integrables Beispiel:
+Der Beobachtungsvektor ist zum Stromvektor orthogonal:
 
 \[
-W'=W'_0+\tfrac{\gamma}{2}i_di_q^2
-\quad\Longrightarrow\quad
-\begin{cases}
-\psi_d=\psi_{\mathrm{PM}}+L_di_d+\tfrac{\gamma}{2}i_q^2,\\
-\psi_q=L_qi_q+\gamma i_di_q.
-\end{cases}
+\boldsymbol a^\mathsf T\boldsymbol i=i_qi_d-i_di_q=0.
 \]
 
-Daraus folgen `Ldd=Ld`, `Lqq=Lq+γ id` sowie `Ldq=Lqd=γ iq`. Dieser Term wurde **zur Illustration konstruiert**, nicht aus Rohmessungen oder einem allgemein gültigen Sättigungsgesetz abgeleitet.
+**Geometrie:** Der Drehmomentvergleich erkennt bei gegebenem Strom nur die Projektion eines Flussunterschiedes auf die Richtung \((i_q,-i_d)\), also **senkrecht zum Strom**. Die zum Strom **parallele** Komponente liegt im Nullraum. Bei \(\boldsymbol i=\boldsymbol0\) liefert das ideale Drehmoment überhaupt keine Flussinformation.
 
-Mit einer weiteren möglichen Kopplung \(\Delta W'_2=\tfrac{\beta}{2}i_d^2i_q^2\) erhalten wir:
+Ein Messpunkt liefert damit **eine skalare** Gleichung für zwei unbekannte Flussunterschiede. Auch \(N\) getrennte Strompunkte geben ohne weitere Einschränkungen zunächst nur \(N\) skalare Gleichungen für \(2N\) Korrekturkomponenten.
+
+### 5.2 Warum selbst Drehmoment **und** Coenergy nicht eindeutig sind
+
+Nehmen wir an, ein physikalisch zulässiges Zielfeld erfüllt bereits sowohl eine Drehmomentbedingung als auch die Integrabilität. Ein Zusatz
 
 \[
-L_{dd}=L_d+\beta i_q^2,\qquad
-L_{qq}=L_q+\gamma i_d+\beta i_d^2,\qquad
-L_{dq}=L_{qd}=\gamma i_q+2\beta i_di_q.
+\boldsymbol h(\boldsymbol i)=c(\boldsymbol i)\,\boldsymbol i
 \]
 
-Damit zeigt sich, dass zusätzliche Koenergieterme mehrere Induktivitätskomponenten zugleich beeinflussen. Ein dauerhaft konstantes `Ldd` auf der d-Achse ist eine **Beschränkung dieses gewählten Modellansatzes**, keine Aussage über die reale Maschine. Für flexible magnetische Modelle sind ausreichend glatte RBF- oder B-Spline-Funktionen langfristig plausibler als ein einzelnes hochgradiges globales Polynom.
-
-### 20.3 Integrabilität übersieht konstante Flussoffsets
-
-Für additive Konstanten \(\Delta\psi_d=c_d\), \(\Delta\psi_q=c_q\) gilt weiterhin `Ldq=Lqd`, weil die Ableitungen der Offsets null sind. Ein solches Feld besitzt den zusätzlichen Potentialterm
+bleibt drehmomentneutral, weil \(i_qh_d-i_dh_q=0\). Damit auch **der Zusatz** integrabel ist, muss gelten
 
 \[
-\Delta W'=c_di_d+c_qi_q,
-\]
-
-obwohl es physikalisch falsch kalibriert sein kann. Seine Drehmomentabweichung ist dagegen
-
-\[
-\Delta M=\tfrac32p(c_di_q-c_qi_d).
-\]
-
-Integrabilität, Symmetrie, absolute Referenz und unabhängige Drehmomentinformation sind deshalb **komplementäre, nicht austauschbare Diagnosen**. Keine davon garantiert allein die wahre Flusskennfläche.
-
-## 21. Vereinfachtes Eisenverlust-Ersatzmodell und seine geometrische Signatur
-
-### 21.1 Warum eine Verlustleistung allein das Flussfeld nicht bestimmt
-
-Ein materialspezifischer Bertotti-Ansatz beschreibt näherungsweise Anteile der Eisenverlustleistung, beispielsweise Hysterese-, Wirbelstrom- und Exzessverluste als Funktionen von Frequenz und **lokaler magnetischer Flussdichte**. Die örtliche Flussdichte `B(x,t)` ist nicht identisch mit einer dq-Flussverkettung. Ohne weitere Feld-, Geometrie- oder FEM-Informationen und ein passendes Ersatzmodell lässt sich aus einem skalaren `PFe` kein eindeutiger zweikomponentiger Flussfehler ableiten.
-
-Zur **kontrollierten Modelluntersuchung** nutzen wir daher vorerst einen idealisierten, stationären dq-Eisenverlustzweig mit konstantem `RFe`, **nicht** ein validiertes Modell realer Maschinenverluste.
-
-### 21.2 Magnetisierungsstrom und gemessener Statorstrom
-
-Das bewusst vereinfachte Ersatzmodell unterscheidet:
-
-\[
-\boldsymbol i_s=\boldsymbol i_m+\boldsymbol i_{\mathrm{Fe}},\qquad
-\boldsymbol i_{\mathrm{Fe}}=\frac{\boldsymbol e}{R_{\mathrm{Fe}}},\qquad
-\boldsymbol e=\omega_e\begin{bmatrix}-\psi_q\\\psi_d\end{bmatrix}.
-\]
-
-Die konservative magnetische Koenergie wird in diesem Modell als Funktion von \(\boldsymbol i_m\) beschrieben; als Kennfeldkoordinaten der Messung erscheinen dagegen die Statorströme \(\boldsymbol i_s\).
-
-Mit der linearen magnetischen Referenz \(\psi_d=\psi_{\mathrm{PM}}+L_di_{d,m}\), \(\psi_q=L_qi_{q,m}\) definieren wir
-
-\[
-a=\frac{\omega_eL_q}{R_{\mathrm{Fe}}},\quad
-b=\frac{\omega_eL_d}{R_{\mathrm{Fe}}},\quad
-c=\frac{\omega_e\psi_{\mathrm{PM}}}{R_{\mathrm{Fe}}}.
-\]
-
-Dann folgt die **affine Koordinatentransformation**
-
-\[
-\begin{bmatrix}i_{d,s}\\i_{q,s}\end{bmatrix}
+\frac{\partial(ci_d)}{\partial i_q}
 =
-\underbrace{\begin{bmatrix}1&-a\\b&1\end{bmatrix}}_{\mathbf A}
-\begin{bmatrix}i_{d,m}\\i_{q,m}\end{bmatrix}
-+\begin{bmatrix}0\\c\end{bmatrix},
-\quad
-\mathbf A^{-1}=\frac{1}{1+ab}
-\begin{bmatrix}1&a\\-b&1\end{bmatrix}.
+\frac{\partial(ci_q)}{\partial i_d}
+\quad\Longleftrightarrow\quad
+i_d\frac{\partial c}{\partial i_q}
+=i_q\frac{\partial c}{\partial i_d}.
 \]
 
-Das ursprüngliche Stromgitter kann dadurch verschoben, geschert und anisotrop verformt werden. Diese Abbildung ist **nicht allgemein eine starre Rotation**.
-
-### 21.3 Reziprozität in unterschiedlichen Stromkoordinaten
-
-Für die magnetisierenden Ströme ist die Jacobi-Matrix im linearen Modell symmetrisch und diagonal:
+Wir wählen \(s=i_d^2+i_q^2\) und \(c=f(s)\). Mit der Kettenregel folgt
 
 \[
-\mathbf J_{\psi,m}=
-\begin{bmatrix}L_d&0\\0&L_q\end{bmatrix}.
+\partial_{i_d}c=2i_df'(s),\qquad
+\partial_{i_q}c=2i_qf'(s).
 \]
 
-Bei Darstellung derselben magnetischen Flussverkettung als Funktion der **Statorströme** ergibt die Kettenregel:
+Beide Seiten werden dadurch zu \(2i_di_qf'(s)\). Für jede hinreichend glatte Funktion \(f\) existiert somit die drehmomentneutrale **und** integrable Familie
+
+\[
+\boxed{\boldsymbol h=f(i_d^2+i_q^2)\,\boldsymbol i.}
+\]
+
+Geometrisch ist \(c\) entlang der Kreistangentialrichtung \((-i_q,i_d)\) konstant. Auf rotationszusammenhängenden Bereichen beschreibt \(f(I^2)\) die entsprechende radiale Lösungsfamilie (am Ursprung sind zusätzliche Regularitätsfragen zu berücksichtigen). Die Aussage setzt voraus, dass **bereits ein** gemeinsames zulässiges Zielfeld gefunden wurde; der Zusatz repariert ein nichtintegrables Ausgangsfeld nicht.
+
+Der konstante Spezialfall \(\boldsymbol h=c\boldsymbol i\) verändert z. B. \(L_{dd}\) um \(c\). Auch **differentielle Induktivitäten können also ohne Änderung des Drehmoments und ohne Reziprozitätsverletzung anders ausfallen**.
+
+Ein vorgegebener Ursprungspunkt \(\psi_d(0,0)=\psi_{\rm PM}\), \(\psi_q(0,0)=0\) bestimmt eine solche radiale Freiheitsfunktion **nicht**, da der Zusatz am Ursprung für reguläres \(f\) verschwindet. Eine zusätzliche unabhängige Flussmessung bei einem bestimmten Radius würde grundsätzlich nur dort Information über \(f\) liefern. Ein ganzes Feld bleibt ohne weitere unabhängige Beobachtungen/Annahmen mehrdeutig.
+
+**Gesichertes negatives Forschungsergebnis (innerhalb des Modells):** Drehmomentdaten zusammen mit Reziprozität liefern **keine allgemeine eindeutige Flusskorrektur**.
+
+## 6. Mess- und Parameterfehler als prüfbare Hypothesen
+
+### 6.1 Falscher Statorwiderstand
+
+Wir definieren die Fehlerkonvention in diesem Teil ausdrücklich als
+
+\[
+\Delta R:=R_{\rm verwendet}-R_{\rm wahr},\qquad
+\Delta\boldsymbol\psi:=
+\boldsymbol\psi_{\rm rec}-\boldsymbol\psi_{\rm wahr}
+\]
+
+bei **unveränderten gemessenen** \(u,i,\omega_e\) und ideal stationären dq-Gleichungen. Direktes Subtrahieren der Rekonstruktionsformeln ergibt
+
+\[
+\boxed{
+\Delta\psi_d=-\frac{\Delta R}{\omega_e}i_q,\qquad
+\Delta\psi_q=+\frac{\Delta R}{\omega_e}i_d
+}
+\]
+
+und damit
+
+\[
+\boxed{
+\Delta M_R=-\frac{k_T\Delta R}{\omega_e}(i_d^2+i_q^2).
+}
+\]
+
+Geometrisch erzeugt ein konstanter Widerstandsmismatch **geneigte Zusatzebenen**, keine starre Rotation des Flussfelds. Der Flussfehler ist **senkrecht** zu \(\boldsymbol i\), der Drehmomentfehler bei konstanter positiver Drehzahl quadratisch im Strombetrag und **bei gleichem Strombetrag unabhängig vom Stromwinkel**. Bei unveränderten Strömen und Modellannahmen skaliert er mit \(1/\omega_e\).
+
+Die Niveaulinien eines gegebenen Widerstands-Drehmomentfehlers bilden Kreise um den Stromursprung, soweit das Vorzeichen des verlangten Niveaus realisierbar ist. \(\Delta M_R/I^2\) ist nur für \(I\neq0\) definiert und bei sehr kleinem \(I\) numerisch empfindlich. Eine Gerade von \(\Delta M_R\) über \(I^2\) hätte im Modell die Steigung \(-k_T\Delta R/\omega_e\), die aber zunächst **nur einen äquivalenten Fehlereffekt** beschreibt.
+
+Bei festgehaltenem Fluss bewirkt eine Änderung des Widerstands \(\delta\boldsymbol u_R=\delta R\,\boldsymbol i\); bei festem Widerstand bewirkt eine **radiale** Flussänderung \(c\boldsymbol i\) die Spannungsänderung \(\delta\boldsymbol u_{\rm radial}=\omega_ec(-i_q,i_d)^\mathsf T\). Diese **speziellen Spannungskomponenten** sind orthogonal. Sie dürfen nicht mit dem oben stehenden, **orthogonalen Flussausgleich** bei unveränderten Spannungswerten verwechselt werden.
+
+### 6.2 Winkel, Spannung und tatsächlicher Betriebszustand
+
+Ein falsch bestimmter Rotorwinkel, eine fehlerhafte Strom-/Spannungssynchronisierung oder eine falsch rekonstruierte Maschinenklemmen-Spannungsgrundschwingung können die Flusskennfelder ebenfalls systematisch verändern. Ein Steuergeräte-Sollwert oder eine intern geschätzte dq-Spannung ist **nicht automatisch** die tatsächliche Grundschwingung an den Maschinenklemmen. PWM-Totzeiten, Halbleiterabfälle, Abtast-/Mittelungsstrategien und Zeitbezug sind separat zu untersuchen; die Fehlerrichtung ist **nicht allgemein vorgegeben**.
+
+Für den Winkeloffset wurde hier **noch keine vollständige Identifizierbarkeits- oder Fehlerformel hergeleitet**. Er bleibt eine konkurrierende Hypothese und darf nicht allein aus einer beobachteten Neigung behauptet werden. Ebenso ist ein temperaturabhängiger \(R_s\) nicht mit dem in den Messdaten hinterlegten, zur Rekonstruktion verwendeten Wert identisch.
+
+## 7. Energie, Wellenmoment, Verluste und Stromrichtung
+
+### 7.1 Ideale elektrische Leistungsbilanz
+
+Multiplizieren wir die stationären Gleichungen aus Abschnitt 3 mit \(i_d\) bzw. \(i_q\) und addieren, erhalten wir
+
+\[
+u_di_d+u_qi_q
+=R_s(i_d^2+i_q^2)+\omega_e(\psi_di_q-\psi_qi_d).
+\]
+
+Für die amplitudeninvariante dreiphasige Konvention folgt
+
+\[
+P_{\rm el}=\frac32(u_di_d+u_qi_q),\qquad
+P_{\rm Cu}=\frac32R_s(i_d^2+i_q^2),
+\]
+
+und innerhalb des **idealen Modells ohne separat angesetzte Eisenverluste**:
+
+\[
+\boxed{P_{\rm el}=P_{\rm Cu}+\omega_mM_{\rm em}.}
+\]
+
+Ersetzen wir die Flüsse in \(M_{\rm em}\) durch die **aus denselben elektrischen Größen rekonstruierten** Flüsse, entsteht nur die umgestellte Leistungsbilanz:
+
+\[
+M_{\rm em,rec}
+=\frac{3}{2\omega_m}\left[
+u_di_d+u_qi_q-R_s(i_d^2+i_q^2)
+\right].
+\]
+
+**Wichtige Identifizierbarkeitsgrenze:** Das elektrisch rekonstruierte „Drehmoment aus Fluss“ ist **keine zusätzliche unabhängige Beobachtung**. Erst ein ausreichend unabhängiger Moment-/Leistungskanal fügt eine neue Information hinzu.
+
+### 7.2 Verluste in einer anderen Bilanzgrenze
+
+Für stationäre positive Drehzahl betrachteten wir ergänzend **näherungsweise**
+
+\[
+P_{\rm el}\approx
+\frac32R_sI^2+P_{\rm Fe}+P_{\rm mech}
++\omega_mM_{\rm Welle}.
+\]
+
+Diese Bilanz enthält explizite Verlustterme und darf nicht unkommentiert mit der vorangegangenen idealen Bilanz identifiziert werden. Insbesondere muss geklärt sein, ob ein rekonstruiertes Flussfeld Magnetisierungsfluss oder effektiven Klemmenfluss repräsentiert. Das im Datensatz vorhandene CAN-Moment ist **ohne Nachweis der Quelle/Kalibrierung** nicht automatisch ein unabhängig gemessenes Wellenmoment.
+
+Mit \(Y:=P_{\rm el}-\omega_mM_{\rm Welle}\) gilt in diesem Modell
+
+\[
+Y\approx\frac32R_sI^2+P_{\rm Fe}+P_{\rm mech}.
+\]
+
+**Zusatzhypothese:** Wären die übrigen Verluste bei fester Drehzahl und Temperatur näherungsweise stromunabhängig, \(P_{\rm Fe}+P_{\rm mech}\approx P_0\), läge \(Y\) über \(I^2\) auf einer Geraden mit Steigung \(\frac32R_s\) und Achsenabschnitt \(P_0\). Das ist **kein allgemeines Verlustgesetz**: Auch Eisenverluste können mit \(I^2\) korrelieren und dadurch die scheinbare Steigung verändern. Der Achsenabschnitt wäre eine Extrapolation, nicht zwingend ein direkt gemessener Nullstrom-Verlust.
+
+### 7.3 Stromrichtung ist nicht Strombetrag
+
+Das lineare PSM-Modell liefert
+
+\[
+\|\boldsymbol\psi\|^2
+=(\psi_{\rm PM}+L_di_d)^2+(L_qi_q)^2.
+\]
+
+Negativer d-Strom kann dem PM-Fluss entgegenwirken. Somit bedeutet größerer Strombetrag **nicht automatisch** größere magnetische Flussverkettung oder höhere Eisenverluste. Eine Reduktion auf \(i_d^2,i_q^2\) verwirft die Vorzeicheninformation. Zur Diagnose daher zuerst die **Flächen über \((i_d,i_q)\)** betrachten.
+
+Für gespiegelte Betriebspunkte \((i_d,+i_q)\) und \((i_d,-i_q)\) ist im linearen spiegelsymmetrischen Modell der Flussbetrag gleich und das ideale elektromagnetische Moment vorzeicheninvertiert. **Unter der zusätzlichen** Annahme eines gleichen Verlustmoments \(M_V\) bei gleicher positiver Drehzahl gilt
+
+\[
+M_{\rm mess,+}=M_{\rm em}-M_V,\qquad
+M_{\rm mess,-}=-M_{\rm em}-M_V,
+\]
+
+und damit
+
+\[
+M_V=-\frac{M_{\rm mess,+}+M_{\rm mess,-}}{2},\qquad
+M_{\rm em}=\frac{M_{\rm mess,+}-M_{\rm mess,-}}{2}.
+\]
+
+Eine solche Paarbildung ist eine **modellabhängige diagnostische Idee**, keine garantierte Eisenverlusttrennung: Symmetrie des realen Verlustmoments, identische magnetische Zustände und wirklich unabhängige Messsignale sind erst nachzuweisen.
+
+Zwei Betriebspunkte mit **gleichem** \(I^2\) besitzen im Widerstandsmodell gleiche Kupferverluste, können aber sehr unterschiedliche magnetische Zustände aufweisen. Eine Differenz von \(Y\) bei solchen Punkten zeigt zunächst nur übrige Verluste bzw. verletzte Annahmen/Messfehler. Ein Vergleich bei **verschiedenen** \(I^2\), aber gleichen übrigen Verlusten würde dagegen im vereinfachten Modell \(R_s\) zugänglich machen – die Gleichheit dieser übrigen Verluste ist gerade die schwierig zu begründende Voraussetzung.
+
+### 7.4 Flussbetrag-Niveaulinien und ein Zirkelschluss
+
+Die vereinfachte Hypothese \(P_{\rm Fe}\approx F(\omega_e,\|\boldsymbol\psi\|)\) ist **kein allgemeines Eisenverlustmodell**. Lokal verteilte Flussdichten, Oberwellen, Sättigung und Hysterese werden dadurch nicht zuverlässig erfasst.
+
+Für das lineare Flussmodell liefert \(\|\boldsymbol\psi\|=\psi_{\rm ref}\) die Ellipse
+
+\[
+(\psi_{\rm PM}+L_di_d)^2+L_q^2i_q^2=\psi_{\rm ref}^2
+\]
+
+mit Mittelpunkt \((-{\psi_{\rm PM}}/{L_d},0)\) und Halbachsen
+\(\psi_{\rm ref}/|L_d|\), \(\psi_{\rm ref}/|L_q|\), soweit \(L_d,L_q\neq0\).
+Auf ihr können **unterschiedliche Strombeträge** liegen; ihre physikalische Befahrbarkeit ist zusätzlich zu prüfen.
+
+**Zirkelschluss:** Um Punkte vermeintlich gleichen Flussbetrags auszuwählen, benötigen wir bereits einen Fluss, den wir unter Umständen gerade mit dem **gesuchten** \(R_s\) aus Spannungen rekonstruieren. Ohne unabhängige Information erzeugt dieses Auswahlverfahren keine eindeutige Widerstands-/Eisenverlustidentifikation.
+
+## 8. Weitere Information aus echten Mehrdrehzahlmessungen
+
+Zwei stationäre Messungen **derselben Maschine** bei gleichem \((i_d,i_q)\) und ausreichend gleichem Temperatur-/Magnetisierungszustand, aber verschiedenen \(\omega_{e,1}\neq\omega_{e,2}\), liefern im idealen dq-Modell
+
+\[
+u_{q,j}=R_si_q+\omega_{e,j}\psi_d,\qquad
+u_{d,j}=R_si_d-\omega_{e,j}\psi_q,\qquad j=1,2.
+\]
+
+**Nur unter der zusätzlichen Annahme**, dass \(R_s\) und der betreffende magnetische Fluss über beide Drehzahlzustände gleich bleiben, liefert die Differenzbildung
+
+\[
+\boxed{
+\psi_d=\frac{u_{q,2}-u_{q,1}}{\omega_{e,2}-\omega_{e,1}},
+\qquad
+\psi_q=-\frac{u_{d,2}-u_{d,1}}{\omega_{e,2}-\omega_{e,1}}.
+}
+\]
+
+Mit mehreren Geschwindigkeiten können die jeweiligen Spannungen näherungsweise als Gerade über \(\omega_e\) untersucht werden. In diesem Modell liefern die Steigungen \(\psi_d\) bzw. \(-\psi_q\), die Achsenabschnitte \(R_si_q\) bzw. \(R_si_d\). Bei \(i_q=0\) enthält der q-Achsenabschnitt keine Information über \(R_s\); analog ist der d-Achsenabschnitt bei \(i_d=0\) dafür unbrauchbar.
+
+Diese Herleitung setzt **zusätzliche echte Messzustände** voraus. Eine Datei, in der lediglich Drehzahl- oder Winkelkanäle geändert wurden, gilt nicht als unabhängiges Drehzahlexperiment. Drehzahlabhängige Eisenverluste, Spannungsrekonstruktionsfehler und thermische Änderungen können die angenommenen linearen Steigungen verfälschen.
+
+**Status:** Theoretisch hergeleitet, im aktuellen PSM-Experiment nicht unabhängig nachgewiesen.
+
+## 9. Vereinfachtes Eisenverlustmodell: integrable Magnetisierung, nichtintegrables rekonstruiertes Feld
+
+### 9.1 Warum eine Verlustleistung allein nicht reicht
+
+Eine skalare Eisenverlustleistung bestimmt noch keinen **zweidimensionalen** Verluststrom und auch keinen eindeutigen Fehler \((\delta\psi_d,\delta\psi_q)\). Selbst ein etabliertes spezifisches Verlustmodell auf Basis lokaler Flussdichte \(B(\mathbf x,t)\) liefert ohne zusätzliche Feld-/Ersatzmodellannahmen nicht unmittelbar zwei dq-Flusskorrekturen. Ein detailliertes Eisenverlustmodell wird hier **noch nicht** behauptet.
+
+### 9.2 Bewusst einfaches dq-Ersatzschaltbild
+
+Für eine synthetische Untersuchung wurde angenommen, dass der gemessene Statorstrom aus Magnetisierungs- und Eisenverluststrom besteht:
+
+\[
+\boldsymbol i_s=\boldsymbol i_m+\boldsymbol i_{\rm Fe},\qquad
+\boldsymbol i_{\rm Fe}=\frac{\boldsymbol e}{R_{\rm Fe}},\qquad
+\boldsymbol e=\omega_e
+\begin{bmatrix}-\psi_q\\\psi_d\end{bmatrix},
+\]
+
+mit **konstantem isotropem** \(R_{\rm Fe}>0\) und linearem magnetischem Flussfeld
+
+\[
+\psi_d=\psi_{\rm PM}+L_di_{d,m},\qquad \psi_q=L_qi_{q,m}.
+\]
+
+Der magnetische Fluss ist bezüglich der **Magnetisierungsströme** konservativ. Die Transformation zu Statorströmen folgt aus Einsetzen der Spannungen:
+
+\[
+\begin{aligned}
+i_{d,s}&=i_{d,m}-\frac{\omega_eL_q}{R_{\rm Fe}}i_{q,m},\\
+i_{q,s}&=i_{q,m}+\frac{\omega_e}{R_{\rm Fe}}
+(\psi_{\rm PM}+L_di_{d,m}).
+\end{aligned}
+\]
+
+Definieren wir
+
+\[
+a=\frac{\omega_eL_q}{R_{\rm Fe}},\qquad
+b=\frac{\omega_eL_d}{R_{\rm Fe}},\qquad
+c=\frac{\omega_e\psi_{\rm PM}}{R_{\rm Fe}},
+\]
+
+so ist diese Abbildung affin:
+
+\[
+\boxed{
+\boldsymbol i_s=
+\underbrace{\begin{bmatrix}1&-a\\b&1\end{bmatrix}}_{\mathbf A}
+\boldsymbol i_m+\begin{bmatrix}0\\c\end{bmatrix}.
+}
+\]
+
+Mit \(\det\mathbf A=1+ab\) und
+
+\[
+\mathbf A^{-1}=\frac{1}{1+ab}
+\begin{bmatrix}1&a\\-b&1\end{bmatrix}
+\]
+
+ergibt die Kettenregel
 
 \[
 \mathbf J_{\psi,s}
-=\mathbf J_{\psi,m}\mathbf A^{-1}
-=\frac{1}{1+ab}
+=\underbrace{\begin{bmatrix}L_d&0\\0&L_q\end{bmatrix}}_{\mathbf J_{\psi,m}}
+\mathbf A^{-1}
+=
+\frac{1}{1+ab}
 \begin{bmatrix}L_d&aL_d\\-bL_q&L_q\end{bmatrix}.
 \]
 
-Damit sind die Kreuzableitungen bei positiver Drehzahl und positiven Induktivitäten betragsgleich, aber entgegengesetzt:
-
-\[
-\frac{\partial\psi_d}{\partial i_{q,s}}
-=\frac{aL_d}{1+ab},\qquad
-\frac{\partial\psi_q}{\partial i_{d,s}}
-=-\frac{bL_q}{1+ab},\qquad aL_d=bL_q.
-\]
-
-Das in dieser Notiz verwendete **Integrabilitätsresiduum** ist daher
+Die beiden Kreuzableitungen sind für \(\omega_e>0\), \(L_d,L_q,R_{\rm Fe}>0\) **betragsgleich und vorzeichenverschieden**, denn \(aL_d=bL_q\). Somit
 
 \[
 \boxed{
-r_{\mathrm{int}}
-:=\frac{\partial\psi_d}{\partial i_{q,s}}
--\frac{\partial\psi_q}{\partial i_{d,s}}
-=\frac{2\omega_e L_dL_qR_{\mathrm{Fe}}}
-{R_{\mathrm{Fe}}^2+\omega_e^2L_dL_q}
-}.
+r_{\rm int}
+=\frac{aL_d+bL_q}{1+ab}
+=\frac{2\omega_eL_dL_qR_{\rm Fe}}
+{R_{\rm Fe}^2+\omega_e^2L_dL_q}.
+}
 \]
 
-Achtung zur Konvention: Der gewöhnliche zweidimensionale `curl` eines Vektorfelds \((\psi_d,\psi_q)\) wird häufig mit dem **umgekehrten Vorzeichen** definiert.
+**Geometrische Einsicht:** Ein magnetisches Coenergy-Modell kann bezüglich des Magnetisierungsstroms integrabel sein und in einem Ersatzmodell, das die Gesamtstatorströme als Koordinaten verwendet, dennoch ein **nichtintegrables Flussfeld** hervorbringen. Das ist eine **konkrete mögliche** Erklärung einer Integrabilitätsverletzung, **kein Beweis**, dass ein reales Residuum ausschließlich von Eisenverlusten stammt.
 
-Im linearen Modell mit konstanten Parametern ist `r_int` bei fester Geschwindigkeit im gesamten Strombereich konstant. Für unsere synthetischen Parameter lag es bei ungefähr \(5{,}02\cdot10^{-5}\,\mathrm H\). Die ursprüngliche Magnetisierungs-Koenergie bleibt dabei integrabel: Die Asymmetrie entsteht durch die Beschreibung über \(\boldsymbol i_s\) statt \(\boldsymbol i_m\).
+### 9.3 Frequenz- und Leistungssymmetrie
 
-### 21.4 Frequenzsymmetrie ist nicht Leistungssymmetrie
-
-Unter unveränderten Modellparametern folgt:
+Für konstante Modellparameter und unveränderten Magnetisierungszustand ist
 
 \[
-r_{\mathrm{int}}(-\omega_e)=-r_{\mathrm{int}}(\omega_e).
+r_{\rm int}(-\omega_e)=-r_{\rm int}(\omega_e),
 \]
 
-Die im Widerstandszweig umgesetzte dreiphasige Leistung lautet hingegen
+aber
 
 \[
-P_{\mathrm{Fe}}=\tfrac32\frac{e_d^2+e_q^2}{R_{\mathrm{Fe}}}
-=\tfrac32\frac{\omega_e^2}{R_{\mathrm{Fe}}}
-(\psi_d^2+\psi_q^2)
-\]
-
-und ist bei unverändertem magnetischem Zustand und konstantem `RFe` eine **gerade** Funktion von \(\omega_e\). Eine Mittelung von Residuen bei positiver und negativer Drehzahl würde den *ungeraden Modellanteil* eliminieren – nicht die reale dissipierte Verlustleistung. Unsere hier betrachteten **realen Messungen liegen nur bei positiver Drehzahl**; ein Vorzeichenvergleich ist derzeit keine verfügbare experimentelle Prüfung.
-
-**Grenze:** Ein nicht verschwindendes Reziprozitätsresiduum realer Messdaten ist noch **kein eindeutiger Eisenverlustnachweis**. Der Spezialfall demonstriert lediglich, dass ein dissipativer Zweig eine solche scheinbare Verletzung erzeugen *kann*. Die vorliegende Modellform kann auch reale Verlustcharakteristiken nicht vollständig abbilden.
-
-## 22. Reale Messdaten: Auswahl, Qualität und Rekonstruktion (09.10.2026)
-
-### 22.1 Dokumentierte Datenbasis
-
-Das aktive Experiment liegt in `rkeller98/Research`, Branch `topic/fluxcorrection`, unter `sandbox/fluxcorrection/`:
-
-- `flux_loss_experiment.py`: bekanntes synthetisches magnetisches Modell, einfacher Eisenverlustzweig, Koenergie, Stromabbildung und analytischer/numerischer Jacobi-Vergleich.
-- `real_flux_analysis.py`: Einlesen aggregierter PSM-Betriebspunkte, stationäre Flussrekonstruktion, Split, getrennte RBF-Approximationen und Fitdiagnostik.
-- `shared/python/raw_ww_data_importer.py`: signalbasierter Rohdatenimport aus MATLAB-v7.3-MAT.
-- `shared/python/canonical_dataset.py`: `load_dataset(dataset_id)` zum Lesen der bereits gruppierten, validierten CSV-/JSON-Messdatensätze.
-- `scripts/extract_research_datasets.py`: `operating_points(...)` zur deterministischen Gruppierung/Statistik aus den ursprünglichen MAT-Daten.
-
-Für die erste Untersuchung verwenden wir `psm_temperature_2500` aus `datasets/`: dreiphasige PSM, Polpaarzahl `p=3`, nominell \(2500\,\mathrm{min}^{-1}\), Temperatur**referenzen** \(30^\circ\mathrm C\) und \(70^\circ\mathrm C\). Die ursprüngliche MAT-Datei `Flux/PSM_Measdata.mat` enthält 2040 Loggereinträge. Daraus wurden 680 aggregierte Betriebspunkte gebildet, **340 davon bei der 70-°C-Referenz**. Jeder Betriebspunkt besitzt in dieser Messung drei Loggerwerte; dies sind **nicht zwingend drei unabhängige physikalische Messungen**.
-
-Die Geometrie der Betriebspunkte ist näherungsweise ein **Halbkreis in der linken \((i_d,i_q)\)-Halbebene**. Es liegt somit gerade **kein** volles rechteckiges Messgitter vor. Das Gebiet und seine Randbereiche müssen in späteren Auswertungen explizit berücksichtigt werden.
-
-Die canonical Fixtures speichern unter anderem `id`, `iq`, `ud`, `uq`, `omega_e`, `rs_used`, `rotor_temp_ref`, `sample_count`, die Streuungsfelder wie `id_std` und `ud_std` sowie die bereits rekonstruierten `psi_d` und `psi_q`. Gemessene elektrische Geschwindigkeit und Temperaturreferenz dürfen nicht gedankenlos durch angeforderte Drehzahl oder als tatsächlich gemessene Rotortemperatur interpretiert werden.
-
-### 22.2 Flussrekonstruktion aus aggregierten Beobachtungen
-
-Für jeden stationären Betriebspunkt wurde unter den **idealen** stationären dq-Annahmen gerechnet:
-
-\[
-\psi_{d,\mathrm{rec}}
-=\frac{u_q-R_si_q}{\omega_e},\qquad
-\psi_{q,\mathrm{rec}}
-=\frac{R_si_d-u_d}{\omega_e},\qquad\omega_e\ne0.
-\]
-
-In Python wurden die Quotienten aus den Betriebspunkt-Mittelwerten gebildet; das ist im Allgemeinen nicht identisch mit einer Mittelung beliebiger Quotienten einzelner Loggereinträge. Der gespeicherte `rs_used` ist der **in den Daten verwendete Parameter**, keine unabhängig bestätigte wahre Widerstandsmessung. Die daraus berechneten Flüsse sind zunächst **rekonstruierte effektive Flüsse**, keine unmittelbar gemessene magnetische Referenz.
-
-Beobachtung beim direkten Scatterplot: \(\psi_d\) verändert sich überwiegend entlang \(i_d\), \(\psi_q\) überwiegend entlang \(i_q\); zusätzlich sind Kreuzabhängigkeiten erkennbar. Deren Ursache kann **noch nicht** eindeutig als physikalische Kreuzsättigung oder als Mess-/Modellartefakt klassifiziert werden.
-
-## 23. Warum wir getrennte glatte Flussapproximationen benötigen
-
-### 23.1 Irreguläre Messpunkte und Ableitungen
-
-`np.gradient()` arbeitet entlang von **Array-Achsen** und kann bei passenden strukturierten Koordinaten auch ungleiche Abstände berücksichtigen. Für eine flache Liste unregelmäßig verteilter Strompunkte ist die Reihenfolge der Arrayelemente jedoch **keine räumliche Ableitungsrichtung**. Direktes `np.gradient(psi_d)` würde deshalb keine sinnvolle partielle Ableitung nach `id` oder `iq` liefern.
-
-Triangulation mit stückweise linearen Flächen ist zwar möglich, bietet aber pro Dreieck nur konstante Gradienten und führt zu Sprüngen an Kanten. Messrauschen und schmale Dreiecke können Ableitungen deutlich verstärken. Lokale lineare Least-Squares-Regression über viele Nachbarpunkte unterdrückt Rauschen teilweise, löst aber **das einseitige Informationsdefizit am Rand nicht**. Die Moore-Penrose-Pseudoinverse oder `np.linalg.lstsq()` löst die numerische Regression; sie garantiert keine physikalisch korrekte Ableitung.
-
-### 23.2 Globale Approximation, jedoch keine erfundene Randevidenz
-
-Für unsere erste Kennfeldanalyse werden die beiden rekonstruierten Flussfelder **unabhängig** glatt approximiert:
-
-\[
-\hat\psi_d=f(i_d,i_q),\qquad \hat\psi_q=g(i_d,i_q).
-\]
-
-Dafür kommen beispielsweise regulierte RBFs oder geeignete B-Splines in Frage. Ein einzelnes globales hochgradiges Polynom ist nicht die bevorzugte Wahl. Eine nachträgliche Auswertung auf einem regelmäßigen Grid macht Visualisierung, Linienintegrale und numerische Ableitungen einfach; die analytischen Ableitungen des Funktionsansatzes wären bei entsprechender Implementierung oft noch vorteilhafter.
-
-Eine globale Funktion kann zwar an jedem Randpunkt ausgewertet werden, **ersetzt aber nicht die fehlenden Messinformationen** außerhalb bzw. am Rand des ursprünglichen Halbscheiben-Supports. Evaluation und Integrationswege außerhalb des unterstützten Gebiets sind als Extrapolation zu markieren oder zu maskieren.
-
-**Für die Integrabilitätsdiagnose dürfen wir nicht zuerst eine einzige Coenergy fitten.** Mit \(\hat{\boldsymbol\psi}=\nabla W'\) wäre \(\hat L_{dq}=\hat L_{qd}\) bereits per Konstruktion erzwungen, und wir könnten das zu untersuchende Signal nicht mehr unabhängig beobachten. Erst nach der Diagnose kann eine gesonderte Coenergy-Projektion mit gespeichertem Residuum sinnvoll sein.
-
-### 23.3 Glattheitsanforderungen
-
-Für \(\partial\psi_d/\partial i_q\) und \(\partial\psi_q/\partial i_d\) reicht zunächst \(\hat\psi_d,\hat\psi_q\in C^1\). Für weitere Ableitungen der Induktivitäten ist \(C^2\) eine sinnvolle stärkere Anforderung. Eine `C²`-glatte Funktion muss aber **weder geringe Ableitungsfehler noch physikalisch plausible Gradienten** besitzen. Zu starke Regularisierung unterdrückt echte Strukturen, zu schwache Regularisierung modelliert Rauschen. Numerische und physikalische Validierung sind zu trennen.
-
-## 24. RBF-Experiment vom 09.10.2026: Normierung, Parameter und Ableitungen
-
-### 24.1 Warum wir die Stromkoordinaten normieren
-
-Der aktuelle `scipy.interpolate.RBFInterpolator` verwendet `kernel="inverse_multiquadric"`. Eine Basisfunktion kann geschrieben werden als
-
-\[
-\phi(r)=\frac{1}{\sqrt{1+(\varepsilon r)^2}},\qquad
-r=\sqrt{(\Delta i_d)^2+(\Delta i_q)^2}.
-\]
-
-Ohne Koordinatennormierung hätte \(\varepsilon\) die Dimension \(\mathrm A^{-1}\). Bei Stromabständen von vielen Ampere machte die erste unnormierte Wahl \(\varepsilon=1\,\mathrm A^{-1}\) die RBFs sehr schmal. Die visuelle Flussapproximation war entsprechend unbefriedigend; auch `smoothing=3` war im damaligen Parametermaßstab ein ungünstiger Versuch.
-
-**Entscheidung:** Wir skalieren beide Stromachsen mit demselben **ausschließlich aus den Trainingsdaten** ermittelten Referenzstrom,
-
-\[
-I_{\mathrm{ref}}
-=\max_{k\in\mathrm{Train}}\sqrt{i_{d,k}^2+i_{q,k}^2},
+P_{\rm Fe}
+=\frac32\frac{\omega_e^2}{R_{\rm Fe}}
+(\psi_d^2+\psi_q^2),
 \qquad
-\tilde{\boldsymbol i}_k
-=\frac1{I_{\mathrm{ref}}}\begin{bmatrix}i_{d,k}\\i_{q,k}\end{bmatrix}.
+P_{\rm Fe}(-\omega_e)=P_{\rm Fe}(\omega_e).
 \]
 
-Diese gemeinsame Skalierung erhält die relativen geometrischen Abstandsverhältnisse der beiden Stromachsen. Die Eingabematrix hat `N × 2`-Form: **jede Zeile ein Betriebspunkt, jede Spalte eine Koordinate**. `np.column_stack((id_train,iq_train))` kombiniert dafür zwei 1D-Arrays spaltenweise.
+Die modellierte Verlust**leistung** ist also gerade, das Residuum ist ungerade in der elektrischen Drehzahl. Mittelung der Residuen bei \(+\omega_e\) und \(-\omega_e\) würde den hier modellierten ungeraden Anteil auslöschen – **nicht** die real dissipierte Leistung. Tatsächliche negative Drehzahlen wurden im aktuellen experimentellen Vergleich **nicht** aufgezeichnet; für die Ableitungsdiagnose bei positiver Drehzahl werden sie auch nicht vorausgesetzt.
 
-Nach der Normierung wird der RBF-Abstand \(\tilde r\) dimensionslos, ebenso \(\varepsilon\). **Alle späteren Test- oder Grid-Koordinaten müssen exakt dasselbe `Iref` benutzen**; erneutes Normieren pro Datenpartition würde das Modell inkonsistent auswerten. Die **Flusszielwerte selbst wurden im aktuellen Experiment nicht skaliert**.
+Der theoretische Betrag von \(r_{\rm int}\) steigt im Modell bei kleinen \(|\omega_e|\) zunächst an, besitzt bei \(|\omega_e|=R_{\rm Fe}/\sqrt{L_dL_q}\) ein Maximum und sinkt danach wieder. Dieser Verlauf darf nicht als allgemeine Eisenverlustkurve einer realen Maschine interpretiert werden.
 
-### 24.2 Verwendete Einstellungen – experimentell, nicht optimal
+### 9.4 Numerische Kontrolle des synthetischen Modells
 
-Für beide Flusskennfelder wurde zuletzt unabhängig gewählt:
+Im eigenständigen Python-Experiment \`flux_loss_experiment.py\` wurden verwendet:
+
+| Modellgröße | Wert |
+| --- | ---: |
+| \(\psi_{\rm PM}\) | 0,08 Vs |
+| \(L_d\), \(L_q\) | 0,0005 H und 0,0008 H |
+| \(f_e\), \(\omega_e\) | 100 Hz und \(2\pi\cdot100\) rad/s |
+| \(R_{\rm Fe}\) | 10 Ω |
+
+Die numerische Gradientenauswertung der analytischen linearen Coenergy ergab maximal etwa \(10^{-15}\,\mathrm{Vs}\) Abweichung der Flusskomponenten im strukturierten Testgitter. Das analytische Residuum beträgt etwa
 
 \[
-\mathrm{kernel}=\texttt{inverse\_multiquadric},\qquad
-\varepsilon=1,\qquad
-\mathrm{smoothing}=0.01.
+r_{\rm int}\approx5{,}02\cdot10^{-5}\,\mathrm H.
 \]
 
-Diese Parameter wurden zunächst pragmatisch über die sichtbare Fitqualität ausprobiert. Sie sind **noch nicht kreuzvalidiert und nicht als optimal nachgewiesen**. Der RBF-Formparameter \(\varepsilon\) bestimmt die räumliche Ausdehnung der Basisfunktionen; `smoothing` reguliert die Anpassung an die Messwerte. Die Wirkung beider Parameter ist im Kontext der Kernelmatrix, der Eingangsskalierung und des gewählten polynomialen Anteils zu verstehen; eine isolierte absolute Schwelle für `smoothing` ist nicht allgemein sinnvoll.
+Diese Größen prüfen die **eigene algebraische/numerische Umsetzung dieses gewählten Modells**, nicht die physikalische Richtigkeit des konstanten Eisenverlustwiderstands.
 
-Wir verwenden **zwei unabhängige RBF-Modelle** und werten ihre Ausgaben zunächst an Trainings- und Testkoordinaten aus. Ein vollständiges räumliches Evaluationsgitter und die Ableitungen der **realen** RBF-Felder wurden noch **nicht** implementiert.
+## 10. Reale Untersuchung: Datenbasis, Rekonstruktion und Geometrie
 
-### 24.3 Kettenregel: Ableitungen nach physikalischem Strom
+### 10.1 Vorhandene Datensätze und wiederverwendete Software
 
-Die normierten Koordinaten seien \(\tilde i_d=i_d/I_{\mathrm{ref}}\), \(\tilde i_q=i_q/I_{\mathrm{ref}}\). Eine RBF-Ableitung nach den normierten Koordinaten ist **nicht** direkt eine differentielle Induktivität in Henry:
+Arbeitsbranch: [\`topic/fluxcorrection\`](https://github.com/rkeller98/Research/tree/topic/fluxcorrection). Getrennte Experimente: [synthetisches Modell](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [Analyse realer Daten](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py). Der aktuell im Gespräch weiterentwickelte lokale Python-Stand kann dem letzten gepushten Skript voraus sein; genaue Reproduktionsstände sind vor Veröffentlichung als Commit und Umgebung einzufrieren.
+
+Die vorhandenen Import- und Aufbereitungsfunktionen werden **wiederverwendet**, statt erneute unabhängige Parser zu bauen:
+
+- [RawDataImporter](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/raw_ww_data_importer.py) liest einzelne Signale aus MATLAB-v7.3-Rohmessungen.
+- [\`operating_points()\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py) gruppiert anhand der Messkontexte, berechnet Mittelwerte und ausgewählte Streuungsgrößen.
+- [\`load_dataset()\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) liest den bereits exportierten, checksumgeprüften CSV-/JSON-Verbund.
+
+Der in der Lernübung ausgewählte Datensatz \`psm_temperature_2500\` stammt aus \`Flux/PSM_Measdata.mat\`; seine Spalten, Konventionen, Quellen und Einschränkungen sind im [Datensatz-Manifest](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) dokumentiert.
+
+| Merkmal | Stand der Datenerhebung/-aufbereitung |
+| --- | --- |
+| Maschinentyp | dreiphasige PSM, \(p=3\) |
+| Drehzahlreferenz | 2500 min⁻¹ |
+| Temperaturreferenzen | 30 °C und 70 °C |
+| Aggregierte Betriebspunkte | insgesamt 680, davon 340 bei 70 °C Referenz |
+| Loggerwerte der 70-°C-Gruppe | 1020 Einträge, je 3 je Betriebspunkt |
+| Flussquelle | aus gruppierten \(u_d,u_q,i_d,i_q,R_s,\omega_e\) rekonstruierte Werte |
+| Messfeldform im Stromraum | ungefähr eine Halbscheibe in der linken dq-Stromebene |
+
+Der Betriebspunktindex allein darf **nicht** ungeprüft über verschiedene Drehzahl-/Temperatur-/Erregungszustände hinweg zum Gruppieren genutzt werden. Die drei Loggerwerte sind keine garantierten unabhängigen Sensorreplikate. Eine **Temperaturreferenz** ist keine kalibrierte Ist-Temperatur.
+
+### 10.2 Erste Beobachtung
+
+Für die 70-°C-Referenzpunkte wurden separat
+
+\[
+\psi_{d,\rm rec}=\frac{u_q-R_si_q}{\omega_e},\qquad
+\psi_{q,\rm rec}=\frac{R_si_d-u_d}{\omega_e}
+\]
+
+berechnet und ohne vorausgehende Flächenglättung als farbkodierte Punkte über der \((i_d,i_q)\)-Ebene betrachtet. **Beobachtet:** \(\psi_d\) verändert sich hauptsächlich entlang \(i_d\), \(\psi_q\) hauptsächlich entlang \(i_q\); Kreuzabhängigkeiten sind erkennbar. Dieser Befund ist **noch keine eindeutige physikalische Kreuzsättigungsdiagnose**, da das Feld rekonstruiert ist.
+
+Das nicht rechteckige Punktgebiet ist entscheidend: \`np.gradient(psi_d)\` auf einer einfachen 1D-Liste von Messpunkten würde Nachbarn **in der Array-Reihenfolge**, nicht in physikalischer d- oder q-Richtung vergleichen. Ein strukturiertes Gitter aus \`np.meshgrid\` hatte im synthetischen Experiment diese Ausrichtung; die realen Punkte besitzen sie nicht.
+
+## 11. Kontinuierliche Approximation der gemessenen Flussfelder
+
+### 11.1 Warum vor der Diagnose approximiert wird
+
+Um partielle Ableitungen zu gewinnen, wurde zunächst eine **glättende** Approximation statt exakter Punktinterpolation gewählt. Triangulation mit stückweise linearen Flächen liefert pro Dreieck konstante Ableitungen und Sprünge an Dreiecksgrenzen; ungünstige Dreiecksformen und Rauschen können die Ableitungen verzerren. Lokale Least-Squares-Ebenen liefern Mittelsteigungen, lösen das einseitige **Informationsdefizit am Rand** aber ebenfalls nicht. Eine globale glatte RBF ist deshalb ein praktikabler erster Versuch – **keine Garantie genauer Ableitungen am Rand**.
+
+Die zwei Funktionen werden **voneinander unabhängig** angenähert:
+
+\[
+\hat\psi_d=f_d(i_d,i_q),\qquad
+\hat\psi_q=f_q(i_d,i_q).
+\]
+
+Ein direkter Fit einer einzigen Potentialfunktion \(W'\) mit \(\hat{\boldsymbol\psi}=\nabla_iW'\) würde die Reziprozität bereits **per Konstruktion erzwingen** und damit die derzeit gesuchte Abweichung möglicherweise aus dem Untersuchungsobjekt entfernen. Eine konservative Projektion ist ein **späteres**, getrennt zu bewertendes Modell; ihr Residuum muss erhalten bleiben.
+
+Für die Analyse der ersten Flussableitungen genügt \(C^1\)-Glattheit, \(C^2\) ist für weitergehende Ableitungsuntersuchungen zweckmäßig. Allein eine \(C^2\)-Fläche kann jedoch sehr schlechte Ableitungen besitzen. **Ein kleiner Flussfehler ist kein kleiner Gradientenfehler.**
+
+### 11.2 Normierung: mathematisch sinnvoll, physikalisch rücktransformieren
+
+Die SciPy-RBF benötigt die Eingabe in der Form
+
+\[
+X_{\rm train}=
+\begin{bmatrix}i_{d,1}&i_{q,1}\\ \vdots&\vdots\\i_{d,N}&i_{q,N}\end{bmatrix}
+\in\mathbb R^{N\times2}.
+\]
+
+Die beiden zunächst eindimensionalen Stromarrays werden mit \`np.column_stack\` als **gepaarte Zeilen** angeordnet. \`np.meshgrid\` ist erst für das spätere regelmäßige Auswertegitter erforderlich.
+
+Bei nichtnormierten Strömen in Ampere hängt die räumliche Wirkung des RBF-Formparameters von der Größenordnung der Stromkoordinaten ab. Deshalb verwenden wir einen **gemeinsamen** nur aus Trainingsdaten bestimmten Referenzstrom:
+
+\[
+\boxed{
+I_{\rm ref}=\max_{k\in{\rm Train}}\sqrt{i_{d,k}^2+i_{q,k}^2},
+\quad
+\tilde i_d=i_d/I_{\rm ref},
+\quad
+\tilde i_q=i_q/I_{\rm ref}.
+}
+\]
+
+Die isotrope Normierung erhält die relativen Abstände und Winkel im dq-Stromraum. Training, Test und späteres Gitter werden **mit demselben** \(I_{\rm ref}\) transformiert. Eine getrennte Skala für Testpunkte wäre methodisch inkonsistent. Die **Flusszielwerte** wurden im aktuellen Experiment nicht normiert.
+
+Das spätere Ableiten nach **physikalischen** Ampere verlangt die Kettenregel, z. B.
 
 \[
 \boxed{
 \frac{\partial\hat\psi_d}{\partial i_q}
-=\frac1{I_{\mathrm{ref}}}
-\frac{\partial\hat\psi_d}{\partial\tilde i_q},\qquad
+=\frac1{I_{\rm ref}}\frac{\partial\hat\psi_d}{\partial\tilde i_q},
+\qquad
 \frac{\partial\hat\psi_q}{\partial i_d}
-=\frac1{I_{\mathrm{ref}}}
-\frac{\partial\hat\psi_q}{\partial\tilde i_d}.
+=\frac1{I_{\rm ref}}\frac{\partial\hat\psi_q}{\partial\tilde i_d}.
 }
 \]
 
-Alle Einträge der Jacobi-Matrix brauchen bei dieser isotropen Skalierung genau den Faktor \(1/I_{\mathrm{ref}}\). Eine zusätzliche Ableitung einer Flusskomponente hätte den Faktor \(1/I_{\mathrm{ref}}^2\). Bei differenziell skalierten Achsen müssten stattdessen die **jeweiligen** Achsenskalierungen berücksichtigt werden.
+Bei zweifacher Ableitung kommt bei gleicher Skalierung \(1/I_{\rm ref}^2\) hinzu. Erst so stimmen Betrag und Einheit der differentiellen Induktivitäten.
 
-## 25. Trainings-/Testaufteilung und quantitative Ergebnisse (09.10.2026)
+### 11.3 Verwendete RBF als **vorläufiges Werkzeug**
 
-### 25.1 Tatsächlich verwendeter Split
-
-Für den ersten Versuch wurden die 340 aggregierten 70-°C-Betriebspunkte über einen zufällig permutierten **Indexvektor** aufgeteilt. Derselbe Index wurde konsistent auf `id`, `iq`, `psi_d` und `psi_q` angewandt; die Paarung der Messgrößen bleibt so erhalten.
+In \`scipy.interpolate.RBFInterpolator\` wurde der inverse-multiquadric-Kernel verwendet:
 
 \[
-N_{\mathrm{Train}}=272\;(80\%),\qquad
-N_{\mathrm{Test}}=68\;(20\%).
+\phi(r)=\frac{1}{\sqrt{1+(\varepsilon r)^2}},\qquad
+r=\|\tilde{\boldsymbol i}-\tilde{\boldsymbol i}_k\|_2.
 \]
 
-Die dokumentierte Auswertung nutzte `np.random.default_rng(42)`; zwischenzeitlich wurde der Seed auch weggelassen, um das Verhalten bei wechselnden Aufteilungen explorativ zu betrachten. Ein **fester Seed sichert Reproduzierbarkeit, nicht prinzipiell höhere Qualität**.
-
-Trainings- und Testkoordinaten werden beide mit dem **Trainings-`Iref`** transformiert. Die RBFs werden nur mit den Trainingspunkten gefittet. Die übrigen Punkte dienen zur Prüfung der Vorhersage – zunächst auf **ungesehenen Punkten derselben Messkampagne**, nicht auf einer unabhängigen Maschinenmessung.
-
-### 25.2 RMSE, Standardabweichung und Normierung
-
-Mit \(e_k=\hat\psi_k-\psi_k\) gilt
+Für normierte Ströme sind \(r\) und \(\varepsilon\) dimensionslos. Ohne diese Normierung hätte \(\varepsilon\) die Einheit \(\mathrm A^{-1}\). Das erste Experiment mit \(\varepsilon=1\,\mathrm A^{-1}\) und sehr großen relativen Stromabständen ergab im Plot einen schlechten Fit. Nach Umstellung auf normierte Koordinaten wurden im aktuellen, noch nicht systematisch optimierten Versuch verwendet:
 
 \[
-\mathrm{RMSE}=\sqrt{\frac1N\sum_{k=1}^N e_k^2}
+\boxed{
+\mathrm{kernel}=\texttt{inverse\_multiquadric},\quad
+\varepsilon=1,\quad \mathrm{smoothing}=0.01,\quad
+\mathrm{neighbors}=\texttt{None}.
+}
+\]
+
+Der Formparameter \(\varepsilon\) legt die räumliche Skala der radialen Basisfunktionen fest; \`smoothing\` reguliert die Datenanpassung. Die verwendete Klasse kann zudem einen polynomialen Anteil besitzen; da \`degree\` **nicht ausdrücklich gesetzt wurde**, ist dessen effektiver Wert anhand der eingesetzten SciPy-Version und der Bibliotheksdokumentation zu verifizieren. Für den gewählten Kernel ist in der konsultierten SciPy-Dokumentation der Standardwert **Grad 0** angegeben [S1]. Einen linearen Term mit Grad 1 haben wir bisher **nicht** eigens getestet.
+
+Die Bibliotheksimplementierung und die Basisfunktion werden **bewusst vorläufig benutzt**. Ihre Herleitung und die Bedeutung von Kernelmatrix, Koeffizienten, Regularisierung und Kondition sind **offene Lernaufgaben**, keine bereits persönlich nachvollzogenen Resultate (siehe OI-MATH-002). Die tatsächlich konsultierte API-Dokumentation und ihr Quellenstatus sind unter [S1] festgehalten.
+
+## 12. Train-/Testauswertung: Resultate und Grenzen
+
+### 12.1 Aufteilung und Bewertung
+
+Die 340 gruppierten 70-°C-Betriebspunkte wurden anhand **gemeinsamer Indizes** zufällig aufgeteilt:
+
+\[
+N_{\rm train}=272\;(80\,\%),\qquad
+N_{\rm test}=68\;(20\,\%).
+\]
+
+Die protokollierte Auswertung verwendete \`np.random.default_rng(42)\`. Zwischenzeitlich wurde der feste Seed versuchsweise weggelassen; ein fixer Seed gewährleistet **Wiederholbarkeit**, nicht automatisch einen besseren Split. Alle Strom- und Flussarrays desselben Betriebspunkts müssen identisch partitioniert werden. \(I_{\rm ref}\) stammt ausschließlich aus den Trainingspunkten.
+
+Für Residuen \(e_k=\hat\psi_k-\psi_k\) gilt
+
+\[
+\mathrm{RMSE}
+=\sqrt{\frac1N\sum_{k=1}^N e_k^2}
 =\sqrt{\operatorname{Var}(e)+\bar e^{\,2}}.
 \]
 
-`np.std(e)` berechnet lediglich die **Streuung um den mittleren Fehler**. Bei einem konstanten systematischen Offset kann sie null sein, obwohl der RMSE ungleich null bleibt.
+Die Standardabweichung \(\sqrt{\operatorname{Var}(e)}\) entfernt den mittleren Fehler; sie ist **nicht allgemein** identisch mit RMSE. Ein konstanter Bias kann deshalb bei \`np.std(e)\` unsichtbar bleiben.
 
-Um die unterschiedlichen Fluss-Amplituden vergleichbar einzuordnen, wurde **bereichsnormierter RMSE** verwendet:
+Zusätzlich wurde der Bereich des **jeweiligen Trainingsflusses** als Normierung verwendet:
 
 \[
-\mathrm{NRMSE}_{\mathrm{range}}[\%]
+\boxed{
+\mathrm{NRMSE}_{\rm range}[\%]
 =100\frac{\mathrm{RMSE}}
-{\max(\psi_{\mathrm{Train}})-\min(\psi_{\mathrm{Train}})}.
+{\max(\psi_{\rm train})-\min(\psi_{\rm train})}.
+}
 \]
 
-Die beiden Bezugsbereiche werden **nur aus den Trainingszielwerten** bestimmt und für Training und Test gleich beibehalten. Ein RMSE ohne Normierung bleibt als physikalischer Flussfehler in Vs sehr wichtig; der NRMSE ist eine **zusätzliche relative Einordnung**, kein Ersatz.
+Derselbe aus Training berechnete Nenner gilt für dessen Testauswertung. Diese Prozentzahlen beziehen sich **auf den Spannweiten-NRMSE**, nicht auf die relative Abweichung an einem beliebigen Einzelpunkt oder auf eine physikalische Referenzinduktivität.
 
-### 25.3 Gemessene Ergebnisse des derzeitigen RBF-Experiments
+### 12.2 Beobachtete Zahlen (explorativer Versuch, Seed 42)
 
-Konfiguration: `inverse_multiquadric`, `epsilon=1`, `smoothing=0.01`, train-only normierte Stromkoordinaten, dokumentierter Seed 42.
+Konfiguration: 70 °C Temperatur**referenz**, RBF \`inverse_multiquadric\`, \(\varepsilon=1\), \(\mathrm{smoothing}=0.01\), normierte Stromkoordinaten.
 
-| Ziel / Datensatz | RMSE [Vs] | RMSE [mVs] | NRMSE (Train-Range) [%] |
+| Fluss und Teilmenge | RMSE [Vs] | RMSE [mVs] | NRMSE (Train-Range) |
 | --- | ---: | ---: | ---: |
-| \(\psi_d\), Training | 0.0004757326 | 0.4757 | 0.8427 |
-| \(\psi_q\), Training | 0.0006027503 | 0.6028 | 0.2883 |
-| \(\psi_d\), Test | 0.0005744879 | 0.5745 | 1.0176 |
-| \(\psi_q\), Test | 0.0005974741 | 0.5975 | 0.2858 |
+| \(\psi_d\), Training | 0,0004757326 | 0,4757 | 0,8427 % |
+| \(\psi_d\), Test | 0,0005744879 | 0,5745 | 1,0176 % |
+| \(\psi_q\), Training | 0,0006027503 | 0,6028 | 0,2883 % |
+| \(\psi_q\), Test | 0,0005974741 | 0,5975 | 0,2858 % |
 
-**Beobachtungsstatus:** Die Fehler von Trainings- und zurückgehaltenen Punkten liegen in vergleichbarer Größenordnung. Bei wiederholt gewechselter Zufallsaufteilung erschien die Anpassung visuell und hinsichtlich des normierten Fehlers meist stabil. Dies sind vorläufige explorative Beobachtungen, **kein systematischer statistischer Stabilitätsnachweis**; insbesondere liegt der hier dokumentierte d-Test-NRMSE **leicht über 1 %**.
+**Beobachtung:** In dieser zufälligen Aufteilung sind Trainings- und Testfehler ähnlicher Größenordnung. Das zeigt **keinen offensichtlichen starken Unterschied** zwischen ihnen. Der dokumentierte d-Test-NRMSE liegt ausdrücklich **leicht über 1 %**, auch wenn andere informelle Aufteilungen oft darunter lagen. Der q-Fluss hat trotz eines teils größeren absoluten Fehlers einen kleineren NRMSE, weil seine beobachtete Spannweite größer ist.
 
-Der q-Fluss besitzt in diesem Datensatz einen deutlich größeren Wertebereich als der d-Fluss. Deshalb kann er trotz größerem **absolutem** RMSE einen kleineren **bereichsnormierten** RMSE aufweisen.
+**Einschränkungen:**
+- Ein guter Test-RMSE am **selben Messfeld** prüft vor allem Interpolation nahe vorhandener Punkte, nicht neue Drehzahlen, Temperaturen, Maschinen oder Extrapolation.
+- Wiederholte visuelle Anpassungen und die Betrachtung von Testkennzahlen haben den ursprünglichen Test-Holdout **explorativ mitgenutzt**. Für einen finalen wissenschaftlichen Generalisierungsnachweis wäre ein neuer, vorab eingefrorener und unabhängig ausgewerteter Testansatz notwendig.
+- Eine systematische Hyperparameter-/Kernel-Kreuzvalidierung **innerhalb der Entwicklungsdaten** wurde noch nicht durchgeführt.
+- Die Messstreuung der Loggerwerte ist keine vollständige Unsicherheit von \(\psi_{\rm rec}\). Unsicherheiten von \(u\), \(i\), \(R_s\) und \(\omega_e\) sowie deren Korrelationen müssen gesondert betrachtet werden.
+- **Niedriger Fluss-(N)RMSE erlaubt noch keinerlei quantitativen Schluss über \(L_{dq}\), \(L_{qd}\) oder \(r_{\rm int}\).**
 
-### 25.4 Was diese Ergebnisse nicht beweisen
+Ein LHS-informierter diskreter Holdout aus **tatsächlich gemessenen** Betriebspunkten ist als optionales Konzept für MeasEval in [Weg-Weiser/GUI_VICE-MeasurementEvalKit#293](https://github.com/Weg-Weiser/GUI_VICE-MeasurementEvalKit/issues/293) dokumentiert. Er ist **keine Voraussetzung** für die aktuelle Lernübung.
 
-- Der Fluss-RMSE ist kein Maß für die Genauigkeit der **Gradienten** oder des Differenzenresiduums `Ldq-Lqd`. Differenzieren kann insbesondere lokale Fit-Schwingungen stark verstärken.
-- Durch wiederholtes Prüfen der Testpunkte und visuelle Parameteranpassungen wird der frühere Holdout **indirekt für die Modellwahl genutzt**. Ein späterer unabhängiger Abschlusstest benötigt daher eine **neu und vorab eingefrorene** Testbasis oder eine andere echte externe Messkampagne.
-- Die beobachtete Streuung von drei Loggerwerten je Betriebspunkt ist nicht automatisch eine kalibrierte Messunsicherheit des rekonstruierten Flusses; Strom, Spannung, Geschwindigkeit, Widerstand und ihre Korrelationen beeinflussen dessen Unsicherheit.
-- Unregelmäßige räumliche Punktabstände machen den randomisierten Holdout zu einem vor allem auf **Interpolation** gerichteten Test; er prüft weder Extrapolation noch die genaue Randableitung zuverlässig.
-- Weder eine glatte RBF noch eine aus ihr gezeichnete Fläche beweist physikalische Integrabilität oder die Ursache einer Abweichung.
+## 13. Nächste mathematische Diagnose und Entscheidungsregeln
 
-## 26. Ab hier fortsetzen: Arbeitsprotokoll und offene Untersuchungen
+### 13.1 Vom kontinuierlichen RBF-Modell zum Gitter
 
-### 26.1 Unmittelbar nächster mathematischer/numerischer Schritt
+Die nächste selbst zu implementierende Übung besteht darin, Stromachsen mit \`np.linspace\` zu definieren und per \`np.meshgrid\` ein reguläres zweidimensionales Auswertegitter zu erzeugen. Die Gitterarrays mit \`ravel()\` oder \`reshape(-1)\` zu Punktspalten \((i_d,i_q)\) zusammenführen, **durch den bestehenden Trainingswert** \(I_{\rm ref}\) normieren und die zwei vorhandenen RBF-Funktionen getrennt auswerten. Anschließend die Flusswerte zur Gitterform zurückordnen.
 
-Die beiden unabhängigen RBF-Modelle sind vorläufig ausreichend, um einen **ersten explorativen** Ableitungsvergleich zu beginnen. Der folgende Ablauf ist bewusst noch **kein validierter Korrekturalgorithmus**:
+**Geometrische Grenze:** Das umschließende Rechteck enthält viele Orte außerhalb der halbkreisförmigen Messpunktwolke. Wir müssen das tatsächlich unterstützte Gebiet und die Randnähe gesondert kennzeichnen bzw. maskieren. Die Tatsache, dass ein globaler Approximator dort Funktionswerte liefert, **erzeugt keine fehlenden Messinformationen**.
 
-1. **Geometrie und Grid:** Stromachsen mit `np.linspace` erzeugen, `np.meshgrid` aufbauen, die `100×100`-Koordinaten in `N×2` Zeilen umformen, mit demselben Trainings-`Iref` normieren und die RBFs darauf auswerten. Maskieren bzw. kennzeichnen, welche Punkte tatsächlich vom gemessenen Halbscheiben-Gebiet gestützt werden.
-2. **Gradienten:** Zunächst die Kettenregel aus Abschnitt 24.3 beachten. Analytische RBF-Ableitungen oder numerische Differenzen mit überprüfter Schrittweite verwenden; `np.gradient` auf einem genügend fein ausgewerteten, korrekt orientierten Grid höchstens als bewusst geprüften Näherungsweg.
-3. **Jacobi- und Integrabilitätsdiagnose:** \(\mathbf J_\psi\) und \(r_{\mathrm{int}}=L_{dq}-L_{qd}\) über das **unterstützte Gebiet** bestimmen. Ränder, schwach unterstützte Regionen, Vorzeichen und die Einheit Henry eindeutig ausweisen.
-4. **Numerische Stabilität:** RBF-Kernel, `epsilon`, Glättungsstärke, Gridauflösung und gegebenenfalls B-Spline-Vergleich variieren. Robustheit der **Ableitungen**, nicht nur Fluss-RMSE, prüfen. Bekannte synthetische Felder dienen als mathematische Kontrolle.
-5. **Physikalische Diagnose:** Nichtintegrabilität und Symmetrieresiduen vor einer möglichen konservativen Coenergy-Projektion untersuchen. Eine solche Projektion und ihr Rest müssen separat erhalten bleiben.
-6. **Identifizierbarkeit:** Drehzahl-, Temperatur- und Stromzustände, unabhängige Drehmoment-/Leistungsreferenzen, Widerstands- und Winkelhypothesen sowie alternative Verlustmodelle gegeneinander testen. Bei den verfügbaren realen Daten fehlen gegenwärtig negative Drehzahlen für einen direkten Odd/Even-Test.
+### 13.2 Differentialrechnung vor einer möglichen Korrektur
 
-### 26.2 Noch nicht erledigt
+Aus den zwei unabhängigen Flussfunktionen zunächst
 
-- Kein systematischer, leakage-freier Vergleich mehrerer Hyperparameterkonfigurationen mittels Kreuzvalidierung auf Entwicklungspunkten.
-- Kein belastbarer Vergleich analytischer RBF-Ableitungen mit numerischen Grid-Ableitungen.
-- Keine quantitative Unsicherheitsfortpflanzung von `u`, `i`, `Rs`, `ωe` auf \(\psi\) und \(\mathbf J_\psi\).
-- Keine experimentell nachgewiesene Zuordnung eines realen `r_int` zu Eisenverlusten.
-- Keine Bestimmung der tatsächlichen magnetischen Coenergy aus realen Messungen und keine physikalisch eindeutige Flusskorrektur.
+\[
+\mathbf J_{\hat\psi}(i_d,i_q)
+=\begin{bmatrix}
+\partial_{i_d}\hat\psi_d & \partial_{i_q}\hat\psi_d\\
+\partial_{i_d}\hat\psi_q & \partial_{i_q}\hat\psi_q
+\end{bmatrix}
+\]
 
-Die Idee einer LHS-informierten Auswahl **tatsächlich gemessener** Holdout-Betriebspunkte ist als mögliches allgemeines MeasEval-Konzept im Issue [Weg-Weiser/GUI_VICE-MeasurementEvalKit#293](https://github.com/Weg-Weiser/GUI_VICE-MeasurementEvalKit/issues/293) dokumentiert. Sie ist hier **nicht** die Voraussetzung für den nächsten Lernschritt; der gegenwärtige Random Split reicht als erste numerische Übung.
+und
 
-### 26.3 Unverändert geltende Lern- und Forschungsregel
+\[
+r_{\rm int}(i_d,i_q)=
+\partial_{i_q}\hat\psi_d-\partial_{i_d}\hat\psi_q
+\]
 
-**Lehrmodus:** Fragen und kleine überprüfbare Herleitungen vor Komplettlösungen; Python wird primär selbst geschrieben. Nicht bereits implementierte oder validierte Ergebnisse werden nicht als nachgewiesen formuliert.
+bestimmen. Die analytische Ableitung einer RBF und endliche Differenzen auf dem Gitter sind zu unterscheiden. Numerische Ableitungen müssen die Gitterabstände und bei normierten Koordinaten die **Kettenregel** beachten. Die Plausibilität der Ableitungen ist zunächst an einem **bekannten synthetischen Feld** unabhängig zu prüfen. Später die Robustheit gegenüber Kernelwahl, Glättung, Punktabdeckung, Ableitungsverfahren und Randnähe untersuchen.
 
-**Forschungsmodus:** Originaldaten und Modellannahmen nachvollziehbar erhalten, Ergebnisse nach **mathematisch bewiesen / modellabhängig / experimentell beobachtet / offen** unterscheiden und einen fit- oder koenergiebasierten Verlust von Information ausdrücklich vermeiden.
+Erst nach dieser Diagnose kommen Wegintegrale, ein mögliches konservatives Potential, ein konservativ/nichtkonservativ zerlegtes Modell oder eine physikalisch motivierte Korrektur in Betracht. Dabei ist
 
-*Stand 09.10.2026: Reale PSM-Flüsse wurden rekonstruiert und getrennt über zwei normierte RBF-Modelle approximiert; Trainings- und Testfehler wurden bestimmt. Die eigentliche Integrabilitätsprüfung der realen Flussfelder und eine physikalisch belastbare Korrektur stehen noch aus.*
+\[
+\boldsymbol\psi_{\rm rec}
+=\nabla_iW' +\boldsymbol r
+\]
 
----
+**zunächst lediglich eine mögliche mathematische Modellzerlegung**; \(\boldsymbol r\) ist nicht per Definition „der Eisenverlust“. Eine Korrektur darf den Messbefund nicht stillschweigend ersetzen.
 
-## 27. Open Issues – offene mathematische und numerische Verständnisaufgaben (Stand: 10.10.2026)
+### 13.3 Kriterien für belastbare Schlussfolgerungen
 
-Die folgenden Einträge setzen die Regel aus dem geschützten Writing Guide, Abschnitt 0.8, für **bereits vorläufig eingesetzte Methoden** um. Es handelt sich um eine persönliche Lernagenda, **nicht** um behauptete physikalische Fehler und nicht um automatisch zu implementierende Funktionen. Vorläufige Ergebnisse aus Abschnitt 24–25 behalten ihren dokumentierten Evidenzstatus.
+Eine im realen Flussfeld beobachtete Asymmetrie oder Integrabilitätsverletzung wird erst dann physikalisch aussagekräftiger, wenn sie **gegenüber numerischen Wahlmöglichkeiten robust**, im gemessenen Strombereich unterstützt und gegenüber der verfügbaren Unsicherheitsabschätzung erkennbar ist. Für eine eindeutige Ursachenzuordnung wären weitere, unterscheidungskräftige Informationen nötig: z. B. thermisch/elektrisch qualifizierte Widerstandswerte, unabhängige Klemmenspannungen oder Drehmomente, reproduzierbare Vergleiche echter Drehzahlzustände oder andere physikalisch begründete Beobachtungen.
 
-### OI-MATH-001 – Was ist Interpolation, und wie entsteht eine glättende Approximation?
+**Derzeitiger Stand:** Es liegt **keine** belastbare reale Integrabilitätskarte, keine quantifizierte Ableitungsunsicherheit und **kein** eindeutig identifiziertes physikalisches Flusskorrekturmodell vor.
 
-- **Status:** Offen; die Verfahren wurden bisher praktisch angewendet und verglichen, aber nicht systematisch aus ihren mathematischen Voraussetzungen hergeleitet.
-- **Einsatz:** Stützpunktbasiertes Rekonstruieren eines stetigen Flusskennfelds aus unregelmäßig verteilten Messpunkten. Bewusste Wahl einer glättenden Approximation statt exakter Interpolation, um Messrauschen nicht unmittelbar zu differenzieren.
-- **Zu verstehen:** Welche Bedingungen definiert exakte Interpolation? Was ist bei der Approximation statt der Punktgleichheit optimiert? Wie wirken Messrauschen, Freiheitsgrade, Regularisierung, Kondition und Randabdeckung? Warum entstehen glatte Funktionswerte nicht automatisch mit präzisen Ableitungen?
-- **Lernnachweis:** Ein einfaches eigenes 1D-Beispiel mit bekannten wahren Werten, Rauschen und verschiedenen Modellfreiheitsgraden mathematisch formulieren; Interpolation und glättende Approximation durch Fehler und Ableitungen vergleichen; Ergebnisse auf 2D-Messdaten übertragen.
-- **Quellen:** Für diesen Lerneintrag noch keine zusätzliche Quelle ausgewertet. Bei der Bearbeitung die tatsächlich herangezogenen Referenzen mit Fundstellen ergänzen.
+## 14. Historischer Forschungsweg und bewahrenswerte negative Ergebnisse
 
-### OI-MATH-002 – Radialbasisfunktionen und SciPy RBFInterpolator aus den Grundlagen verstehen
+Die Chronologie soll den heutigen Forschungsinhalt **erklären**, nicht seine Reihenfolge bestimmen:
 
-- **Status:** Offen; gegenwärtiger Python-Fit ist ein bewusst vorläufig verwendetes Werkzeug.
-- **Einsatz:** Zwei voneinander unabhängige globale RBF-Approximationen der rekonstruierten d-/q-Flussverkettungen; aktuell inverse-multiquadric-Kernel, Formparameter epsilon = 1, Glättungsparameter = 0.01 und gemeinsame Stromnormierung über den Trainings-Referenzstrom.
-- **Zu verstehen:** Warum hängt eine Radialbasis vom Abstand ab? Wie entsteht die Summe von Basisfunktionen und gegebenenfalls polynomialen Anteilen? Welches lineare Gleichungssystem bestimmt die Koeffizienten? Was unterscheidet Formparameter, Glättung, Datengewichtung und Kondition? Welche Stetigkeit/Differenzierbarkeit besitzen Kernel und resultierender Fit? Welche Abhängigkeit von Punktverteilung, Skalierung und Extrapolation bleibt erhalten?
-- **Lernnachweis:** RBF-Ansatz mit wenigen Stützpunkten selbst aufstellen und den Koeffizientenansatz herleiten; die Rolle von Regularisierung und der Kernelbreite geometrisch darstellen; einen kleinen Fall gegen die Bibliotheksausgabe prüfen und das Verfahren gegenüber einer geeigneten Alternative einordnen.
-- **Quellen:** Vorhandene SciPy-Implementierung wird verwendet. Die für das Verständnis ausgewertete Primär-/Methodenliteratur und Dokumentationsversion mit konkreten Fundstellen später ergänzen; noch nicht als eigenständig hergeleitet kennzeichnen.
+| Etappe | Ursprüngliche Frage / Versuch | Bleibende Erkenntnis |
+| --- | --- | --- |
+| Drehmoment als Flusskorrektur | Lassen sich zwei Flussfehler aus einem Drehmomentunterschied bestimmen? | Nur eine Projektion sichtbar; radiale Nullraumrichtung nicht beobachtbar (Abschnitt 5). |
+| Drehmoment **plus** Coenergy | Kann Integrabilität die Mehrdeutigkeit beseitigen? | Nein. \(f(I^2)\boldsymbol i\) bleibt torque-neutral und integrabel. |
+| Widerstandsdiagnose | Erklärt \(R_s\) die auffällige Neigung? | Ein Widerstandsmismatch besitzt eine klare geometrische Signatur, ist aber nur eine mögliche Ursache (Abschnitt 6). |
+| Stromsymmetrie und Verlustbetrachtung | Lässt sich Kupfer-, Eisen- und mechanischer Verlustanteil allein durch Spiegelung oder Strombetrag trennen? | Nur unter starken, expliziten Gleichheitsannahmen; weitere Informationsquellen erforderlich (Abschnitt 7). |
+| Mehrdrehzahlansatz | Eliminieren Drehzahldifferenzen \(R_s\)? | Ja, **im idealen Modell** bei konstantem Fluss-/Temperaturzustand und echten verschiedenen Messungen (Abschnitt 8). |
+| Coenergy und Eisenverlustzweig | Wie kann ein magnetisch konservatives Feld nichtkonservativ erscheinen? | Im gewählten Verlustzweig durch die Stator-/Magnetisierungsstrom-Abbildung; das ist **nicht** der allgemeine Nachweis einer realen Ursache (Abschnitt 9). |
+| Reale PSM + RBF | Können wir geeignete glatte Felder aus unregelmäßigen Messdaten erhalten? | Vorläufig niedrige wertbezogene Fehler, Ableitungen und Randzuverlässigkeit **noch offen** (Abschnitte 10–13). |
 
-### OI-MATH-003 – Wie zuverlässig sind Ableitungen einer approximierten Messfläche?
+Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorgängerversion vom 10.10.2026](https://github.com/rkeller98/Research/blob/29068b91a801e1be09e91fbbe877840a16d2c5d4/sandbox/fluxcorrection/flusskorrektur_doku.md) nachvollziehbar. Diese Verlinkung dient dem **historischen Nachlesen**, nicht als Ersatz für die heute hier vollständig dokumentierten Kernaussagen.
 
-- **Status:** Offen; die Integrabilitätsdiagnose aus realen Messdaten steht noch aus.
-- **Einsatz:** Geplante Ableitung der beiden unabhängig gefitteten Flussfunktionen, Vergleich der Kreuzinduktivitäten und Berechnung des Integrabilitätsresiduums.
-- **Zu verstehen:** Kettenregel für normierte Koordinaten, analytische Modellableitung versus endliche Differenzen, Schrittweitenfehler, Ableitungsverstärkung von Mess- und Fitfehlern, Abhängigkeit von Glättung und räumlicher Abdeckung; Unterschiede von Innen- und Randpunkten. Warum garantiert ein NRMSE um 1 % keine gute Ableitung?
-- **Lernnachweis:** An einem synthetischen Flussfeld mit bekannten Kreuzableitungen die Ableitungsfehler beider Verfahren bestimmen; anschließend Parameter-/Randempfindlichkeit an realen Daten überprüfen, ohne ein konservatives Potential vor dem Integrabilitätstest zu erzwingen.
-- **Quellen:** Noch keine spezielle Quelle für diesen eigenständigen Lernschritt ausgewertet; spätere verwendete Quellen dokumentieren.
+**Bewusste Korrektur früherer Missverständnisse:** „Ideale Maschine“ ist nicht dasselbe wie „linear-entkoppelter Fluss“; eine konservative Coenergy kann Kreuzsättigung modellieren. Konstante Offsets können Integrabilität bestehen, obwohl sie das Drehmoment verändern. Eine glatte globale Fitfläche kann am Rand auswertbar sein, ohne dort durch Messungen gedeckt zu sein. Ein gemessener CAN-Wert ist nicht automatisch eine unabhängige Wellenmomentmessung. Und ein kleiner RMSE ist kein Gütenachweis einer partiellen Ableitung.
 
-### OI-MATH-004 – Mathematische Grundlage der Aufteilung und Regularisierungsvalidierung
+## 15. Open Issues – nachzuarbeitende Verständnis- und Forschungsfragen
 
-- **Status:** Offen in der Vertiefung; Random Split, RMSE und NRMSE wurden bereits korrekt implementiert und numerisch ausgewertet.
-- **Einsatz:** Bewertung der Feldapproximation auf Entwicklungs- und Testpunkten sowie künftige Wahl von RBF-Parametern.
-- **Zu verstehen:** Bias-Varianz-Zielkonflikt, Least-Squares-Fehlermaß, Generalisierung, Kreuzvalidierung, Datenleckage und räumliche Korrelation nahe beieinanderliegender Messpunkte; Unterschied von Wertfehler, Modellunsicherheit und physikalischer Messunsicherheit.
-- **Lernnachweis:** Ein einfaches Beispiel zur Modellkomplexität selbst auswerten; Modellwahl auf Entwicklungsdaten begründen und die Grenzen zufälliger Holdout-Punkte ausdrücklich zeigen.
-- **Quellen:** Noch keine vertiefende externe Quelle ausgewertet; bei der späteren Bearbeitung nachtragen.
+**Pflegeregel:** Die Einträge sind absichtlich **offene Lernaufgaben** nach Writing Guide 0.8. Genutzte, noch nicht selbst verstandene Methoden dürfen im Experiment stehen, werden aber nicht als mathematisch erschlossen dargestellt. Schließen erst nach eigener Herleitung/anschaulicher Erklärung und dokumentierter Gegenprüfung – **nicht allein, weil Python eine Zahl ausgibt**. Quellen und Ergebnisse bei Bearbeitung direkt beim jeweiligen Thema nachtragen.
 
-**Pflege:** Wenn ein Thema verstanden wurde, bleibt die Frage als Lernhistorie sichtbar, erhält einen Verweis auf die selbst erarbeitete Herleitung und den Status **nachvollzogen**. Neue mathematische Black Boxes werden hier ergänzt, statt sie stillschweigend als gesichert zu behandeln.
+### OI-MATH-001 – Interpolation versus glättende Approximation
 
+- **Status:** Offen.
+- **Einsatz:** Unregelmäßige Flussmesspunkte sollen in kontinuierliche Funktionen überführt werden.
+- **Fragen:** Was lösen Interpolation und Regression *jeweils* mathematisch? Wie entstehen Normalgleichungen, Pseudoinverse und überbestimmte Systeme? Wie wirken Rauschen, Modellkomplexität, Regularisierung, Kondition und Randgeometrie?
+- **Lernnachweis:** Ein einfaches 1D-Beispiel mit bekannten Daten, gezieltem Rauschen und bekannter Ableitung selbst herleiten und beide Verfahren vergleichen.
+- **Quellen:** Noch keine externe Methodenquelle eigenständig vertieft; bei Bearbeitung ergänzen.
+
+### OI-MATH-002 – RBF, Kernelmatrix, Parameter und Polynomanteil
+
+- **Status:** Offen; SciPy wird gegenwärtig **vorläufig als Werkzeug** genutzt.
+- **Einsatz:** \`RBFInterpolator\` auf den normierten dq-Trainingsdaten mit inverse-multiquadric-Kernel, \(\varepsilon=1\), \`smoothing=0.01\`.
+- **Fragen:** Woher kommt die radiale Darstellungsform? Wie entstehen RBF-Koeffizienten und Gleichungssystem samt optionalem Polynom, Nebenbedingungen und Regularisierung? Warum hängen Verhalten und Kondition von \(\varepsilon\), Punktabständen, Skalierung und \`smoothing\` ab? Was ist der tatsächliche Default von \`degree\` der installierten Version?
+- **Lernnachweis:** Kleine RBF mit wenigen Zentren selbst aufstellen, Koeffizienten ohne Bibliothek herleiten, mit SciPy vergleichen und die Formparameter geometrisch erklären.
+- **Quellen:** SciPy-API-Beschreibung [S1] als **bereits konsultierte Funktionsreferenz**; ihre mathematische Erklärung ist **noch nicht** als eigene Herleitung abgeschlossen. Geeignete weitere Literatur erst nach tatsächlicher Lektüre eintragen.
+
+### OI-MATH-003 – Ableitungen, Kettenregel und Randstabilität
+
+- **Status:** Offen.
+- **Einsatz:** Geplante \(\mathbf J_{\hat\psi}\) und \(r_{\rm int}\)-Felder.
+- **Fragen:** Wie unterscheidet sich die Ableitung einer glatten RBF von \`np.gradient()\` auf einer ausgewerteten Matrix? Wie werden Strom-Normierung und Gitterabstand rücktransformiert? Wie verstärken Fitfehler, Schrittweiten und unzureichender Daten-Support die Ableitungsfehler?
+- **Lernnachweis:** Bekannte synthetische Flussflächen mit analytischen Gradienten vergleichen; Gitterschritte und Glättungen systematisch variieren; Rand- und Innenfehler getrennt betrachten.
+- **Quellen:** Noch keine externe Herleitungsquelle eigenständig ausgewertet; nachtragen.
+
+### OI-MATH-004 – Bias, Varianz, Validierung und räumliche Datenaufteilung
+
+- **Status:** Vertiefung offen; Random Split, RMSE und NRMSE wurden umgesetzt.
+- **Einsatz:** Bewertung und zukünftige Parameterwahl glatter Flussapproximationen.
+- **Fragen:** Was erklärt der Bias-Varianz-Trade-off mathematisch? Warum reicht der Trainingsfehler nicht? Wann entsteht Leakage? Wie verändert sich die Interpretation bei nahen Nachbarpunkten und wiederholten Loggerwerten? Was misst eine Unsicherheit der Fluss**rekonstruktion** im Vergleich zum Fitfehler?
+- **Lernnachweis:** An einfachen Beispielen zwei unterschiedlich komplexe Modelle mit getrennten Entwicklungs-/Testpunkten beurteilen; alternative räumliche Validierung und deren Aussagegrenzen herleiten.
+- **Quellen:** Noch keine vertiefende externe Quelle eigenständig ausgewertet; nachtragen.
+
+### OI-PHYS-001 – Eisenverluste aus Messgrößen physikalisch identifizieren
+
+- **Status:** Offen; konstantes \(R_{\rm Fe}\)-Modell nur synthetisch geprüft.
+- **Fragen:** Welche dq-Modellparameter sind bei verfügbarer \((u,i,\omega,M)\)-Information überhaupt identifizierbar? Unter welchen Voraussetzungen kann ein reales Residuum von Winkel-, Widerstands-, Sensor- und Spannungseffekten unterschieden werden? Welche Rolle spielen tatsächliche lokale Flussdichten und Materialmodelle?
+- **Lernnachweis:** Konkurrenzhypothesen mathematisch auf unterscheidbare Signaturen prüfen, unabhängige Vergleichsgrößen und Unsicherheiten benennen, anschließend erst reale Daten quantitativ auswerten.
+- **Quellen:** Eigene modellbasierte Herleitung in Abschnitt 9; externe physikalische Fachquellen erst nach tatsächlicher Lektüre ergänzen.
+
+### OI-RESEARCH-001 – Wie überprüft man Reziprozität an realen RBF-Feldern robust?
+
+- **Status:** Offen.
+- **Aufgabe:** Unterstütztes Gebiet definieren; beide Kreuzableitungen und ihr Residuum berechnen; Ergebnisse mit synthetischem Kontrollfeld, anderen Glättungen/Basen, Unsicherheiten und Randabstand vergleichen; erst dann mögliche konservative Projektion erwägen.
+- **Erfolgskriterium:** Trennung nach numerisch belastbarer Beobachtung, physikalischem Modellbezug und weiterhin unbestimmter Ursache.
+- **Quellen:** Bereits hergeleitete Grundlagen in Abschnitten 4, 9 und 13; ergänzende Literatur später nachvollziehbar anführen.
+
+## 16. Quellen, Reproduktionsbasis und Attribution
+
+### 16.1 Tatsächlich konsultierte externe Quelle
+
+**[S1] SciPy Developers:** *scipy.interpolate.RBFInterpolator*, SciPy-API-Referenz, online, https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.RBFInterpolator.html (eingesehen am **10.10.2026**; beim späteren Reproduktionslauf lokale SciPy-Version per \`scipy.__version__\` dokumentieren). **Hier verwendeter Beitrag:** verfügbare Kernel, inverse-multiquadric-Definition, Parameter \`epsilon\`, \`smoothing\`, \`neighbors\`, \`degree\`, Defaultverhalten und mathematische **Beschreibung** des RBF-Ansatzes. Die offizielle Dokumentation zu kennen bedeutet **nicht**, dass die Herleitung schon selbst erarbeitet wurde: Lernstatus OI-MATH-002 bleibt offen.
+
+### 16.2 Eigene Quellcodes und Datensatz-Provenienz
+
+- **[P1]** [\`datasets/psm_temperature_2500.json\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) und dazugehörige CSV: Datensatzidentität, Spalten, Erfassungs- und Aggregationskonventionen, SHA-256 der zugrunde liegenden MAT-Quelle, Einschränkungen, Flussformeln.
+- **[P2]** [\`datasets/README.md\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/README.md): Inventar, Duplikat-/Provenienzprüfung, Grenzen bei CAN und Temperatur, Abgrenzung künstlicher Geschwindigkeitsvarianten.
+- **[P3]** [\`shared/python/raw_ww_data_importer.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/raw_ww_data_importer.py), [\`shared/python/canonical_dataset.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) und [\`scripts/extract_research_datasets.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py): tatsächlich verwendete Import-/Aggregations-/Ladewege.
+- **[P4]** [\`sandbox/fluxcorrection/flux_loss_experiment.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [\`sandbox/fluxcorrection/real_flux_analysis.py\`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py): synthetischer und realer Arbeitscode; **vor der Reproduktion** prüfen, ob die weiterentwickelte lokale Sitzung versioniert/pusht ist.
+- **[P5]** [MeasEval Issue #293](https://github.com/Weg-Weiser/GUI_VICE-MeasurementEvalKit/issues/293): LHS-informierte Teilmengenauswahl **real vorhandener** Stützpunkte als optionales späteres Produktkonzept.
+- **[H1]** [Vorgängerfassung der Forschungsnotiz](https://github.com/rkeller98/Research/blob/29068b91a801e1be09e91fbbe877840a16d2c5d4/sandbox/fluxcorrection/flusskorrektur_doku.md): vollständiger älterer chronologischer Notizstand und Zwischenfragen; **historischer Nachweis**, keine zusätzliche unabhängige Quelle.
+
+**Transparenz:** Die im Projekt vorhandenen Lehrbücher sind mögliche **künftige** Referenzen. Solange kein konkreter Abschnitt daraus für eine Herleitung geprüft wurde, wird ihnen **kein tatsächlich verwendeter Beleg** zugeschrieben. Neue Web-, Buch- oder Paperquellen müssen beim jeweiligen Argument sowie mit prüfbarer Fundstelle hier ergänzt werden (Writing Guide 0.7).
+
+### 16.3 Reproduktionshinweise für den jetzigen Befund
+
+Dokumentierte Eingaben: Daten-ID \`psm_temperature_2500\`, Filter \`rotor_temp_ref ≈ 70 °C\`, Training/Test mit 80/20-Indexpermutation Seed 42, \(I_{\rm ref}=\max\sqrt{i_d^2+i_q^2}\) **nur aus Trainingspunkten**, SciPy-RBF-Kernel \`inverse_multiquadric\`, \`epsilon=1\`, \`smoothing=0.01\`, unabhängige d-/q-Zielmodelle. Bewertungsgrößen: RMSE in Vs, NRMSE in Prozent der **Trainingsspanne**. Offene Reproduktionsdetails: exakter Commit des lokal genutzten Skripts, Python-/SciPy-/NumPy-Version und endgültige Cross-Validation-/Testpolitik; vor formaler Publikation ergänzen.
+
+## 17. Arbeitsauftrag für die nächste Sitzung
+
+Wir steigen **nicht** beim historischen Drehmoment-Offset oder einer fertigen Korrekturformel ein, sondern bei den **bereits aufgebauten normierten unabhängigen RBF-Funktionen** für reale \(\psi_d,\psi_q\).
+
+**Nächste selbst zu erarbeitende Programmieraufgabe:** Ein regelmäßiges Stromgitter erzeugen, es als \(N\times2\)-Punktmatrix für die beiden RBFs vorbereiten und auf das tatsächlich unterstützte Stromgebiet beschränken. Danach die Kreuzableitungen bestimmen, ihre Einheiten und numerische Belastbarkeit prüfen und **erst dann** das Integrabilitätsresiduum interpretieren.
+
+**Begleitendes Lernziel:** OI-MATH-002 zur RBF-Grundlage bleibt explizit offen. Das Gitter darf zunächst pragmatisch erstellt werden, ohne dass die Herleitung der RBF schon abgeschlossen sein muss – die fachliche Lücke wird nicht verschwiegen.
+
+**Nicht vorwegnehmen:** Ein korrigiertes magnetisches Flussfeld, eine Eisenverlustidentifikation oder eine validierte Reziprozitätsverletzung in den realen Messdaten liegt **noch nicht** vor.
