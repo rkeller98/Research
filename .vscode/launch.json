@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flux Correction",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "sandbox.fluxcorrection.real_flux_analysis",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

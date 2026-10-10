@@ -1,7 +1,8 @@
 from pathlib import Path
-import pandas as pd
+
 import h5py
 import numpy as np
+import pandas as pd
 from numpy.typing import NDArray
 from scipy import stats
 
@@ -55,4 +56,3 @@ class RawDataImporter:
                     return np.asarray(file[data_ref][()], dtype=np.float64).reshape(-1)
 
         raise KeyError(f"Signal '{name}' was not found.")
-

@@ -1,9 +1,11 @@
 """Exact P1 path and Green tests, migrated from the audited composite.
 No quadrature error implies nothing about interpolation or measurement error.
 """
+
 import numpy as np
-from scipy.spatial import Delaunay
 from scipy.interpolate import LinearNDInterpolator
+from scipy.spatial import Delaunay
+
 
 class AffineMesh:
     """Independent triangle gradients and exact integrals of a P1 vector field.
@@ -119,6 +121,7 @@ class AffineMesh:
         # Keep the exact mesh/integration checks usable in lightweight NumPy/
         # SciPy research environments; tabular export alone needs pandas.
         import pandas as pd
+
         center = self.vertices.mean(axis=1)
         lengths = np.stack(
             [

@@ -1,6 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 from shared.python.raw_ww_data_importer import RawDataImporter
 
 # ============================================================
@@ -177,13 +179,12 @@ def plot_flux_comparison(id_m, iq_m, id_s, iq_s, psi_d):
         ax.view_init(elev=25, azim=-60)
 
     fig.tight_layout()
-    
+
+
 def plot_coenergy_risiduum():
     omg = np.linspace(-100, 1e5, 10000)
 
-    rint = 2 * omg * LD * LQ * R_FE / (
-        R_FE**2 + omg**2 * LD * LQ
-    )
+    rint = 2 * omg * LD * LQ * R_FE / (R_FE**2 + omg**2 * LD * LQ)
 
     fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -198,10 +199,7 @@ def plot_coenergy_risiduum():
 # ============================================================
 
 if __name__ == "__main__":
-    
-    data_path = Path(
-        r"C:\Git\Research\Test_Daten\Test_Daten\Flux\PSM_Measdata.mat"
-    )
+    data_path = Path(r"C:\Git\Research\Test_Daten\Test_Daten\Flux\PSM_Measdata.mat")
 
     importer = RawDataImporter(str(data_path))
 
@@ -254,22 +252,16 @@ if __name__ == "__main__":
 
     plot_flux_comparison(id_m_grid, iq_m_grid, id_s_grid, iq_s_grid, psi_d_grid)
     plot_flux_comparison(id_m_grid, iq_m_grid, id_s_grid, iq_s_grid, psi_q_grid)
-    
+
     plot_coenergy_risiduum()
-    
+
     a = OMEGA_E * LQ / R_FE
     b = OMEGA_E * LD / R_FE
 
-    A = np.array([
-        [1, -a],
-        [b,  1]
-    ])
-    
-    J_psi_m = np.diag([LD,LQ])
+    A = np.array([[1, -a], [b, 1]])
+
+    J_psi_m = np.diag([LD, LQ])
     J_psi_s = J_psi_m @ np.linalg.inv(A)
     print(J_psi_s)
-    
-    
 
     plt.show()
-
