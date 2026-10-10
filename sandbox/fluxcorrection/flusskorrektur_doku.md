@@ -418,6 +418,22 @@ Die Niveaulinien eines gegebenen Widerstands-Drehmomentfehlers bilden Kreise um 
 
 Bei festgehaltenem Fluss bewirkt eine Änderung des Widerstands \(\delta\boldsymbol u_R=\delta R\,\boldsymbol i\); bei festem Widerstand bewirkt eine **radiale** Flussänderung \(c\boldsymbol i\) die Spannungsänderung \(\delta\boldsymbol u_{\rm radial}=\omega_ec(-i_q,i_d)^\mathsf T\). Diese **speziellen Spannungskomponenten** sind orthogonal. Sie dürfen nicht mit dem oben stehenden, **orthogonalen Flussausgleich** bei unveränderten Spannungswerten verwechselt werden.
 
+
+#### Experimentelle Widerstandsskalierung im realen Flussdatensatz (10.10.2026)
+
+Zur **Sensitivitätsanalyse** wird der *zur Rekonstruktion verwendete*, nicht unabhängig als physikalisch wahr bestimmte Widerstand skaliert: \(R_{s,\alpha}=\alpha R_{s,0}\), wobei \(R_{s,0}=\texttt{rs\_used}\) aus dem Datensatz stammt. Versucht wurden \(\alpha=1\) (Basis), \(\alpha=2\) (Verdopplung) und \(\alpha=0{,}265\) (explorative Annäherung des Residualmittelwerts an null). **Diese \(\Delta R_\alpha=(\alpha-1)R_{s,0}\) bezeichnet eine Änderung gegenüber dem Basiswert und nicht den Fehler gegenüber dem unbekannten wahren \(R_s\).**
+
+Bei unveränderten gemessenen Spannungen, Strömen und \(\omega_e\) wurden die beiden Flussänderungen bereits nachvollzogen:
+
+\[
+\Delta_\alpha\psi_d=-\frac{\Delta R_\alpha}{\omega_e}i_q,\qquad
+\Delta_\alpha\psi_q=+\frac{\Delta R_\alpha}{\omega_e}i_d.
+\]
+
+Das Zusatzflussfeld zeigt bei konstantem \(\Delta R_\alpha/\omega_e\) geometrisch um \(90^\circ\) gedreht zum Stromvektor und ist proportional zu dessen Betrag. **Die anschließende eigene Ableitung der beiden Kreuzinduktivitätsänderungen und ihres Beitrags zu \(r_{\rm int}\) wurde ausdrücklich noch nicht abgeschlossen.** Sie bildet den exakten Einstieg in die nächste Sitzung (OI-MATH-005; Abschnitt 17).
+
+Die 340 gruppierten Betriebspunkte der **70-°C-Temperaturreferenz** enthalten \(R_{s,0}=0{,}00969\,\Omega\) konstant, aber eine leicht variable gemessene elektrische Winkelgeschwindigkeit von ungefähr **773,98 bis 796,02 rad/s** [P1]. Die für den nächsten analytischen Schritt angesetzte konstante Winkelgeschwindigkeit ist daher eine Idealisation. Bei jeder Widerstandseinstellung werden die Flüsse erneut aus den Messwerten rekonstruiert und beide RBF-Funktionen neu gefittet.
+
 ### 6.2 Winkel, Spannung und tatsächlicher Betriebszustand
 
 Ein falsch bestimmter Rotorwinkel, eine fehlerhafte Strom-/Spannungssynchronisierung oder eine falsch rekonstruierte Maschinenklemmen-Spannungsgrundschwingung können die Flusskennfelder ebenfalls systematisch verändern. Ein Steuergeräte-Sollwert oder eine intern geschätzte dq-Spannung ist **nicht automatisch** die tatsächliche Grundschwingung an den Maschinenklemmen. PWM-Totzeiten, Halbleiterabfälle, Abtast-/Mittelungsstrategien und Zeitbezug sind separat zu untersuchen; die Fehlerrichtung ist **nicht allgemein vorgegeben**.
@@ -676,7 +692,7 @@ Diese Größen prüfen die **eigene algebraische/numerische Umsetzung dieses gew
 
 ### 10.1 Vorhandene Datensätze und wiederverwendete Software
 
-Arbeitsbranch: [`topic/fluxcorrection`](https://github.com/rkeller98/Research/tree/topic/fluxcorrection). Getrennte Experimente: [synthetisches Modell](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [Analyse realer Daten](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py). Der aktuell im Gespräch weiterentwickelte lokale Python-Stand kann dem letzten gepushten Skript voraus sein; genaue Reproduktionsstände sind vor Veröffentlichung als Commit und Umgebung einzufrieren.
+Arbeitsbranch: [`topic/fluxcorrection`](https://github.com/rkeller98/Research/tree/topic/fluxcorrection). Getrennte Experimente: [synthetisches Modell](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [Analyse realer Daten](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py). Der aktualisierte Python-Stand mit Stromgitter, differentiellen Induktivitäten, Maskierung und Residualstatistik wurde am 10.10.2026 hochgeladen ([Code-Commit `ed90986`](https://github.com/rkeller98/Research/commit/ed90986ef1579b365313824c549b6ea6a5f3a452)). Im zuletzt hochgeladenen Skript ist `rs = data["rs_used"][mask] * 0.265` eingestellt. Die zuvor interaktiv getesteten Faktoren 1 und 2 sind bisher durch protokollierte Konsolenausgaben, nicht durch separate Skript-Commits, belegt.
 
 Die vorhandenen Import- und Aufbereitungsfunktionen werden **wiederverwendet**, statt erneute unabhängige Parser zu bauen:
 
@@ -828,7 +844,7 @@ Derselbe aus Training berechnete Nenner gilt für dessen Testauswertung. Diese P
 
 ### 12.2 Beobachtete Zahlen (explorativer Versuch, Seed 42)
 
-Konfiguration: 70 °C Temperatur**referenz**, RBF `inverse_multiquadric`, \(\varepsilon=1\), \(\mathrm{smoothing}=0.01\), normierte Stromkoordinaten.
+Konfiguration: 70 °C Temperatur**referenz**, **Basiswiderstand** \(\alpha=1\), RBF `inverse_multiquadric`, \(\varepsilon=1\), \(\mathrm{smoothing}=0.01\), normierte Stromkoordinaten. **Die RMSE-Tabelle gilt für diesen Basislauf**. Das später gepushte Skript setzt \(\alpha=0{,}265\) und verändert damit die Ziel-Flussverkettungen; die entsprechenden Fitkennwerte sind hier nicht als gesonderter Lauf dokumentiert.
 
 | Fluss und Teilmenge | RMSE [Vs] | RMSE [mVs] | NRMSE (Train-Range) |
 | --- | ---: | ---: | ---: |
@@ -848,49 +864,89 @@ Konfiguration: 70 °C Temperatur**referenz**, RBF `inverse_multiquadric`, \(\var
 
 Ein LHS-informierter diskreter Holdout aus **tatsächlich gemessenen** Betriebspunkten ist als optionales Konzept für MeasEval in [Weg-Weiser/GUI_VICE-MeasurementEvalKit#293](https://github.com/Weg-Weiser/GUI_VICE-MeasurementEvalKit/issues/293) dokumentiert. Er ist **keine Voraussetzung** für die aktuelle Lernübung.
 
-## 13. Nächste mathematische Diagnose und Entscheidungsregeln
+## 13. Reale Integrabilitätsdiagnose auf dem Stromgitter (Stand 10.10.2026)
 
-### 13.1 Vom kontinuierlichen RBF-Modell zum Gitter
+### 13.1 Von zwei unabhängigen RBFs zu vier differentiellen Induktivitäten
 
-Die nächste selbst zu implementierende Übung besteht darin, Stromachsen mit `np.linspace` zu definieren und per `np.meshgrid` ein reguläres zweidimensionales Auswertegitter zu erzeugen. Die Gitterarrays mit `ravel()` oder `reshape(-1)` zu Punktspalten \((i_d,i_q)\) zusammenführen, **durch den bestehenden Trainingswert** \(I_{\rm ref}\) normieren und die zwei vorhandenen RBF-Funktionen getrennt auswerten. Anschließend die Flusswerte zur Gitterform zurückordnen.
+Auf Basis der beiden unabhängig approximierten Flussfunktionen \(\hat\psi_d,\hat\psi_q\) wurde inzwischen ein **100×100-Auswertegitter** implementiert. Die beiden Stromachsen reichen mit `np.linspace` von ihrem jeweils beobachteten Minimum zum Maximum. `np.meshgrid(id_vec, iq_vec)` erzeugt die zwei \(100\times100\)-Matrizen. Mit `ravel` und `np.column_stack` entstehen \(10.000\times2\) gekoppelte Strompunkte, die durch das bereits aus **Trainingspunkten** bestimmte \(I_{\rm ref}\) normiert und den beiden RBFs übergeben werden. Ihre Ausgaben werden wieder zu Flussmatrizen \(100\times100\) geformt.
 
-**Geometrische Grenze:** Das umschließende Rechteck enthält viele Orte außerhalb der halbkreisförmigen Messpunktwolke. Wir müssen das tatsächlich unterstützte Gebiet und die Randnähe gesondert kennzeichnen bzw. maskieren. Die Tatsache, dass ein globaler Approximator dort Funktionswerte liefert, **erzeugt keine fehlenden Messinformationen**.
-
-### 13.2 Differentialrechnung vor einer möglichen Korrektur
-
-Aus den zwei unabhängigen Flussfunktionen zunächst
+Die Jacobi-Matrix
 
 \[
-\mathbf J_{\hat\psi}(i_d,i_q)
-=\begin{bmatrix}
-\partial_{i_d}\hat\psi_d & \partial_{i_q}\hat\psi_d\\
-\partial_{i_d}\hat\psi_q & \partial_{i_q}\hat\psi_q
-\end{bmatrix}
+\mathbf J_{\hat\psi}=
+\begin{pmatrix}
+L_{dd}&L_{dq}\\ L_{qd}&L_{qq}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\partial_{i_d}\hat\psi_d&\partial_{i_q}\hat\psi_d\\
+\partial_{i_d}\hat\psi_q&\partial_{i_q}\hat\psi_q
+\end{pmatrix}
 \]
 
-und
+wird numerisch über folgenden **tatsächlich verwendeten** Code bestimmt:
+
+```python
+Ldq_grid, Ldd_grid = np.gradient(psi_d_grid, iq_vec, id_vec)
+Lqq_grid, Lqd_grid = np.gradient(psi_q_grid, iq_vec, id_vec)
+```
+
+Für das Standard-`meshgrid` (`indexing="xy"`) gilt: **Achse 0 entspricht \(i_q\)**, **Achse 1 entspricht \(i_d\)**. Die beiden an `np.gradient` übergebenen Koordinatenvektoren sind bereits in Ampere, weshalb die Gradienten die Einheit \(\mathrm{Vs/A}=\mathrm H\) haben. **Eine weitere Division durch \(I_{\rm ref}\) wäre hier falsch.** Die vier Induktivitäten und das Residuum wurden als 3D-Scatter-Flächen dargestellt; die Kreuzinduktivitäten \(L_{dq}\) und \(L_{qd}\) weisen erkennbar voneinander abweichende Strukturen auf.
+
+**Evidenzstatus:** Implementierte Ableitungen der **approximierten rekonstruierten** Flussfelder. Weder deren analytische/finite-Differenzen-Übereinstimmung noch die Gitterkonvergenz, Glättungssensitivität oder Randgenauigkeit sind bisher validiert (OI-MATH-003). Ein kleiner Flux-RMSE aus Abschnitt 12 impliziert keinen kleinen Ableitungsfehler.
+
+### 13.2 Näherungsweise Messdomäne, Maskierung und Statistik
+
+Das ursprüngliche rechteckige Gitter enthält Extrapolationspunkte außerhalb der etwa halbkreisförmigen Strompunktwolke. Als pragmatische erste Domänenmaske wurde verwendet:
 
 \[
-r_{\rm int}(i_d,i_q)=
-\partial_{i_q}\hat\psi_d-\partial_{i_d}\hat\psi_q
+I_{\max}=\max_{k\in\text{70-°C-Daten}}\sqrt{i_{d,k}^2+i_{q,k}^2}
+\approx401{,}0522\,\mathrm A,\qquad
+\texttt{valid\_mask}\iff i_d^2+i_q^2\le I_{\max}^2.
 \]
 
-bestimmen. Die analytische Ableitung einer RBF und endliche Differenzen auf dem Gitter sind zu unterscheiden. Numerische Ableitungen müssen die Gitterabstände und bei normierten Koordinaten die **Kettenregel** beachten. Die Plausibilität der Ableitungen ist zunächst an einem **bekannten synthetischen Feld** unabhängig zu prüfen. Später die Robustheit gegenüber Kernelwahl, Glättung, Punktabdeckung, Ableitungsverfahren und Randnähe untersuchen.
+Die tatsächlichen Stromgrenzen betragen näherungsweise \(i_d\in[-396{,}204,\,+0{,}805]\,\mathrm A\) und \(i_q\in[-399{,}632,\,+400{,}157]\,\mathrm A\). Die gemessene Wolke liegt also **fast**, aber nicht exakt vollständig in der linken \(i_d\)-Halbebene. Die Gitterachsen begrenzen bereits den größten Teil des Stromraums; eine zusätzliche idealisierte Bedingung \(i_d\le0\) wurde **nicht** implementiert.
 
-Erst nach dieser Diagnose kommen Wegintegrale, ein mögliches konservatives Potential, ein konservativ/nichtkonservativ zerlegtes Modell oder eine physikalisch motivierte Korrektur in Betracht. Dabei ist
+In Verbindung mit dem rechteckigen Achsenbereich erlaubt die Maske **7.869 der 10.000 Gitterpunkte**. Die Induktivitäten werden **nach** der Gradientenberechnung durch `np.where(valid_mask, L_grid, np.nan)` auf die gültigen Orte eingeschränkt. Eine Maskierung **vor** `np.gradient` könnte benachbarte Differenzen durch NaN verderben; umgekehrt verwenden Randableitungen auf dem vollen Gitter weiterhin möglicherweise extrapolierte Werte knapp außerhalb der Kreisgrenze. Die Kreisbedingung garantiert **keine lokal ausreichende Messpunktdichte** und ist weder Konvexhülle noch abgesicherte Support-Diagnose. Für die Visualisierung wurde \(I_{\max}\) aus allen 70-°C-Betriebspunkten verwendet, die RBF-Normierung \(I_{\rm ref}\) hingegen nur aus dem Training.
+
+Durch die `NaN`-Maske müssen die statistischen Funktionen (`np.nanmin`, `np.nanmax`, `np.nanmean`, `np.nanstd` und \(\sqrt{\texttt{np.nanmean}(r_{\rm int}^2)}\)) ungültige Orte ignorieren. Für 3D-`scatter` müssen x-, y-, z- **und Farbwerte dieselbe boolesche Maske** erhalten; sonst entstanden im Versuch inkonsistente Feldlängen **7.869 zu 10.000**. Beide Implementierungsprobleme wurden behoben.
+
+Eine Normierung des Integrabilitäts-RMS mit der eigenen Spannweite `np.ptp(r_int)` wurde **nicht** beibehalten: Bei einem überall konstant von null verschiedenen Residuum ist diese Spannweite null, obwohl die Integrabilitätsverletzung besteht. Der **RMS in H oder mH** ist für eine erste Beschreibung geeigneter. Alle hier folgenden Statistiken beziehen sich auf **gleichmäßig gerasterte gültige Punkte**, nicht auf eine messpunktdichte- oder unsicherheitsgewichtete Verteilung.
+
+### 13.3 Drei Widerstandsexperimente und das Integrabilitätsresiduum
+
+Mit fester Vorzeichenkonvention
 
 \[
-\boldsymbol\psi_{\rm rec}
-=\nabla_iW' +\boldsymbol r
+\boxed{
+r_{\rm int}=L_{dq}-L_{qd}
+=\partial_{i_q}\hat\psi_d-\partial_{i_d}\hat\psi_q
+}
 \]
 
-**zunächst lediglich eine mögliche mathematische Modellzerlegung**; \(\boldsymbol r\) ist nicht per Definition „der Eisenverlust“. Eine Korrektur darf den Messbefund nicht stillschweigend ersetzen.
+wurden drei Widerstandsskalierungen \(\alpha\) miteinander verglichen. Für jeden Versuch wurden **die beiden Flussfelder neu rekonstruiert und beide unabhängigen RBFs neu gefittet**. Datenauswahl (340 aggregierte 70-°C-Referenzpunkte), Split (Seed 42, 272 Train/68 Test), Kernel (`inverse_multiquadric`), Parameter (`epsilon=1`, `smoothing=0.01`), 100×100-Gitter, numerische Ableitungen und Kreis-Maske blieben konstant.
 
-### 13.3 Kriterien für belastbare Schlussfolgerungen
+| Faktor \(\alpha\) des verwendeten \(R_s\) | MIN [mH] | MAX [mH] | Mittelwert [mH] | RMS [mH] | STD [mH] |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| **1** (Basis) | −0,064589 | +0,003702 | −0,018002 | 0,020957 | 0,010730 |
+| **2** (verdoppelt) | −0,088294 | −0,018636 | −0,042477 | 0,043814 | 0,010741 |
+| **0,265** (explorativ) | −0,047166 | +0,020935 | −0,0000126 | 0,010748 | 0,010748 |
 
-Eine im realen Flussfeld beobachtete Asymmetrie oder Integrabilitätsverletzung wird erst dann physikalisch aussagekräftiger, wenn sie **gegenüber numerischen Wahlmöglichkeiten robust**, im gemessenen Strombereich unterstützt und gegenüber der verfügbaren Unsicherheitsabschätzung erkennbar ist. Für eine eindeutige Ursachenzuordnung wären weitere, unterscheidungskräftige Informationen nötig: z. B. thermisch/elektrisch qualifizierte Widerstandswerte, unabhängige Klemmenspannungen oder Drehmomente, reproduzierbare Vergleiche echter Drehzahlzustände oder andere physikalisch begründete Beobachtungen.
+**Datenstatus:** Die Zahlen wurden aus den **vom Nutzer in dieser Sitzung ausgegebenen** Konsolenwerten in **Henry** zu **mH** umgerechnet; sie wurden hier **nicht unabhängig nachgerechnet**. Faktor 0,265 ist im gepushten Python-Stand enthalten, Faktor 1 und 2 stammen aus den zuvor berichteten Testläufen. Der nahezu verschwindende Mittelwert bei 0,265 beträgt genauer \(-1{,}2583900048500268\cdot10^{-8}\,\mathrm H\), ist also nicht exakt null.
 
-**Derzeitiger Stand:** Es liegt **keine** belastbare reale Integrabilitätskarte, keine quantifizierte Ableitungsunsicherheit und **kein** eindeutig identifiziertes physikalisches Flusskorrekturmodell vor.
+**Was wir tatsächlich beobachtet haben:**
+
+- Mit verdoppeltem \(R_s\) verschiebt sich der Mittelwert des Residuums von ca. **−0,018002** auf **−0,042477 mH**, also um **−0,024475 mH**; in diesem Versuch ist sogar das Maximum negativ.
+- Die **Standardabweichung** ändert sich dabei kaum: alle drei Werte liegen zwischen **0,01073 und 0,01075 mH**. Der Effekt ähnelt deshalb einer fast **starren Verschiebung** einer weiterhin stromabhängigen Residualfläche.
+- Bei \(\alpha=0{,}265\) kann der mittlere Offset fast verschwinden, aber **Minimum, Maximum und RMS bleiben von null verschieden**. Damit ist die Bedingung \(L_{dq}=L_{qd}\) noch **nicht überall erfüllt**.
+- Die mathematische Identität \(\mathrm{RMS}(r)^2=\operatorname{STD}(r)^2+\overline r^{\,2}\) (Populations-STD wie bei `np.nanstd`) erklärt, warum ein verschwindender Mittelwert den RMS in Richtung STD senkt, ohne lokale Abweichungen beseitigen zu müssen.
+- Die beinahe unveränderte STD ist **nur eine numerische Beobachtung**; ob und wann das beobachtete Vorzeichen sowie der Versatz aus einer konstanten \(\Delta R_\alpha\)-Variation folgen, muss noch **eigenständig mit den partiellen Ableitungen** hergeleitet und anschließend quantitativ geprüft werden (OI-MATH-005). Bei real leicht stromabhängiger \(\omega_e\) und neu gefitteten RBFs ist ein **exakter konstanter Offset nicht selbstverständlich**.
+
+**Was wir daraus nicht schließen dürfen:** Der Faktor \(0{,}265\) wurde durch Probieren **anhand des Residualmittelwerts** bestimmt und ist **kein unabhängig identifizierter physikalischer Statorwiderstand**. Ein gemitteltes Residuum von null garantiert weder lokale Integrabilität noch korrekte physikalische Flüsse. Umgekehrt könnte ein nichtverschwindendes Residuum durch Widerstand, Spannungs-/Winkelmessfehler, numerische Differentiation/Fit oder weitere Physik entstehen; **Eisenverluste sind nicht eindeutig bewiesen**. Neben den bisherigen 3D-Plots wurde eine 2D-Farbkarte mit einer um null zentrierten Farbskala als Möglichkeit besprochen, **aber noch nicht implementiert**.
+
+### 13.4 Grenzen und wissenschaftlich belastbare Fortsetzung
+
+Es existiert jetzt eine **erste numerische reale Integrabilitätskarte**, jedoch **keine validierte Reziprozitätsdiagnose**. Erforderlich sind eine bessere Abgrenzung des tatsächlich vermessenen Stützgebiets, Gitter-/RBF-/Glättungsvarianten, synthetische Kontrollfelder mit bekannten Ableitungen, Unsicherheiten der Messkette und nach Möglichkeit unabhängige \(R_s\)-, Klemmenspannungs- oder Drehmomentinformationen. Diese Diagnose ist getrennt von einer späteren Projektion auf eine konservative Coenergy-Funktion zu halten: \(\boldsymbol\psi_{\rm rec}=\nabla_iW'+\boldsymbol r\) wäre zunächst nur eine **mathematische Modellzerlegung**, \(\boldsymbol r\) ist **nicht per Definition der Eisenverlust**.
 
 ## 14. Historischer Forschungsweg und bewahrenswerte negative Ergebnisse
 
@@ -904,7 +960,8 @@ Die Chronologie soll den heutigen Forschungsinhalt **erklären**, nicht seine Re
 | Stromsymmetrie und Verlustbetrachtung | Lässt sich Kupfer-, Eisen- und mechanischer Verlustanteil allein durch Spiegelung oder Strombetrag trennen? | Nur unter starken, expliziten Gleichheitsannahmen; weitere Informationsquellen erforderlich (Abschnitt 7). |
 | Mehrdrehzahlansatz | Eliminieren Drehzahldifferenzen \(R_s\)? | Ja, **im idealen Modell** bei konstantem Fluss-/Temperaturzustand und echten verschiedenen Messungen (Abschnitt 8). |
 | Coenergy und Eisenverlustzweig | Wie kann ein magnetisch konservatives Feld nichtkonservativ erscheinen? | Im gewählten Verlustzweig durch die Stator-/Magnetisierungsstrom-Abbildung; das ist **nicht** der allgemeine Nachweis einer realen Ursache (Abschnitt 9). |
-| Reale PSM + RBF | Können wir geeignete glatte Felder aus unregelmäßigen Messdaten erhalten? | Vorläufig niedrige wertbezogene Fehler, Ableitungen und Randzuverlässigkeit **noch offen** (Abschnitte 10–13). |
+| Reale PSM + RBF | Können wir geeignete glatte Felder aus unregelmäßigen Messdaten erhalten? | Vorläufig niedrige wertbezogene Fehler, Ableitungen und Residuen nun numerisch bestimmt; **Belastbarkeit und Randgenauigkeit offen** (Abschnitte 10–13). |
+| \(R_s\)-Skalierung in realen rekonstruierten Flussfeldern | Kann eine Widerstandsvariation einen systematischen Residualoffset erklären? | Mittelwert verschiebt sich stark, STD kaum; eine Wahl mit mittlerem Residuum nahe null **identifiziert keinen physikalisch wahren \(R_s\)** (Abschnitte 6 und 13). |
 
 Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorgängerversion vom 10.10.2026](https://github.com/rkeller98/Research/blob/29068b91a801e1be09e91fbbe877840a16d2c5d4/sandbox/fluxcorrection/flusskorrektur_doku.md) nachvollziehbar. Diese Verlinkung dient dem **historischen Nachlesen**, nicht als Ersatz für die heute hier vollständig dokumentierten Kernaussagen.
 
@@ -932,8 +989,8 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 
 ### OI-MATH-003 – Ableitungen, Kettenregel und Randstabilität
 
-- **Status:** Offen.
-- **Einsatz:** Geplante \(\mathbf J_{\hat\psi}\) und \(r_{\rm int}\)-Felder.
+- **Status:** In Bearbeitung; \(\mathbf J_{\hat\psi}\) und \(r_{\rm int}\) mit `np.gradient` auf dem 100×100-Gitter berechnet, Ableitungsgenauigkeit nicht validiert.
+- **Einsatz:** Numerische Differentiation unabhängig gefitteter Flussfelder innerhalb einer ersten Kreis-Näherungsmaske.
 - **Fragen:** Wie unterscheidet sich die Ableitung einer glatten RBF von `np.gradient()` auf einer ausgewerteten Matrix? Wie werden Strom-Normierung und Gitterabstand rücktransformiert? Wie verstärken Fitfehler, Schrittweiten und unzureichender Daten-Support die Ableitungsfehler?
 - **Lernnachweis:** Bekannte synthetische Flussflächen mit analytischen Gradienten vergleichen; Gitterschritte und Glättungen systematisch variieren; Rand- und Innenfehler getrennt betrachten.
 - **Quellen:** Noch keine externe Herleitungsquelle eigenständig ausgewertet; nachtragen.
@@ -946,6 +1003,21 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 - **Lernnachweis:** An einfachen Beispielen zwei unterschiedlich komplexe Modelle mit getrennten Entwicklungs-/Testpunkten beurteilen; alternative räumliche Validierung und deren Aussagegrenzen herleiten.
 - **Quellen:** Noch keine vertiefende externe Quelle eigenständig ausgewertet; nachtragen.
 
+### OI-MATH-005 – Einfluss einer \(R_s\)-Variation auf das Integrabilitätsresiduum
+
+- **Status:** In Bearbeitung; die Flussänderungen wurden nachvollzogen, die beiden Kreuzableitungen und ihre Differenz **noch nicht vom Nutzer selbst fertig hergeleitet** (Stopp am 10.10.2026).
+- **Einsatz:** Mathematische Erklärung der drei numerischen Varianten \(\alpha=1\), \(2\), \(0{,}265\) (Abschnitte 6.1 und 13.3).
+- **Offen:** \(\partial(\Delta_\alpha\psi_d)/\partial i_q\) und \(\partial(\Delta_\alpha\psi_q)/\partial i_d\) bei **konstantem** \(\Delta R_\alpha,\omega_e\) eigenständig ausrechnen; daraus Vorzeichen, Einheiten und Betrag der Änderung von \(r_{\rm int}\) bestimmen. Anschließend den Effekt der leicht variierenden realen \(\omega_e\), der RBF-Neufits und endlicher Differenzen einordnen.
+- **Lernnachweis:** Erst selbst ableiten, dann numerisch gegen die beobachteten Mittelwertverschiebungen vergleichen; nicht lediglich ein Ergebnis aus der Literatur übernehmen.
+- **Quellen:** Bisher nur eigene Rekonstruktionsgleichungen und Sitzungsergebnisse; keine neue externe Quelle.
+
+### OI-PHYS-002 – Unterschied zwischen Nullmittelwert und physikalisch identifiziertem Statorwiderstand
+
+- **Status:** Offen; \(0{,}265R_{s,0}\) ist eine explorative Parametereinstellung, **keine Messung von \(R_s\)**.
+- **Fragen:** Welche alternativen Mess-/Modellfehler können ähnliche Residualsignaturen erzeugen? Welche externen Informationen/Temperaturbedingungen würden eine \(R_s\)-Validierung erlauben? Was geht durch erzwungene Symmetrisierung verloren?
+- **Lernnachweis:** Gegenbeispiele und identifizierbare Parameterkonstellationen selbst herleiten; unabhängige Validierungsbedingungen definieren.
+- **Quellen:** Eigene numerische Versuche (Abschnitt 13); keine externe Quelle neu ausgewertet.
+
 ### OI-PHYS-001 – Eisenverluste aus Messgrößen physikalisch identifizieren
 
 - **Status:** Offen; konstantes \(R_{\rm Fe}\)-Modell nur synthetisch geprüft.
@@ -955,8 +1027,8 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 
 ### OI-RESEARCH-001 – Wie überprüft man Reziprozität an realen RBF-Feldern robust?
 
-- **Status:** Offen.
-- **Aufgabe:** Unterstütztes Gebiet definieren; beide Kreuzableitungen und ihr Residuum berechnen; Ergebnisse mit synthetischem Kontrollfeld, anderen Glättungen/Basen, Unsicherheiten und Randabstand vergleichen; erst dann mögliche konservative Projektion erwägen.
+- **Status:** In Bearbeitung; erste Kreuzableitungen, Residualplots, Näherungsmaske und Kennwerte berechnet; numerische/physikalische Validierung weiter offen.
+- **Aufgabe:** Wirklich gestütztes Gebiet über die Kreis-Näherung hinaus definieren; Kreuzableitungen und Residuum an synthetischem Kontrollfeld, anderen Glättungen/Basen, Unsicherheiten und Randabstand prüfen; erst danach mögliche konservative Projektion erwägen.
 - **Erfolgskriterium:** Trennung nach numerisch belastbarer Beobachtung, physikalischem Modellbezug und weiterhin unbestimmter Ursache.
 - **Quellen:** Bereits hergeleitete Grundlagen in Abschnitten 4, 9 und 13; ergänzende Literatur später nachvollziehbar anführen.
 
@@ -971,7 +1043,7 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 - **[P1]** [`datasets/psm_temperature_2500.json`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/psm_temperature_2500.json) und dazugehörige CSV: Datensatzidentität, Spalten, Erfassungs- und Aggregationskonventionen, SHA-256 der zugrunde liegenden MAT-Quelle, Einschränkungen, Flussformeln.
 - **[P2]** [`datasets/README.md`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/datasets/README.md): Inventar, Duplikat-/Provenienzprüfung, Grenzen bei CAN und Temperatur, Abgrenzung künstlicher Geschwindigkeitsvarianten.
 - **[P3]** [`shared/python/raw_ww_data_importer.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/raw_ww_data_importer.py), [`shared/python/canonical_dataset.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/shared/python/canonical_dataset.py) und [`scripts/extract_research_datasets.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/scripts/extract_research_datasets.py): tatsächlich verwendete Import-/Aggregations-/Ladewege.
-- **[P4]** [`sandbox/fluxcorrection/flux_loss_experiment.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [`sandbox/fluxcorrection/real_flux_analysis.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py): synthetischer und realer Arbeitscode; **vor der Reproduktion** prüfen, ob die weiterentwickelte lokale Sitzung versioniert/pusht ist.
+- **[P4]** [`sandbox/fluxcorrection/flux_loss_experiment.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/flux_loss_experiment.py) und [`sandbox/fluxcorrection/real_flux_analysis.py`](https://github.com/rkeller98/Research/blob/topic/fluxcorrection/sandbox/fluxcorrection/real_flux_analysis.py): synthetischer und realer Arbeitscode. Der reale Integrabilitätsstand mit `rs_used * 0.265` wurde am 10.10.2026 gepusht ([Code-Commit ed90986](https://github.com/rkeller98/Research/commit/ed90986ef1579b365313824c549b6ea6a5f3a452)); die Varianten mit Faktor 1 und 2 sind bisher über die protokollierten Programmausgaben belegt.
 - **[P5]** [MeasEval Issue #293](https://github.com/Weg-Weiser/GUI_VICE-MeasurementEvalKit/issues/293): LHS-informierte Teilmengenauswahl **real vorhandener** Stützpunkte als optionales späteres Produktkonzept.
 - **[H1]** [Vorgängerfassung der Forschungsnotiz](https://github.com/rkeller98/Research/blob/29068b91a801e1be09e91fbbe877840a16d2c5d4/sandbox/fluxcorrection/flusskorrektur_doku.md): vollständiger älterer chronologischer Notizstand und Zwischenfragen; **historischer Nachweis**, keine zusätzliche unabhängige Quelle.
 
@@ -979,14 +1051,26 @@ Die ausführliche erste, stärker chronologische Fassung ist über die [Git-Vorg
 
 ### 16.3 Reproduktionshinweise für den jetzigen Befund
 
-Dokumentierte Eingaben: Daten-ID `psm_temperature_2500`, Filter `rotor_temp_ref ≈ 70 °C`, Training/Test mit 80/20-Indexpermutation Seed 42, \(I_{\rm ref}=\max\sqrt{i_d^2+i_q^2}\) **nur aus Trainingspunkten**, SciPy-RBF-Kernel `inverse_multiquadric`, `epsilon=1`, `smoothing=0.01`, unabhängige d-/q-Zielmodelle. Bewertungsgrößen: RMSE in Vs, NRMSE in Prozent der **Trainingsspanne**. Offene Reproduktionsdetails: exakter Commit des lokal genutzten Skripts, Python-/SciPy-/NumPy-Version und endgültige Cross-Validation-/Testpolitik; vor formaler Publikation ergänzen.
+- **Daten:** `psm_temperature_2500`, Filter `np.isclose(rotor_temp_ref, 70.0)`, 340 gruppierte Betriebspunkte. Basiswiderstand \(R_{s,0}=0{,}00969\,\Omega\), \(\omega_e\in[773{,}98,796{,}02]\,\mathrm{rad/s}\) (aus [P1]).
+- **Fit:** 272/68 Train/Test, Seed 42, gepaarte Betriebsindizes, \(I_{\rm ref}\) nur aus Train, zwei unabhängige RBF mit `inverse_multiquadric`, `epsilon=1`, `smoothing=0.01`. Die Fluss-(N)RMSE-Tabelle in Abschnitt 12 gilt für **Faktor 1**.
+- **Diagnose:** 100×100-`meshgrid`, `np.gradient` mit den **physikalischen** Stromkoordinaten, \(I_{\max}\)-Kreismaske (7.869 gültige Punkte), \(r_{\rm int}=L_{dq}-L_{qd}\), `np.nan*`-Kennwerte in H bzw. mH.
+- **Varianten:** Faktor 1 (Basis), 2 (verdoppelt), 0,265 (explorativ auf Mittelwert nahe null eingestellt). Gegenwärtig hochgeladener Skriptstand: [`ed90986ef1579b365313824c549b6ea6a5f3a452`](https://github.com/rkeller98/Research/commit/ed90986ef1579b365313824c549b6ea6a5f3a452), mit `rs = data["rs_used"][mask] * 0.265`; der absolute macOS-Pfad zum Repo im Skript ist nicht portabel.
+- **Noch offen:** Genaue verwendete Python-/SciPy-/NumPy-/Matplotlib-Versionen, separat archivierte Programmausgaben aller Faktoren, unabhängiger physikalischer \(R_s\), Unsicherheitsmodell, analytisch/synthetisch validierte Ableitungen, echter Mess-Support und endgültige Holdout-Politik.
 
 ## 17. Arbeitsauftrag für die nächste Sitzung
 
-Wir steigen **nicht** beim historischen Drehmoment-Offset oder einer fertigen Korrekturformel ein, sondern bei den **bereits aufgebauten normierten unabhängigen RBF-Funktionen** für reale \(\psi_d,\psi_q\).
+**Stand 10.10.2026:** Gitterauswertung, vier numerische differentielle Induktivitäten, erste Kreis-Maske, Residualplots und die drei \(R_s\)-Varianten sind bereits umgesetzt (Abschnitt 13). **Nicht** erneut bei `meshgrid`, dem `scatter`-Fehler oder der Maskensyntax beginnen.
 
-**Nächste selbst zu erarbeitende Programmieraufgabe:** Ein regelmäßiges Stromgitter erzeugen, es als \(N\times2\)-Punktmatrix für die beiden RBFs vorbereiten und auf das tatsächlich unterstützte Stromgebiet beschränken. Danach die Kreuzableitungen bestimmen, ihre Einheiten und numerische Belastbarkeit prüfen und **erst dann** das Integrabilitätsresiduum interpretieren.
+**Genauer Wiedereinstieg – zuletzt noch nachvollzogen:**
 
-**Begleitendes Lernziel:** OI-MATH-002 zur RBF-Grundlage bleibt explizit offen. Das Gitter darf zunächst pragmatisch erstellt werden, ohne dass die Herleitung der RBF schon abgeschlossen sein muss – die fachliche Lücke wird nicht verschwiegen.
+\[
+\Delta_\alpha\psi_d=-\frac{\Delta R_\alpha}{\omega_e}i_q,\qquad
+\Delta_\alpha\psi_q=+\frac{\Delta R_\alpha}{\omega_e}i_d,
+\quad \Delta R_\alpha=(\alpha-1)R_{s,0}.
+\]
 
-**Nicht vorwegnehmen:** Ein korrigiertes magnetisches Flussfeld, eine Eisenverlustidentifikation oder eine validierte Reziprozitätsverletzung in den realen Messdaten liegt **noch nicht** vor.
+**Noch nicht mitgenommen:** Die partiellen Ableitungen \(\partial(\Delta_\alpha\psi_d)/\partial i_q\) und \(\partial(\Delta_\alpha\psi_q)/\partial i_d\) und daraus die Änderung der Differenz \(r_{\rm int}=L_{dq}-L_{qd}\). Zuerst mit **konstanten** \(\omega_e,\Delta R_\alpha\) eigenständig differenzieren, die Vorzeichen und Einheiten prüfen, die Formel **nicht vorwegnehmen** (OI-MATH-005).
+
+**Danach:** Erwartete Verschiebung beim Verdoppeln und bei \(\alpha=0{,}265\) mit der Tabelle in Abschnitt 13.3 vergleichen; Abweichungen durch reale Drehzahlvariation und Fit/Gradienten erläutern. Anschließend synthetisches Ableitungskontrollfeld, Rand-/Supportprüfung und Glättungsrobustheit behandeln.
+
+**Leitplanke:** Der fast verschwindende Mittelwert für \(0{,}265R_{s,0}\) ist **keine \(R_s\)-Kalibrierung**, kein physikalisch korrigiertes Flussfeld und kein Nachweis von Eisenverlusten. Offene mathematische und physikalische Verständnisaufgaben bleiben explizit dokumentiert.
