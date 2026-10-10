@@ -53,6 +53,39 @@ Keine Hypothese als Ergebnis, keine Korrelation als Kausalnachweis und keine num
 
 Die gemeinsame Arbeit folgt dem vereinbarten **Lehrmodus**: zuerst Intuition und selbstständige Herleitung, dann kleine selbst programmierte Schritte mit gezieltem Feedback. Keine ungefragten Komplettlösungen, fertigen Optimierungsalgorithmen oder umfassenden Refactorings. Relevante Erkenntnisse aus neuen Sitzungen fachlich einordnen und in den bestehenden Text integrieren; Zeitstände und noch nicht geprüfte Schritte aktualisieren, ohne erledigte Schritte als offen oder offene Schritte als abgeschlossen darzustellen.
 
+
+### 0.7 Quellenarbeit als Lernwerkzeug: bekannte Ergebnisse selbst herleiten
+
+**Externe Quellen sind ausdrücklich erlaubt und erwünscht.** Fachbücher, wissenschaftliche Veröffentlichungen, technische Dokumentationen und seriöse Internetquellen dürfen recherchiert und genutzt werden. Die Kenntnis einer veröffentlichten Lösung ist kein Grund, die eigene Herleitung zu überspringen. Umgekehrt ist eine unabhängig nachvollzogene Herleitung **kein Anspruch darauf, das Ergebnis erstmals entdeckt zu haben**.
+
+**Lernprinzip: „Wir kennen eine mögliche Lösung aus der Literatur – und erarbeiten sie dennoch selbst.“**
+
+1. **Problem und Quelle einordnen:** Was beantwortet das Paper tatsächlich? Welche Voraussetzungen, Konventionen, Vereinfachungen und Gültigkeitsgrenzen verwendet es?
+2. **Eigene Intuition entwickeln:** Physikalische und geometrische Bedeutung der Größen verstehen; das Problem zunächst möglichst selbst formulieren. Bekannte Resultate als Orientierung, Plausibilitätskontrolle oder Anlass für gezielte Hinweise nutzen, nicht als fertige Antwort zum Abschreiben.
+3. **Selbst herleiten:** Die mathematischen Schritte vom Ausgangspunkt an nachvollziehen; notwendige Zwischenschritte, Einheiten, Sonderfälle und alternative Wege untersuchen. Die Lehrbegleitung gibt dafür gezielte Fragen und Hinweise statt ungefragter Komplettlösungen.
+4. **Mit der Literatur abgleichen:** Übereinstimmungen, abweichende Konventionen, nicht erfüllte Annahmen und offene Widersprüche benennen. Zwischen einem **bekannten Literaturergebnis**, unserer **eigenständig erarbeiteten Herleitung** und einer möglicherweise **neuen Hypothese** klar unterscheiden.
+5. **Reproduzierbar dokumentieren:** Jede tatsächlich verwendete Quelle unmittelbar bei der betreffenden Herleitung/Argumentation und in einer nachvollziehbaren Quellenangabe festhalten. Mindestens Autoren/Institution, Titel, Erscheinungsjahr, bei Veröffentlichungen DOI oder stabile URL, relevante Seiten/Abschnitte/Gleichungen; bei Online-Dokumentation zusätzlich Version/Stand und Abrufdatum, soweit verfügbar. Den konkreten Beitrag der Quelle nennen (z. B. Modellannahme, etablierte Methode, Referenzresultat oder Vergleich). **Keine Quellen oder Prioritätsansprüche erfinden.**
+
+Quelle und eigener Erkenntnisweg sollen gemeinsam sichtbar bleiben: Die Dokumentation darf weder ein kommentarloses Referat noch eine Darstellung bekannter Mathematik als vermeintlich originäre Entdeckung sein. Auch eine bereits veröffentlichte Herleitung nachzuvollziehen ist ein eigenständiger Lernerfolg.
+
+### 0.8 Verständnis vor bloßer Anwendung; dokumentierte Open Issues
+
+**Mathematik soll verstanden werden und nicht lediglich ein funktionierendes Werkzeug liefern.** Das gilt ausdrücklich auch für anspruchsvolle Themen. Zu einer verstandenen Methode gehören – ihrem Gegenstand angemessen – Problemdefinition und Motivation, geometrische/physikalische Intuition, eigenständig nachvollzogene Herleitung, Voraussetzungen, numerische Umsetzung und Fehlermöglichkeiten sowie die Aussagegrenzen der Ergebnisse. „Die Bibliothek liefert ein Ergebnis“ oder „der Fit sieht gut aus“ reicht als Verständnisnachweis nicht.
+
+**Pragmatische Ausnahme:** Eine etablierte Methode (z. B. Interpolation, glättende Approximation, RBF, numerische Ableitung oder Optimierung) darf zunächst als *bewusst vorläufiges Werkzeug* eingesetzt werden, damit das eigentliche Experiment weitergehen kann. Die Methode gilt damit **nicht** als verstanden oder validiert.
+
+**Verbindliche Open-Issue-Regel:** Für jede wesentlich verwendete, aber mathematisch/physikalisch noch nicht verstandene Methode wird **in dieser Forschungsnotiz** ein ausdrücklich gekennzeichnetes **Open Issue / eine offene Verständnisfrage** festgehalten – möglichst bereits bei der erstmaligen vorläufigen Verwendung, spätestens bei der Dokumentation des Experiments. Der Eintrag enthält:
+- **Gegenstand und Einsatz:** Welche Methode wird wofür aktuell benutzt und unter welchen Voraussetzungen?
+- **Was ist noch unverstanden?** Konkrete Fragen nach dem *Warum*, dem *Wie*, der Herleitung, der Geometrie, den Annahmen, der Parametrierung oder dem Versagen.
+- **Lernziel und Prüfkriterium:** Welche eigene Herleitung, anschauliche Erklärung, Minimalrechnung oder numerische Gegenprobe wird das Verständnis vertiefen?
+- **Quellen und Status:** Verwendete Literatur gemäß Abschnitt 0.7 oder „noch keine Quelle ausgewertet“; Status **offen / in Bearbeitung / nachvollzogen**, gegebenenfalls Datum und Verweise auf die spätere Bearbeitung.
+
+Open Issues sind **Lernaufgaben, keine Verschleierung von Unsicherheit und nicht automatisch Softwarefehler oder GitHub-Tickets**. Sie dürfen nicht stillschweigend verschwinden. Nach eigenständigem Durcharbeiten wird die Lösung erläutert und der Status nachvollziehbar aktualisiert; ein bloßer funktionierender Programmaufruf oder das Kopieren einer Literaturformel schließt ein Verständnis-Issue nicht.
+
+### 0.9 Persönlicher Zweck des Projekts
+
+Diese Forschung ist bewusst **ein persönliches Lern- und Entwicklungsprojekt**. Ihr Wert bemisst sich nicht nur an einem funktionierenden Algorithmus, einer schnellen Korrektur oder einer Publikation, sondern daran, das **mathematische, physikalische und methodische Verständnis sowie die eigenständige Problemlösungsfähigkeit** nachhaltig auszubauen. Schwierige Grundlagen dürfen deshalb ausdrücklich vertieft werden. Tempo und Implementierungsumfang sollen dem Lernen dienen, nicht umgekehrt.
+
 **Vorrang:** Der Writing Guide bleibt unverändert, bis sein Inhalt vom Nutzer ausdrücklich zur Änderung freigegeben wird. Überarbeitungen des Forschungsinhalts müssen sich an ihm orientieren.
 
 <!-- END WRITING GUIDE: GESCHUETZT -->
@@ -1221,3 +1254,44 @@ Die Idee einer LHS-informierten Auswahl **tatsächlich gemessener** Holdout-Betr
 **Forschungsmodus:** Originaldaten und Modellannahmen nachvollziehbar erhalten, Ergebnisse nach **mathematisch bewiesen / modellabhängig / experimentell beobachtet / offen** unterscheiden und einen fit- oder koenergiebasierten Verlust von Information ausdrücklich vermeiden.
 
 *Stand 09.10.2026: Reale PSM-Flüsse wurden rekonstruiert und getrennt über zwei normierte RBF-Modelle approximiert; Trainings- und Testfehler wurden bestimmt. Die eigentliche Integrabilitätsprüfung der realen Flussfelder und eine physikalisch belastbare Korrektur stehen noch aus.*
+
+---
+
+## 27. Open Issues – offene mathematische und numerische Verständnisaufgaben (Stand: 10.10.2026)
+
+Die folgenden Einträge setzen die Regel aus dem geschützten Writing Guide, Abschnitt 0.8, für **bereits vorläufig eingesetzte Methoden** um. Es handelt sich um eine persönliche Lernagenda, **nicht** um behauptete physikalische Fehler und nicht um automatisch zu implementierende Funktionen. Vorläufige Ergebnisse aus Abschnitt 24–25 behalten ihren dokumentierten Evidenzstatus.
+
+### OI-MATH-001 – Was ist Interpolation, und wie entsteht eine glättende Approximation?
+
+- **Status:** Offen; die Verfahren wurden bisher praktisch angewendet und verglichen, aber nicht systematisch aus ihren mathematischen Voraussetzungen hergeleitet.
+- **Einsatz:** Stützpunktbasiertes Rekonstruieren eines stetigen Flusskennfelds aus unregelmäßig verteilten Messpunkten. Bewusste Wahl einer glättenden Approximation statt exakter Interpolation, um Messrauschen nicht unmittelbar zu differenzieren.
+- **Zu verstehen:** Welche Bedingungen definiert exakte Interpolation? Was ist bei der Approximation statt der Punktgleichheit optimiert? Wie wirken Messrauschen, Freiheitsgrade, Regularisierung, Kondition und Randabdeckung? Warum entstehen glatte Funktionswerte nicht automatisch mit präzisen Ableitungen?
+- **Lernnachweis:** Ein einfaches eigenes 1D-Beispiel mit bekannten wahren Werten, Rauschen und verschiedenen Modellfreiheitsgraden mathematisch formulieren; Interpolation und glättende Approximation durch Fehler und Ableitungen vergleichen; Ergebnisse auf 2D-Messdaten übertragen.
+- **Quellen:** Für diesen Lerneintrag noch keine zusätzliche Quelle ausgewertet. Bei der Bearbeitung die tatsächlich herangezogenen Referenzen mit Fundstellen ergänzen.
+
+### OI-MATH-002 – Radialbasisfunktionen und SciPy RBFInterpolator aus den Grundlagen verstehen
+
+- **Status:** Offen; gegenwärtiger Python-Fit ist ein bewusst vorläufig verwendetes Werkzeug.
+- **Einsatz:** Zwei voneinander unabhängige globale RBF-Approximationen der rekonstruierten d-/q-Flussverkettungen; aktuell inverse-multiquadric-Kernel, Formparameter epsilon = 1, Glättungsparameter = 0.01 und gemeinsame Stromnormierung über den Trainings-Referenzstrom.
+- **Zu verstehen:** Warum hängt eine Radialbasis vom Abstand ab? Wie entsteht die Summe von Basisfunktionen und gegebenenfalls polynomialen Anteilen? Welches lineare Gleichungssystem bestimmt die Koeffizienten? Was unterscheidet Formparameter, Glättung, Datengewichtung und Kondition? Welche Stetigkeit/Differenzierbarkeit besitzen Kernel und resultierender Fit? Welche Abhängigkeit von Punktverteilung, Skalierung und Extrapolation bleibt erhalten?
+- **Lernnachweis:** RBF-Ansatz mit wenigen Stützpunkten selbst aufstellen und den Koeffizientenansatz herleiten; die Rolle von Regularisierung und der Kernelbreite geometrisch darstellen; einen kleinen Fall gegen die Bibliotheksausgabe prüfen und das Verfahren gegenüber einer geeigneten Alternative einordnen.
+- **Quellen:** Vorhandene SciPy-Implementierung wird verwendet. Die für das Verständnis ausgewertete Primär-/Methodenliteratur und Dokumentationsversion mit konkreten Fundstellen später ergänzen; noch nicht als eigenständig hergeleitet kennzeichnen.
+
+### OI-MATH-003 – Wie zuverlässig sind Ableitungen einer approximierten Messfläche?
+
+- **Status:** Offen; die Integrabilitätsdiagnose aus realen Messdaten steht noch aus.
+- **Einsatz:** Geplante Ableitung der beiden unabhängig gefitteten Flussfunktionen, Vergleich der Kreuzinduktivitäten und Berechnung des Integrabilitätsresiduums.
+- **Zu verstehen:** Kettenregel für normierte Koordinaten, analytische Modellableitung versus endliche Differenzen, Schrittweitenfehler, Ableitungsverstärkung von Mess- und Fitfehlern, Abhängigkeit von Glättung und räumlicher Abdeckung; Unterschiede von Innen- und Randpunkten. Warum garantiert ein NRMSE um 1 % keine gute Ableitung?
+- **Lernnachweis:** An einem synthetischen Flussfeld mit bekannten Kreuzableitungen die Ableitungsfehler beider Verfahren bestimmen; anschließend Parameter-/Randempfindlichkeit an realen Daten überprüfen, ohne ein konservatives Potential vor dem Integrabilitätstest zu erzwingen.
+- **Quellen:** Noch keine spezielle Quelle für diesen eigenständigen Lernschritt ausgewertet; spätere verwendete Quellen dokumentieren.
+
+### OI-MATH-004 – Mathematische Grundlage der Aufteilung und Regularisierungsvalidierung
+
+- **Status:** Offen in der Vertiefung; Random Split, RMSE und NRMSE wurden bereits korrekt implementiert und numerisch ausgewertet.
+- **Einsatz:** Bewertung der Feldapproximation auf Entwicklungs- und Testpunkten sowie künftige Wahl von RBF-Parametern.
+- **Zu verstehen:** Bias-Varianz-Zielkonflikt, Least-Squares-Fehlermaß, Generalisierung, Kreuzvalidierung, Datenleckage und räumliche Korrelation nahe beieinanderliegender Messpunkte; Unterschied von Wertfehler, Modellunsicherheit und physikalischer Messunsicherheit.
+- **Lernnachweis:** Ein einfaches Beispiel zur Modellkomplexität selbst auswerten; Modellwahl auf Entwicklungsdaten begründen und die Grenzen zufälliger Holdout-Punkte ausdrücklich zeigen.
+- **Quellen:** Noch keine vertiefende externe Quelle ausgewertet; bei der späteren Bearbeitung nachtragen.
+
+**Pflege:** Wenn ein Thema verstanden wurde, bleibt die Frage als Lernhistorie sichtbar, erhält einen Verweis auf die selbst erarbeitete Herleitung und den Status **nachvollzogen**. Neue mathematische Black Boxes werden hier ergänzt, statt sie stillschweigend als gesichert zu behandeln.
+
