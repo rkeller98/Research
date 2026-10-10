@@ -1,5 +1,64 @@
 # Forschungsnotiz: Physikalische Diagnose und mögliche Korrektur rekonstruierter Flusskennfelder
 
+
+<!-- BEGIN WRITING GUIDE: GESCHUETZT -->
+## 0. Writing Guide – verbindliche Regeln für diese Forschungsnotiz
+
+**Geltungsbereich:** Dieser Guide ist die verbindliche redaktionelle und wissenschaftliche Arbeitsgrundlage für alle künftigen Ergänzungen, Korrekturen, Konsolidierungen und Umstrukturierungen dieser Datei.
+
+**Änderungsschutz:** **Der Writing Guide selbst darf ausschließlich auf ausdrückliche Aufforderung des Nutzers verändert werden.** Ohne einen solchen Auftrag sind seine Aussagen, Reihenfolge und Bedeutung beizubehalten; er darf weder stillschweigend gekürzt, gelöscht, verschoben noch durch neue Regeln ersetzt werden. Ein allgemeiner Auftrag zur Überarbeitung der Forschungsnotiz ist **keine** Erlaubnis, diesen Guide zu verändern. Die übrige Forschungsnotiz darf gemäß diesen Regeln weiterentwickelt werden. Inhaltliche Konflikte mit dem Guide werden offengelegt und mit dem Nutzer geklärt, nicht heimlich durch Änderung des Guides gelöst.
+
+### 0.1 Ziel und wissenschaftliche Perspektive
+
+Die Datei dokumentiert den **aktuellen Erkenntnisstand** zur physikalischen Diagnose und gegebenenfalls begründbaren Korrektur rekonstruierter Flusskennfelder elektrischer Maschinen. Ausgangspunkt sind reale elektrische Messgrößen, ihre Mess- und Modellannahmen sowie die Frage der **Identifizierbarkeit** physikalischer, dissipativer, messtechnischer und numerischer Effekte.
+
+Die historische Drehmomentfrage ist **ein Teilansatz**, nicht mehr das übergeordnete Forschungsziel. Widerstandsfehler, Winkel- und Spannungserfassung, Drehmoment, Coenergy, Integrabilität, Eisenverluste, Mehrdrehzahlmessungen und Approximation sind miteinander verknüpfte Diagnosewerkzeuge. Keine einzelne Hypothese darf ohne Evidenz zum Hauptziel umgedeutet werden.
+
+### 0.2 Darstellung und Gliederung
+
+- **Vom heutigen Verständnis ausgehen:** Zuerst Leitfrage, Begriffe, Modellannahmen, gesicherte Erkenntnisse und aktueller numerischer/experimenteller Stand; danach Hypothesen, Grenzen und nächste Schritte. Der Haupttext ist **kein chronologisches Chatprotokoll**.
+- **Forschungsverlauf bewahren:** Wertvolle frühe Ideen, Gegenbeispiele, widerlegte Vermutungen und negative Ergebnisse bleiben fachlich nachvollziehbar, gegebenenfalls in einem ausdrücklich historischen Abschnitt. Keine Erkenntnisse nur deshalb löschen, weil sich die Leitfrage verändert hat. Git-Historie ergänzt, ersetzt aber keine verständliche fachliche Einordnung.
+- **Dopplungen konsolidieren:** Jede Aussage soll einen klaren Platz haben. Verwandte Herleitungen zusammenführen und auf bestehende Abschnitte verweisen, anstatt dieselbe Erklärung erneut anzuhängen.
+- **Lesbar und präzise schreiben:** Deutsche Fachsprache, konsistente Symbole, kurze Einordnungen vor Gleichungen und nachvollziehbare Interpretation danach. Geometrische Anschauung und aussagekräftige Skizzen/Plots sind ausdrücklich erwünscht; Bilder müssen Annahmen und Grenzen korrekt wiedergeben.
+
+### 0.3 Evidenzstatus und wissenschaftliche Redlichkeit
+
+Jede wichtige Aussage ist ihrer Begründungsstufe nach erkennbar:
+
+1. **Mathematisch hergeleitet:** Aussage folgt unter ausdrücklich angegebenen Voraussetzungen.
+2. **Modellabhängig:** Ergebnis eines idealisierten oder bewusst konstruierten physikalischen Ersatzmodells.
+3. **Numerisch überprüft:** Ergebnis eines dokumentierten synthetischen oder realen Rechenexperiments; keine automatische Aussage über die physikalische Wahrheit.
+4. **Experimentell beobachtet:** Befund aus benannten realen Messdaten, mit Mess- und Datenqualitätsvorbehalten.
+5. **Hypothese / offen:** Plausible Deutung, noch nicht identifizierte Ursache, ausstehende Validierung oder offene Entscheidung.
+
+Keine Hypothese als Ergebnis, keine Korrelation als Kausalnachweis und keine numerische Passung als physikalische Validierung darstellen. Grenzen und mögliche Alternativerklärungen sollen in unmittelbarer Nähe der Aussage stehen. Nicht vorhandene Messungen, Referenzwerte oder Literaturbelege werden nicht erfunden.
+
+### 0.4 Mathematik, Notation und Herleitungen
+
+- Variablen, Einheiten, Vorzeichenkonventionen, Modellgrenzen und Gültigkeitsbereiche vor ihrer Verwendung definieren; insbesondere magnetische und elektrische Winkelgeschwindigkeit, Stromkoordinaten, Leistungs-/Drehmomentbilanz und amplitude-invariante dq-Konvention auseinanderhalten.
+- Zwischen **zeitlicher Ableitung**, **partieller Ableitung**, **Differential-/Sekanteninduktivität**, **Wegintegral** und **statistischer Approximation** unterscheiden. Die Jacobi-Matrix der Flüsse und die Hesse-Matrix einer Koenergie nur unter den jeweils nötigen Voraussetzungen identifizieren.
+- Wesentliche Gleichungen schrittweise herleiten, ihre geometrische Bedeutung erklären und Sonderfälle bzw. Gegenbeispiele prüfen. Keine zusätzlichen Coenergy-Terme oder Fehlergesetze kommentarlos als Naturgesetze einführen.
+- Eine aus Coenergy abgeleitete konservative Flusskomponente ist nicht mit dem aus realen Klemmenmessungen rekonstruierten Feld gleichzusetzen. Ein integrables Feld muss nicht physikalisch korrekt sein; Integrabilitätsverletzungen sind ohne Zusatzinformation **nicht eindeutig Eisenverlusten zuzuschreiben**.
+
+### 0.5 Numerische Experimente, Messdaten und Reproduzierbarkeit
+
+- **Rohdaten unverändert erhalten.** Datenimport, Bereinigung/Aggregation, Rekonstruktion, unabhängige Approximation, konservative Projektion und diagnostische Residuen als unterscheidbare Verarbeitungsschritte mit Provenienz dokumentieren. Keine potenziell physikalisch bedeutsamen Abweichungen durch Symmetrisierung oder Coenergy-Fits stillschweigend entfernen.
+- Existierende Funktionen und Datenverträge im Repository wiederverwenden; synthetische Lehrmodelle und reale Untersuchungen in getrennten Skripten führen. Messkampagnen, Temperatur-*referenzen*, Drehzahlen, Phasenkonfigurationen und tatsächlich gemessene Größen korrekt benennen.
+- Für jede relevante Approximation dokumentieren: Datenquelle, Gruppierung, Trainings-/Validierungs-/Testauswahl, Seed, verwendete Eingangs- und Ausgangsskalierung, Kernel/Basis, Form- und Glättungsparameter, Domänenabdeckung und Fehlermetrik **mit Einheit und Normierungsdefinition**.
+- Parameterwahl nur anhand der Entwicklungsdaten begründen; zurückgehaltene Testdaten nicht stillschweigend zur Optimierung verwenden. Ein kleiner Fluss-(N)RMSE bescheinigt **weder Ableitungsgenauigkeit noch Integrabilität oder physikalische Richtigkeit**.
+- Normierte Koordinaten verlangen bei Ableitungen die explizite Rücktransformation per Kettenregel. Ein auf einem Rechteck ausgewertetes globales Modell darf außerhalb des tatsächlich gemessenen Bereichs nicht als gesicherte Messinformation erscheinen; Rand- und Extrapolationsprobleme ausdrücklich kennzeichnen.
+- Synthetische Belege validieren die numerische Methode **innerhalb ihres Modells**; reale Befunde erfordern eigene Unsicherheits-, Messketten- und Identifizierbarkeitsprüfung.
+
+### 0.6 Arbeitsweise und Pflege der Forschungsnotiz
+
+Die gemeinsame Arbeit folgt dem vereinbarten **Lehrmodus**: zuerst Intuition und selbstständige Herleitung, dann kleine selbst programmierte Schritte mit gezieltem Feedback. Keine ungefragten Komplettlösungen, fertigen Optimierungsalgorithmen oder umfassenden Refactorings. Relevante Erkenntnisse aus neuen Sitzungen fachlich einordnen und in den bestehenden Text integrieren; Zeitstände und noch nicht geprüfte Schritte aktualisieren, ohne erledigte Schritte als offen oder offene Schritte als abgeschlossen darzustellen.
+
+**Vorrang:** Der Writing Guide bleibt unverändert, bis sein Inhalt vom Nutzer ausdrücklich zur Änderung freigegeben wird. Überarbeitungen des Forschungsinhalts müssen sich an ihm orientieren.
+
+<!-- END WRITING GUIDE: GESCHUETZT -->
+
+---
+
 **Stand:** 09.10.2026 – theoretische Herleitungen und erste reproduzierbare Experimente mit realen PSM-Messdaten
 **Status:** Laufende, hypothesengeleitete Untersuchung; weder ein eindeutiges physikalisches Fehlermodell noch eine validierte Korrekturmethode liegt vor
 **Arbeitsweise:** Geometrische Intuition und eigene Herleitungen vor selbst implementierten Python-Experimenten. Numerische Konsistenz, Modellhypothesen und experimentelle Evidenz werden ausdrücklich getrennt.
